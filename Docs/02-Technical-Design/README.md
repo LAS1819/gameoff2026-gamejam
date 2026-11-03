@@ -6,14 +6,27 @@
 
 ## Quick Navigation
 
-### For Implementation (Start Here)
+### START HERE
+
+**[MVP-Architecture-Summary.md](./MVP-Architecture-Summary.md)** — 10-minute executive overview of the entire MVP design
+
+---
+
+### For Implementation (After Reading Summary)
 
 | Document | Purpose | Audience |
 |----------|---------|----------|
+| **[MVP-Quick-Reference.md](./MVP-Quick-Reference.md)** | Printable 1-page reference (keep handy) | All developers |
 | **[MVP-Implementation-Quickstart.md](./MVP-Implementation-Quickstart.md)** | Step-by-step checklist for building the MVP | Developers implementing the MVP |
 | **[MVP-Concrete-Hierarchy.md](./MVP-Concrete-Hierarchy.md)** | Exact GameObject structure and naming | Scene builders, architects |
 | **[MVP-Data-Specification.md](./MVP-Data-Specification.md)** | Exact field values for all data objects | Data modelers, scripters |
 | **[MVP-Flag-Sequence.md](./MVP-Flag-Sequence.md)** | Exact execution flow and state transitions | QA, testers, designers validating flow |
+
+### START HERE
+
+**[MVP-Architecture-Summary.md](./MVP-Architecture-Summary.md)** — 10-minute executive overview of the entire MVP design
+
+---
 
 ### High-Level Reference
 
