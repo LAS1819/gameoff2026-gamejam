@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class GameFlagNames
 {
@@ -28,6 +29,16 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        // Load Main scene if not already loaded
+        if (SceneManager.GetActiveScene().name == "Bootstrap")
+        {
+            SceneManager.LoadScene("Main", LoadSceneMode.Additive);
+        }
+        
         InitializeMVP();
     }
 

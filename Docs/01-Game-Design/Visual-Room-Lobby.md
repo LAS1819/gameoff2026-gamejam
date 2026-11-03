@@ -113,7 +113,7 @@ Sensación:
 
 ## 5. Interactivos principales
 
-### Llave del Personal
+### Llave del Personal - Staff Key
 
 Función:
 
@@ -131,7 +131,7 @@ Objetivo:
 
 ---
 
-### Puerta Interior
+### Puerta Interior - Interior Door
 
 Función:
 
@@ -154,7 +154,7 @@ Visualmente debe destacar mediante:
 
 ---
 
-### Mostrador de Recepción
+### Mostrador de Recepción - Reception Desk
 
 Tipo:
 
@@ -167,7 +167,7 @@ Propósito:
 
 ---
 
-### Fotografías Antiguas
+### Fotografías Antiguas - Old Photographs
 
 Tipo:
 
