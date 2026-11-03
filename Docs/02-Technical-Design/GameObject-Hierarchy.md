@@ -60,9 +60,9 @@ Main
     │   └── Interactables
     │       ├── StaffKey
     │       ├── FrontDoor
-    │       └── HallwayEntrance
+    │       └── MainHallwayEntrance
     │
-    └── Hallway
+    └── MainHallway
         ├── Visuals
         │   └── Background (SpriteRenderer, Sorting Order 0)
         ├── Props
@@ -70,7 +70,7 @@ Main
         └── Interactables
             ├── HallwayObstacle
             ├── ShiftTrigger
-            └── LobbyExit
+            └── MainHallwayExit
 ```
 
 ---
