@@ -23,7 +23,7 @@ A medida que el jugador explora el edificio, descubrirá que ambos mundos compar
 
 ## 2. Escenarios principales
 
-### 1. Vestíbulo
+### 1. Vestíbulo - Lobby
 
 - Punto inicial.
 - Estado general:
@@ -33,7 +33,7 @@ A medida que el jugador explora el edificio, descubrirá que ambos mundos compar
 - Conexiones:
   - Pasillo Principal.
 
-### 2. Pasillo Principal
+### 2. Pasillo Principal - Main Hallway
 
 Primera zona donde se introduce SHIFT.
 
@@ -44,7 +44,7 @@ Primera zona donde se introduce SHIFT.
   - Biblioteca.
   - Dormitorio.
 
-### 3. Biblioteca
+### 3. Biblioteca - Library
 
 Zona orientada a la obtención de información.
 
@@ -56,7 +56,7 @@ Zona orientada a la obtención de información.
   - Pasillo Principal.
   - Sótano.
 
-### 4. Dormitorio
+### 4. Dormitorio - Bedroom
 
 Zona orientada al uso de estados de objetos.
 
@@ -67,7 +67,7 @@ Zona orientada al uso de estados de objetos.
 - Conexiones:
   - Pasillo Principal.
 
-### 5. Sótano
+### 5. Sótano - Basement
 
 Centro mecánico del edificio.
 
@@ -79,7 +79,7 @@ Centro mecánico del edificio.
   - Biblioteca.
   - Sala Ritual.
 
-### 6. Sala Ritual
+### 6. Sala Ritual - Ritual Room
 
 Zona final.
 

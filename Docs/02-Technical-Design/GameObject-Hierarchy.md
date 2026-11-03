@@ -1,184 +1,378 @@
-# Game Object Hierarchy
+# GameObject Hierarchy
 
-This document defines the expected hierarchy of objects in each scene and clarifies the responsibility of each GameObject and its internal components.
+This document defines the expected hierarchy of objects in each scene. It reflects the actual MVP architecture: **point-and-click horror, no player movement, data-driven design.**
 
-## General hierarchy
+---
 
-Every scene should follow the same base structure so the runtime logic remains predictable.
+## 🎯 Core Principle
 
-```text
-Scene Root
-├── Bootstrap
-│   ├── GameManager
-│   ├── RoomManager
-│   ├── InventoryManager
-│   ├── InteractionManager
-│   ├── RealityManager
-│   └── UIManager
-├── Player
-│   ├── PlayerController
-│   ├── InteractionTrigger
-│   └── Animator
-├── Environment
-│   ├── RoomVisuals
-│   ├── Props
-│   └── StaticColliders
-├── Interactables
-│   ├── StaffKey
-│   ├── FrontDoor
-│   ├── HallwayObstacle
-│   └── RoomTransition
-└── RealityState
-    ├── NormalRealityObjects
-    └── OtherSideRealityObjects
-```
+**No Player avatar. No movement system. Everything is click-based interactables and room transitions.**
 
-## Responsibilities by object
+---
 
-### `Bootstrap`
+## Bootstrap Scene Hierarchy
 
-The scene bootstrap contains the runtime managers that must survive scene transitions.
-
-- `GameManager` — global flags, game state, room id and progression state.
-- `RoomManager` — room registry, current room and interactive refresh.
-- `InventoryManager` — item tracking and validation.
-- `InteractionManager` — interaction resolution and item consumption.
-- `RealityManager` — normal / alternate reality switching.
-- `UIManager` — text feedback, inventory view and room notifications.
-
-### `Player`
-
-The player object owns movement, interaction and state awareness.
-
-Expected components:
-
-- `PlayerController`
-- `InputReader`
-- `InteractionTrigger`
-- `Collider2D` or equivalent
-- `Rigidbody2D` if needed
-- `Animator` (optional for prototype)
-
-Responsibilities:
-
-- move inside the room
-- trigger interactions
-- keep gameplay state in sync with room transitions
-
-### `Environment`
-
-This container holds world elements that are not interactive by themselves.
-
-Typical objects:
-
-- background layers
-- floor and walls
-- decorative props
-- room signage
-- transition markers
-
-Responsibilities:
-
-- provide scene context
-- separate static geometry from dynamic gameplay objects
-- allow the reality system to show or hide alternate visual layers
-
-### `Interactables`
-
-Each interactive object should be separated as an individual GameObject under a common root.
-
-#### `StaffKey`
-
-- `InteractionType: Pickup`
-- `itemId: staff_key`
-- `resultFlag: HasStaffKey`
-- visible in the normal reality only
-- removed from the scene once picked up
-
-#### `FrontDoor`
-
-- `InteractionType: Use`
-- `requiredItemId: staff_key`
-- `resultFlag: DoorOpened`
-- can only be used after the key is in the inventory
-- opens access to the hallway room
-
-#### `HallwayObstacle`
-
-- `InteractionType: Use`
-- tied to the `RealityUnlocked` / `SHIFT` mechanic
-- visible in the normal reality
-- hidden in the alternate reality
-- acts as the visual checkpoint for the first hallway obstacle
-
-#### `RoomTransition`
-
-- `InteractionType: Transition` or `EnterRoom`
-- links the current room to the next one
-- updates the current room id and refreshes active interactables
-
-## Recommended components for interactables
-
-Each interactive object should have the same core pattern:
-
-- `Collider2D`
-- `SpriteRenderer`
-- `InteractableBehaviour` (or equivalent runtime script)
-- `InteractableData` reference
-- optional `RealityVisibilityController`
-
-This keeps the scene data-driven and reduces hardcoded logic per object.
-
-## Scene examples
-
-### Vestibule
+This scene loads once at startup and persists forever (`DontDestroyOnLoad`).
 
 ```text
-Vestibule Root
-├── DoorFrame
-├── StaffKey
-├── FrontDoor
-├── ExitMarker
-└── RoomTransitionArea
+Bootstrap
+└── Systems
+    ├── GameManager
+    ├── RoomManager
+    ├── InventoryManager
+    ├── InteractionManager
+    ├── RealityManager
+    ├── EventManager
+    ├── SaveManager
+    └── UIManager
 ```
 
-Responsibilities:
+### Bootstrap Managers
 
-- key pickup
-- door unlock sequence
-- access to next room
+| Manager | Responsibility |
+| --------- | ----------------- |
+| **GameManager** | Global flags, room state, initialization, DontDestroyOnLoad |
+| **RoomManager** | Room registry, room loading, interactable visibility refresh |
+| **InventoryManager** | Item tracking, possession validation, item ownership sync with flags |
+| **InteractionManager** | Interaction resolution, click handling, progression logic |
+| **RealityManager** | Current reality state (Normal/OtherSide), visibility toggle, propagation |
+| **EventManager** | (Stub for MVP) Reserved for events, music triggers, narrative |
+| **SaveManager** | (Stub for MVP) Reserved for save/load logic |
+| **UIManager** | (Stub for MVP) Reserved for text feedback, inventory UI |
 
-### Main Hallway
+---
+
+## Main Scene Hierarchy
+
+This scene contains all gameplay. Rooms persist in this scene; room transitions are logical (not scene loads).
 
 ```text
-Hallway Root
-├── HallwayObstacle
-├── ShiftTrigger
-├── AlternateRealityVisuals
-├── CorridorBackground
-└── ExitRoute
+Main
+├── Camera
+│   └── (orthographic, static position, centered on Lobby at start)
+│
+└── Rooms
+    ├── Lobby
+    │   ├── Visuals
+    │   │   └── Background (SpriteRenderer, Sorting Order 0)
+    │   ├── Props
+    │   │   └── DoorFrame (SpriteRenderer, Sorting Order 1, optional)
+    │   └── Interactables
+    │       ├── StaffKey
+    │       ├── FrontDoor
+    │       └── HallwayEntrance
+    │
+    └── Hallway
+        ├── Visuals
+        │   └── Background (SpriteRenderer, Sorting Order 0)
+        ├── Props
+        │   └── Walls (SpriteRenderer, Sorting Order 1, optional)
+        └── Interactables
+            ├── HallwayObstacle
+            ├── ShiftTrigger
+            └── LobbyExit
 ```
 
-Responsibilities:
+---
 
-- room transition validation
-- reality switch effect
-- obstacle removal / visibility toggle
-- forward progression checkpoint
+## Room Structure Pattern
 
-## Best practices
+Every room follows the same structure:
 
-- Keep one root container per room for organization.
-- Name objects in English and use clear purpose-based names.
-- Keep all gameplay data in `InteractableData` / `RoomData` instead of embedding logic directly in the scene.
-- Do not hardcode scene-specific rules into the runtime managers.
-- Use visibility toggles through the reality system instead of duplicating logic across objects.
+```text
+RoomName (root container)
+├── Visuals (visual layer)
+│   └── Background (SpriteRenderer)
+├── Props (decorative, non-interactive)
+│   └── [any decorative objects]
+└── Interactables (clickable objects)
+    └── [6 interactables total across 2 rooms]
+```
 
-## Related technical files
+### Visuals Folder
 
-- `Technical-Design.md`
-- `MVP-Sprint-1.md`
-- `Assets/Scripts/GameManager.cs`
-- `Assets/Scripts/RoomManager.cs`
-- `Assets/Scripts/InteractionManager.cs`
-- `Assets/Scripts/RealityManager.cs`
+Contains all static visual elements:
+
+- **Background** (SpriteRenderer, Sorting Order 0)
+  - The room background image
+  - Always visible
+
+### Props Folder
+
+Contains decorative, non-interactive elements:
+
+- Examples: door frame, walls, corridor details
+- All have SpriteRenderer (Sorting Order 1 typically)
+- No Collider2D (they are purely visual)
+- Not clickable
+
+### Interactables Folder
+
+Contains all clickable objects. Each interactable is a separate GameObject with:
+
+- **SpriteRenderer** (Sorting Order 2 typically)
+- **BoxCollider2D** (IsTriggger = true)
+- **InteractableBehaviour** script
+- **InteractableData** (serialized in Inspector)
+- **RealityVisibilityController** script (if visibility changes with reality)
+
+---
+
+## Lobby Room Details
+
+```text
+Lobby
+├── Visuals
+│   └── Background
+│       • Sprite: Lobby background image
+│       • Sorting Order: 0
+│       • Position: (0, 0, 0)
+│
+├── Props (optional)
+│   └── DoorFrame
+│       • Sprite: door frame decorative image
+│       • Sorting Order: 1
+│       • Position: (5, 0, 0)
+│       • No Collider2D
+│
+└── Interactables
+    │
+    ├── StaffKey
+    │   • Position: (3, 2, 0)
+    │   • SpriteRenderer: key sprite, Sorting Order 2
+    │   • BoxCollider2D: IsTriggger = true, Size (0.5, 0.5)
+    │   • InteractableBehaviour: calls TryInteract("staff_key")
+    │   • InteractableData:
+    │       - id: "staff_key"
+    │       - type: Pickup
+    │       - itemId: "staff_key"
+    │       - resultFlag: "HasStaffKey"
+    │       - visibleNormal: true
+    │       - visibleOther: false
+    │
+    ├── FrontDoor
+    │   • Position: (5, 0, 0)
+    │   • SpriteRenderer: door sprite, Sorting Order 2
+    │   • BoxCollider2D: IsTriggger = true, Size (2, 4)
+    │   • InteractableBehaviour: calls TryInteract("front_door")
+    │   • InteractableData:
+    │       - id: "front_door"
+    │       - type: Use
+    │       - requiredItemId: "staff_key"
+    │       - resultFlag: "DoorOpened"
+    │       - visibleNormal: true
+    │       - visibleOther: true
+    │
+    └── HallwayEntrance
+        • Position: (7, 0, 0)
+        • SpriteRenderer: marker sprite (optional, can be invisible)
+        • BoxCollider2D: IsTriggger = true, Size (1, 3)
+        • InteractableBehaviour: calls TryInteract("hallway_entrance")
+        • InteractableData:
+            - id: "hallway_entrance"
+            - type: Transition
+            - linkedRoomId: "hallway"
+            - visibleNormal: true
+            - visibleOther: true
+```
+
+---
+
+## Hallway Room Details
+
+```text
+Hallway
+├── Visuals
+│   └── Background
+│       • Sprite: hallway background image
+│       • Sorting Order: 0
+│       • Position: (0, 0, 0)
+│
+├── Props (optional)
+│   └── Walls
+│       • Sprite: corridor/walls decorative image
+│       • Sorting Order: 1
+│       • Position: (0, 0, 0)
+│       • No Collider2D
+│
+└── Interactables
+    │
+    ├── HallwayObstacle
+    │   • Position: (5, 0, 0)
+    │   • SpriteRenderer: stone figure sprite, Sorting Order 2
+    │   • BoxCollider2D: IsTriggger = true, Size (2, 3)
+    │   • InteractableBehaviour: calls TryInteract("hallway_obstacle")
+    │   • RealityVisibilityController: toggles SpriteRenderer.enabled based on reality
+    │   • InteractableData:
+    │       - id: "hallway_obstacle"
+    │       - type: Examine
+    │       - resultFlag: "RealityUnlocked"
+    │       - visibleNormal: true ← KEY: only visible in Normal
+    │       - visibleOther: false ← KEY: hidden in OtherSide
+    │
+    ├── ShiftTrigger
+    │   • Position: (10, 0, 0)
+    │   • SpriteRenderer: shimmer sprite (optional, can be invisible)
+    │   • BoxCollider2D: IsTriggger = true, Size (2, 2)
+    │   • InteractableBehaviour: calls TryInteract("shift_trigger")
+    │   • InteractableData:
+    │       - id: "shift_trigger"
+    │       - type: Toggle
+    │       - resultFlag: "ShiftPerformed"
+    │       - visibleNormal: true
+    │       - visibleOther: true
+    │
+    └── LobbyExit
+        • Position: (-5, 0, 0)
+        • SpriteRenderer: marker sprite (optional, can be invisible)
+        • BoxCollider2D: IsTrigger = true, Size (1, 3)
+        • InteractableBehaviour: calls TryInteract("lobby_exit")
+        • InteractableData:
+            - id: "lobby_exit"
+            - type: Transition
+            - linkedRoomId: "lobby"
+            - visibleNormal: true
+            - visibleOther: true
+```
+
+---
+
+## Component Pattern for Every Interactable
+
+Every interactable object must have this exact pattern:
+
+```csharp
+GameObject (named for the interactable)
+├── SpriteRenderer
+│   ├── Sprite: (the visual)
+│   ├── Sorting Order: 2 (above background and props)
+│   └── Position: [as specified in room details]
+│
+├── BoxCollider2D
+│   ├── IsTriggger: true
+│   ├── Size: [as specified]
+│   └── (no physics body, pure trigger)
+│
+├── InteractableBehaviour (script)
+│   ├── Calls InteractionManager.TryInteract(id) on OnMouseDown
+│
+├── InteractableData (serialized in Inspector)
+│   ├── id: [as specified]
+│   ├── displayName: [human-readable]
+│   ├── description: [examination text]
+│   ├── interactionType: [Pickup, Use, Examine, or Transition]
+│   ├── visibleInNormalReality: [true/false]
+│   ├── visibleInOtherReality: [true/false]
+│   ├── itemId: [if Pickup]
+│   ├── requiredItemId: [if Use]
+│   ├── resultFlag: [if sets a flag]
+│   └── linkedRoomId: [if Transition]
+│
+└── RealityVisibilityController (script, if reality-dependent)
+    ├── References InteractableData
+    └── Updates SpriteRenderer.enabled based on reality state
+```
+
+---
+
+## Camera Setup
+
+The Camera should be configured once and remain static for the MVP:
+
+```text
+Camera
+├── Camera component
+│   ├── Orthographic: true (2D game)
+│   ├── Size: 5 to 10 (depending on art scale)
+│   ├── Position: (0, 0, -10) or suitable for your art
+│   └── No animation, no following, no movement
+```
+
+The camera is **static** for the entire game. It does not follow the player (no player exists) and does not animate on room transitions.
+
+---
+
+## What's NOT in the Hierarchy
+
+### ❌ No Player
+
+- No `Player` GameObject
+- No `PlayerController` script
+- No `Rigidbody2D` on the player
+- No character animation system
+- No movement input handling
+
+**Why?** This is point-and-click, not exploration. The protagonist is never visible.
+
+### ❌ No Duplicated Reality Hierarchies
+
+```text
+❌ WRONG:
+RealityState
+├── NormalRealityObjects
+└── OtherSideRealityObjects
+```
+
+```text
+✅ CORRECT:
+├── HallwayObstacle (has properties: visibleNormal: true, visibleOther: false)
+└── RealityManager updates visibility at runtime
+```
+
+**Why?** Simpler, more maintainable, scales better. One object, two visibility states.
+
+### ❌ No Physics Objects
+
+- No `Rigidbody2D` (all colliders are triggers)
+- No gravity
+- No forces
+- No platforming
+
+**Why?** Pure interaction-based gameplay. Physics unnecessary.
+
+### ❌ No Animation Rigs
+
+- No `Animator` for character movement
+- No skeleton/bones
+- No walking animations
+
+**Why?** No moving character. Only state changes (door opens, obstacle disappears).
+
+---
+
+## Scene Transitions and Room Changes
+
+**Rooms persist in the Main scene.** Room transitions are **logical**, not scene loads:
+
+1. Player clicks `HallwayEntrance` (Transition interactable)
+2. `InteractionManager.TryInteract("hallway_entrance")`
+3. `RoomManager.LoadRoom("hallway")`
+4. Lobby interactables are hidden/disabled
+5. Hallway interactables are shown/enabled
+6. Current room is now "hallway"
+
+**No scene load. No Bootstrap reload. State persists.**
+
+---
+
+## Best Practices
+
+1. **Keep one root container per room** for organization
+2. **Name objects in English** using clear, descriptive names
+3. **Keep all game logic in data** (InteractableData, RoomData)
+4. **Do not hardcode scene-specific rules** into manager scripts
+5. **Use visibility toggles** via RealityManager for reality changes
+6. **All interactables follow the same pattern** (SpriteRenderer + BoxCollider2D + InteractableBehaviour + InteractableData)
+7. **Managers are persistent** and decoupled from scene structure
+
+---
+
+## Summary
+
+- **Bootstrap:** 8 persistent managers (DontDestroyOnLoad)
+- **Main:** 2 rooms × 3 interactables each = 6 clickables total
+- **No Player, no movement, no physics, no animation rigs**
+- **Data-driven:** All logic lives in RoomData and InteractableData
+- **Point-and-click:** Pure interaction-based gameplay
+
+Everything else is reference or legacy. Start with this.

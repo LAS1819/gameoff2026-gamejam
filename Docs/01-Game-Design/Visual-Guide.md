@@ -4,7 +4,7 @@
 - Creado: 03/11/2026
 - Actualizado: 03/11/2026
 
-Esta guía define las bases visuales del proyecto para mantener una producción coherente, rápida y realista para un único desarrollador, alineada con la estética pixel art establecida en el GDD y con los escenarios definidos en el Puzzle Flow. [GameOff26-GameIdea-1 | Word], [GameOff26-...zleFlow-v1 | Word], [GameOff26-...dea-1-v3 1 | PDF]
+Esta guía define las bases visuales del proyecto para mantener una producción coherente, rápida y realista para un único desarrollador, alineada con la estética pixel art establecida en el GDD y con los escenarios definidos en el Puzzle Flow.
 
 ## 1. Filosofía Visual
 
@@ -15,7 +15,7 @@ El juego utilizará una estética: Retro Pixel Art + Presentación Moderna
   - Mantener una producción asumible para una Game Jam.
   - Aprovechar efectos modernos para potenciar la atmósfera.
   - Evitar las limitaciones extremas del pixel perfect clásico.
-- **Principio general**: los gráficos deben ser suficientemente simples para producirlos rápido y suficientemente detallados para sostener la narrativa ambiental. [GameOff26-GameIdea-1 | Word], [GameOff26-...zleFlow-v1 | Word]
+- **Principio general**: los gráficos deben ser suficientemente simples para producirlos rápido y suficientemente detallados para sostener la narrativa ambiental.
 
 ---
 
@@ -30,7 +30,7 @@ El juego utilizará una estética: Retro Pixel Art + Presentación Moderna
   - Compatible con WebGL.
   - Compatible con Windows.
   - Producción más rápida.
-  - Fondos más manejables. [GameOff26-GameIdea-1 | Word]
+  - Fondos más manejables.
 
 ---
 
@@ -46,7 +46,7 @@ El juego utilizará una estética: Retro Pixel Art + Presentación Moderna
 - **Ventajas**:
   - Menor carga artística.
   - Mayor detalle visual.
-  - Producción más rápida. [GameOff26-GameIdea-1 | Word], [GameOff26-...zleFlow-v1 | Word]
+  - Producción más rápida.
 
 ---
 
@@ -92,7 +92,7 @@ Tamaño útil: 32 x 32, centrado dentro de cada casilla.
 - **Objetivos**:
   - **Buena legibilidad.**
   - **Fácil producción.**
-  - **Espacio suficiente para objetos complejos.** [GameOff26-GameIdea-1 | Word]
+  - **Espacio suficiente para objetos complejos.**
 
 ---
 
@@ -126,7 +126,6 @@ Todo elemento interactivo debe destacar visualmente mediante al menos uno de los
   - Decadencia.
   - Melancolía.
 
-
 ### El Otro Lado
 
 - Predominio de:
@@ -146,7 +145,7 @@ La diferencia principal será:
 - **color**
 - **iluminación**
 - **elementos adicionales**
-- **estados modificados**. [GameOff26-GameIdea-1 | Word]
+- **estados modificados**.
 
 ---
 
