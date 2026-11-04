@@ -2,46 +2,77 @@ using UnityEngine;
 
 /// <summary>
 /// InteractableBehaviour handles mouse clicks on interactables.
-/// When clicked (OnMouseDown), it delegates to InteractionManager.
-/// 
-/// Requirements:
-/// - Must have a BoxCollider2D with IsTrigger = true
-/// - Must have InteractableData assigned in the Inspector
-/// - InteractionManager must exist in the scene
+/// It also keeps visual/collider state in sync with room + reality rules.
 /// </summary>
+[RequireComponent(typeof(Collider2D))]
 public class InteractableBehaviour : MonoBehaviour
 {
     [SerializeField] private InteractableData data;
+    private SpriteRenderer spriteRenderer;
+    private Collider2D hitCollider;
+    private bool warnedMissingData;
 
-    private void OnEnable()
+    private void Awake()
     {
-        // Debug check: is collider properly configured?
-        BoxCollider2D collider = GetComponent<BoxCollider2D>();
-        if (collider == null)
-        {
-            Debug.LogError($"[InteractableBehaviour] '{gameObject.name}' has no BoxCollider2D! OnMouseDown will not work.", gameObject);
-        }
-        else if (!collider.isTrigger)
-        {
-            Debug.LogError($"[InteractableBehaviour] '{gameObject.name}' BoxCollider2D IsTrigger is FALSE! Change it to TRUE.", gameObject);
-        }
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        hitCollider = GetComponent<Collider2D>();
+    }
+
+    private void LateUpdate()
+    {
+        RefreshState();
     }
 
     private void OnMouseDown()
     {
         if (data == null)
         {
-            Debug.LogError($"[InteractableBehaviour] '{gameObject.name}' has no InteractableData assigned!", gameObject);
+            if (!warnedMissingData)
+            {
+                warnedMissingData = true;
+                Debug.LogError($"[InteractableBehaviour] '{gameObject.name}' has no InteractableData assigned.", gameObject);
+            }
+
             return;
         }
 
         if (InteractionManager.Instance == null)
         {
-            Debug.LogError($"[InteractableBehaviour] InteractionManager instance not found. Click on '{data.id}' was ignored.");
+            Debug.LogWarning($"[InteractableBehaviour] InteractionManager not found for '{data.id}'.");
             return;
         }
 
-        Debug.Log($"[InteractableBehaviour] Clicked: {data.id}");
-        InteractionManager.Instance.TryInteract(data.id);
+        InteractionManager.Instance.TryInteract(data);
+        RefreshState();
+    }
+
+    private void RefreshState()
+    {
+        if (data == null)
+        {
+            SetVisible(false);
+            return;
+        }
+
+        var visible = true;
+        if (RoomManager.Instance != null)
+        {
+            visible = RoomManager.Instance.IsInteractableVisible(data);
+        }
+
+        SetVisible(visible);
+    }
+
+    private void SetVisible(bool visible)
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = visible;
+        }
+
+        if (hitCollider != null)
+        {
+            hitCollider.enabled = visible;
+        }
     }
 }

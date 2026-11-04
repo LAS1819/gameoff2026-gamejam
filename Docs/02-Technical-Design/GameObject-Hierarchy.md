@@ -111,10 +111,10 @@ Contains decorative, non-interactive elements:
 Contains all clickable objects. Each interactable is a separate GameObject with:
 
 - **SpriteRenderer** (Sorting Order 2 typically)
-- **BoxCollider2D** (IsTriggger = true)
+- **BoxCollider2D** (IsTrigger = true)
 - **InteractableBehaviour** script
 - **InteractableData** (serialized in Inspector)
-- **RealityVisibilityController** script (if visibility changes with reality)
+- Visibility handled by **InteractableBehaviour + RoomManager**
 
 ---
 
@@ -140,7 +140,7 @@ Lobby
     ├── StaffKey
     │   • Position: (3, 2, 0)
     │   • SpriteRenderer: key sprite, Sorting Order 2
-    │   • BoxCollider2D: IsTriggger = true, Size (0.5, 0.5)
+    │   • BoxCollider2D: IsTrigger = true, Size (0.5, 0.5)
     │   • InteractableBehaviour: calls TryInteract("staff_key")
     │   • InteractableData:
     │       - id: "staff_key"
@@ -153,7 +153,7 @@ Lobby
     ├── FrontDoor
     │   • Position: (5, 0, 0)
     │   • SpriteRenderer: door sprite, Sorting Order 2
-    │   • BoxCollider2D: IsTriggger = true, Size (2, 4)
+    │   • BoxCollider2D: IsTrigger = true, Size (2, 4)
     │   • InteractableBehaviour: calls TryInteract("front_door")
     │   • InteractableData:
     │       - id: "front_door"
@@ -166,7 +166,7 @@ Lobby
     └── HallwayEntrance
         • Position: (7, 0, 0)
         • SpriteRenderer: marker sprite (optional, can be invisible)
-        • BoxCollider2D: IsTriggger = true, Size (1, 3)
+        • BoxCollider2D: IsTrigger = true, Size (1, 3)
         • InteractableBehaviour: calls TryInteract("hallway_entrance")
         • InteractableData:
             - id: "hallway_entrance"
@@ -200,9 +200,9 @@ Hallway
     ├── HallwayObstacle
     │   • Position: (5, 0, 0)
     │   • SpriteRenderer: stone figure sprite, Sorting Order 2
-    │   • BoxCollider2D: IsTriggger = true, Size (2, 3)
+    │   • BoxCollider2D: IsTrigger = true, Size (2, 3)
     │   • InteractableBehaviour: calls TryInteract("hallway_obstacle")
-    │   • RealityVisibilityController: toggles SpriteRenderer.enabled based on reality
+    │   • Visibility auto-updated by InteractableBehaviour using RoomManager rules
     │   • InteractableData:
     │       - id: "hallway_obstacle"
     │       - type: Examine
@@ -213,7 +213,7 @@ Hallway
     ├── ShiftTrigger
     │   • Position: (10, 0, 0)
     │   • SpriteRenderer: shimmer sprite (optional, can be invisible)
-    │   • BoxCollider2D: IsTriggger = true, Size (2, 2)
+    │   • BoxCollider2D: IsTrigger = true, Size (2, 2)
     │   • InteractableBehaviour: calls TryInteract("shift_trigger")
     │   • InteractableData:
     │       - id: "shift_trigger"
@@ -249,12 +249,12 @@ GameObject (named for the interactable)
 │   └── Position: [as specified in room details]
 │
 ├── BoxCollider2D
-│   ├── IsTriggger: true
+│   ├── IsTrigger: true
 │   ├── Size: [as specified]
 │   └── (no physics body, pure trigger)
 │
 ├── InteractableBehaviour (script)
-│   ├── Calls InteractionManager.TryInteract(id) on OnMouseDown
+│   ├── Calls InteractionManager.TryInteract(data) on OnMouseDown
 │
 ├── InteractableData (serialized in Inspector)
 │   ├── id: [as specified]
@@ -268,9 +268,7 @@ GameObject (named for the interactable)
 │   ├── resultFlag: [if sets a flag]
 │   └── linkedRoomId: [if Transition]
 │
-└── RealityVisibilityController (script, if reality-dependent)
-    ├── References InteractableData
-    └── Updates SpriteRenderer.enabled based on reality state
+└── Visibility logic is centralized in RoomManager.IsInteractableVisible
 ```
 
 ---

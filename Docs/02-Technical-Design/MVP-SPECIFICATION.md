@@ -40,14 +40,14 @@ Bootstrap Scene (persistent, DontDestroyOnLoad)
 
 Main Scene (all gameplay)
 └── Rooms
-    ├── Vestibule (3 interactables)
+    ├── Lobby (3 interactables)
     │  ├── StaffKey (Pickup)
     │  ├── FrontDoor (Use)
     │  └── HallwayEntrance (Transition)
     └── Hallway (3 interactables)
        ├── HallwayObstacle (Examine, visible in Normal only)
        ├── ShiftTrigger (Toggle)
-       └── VestibuleExit (Transition)
+       └── LobbyExit (Transition)
 ```
 
 ---
@@ -59,7 +59,7 @@ Main Scene (all gameplay)
 - [ ] Create `Scenes/Bootstrap.unity` with `Systems` parent
 - [ ] Create 8 child GameObjects (one per manager) — no scripts yet
 - [ ] Create `Scenes/Main.unity` with Camera, Rooms, FX containers
-- [ ] Create Vestibule room container with Visuals, Props, Interactables folders
+- [ ] Create Lobby room container with Visuals, Props, Interactables folders
 - [ ] Create Hallway room container with Visuals, Props, Interactables folders
 - [ ] Create 6 empty GameObjects for interactables
 
@@ -72,11 +72,11 @@ Main Scene (all gameplay)
 For each of the 6 interactables below:
 
 - [ ] Add SpriteRenderer (sprite + sorting order)
-- [ ] Add BoxCollider2D (IsTriggger = true)
+- [ ] Add BoxCollider2D (IsTrigger = true)
 - [ ] Position in scene
 - [ ] Create + attach InteractableData (see data table below)
 
-**Vestibule:**
+**Lobby:**
 
 | Name | Type | Position | Visual | Data |
 | ------ | ------ | ---------- | -------- | ------ |
@@ -90,7 +90,7 @@ For each of the 6 interactables below:
 | ------ | ------ | ---------- | -------- | ------ |
 | HallwayObstacle | Examine | (5, 0, 0) | stone figure | resultFlag: "RealityUnlocked", visibleNormal: true, visibleOther: false |
 | ShiftTrigger | Toggle | (10, 0, 0) | shimmer | resultFlag: "ShiftPerformed" |
-| VestibuleExit | Transition | (-5, 0, 0) | marker | linkedRoomId: "vestibule" |
+| LobbyExit | Transition | (-5, 0, 0) | marker | linkedRoomId: "lobby" |
 
 **Deliverable:** All 6 interactables with SpriteRenderer, BoxCollider2D, InteractableData
 
@@ -108,42 +108,14 @@ public class InteractableBehaviour : MonoBehaviour
     private void OnMouseDown()
     {
         if (InteractionManager.Instance != null)
-            InteractionManager.Instance.TryInteract(data.id);
+            InteractionManager.Instance.TryInteract(data);
         else
             Debug.LogWarning("InteractionManager instance not found.");
     }
 }
 ```
 
-**RealityVisibilityController.cs** (attach to HallwayObstacle):
-
-```csharp
-public class RealityVisibilityController : MonoBehaviour
-{
-    public InteractableData data;
-    private SpriteRenderer spriteRenderer;
-    
-    void Start()
-    {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        if (RealityManager.Instance != null)
-            RealityManager.Instance.RealityChanged += OnRealityChanged;
-        Refresh();
-        if (RealityManager.Instance == null)
-            Debug.LogWarning("RealityManager instance not found.");
-    }
-    
-    void OnRealityChanged(RealityType reality) => Refresh();
-    
-    void Refresh()
-    {
-        bool visible = RealityManager.Instance.CurrentReality == RealityType.Normal
-            ? data.visibleInNormalReality
-            : data.visibleInOtherReality;
-        spriteRenderer.enabled = visible;
-    }
-}
-```
+Visibility is refreshed by `InteractableBehaviour` using `RoomManager.IsInteractableVisible`, so no extra visibility script is required.
 
 **Bootstrap:**
 
@@ -161,10 +133,10 @@ Update `GameManager.BuildDefaultRooms()` to create both rooms:
 ```csharp
 private void BuildDefaultRooms()
 {
-    var vestibule = new RoomData
+    var lobby = new RoomData
     {
-        id = "vestibule",
-        displayName = "Vestibule",
+        id = "lobby",
+        displayName = "Lobby",
         interactables = new List<InteractableData>
         {
             // StaffKey
@@ -234,28 +206,22 @@ private void BuildDefaultRooms()
                 visibleInOtherReality = true,
                 resultFlag = "ShiftPerformed"
             },
-            // VestibuleExit
+            // LobbyExit
             new InteractableData
             {
-                id = "vestibule_exit",
-                displayName = "Back to Vestibule",
+                id = "lobby_exit",
+                displayName = "Back to Lobby",
                 description = "The path back.",
                 interactionType = InteractionType.Transition,
                 visibleInNormalReality = true,
                 visibleInOtherReality = true,
-                linkedRoomId = "vestibule"
+                linkedRoomId = "lobby"
             }
         }
     };
     
-    var roomRegistry = new Dictionary<string, RoomData>
-    {
-        { "vestibule", vestibule },
-        { "hallway", hallway }
-    };
-    
-    RoomManager.Instance.SetRooms(roomRegistry);
-    RoomManager.Instance.LoadRoom("vestibule");
+    RoomManager.Instance.SetRooms(new List<RoomData> { lobby, hallway });
+    RoomManager.Instance.LoadRoom("lobby");
 }
 ```
 
@@ -267,14 +233,14 @@ private void BuildDefaultRooms()
 
 **Play Mode Checklist (8 Steps):**
 
-1. [ ] Game starts, Vestibule loads with StaffKey visible
+1. [ ] Game starts, Lobby loads with StaffKey visible
 2. [ ] Click StaffKey → disappears, HasStaffKey = true
 3. [ ] Click FrontDoor → opens, DoorOpened = true
 4. [ ] Click HallwayEntrance → loads Hallway
 5. [ ] Click HallwayObstacle → console shows examine, RealityUnlocked = true
 6. [ ] Click ShiftTrigger → HallwayObstacle disappears
 7. [ ] Click ShiftTrigger again → HallwayObstacle reappears
-8. [ ] Click VestibuleExit → returns to Vestibule, state preserved
+8. [ ] Click LobbyExit → returns to Lobby, state preserved
 
 **If all 8 pass: MVP is complete ✅**
 
@@ -296,13 +262,13 @@ ShiftPerformed = false      // Set by toggling reality
 ### InteractableData Fields
 
 ```csharp
-string id;                          // unique within room
+string id;                          // unique interactable id within room (world object id)
 string displayName;                 // human-readable
 string description;                 // examination text
 InteractionType interactionType;    // Examine, Pickup, Use, Transition, Toggle
 bool visibleInNormalReality;       // visible in Normal reality?
 bool visibleInOtherReality;        // visible in OtherSide reality?
-string itemId;                      // (Pickup) item to acquire
+string itemId;                      // (Pickup) inventory item id granted on pickup
 string requiredItemId;              // item required to interact
 string resultFlag;                  // flag to set on success
 string linkedRoomId;                // (Transition) target room
@@ -312,8 +278,8 @@ bool consumeAfterUse;              // mark consumed after use?
 ### RoomData Fields
 
 ```csharp
-string id;                              // "vestibule" or "hallway"
-string displayName;                     // "Vestibule" or "Main Hallway"
+string id;                              // "lobby" or "hallway"
+string displayName;                     // "Lobby" or "Main Hallway"
 List<InteractableData> interactables;   // all clickables in this room
 List<string> connectedRoomIds;          // accessible rooms (optional)
 ```
@@ -340,7 +306,7 @@ MVP is complete when:
 | "Interactable not found" | Verify interactable id matches exactly in data |
 | Flag not updating | Check resultFlag field is set in InteractableData |
 | Room doesn't load | Verify linkedRoomId exists in BuildDefaultRooms() |
-| Visibility not changing | Attach RealityVisibilityController to object |
+| Visibility not changing | Verify InteractableData visibility fields + current room id |
 | Systems reinit between rooms | Verify DontDestroyOnLoad called in GameManager |
 
 ---
@@ -351,12 +317,12 @@ MVP is complete when:
 
 | ID | Room | Type | Input | Output | Visibility |
 | ---- | ------ | ------ | ------- | -------- | ----------- |
-| staff_key | Vestibule | Pickup | — | HasStaffKey=true | Normal only |
-| front_door | Vestibule | Use | staff_key | DoorOpened=true | Both |
-| hallway_entrance | Vestibule | Transition | — | Load hallway | Both |
+| staff_key | Lobby | Pickup | — | HasStaffKey=true | Normal only |
+| front_door | Lobby | Use | staff_key | DoorOpened=true | Both |
+| hallway_entrance | Lobby | Transition | — | Load hallway | Both |
 | hallway_obstacle | Hallway | Examine | — | RealityUnlocked=true | Normal only |
 | shift_trigger | Hallway | Toggle | — | ShiftPerformed=true | Both |
-| vestibule_exit | Hallway | Transition | — | Load vestibule | Both |
+| lobby_exit | Hallway | Transition | — | Load lobby | Both |
 
 ---
 

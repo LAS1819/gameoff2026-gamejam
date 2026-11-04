@@ -28,8 +28,7 @@ public enum InteractionType
     Pickup,
     Use,
     Transition,
-    Toggle,
-    EnterRoom
+    Toggle
 }
 
 public enum RealityType

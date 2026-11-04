@@ -23,30 +23,21 @@ public class InventoryManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void AddItem(InventoryItemData item)
+    public bool AddItem(InventoryItemData item)
     {
-        if (item == null)
+        if (item == null || string.IsNullOrEmpty(item.id))
         {
-            return;
+            return false;
         }
 
         if (items.Exists(existing => existing != null && existing.id == item.id))
         {
-            return;
+            return false;
         }
 
         items.Add(item);
-
-        if (item.id == "staff_key")
-        {
-            GameManager.Instance?.SetFlag(GameFlagNames.HasStaffKey, true);
-        }
-        else
-        {
-            GameManager.Instance?.SetFlag(item.id, true);
-        }
-
         ItemAdded?.Invoke(item);
+        return true;
     }
 
     public bool HasItem(string itemId)
@@ -64,15 +55,6 @@ public class InventoryManager : MonoBehaviour
 
         items.Remove(item);
 
-        if (item.id == "staff_key")
-        {
-            GameManager.Instance?.SetFlag(GameFlagNames.HasStaffKey, false);
-        }
-        else
-        {
-            GameManager.Instance?.SetFlag(item.id, false);
-        }
-
         ItemRemoved?.Invoke(item);
         return true;
     }
@@ -84,24 +66,11 @@ public class InventoryManager : MonoBehaviour
 
     public bool TryUseItem(string itemId)
     {
-        if (!HasItem(itemId))
-        {
-            return false;
-        }
+        return HasItem(itemId);
+    }
 
-        var item = items.Find(existing => existing != null && existing.id == itemId);
-        if (item == null)
-        {
-            return false;
-        }
-
-        if (item.id == "staff_key")
-        {
-            GameManager.Instance?.SetFlag(GameFlagNames.HasStaffKey, true);
-            RemoveItem(itemId);
-            return true;
-        }
-
-        return false;
+    public void ResetInventory()
+    {
+        items.Clear();
     }
 }

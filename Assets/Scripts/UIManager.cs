@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// UIManager handles all UI elements: text feedback, inventory display, status messages.
@@ -8,8 +7,22 @@ using UnityEngine.UI;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance { get; private set; }
+
     [SerializeField] private string uiManagerName = "UIManager";
-    [SerializeField] private Text feedbackText;  // Optional: drag a Text canvas element here
+    [SerializeField] private GameObject feedbackRoot;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {
@@ -22,11 +35,10 @@ public class UIManager : MonoBehaviour
     public void ShowFeedback(string message, float duration = 2f)
     {
         Debug.Log($"[{uiManagerName}] ShowFeedback: {message}");
-        
-        if (feedbackText != null)
+
+        if (feedbackRoot != null)
         {
-            feedbackText.text = message;
-            feedbackText.gameObject.SetActive(true);
+            feedbackRoot.SetActive(true);
             // TODO: fade out after duration
         }
     }
@@ -36,8 +48,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void HideFeedback()
     {
-        if (feedbackText != null)
-            feedbackText.gameObject.SetActive(false);
+        if (feedbackRoot != null)
+        {
+            feedbackRoot.SetActive(false);
+        }
     }
 
     /// <summary>

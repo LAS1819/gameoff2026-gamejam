@@ -11,6 +11,7 @@ public class RoomManager : MonoBehaviour
     public RoomData CurrentRoom { get; private set; }
 
     public event Action<RoomData> RoomChanged;
+    public event Action InteractablesRefreshed;
 
     private void Awake()
     {
@@ -86,42 +87,59 @@ public class RoomManager : MonoBehaviour
 
     public void RefreshInteractables()
     {
-        if (CurrentRoom == null)
-        {
-            return;
-        }
-
-        foreach (var interactable in CurrentRoom.interactables)
-        {
-            if (interactable == null)
-            {
-                continue;
-            }
-
-            interactable.isVisible = IsInteractableVisible(interactable);
-        }
+        InteractablesRefreshed?.Invoke();
     }
 
     public bool IsInteractableVisible(InteractableData interactable)
     {
         if (interactable == null)
-            return false;
-
-        // Check reality visibility rules
-        if (RealityManager.Instance != null)
         {
-            bool isNormalReality = RealityManager.Instance.CurrentReality == RealityType.Normal;
-            bool shouldBeVisible = isNormalReality 
-                ? interactable.visibleInNormalReality 
-                : interactable.visibleInOtherReality;
-            
-            if (!shouldBeVisible)
-                return false;
+            return false;
         }
 
-        // Check if interactable is consumed (temporary - for MVP we don't track this yet)
-        // Later: track in a persistent state system
+        if (CurrentRoom == null || !IsInteractableInCurrentRoom(interactable.id))
+        {
+            return false;
+        }
+
+        if (InteractionManager.Instance != null && InteractionManager.Instance.IsConsumed(interactable.id))
+        {
+            return false;
+        }
+
+        if (interactable.id == "staff_key" && GameManager.Instance != null && GameManager.Instance.HasFlag(GameFlagNames.HasStaffKey))
+        {
+            return false;
+        }
+
+        if (interactable.id == "hallway_entrance" && GameManager.Instance != null && !GameManager.Instance.HasFlag(GameFlagNames.DoorOpened))
+        {
+            return false;
+        }
+
+        if (RealityManager.Instance != null)
+        {
+            var isNormalReality = RealityManager.Instance.CurrentReality == RealityType.Normal;
+            var shouldBeVisible = isNormalReality
+                ? interactable.visibleInNormalReality 
+                : interactable.visibleInOtherReality;
+
+            if (!shouldBeVisible)
+            {
+                return false;
+            }
+        }
 
         return true;
+    }
+
+    private bool IsInteractableInCurrentRoom(string interactableId)
+    {
+        if (CurrentRoom == null || string.IsNullOrEmpty(interactableId))
+        {
+            return false;
+        }
+
+        return CurrentRoom.interactables.Exists(item => item != null && item.id == interactableId);
     }
 }

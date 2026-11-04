@@ -8,9 +8,23 @@ using System.Collections.Generic;
 /// </summary>
 public class EventManager : MonoBehaviour
 {
+    public static EventManager Instance { get; private set; }
+
     [SerializeField] private string eventManagerName = "EventManager";
 
     private Dictionary<string, Action> eventCallbacks = new Dictionary<string, Action>();
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {

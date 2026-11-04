@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
@@ -6,6 +7,8 @@ public class InteractionManager : MonoBehaviour
     public static InteractionManager Instance { get; private set; }
 
     public event Action<string, InteractableData> InteractionResolved;
+
+    private readonly HashSet<string> consumedInteractables = new HashSet<string>();
 
     private void Awake()
     {
@@ -39,70 +42,155 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
-        if (interactable.isPickedUp || interactable.isConsumed)
+        return TryInteract(interactable);
+    }
+
+    public bool TryInteract(InteractableData interactable)
+    {
+        if (interactable == null || string.IsNullOrEmpty(interactable.id))
         {
             return false;
         }
 
-        if (!string.IsNullOrEmpty(interactable.requiredItemId) && !InventoryManager.Instance.HasItem(interactable.requiredItemId))
+        if (IsConsumed(interactable.id))
         {
-            Debug.LogWarning($"Missing required item for {interactableId}: {interactable.requiredItemId}");
             return false;
         }
 
-        if (interactable.type == InteractionType.Pickup)
+        if (RoomManager.Instance != null && !RoomManager.Instance.IsInteractableVisible(interactable))
         {
-            interactable.isPickedUp = true;
-            if (!string.IsNullOrEmpty(interactable.resultFlag))
-            {
-                GameManager.Instance.SetFlag(interactable.resultFlag, true);
-            }
-
-            if (!string.IsNullOrEmpty(interactable.itemId))
-            {
-                InventoryManager.Instance.AddItem(new InventoryItemData
-                {
-                    id = interactable.itemId,
-                    displayName = interactable.itemName,
-                    description = interactable.itemDescription,
-                    isKeyItem = true
-                });
-            }
-
-            if (interactable.consumeAfterUse)
-            {
-                interactable.isConsumed = true;
-            }
-
-            RoomManager.Instance.RefreshInteractables();
-            InteractionResolved?.Invoke(interactableId, interactable);
-            return true;
+            return false;
         }
 
-        if (interactable.type == InteractionType.Use && !string.IsNullOrEmpty(interactable.resultFlag))
+        if (!string.IsNullOrEmpty(interactable.requiredItemId) &&
+            (InventoryManager.Instance == null || !InventoryManager.Instance.HasItem(interactable.requiredItemId)))
         {
-            interactable.isConsumed = true;
-            GameManager.Instance.SetFlag(interactable.resultFlag, true);
-            RoomManager.Instance.RefreshInteractables();
-            InteractionResolved?.Invoke(interactableId, interactable);
-            return true;
+            Debug.LogWarning($"Missing required item for {interactable.id}: {interactable.requiredItemId}");
+            return false;
         }
 
-        if (interactable.type == InteractionType.Toggle && !string.IsNullOrEmpty(interactable.resultFlag))
+        var wasResolved = false;
+        switch (interactable.interactionType)
         {
-            GameManager.Instance.SetFlag(interactable.resultFlag, !GameManager.Instance.HasFlag(interactable.resultFlag));
-            RoomManager.Instance.RefreshInteractables();
-            InteractionResolved?.Invoke(interactableId, interactable);
-            return true;
+            case InteractionType.Pickup:
+                wasResolved = ResolvePickup(interactable);
+                break;
+            case InteractionType.Use:
+                wasResolved = ResolveUse(interactable);
+                break;
+            case InteractionType.Examine:
+                wasResolved = ResolveExamine(interactable);
+                break;
+            case InteractionType.Toggle:
+                wasResolved = ResolveToggle(interactable);
+                break;
+            case InteractionType.Transition:
+                wasResolved = ResolveTransition(interactable);
+                break;
         }
 
-        if (interactable.type == InteractionType.EnterRoom && !string.IsNullOrEmpty(interactable.linkedRoomId))
+        if (wasResolved)
         {
-            RoomManager.Instance.LoadRoom(interactable.linkedRoomId);
-            InteractionResolved?.Invoke(interactableId, interactable);
-            return true;
+            RoomManager.Instance?.RefreshInteractables();
+            InteractionResolved?.Invoke(interactable.id, interactable);
         }
 
-        return false;
+        return wasResolved;
+    }
+
+    public bool IsConsumed(string interactableId)
+    {
+        return !string.IsNullOrEmpty(interactableId) && consumedInteractables.Contains(interactableId);
+    }
+
+    public void ResetRuntimeState()
+    {
+        consumedInteractables.Clear();
+    }
+
+    private bool ResolvePickup(InteractableData interactable)
+    {
+        if (InventoryManager.Instance == null)
+        {
+            Debug.LogWarning("InventoryManager instance not found.");
+            return false;
+        }
+
+        var itemId = string.IsNullOrEmpty(interactable.itemId) ? interactable.id : interactable.itemId;
+        var itemAdded = InventoryManager.Instance.AddItem(new InventoryItemData
+        {
+            id = itemId,
+            displayName = interactable.displayName,
+            description = interactable.description,
+            isKeyItem = true
+        });
+
+        if (!itemAdded)
+        {
+            return false;
+        }
+
+        if (!string.IsNullOrEmpty(interactable.resultFlag))
+        {
+            GameManager.Instance?.SetFlag(interactable.resultFlag, true);
+        }
+
+        MarkConsumed(interactable.id);
+        return true;
+    }
+
+    private bool ResolveUse(InteractableData interactable)
+    {
+        if (!string.IsNullOrEmpty(interactable.resultFlag))
+        {
+            GameManager.Instance?.SetFlag(interactable.resultFlag, true);
+        }
+
+        if (interactable.consumeAfterUse)
+        {
+            MarkConsumed(interactable.id);
+        }
+
+        return true;
+    }
+
+    private bool ResolveExamine(InteractableData interactable)
+    {
+        if (!string.IsNullOrEmpty(interactable.resultFlag))
+        {
+            GameManager.Instance?.SetFlag(interactable.resultFlag, true);
+        }
+
+        return true;
+    }
+
+    private bool ResolveToggle(InteractableData interactable)
+    {
+        RealityManager.Instance?.ToggleReality();
+
+        if (!string.IsNullOrEmpty(interactable.resultFlag))
+        {
+            GameManager.Instance?.SetFlag(interactable.resultFlag, true);
+        }
+
+        return true;
+    }
+
+    private bool ResolveTransition(InteractableData interactable)
+    {
+        if (string.IsNullOrEmpty(interactable.linkedRoomId))
+        {
+            return false;
+        }
+
+        return RoomManager.Instance != null && RoomManager.Instance.LoadRoom(interactable.linkedRoomId);
+    }
+
+    private void MarkConsumed(string interactableId)
+    {
+        if (!string.IsNullOrEmpty(interactableId))
+        {
+            consumedInteractables.Add(interactableId);
+        }
     }
 }
