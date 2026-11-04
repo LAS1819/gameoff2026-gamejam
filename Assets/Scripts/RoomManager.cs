@@ -46,7 +46,6 @@ public class RoomManager : MonoBehaviour
 
         if (CurrentRoom == null && rooms.Count > 0)
         {
-            // Don't auto-load here; let the caller decide which room to load first
             var firstRoomId = default(string);
             foreach (var roomId in rooms.Keys)
             {
@@ -56,7 +55,7 @@ public class RoomManager : MonoBehaviour
 
             if (!string.IsNullOrEmpty(firstRoomId))
             {
-                CurrentRoom = rooms[firstRoomId];
+                LoadRoom(firstRoomId);
             }
         }
     }
@@ -91,12 +90,14 @@ public class RoomManager : MonoBehaviour
         var roomsParent = FindRoomsParent();
         if (roomsParent == null)
         {
+            Debug.LogError("[RoomManager] Could not find 'Rooms' parent anywhere in scene!");
             return;
         }
 
         foreach (Transform child in roomsParent.transform)
         {
             child.gameObject.SetActive(false);
+            Debug.Log($"[RoomManager] Deactivated: {child.gameObject.name}");
         }
     }
 
@@ -105,6 +106,7 @@ public class RoomManager : MonoBehaviour
         var roomsParent = FindRoomsParent();
         if (roomsParent == null)
         {
+            Debug.LogError("[RoomManager] Could not find 'Rooms' parent!");
             return;
         }
 
@@ -113,26 +115,44 @@ public class RoomManager : MonoBehaviour
             if (child.gameObject.name.Equals(roomId, System.StringComparison.OrdinalIgnoreCase))
             {
                 child.gameObject.SetActive(true);
-                Debug.Log($"[RoomManager] Loaded room: {roomId}");
+                Debug.Log($"[RoomManager] Activated room: {roomId}");
                 return;
             }
         }
 
-        Debug.LogWarning($"[RoomManager] Room '{roomId}' not found. Available: {string.Join(", ", GetAvailableRoomNames(roomsParent))}");
+        Debug.LogError($"[RoomManager] Room GameObject not found for: {roomId}. Available rooms: {string.Join(", ", GetAvailableRoomNames(roomsParent))}");
     }
 
     private GameObject FindRoomsParent()
     {
-        // Search for "Rooms" GameObject in scene
-        var allTransforms = FindObjectsOfType<Transform>();
-        foreach (var t in allTransforms)
+        // Try direct path first
+        var direct = GameObject.Find("Main/Rooms");
+        if (direct != null) return direct;
+
+        // Try just looking for any "Rooms" GameObject
+        var allRoomsObjects = FindObjectsOfType<Transform>();
+        foreach (var t in allRoomsObjects)
         {
             if (t.gameObject.name == "Rooms")
             {
+                Debug.Log("[RoomManager] Found Rooms at path: " + GetFullPath(t));
                 return t.gameObject;
             }
         }
+
         return null;
+    }
+
+    private string GetFullPath(Transform t)
+    {
+        var path = t.name;
+        var current = t.parent;
+        while (current != null)
+        {
+            path = current.name + "/" + path;
+            current = current.parent;
+        }
+        return path;
     }
 
     private string[] GetAvailableRoomNames(GameObject roomsParent)
