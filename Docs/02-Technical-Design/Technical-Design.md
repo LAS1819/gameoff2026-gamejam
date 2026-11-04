@@ -37,7 +37,8 @@ Y dos sistemas secundarios:
 Event System
 Save System
 ```
-________________________________________
+
+---
 
 ## 3. Managers
 

@@ -2,7 +2,7 @@
 
 - Fecha inicio: 03/11/2026 (miércoles)
 - Fecha objetivo: 08/11/2026 (domingo)
-- Estado: Planeado
+- Estado: 🟡 IN PROGRESS - Lobby Complete, Hallway Configuration Pending
 
 ## Objetivo
 
@@ -110,45 +110,45 @@ Implementar la base técnica y el flujo jugable mínimo para verificar que:
 
 ## Tareas por prioridad
 
-### Tarea 1 - Base técnica
+### Tarea 1 - Base técnica ✅ COMPLETE
 
-- [ ] Crear GameManager
-- [ ] Crear sistema de flags
-- [ ] Definir Data models para Room, Interactable e InventoryItem
-- [ ] Preparar estructura base de escenas y prefabs
+- [x] Crear GameManager
+- [x] Crear sistema de flags
+- [x] Definir Data models para Room, Interactable e InventoryItem
+- [x] Preparar estructura base de escenas y prefabs
 
-### Tarea 2 - Sistema de habitaciones
+### Tarea 2 - Sistema de habitaciones ✅ COMPLETE
 
-- [ ] Implementar RoomManager
-- [ ] Cargar sala activa
-- [ ] Cambiar de sala
-- [ ] Actualizar lista de elementos interactivos
+- [x] Implementar RoomManager
+- [x] Cargar sala activa
+- [x] Cambiar de sala
+- [x] Actualizar lista de elementos interactivos
 
-### Tarea 3 - Sistema de interacción y inventario
+### Tarea 3 - Sistema de interacción y inventario ✅ COMPLETE
 
-- [ ] Implementar InventoryManager
-- [ ] Implementar InteractionManager
-- [ ] Añadir acción de examinar
-- [ ] Añadir acción de recoger
-- [ ] Añadir acción de usar objeto sobre interactivo
+- [x] Implementar InventoryManager
+- [x] Implementar InteractionManager
+- [x] Añadir acción de examinar
+- [x] Añadir acción de recoger
+- [x] Añadir acción de usar objeto sobre interactivo
 
-### Tarea 4 - Sistema SHIFT / realidad
+### Tarea 4 - Sistema SHIFT / realidad 🟡 IN PROGRESS
 
 - [ ] Implementar RealityManager
 - [ ] Cambiar entre realidades
 - [ ] Actualizar los elementos que cambian visualmente
 - [ ] Hacer que el obstáculo del pasillo desaparezca en la realidad correcta
 
-### Tarea 5 - Validación del flujo MVP
+### Tarea 5 - Validación del flujo MVP 🟡 IN PROGRESS
 
-- [ ] Vestíbulo: recoger llave
-- [ ] Puerta: activar flag y abrir acceso
-- [ ] Pasillo: cargar nueva habitación
+- [x] Vestíbulo: recoger llave ✅
+- [x] Puerta: activar flag y abrir acceso ✅
+- [x] Pasillo: cargar nueva habitación ✅
 - [ ] SHIFT: cambiar visualmente de realidad
 - [ ] El obstáculo desaparece
 - [ ] El jugador puede continuar hacia la siguiente zona
 
-### Tarea 6 - Presentación mínima
+### Tarea 6 - Presentación mínima ⏳ NOT STARTED
 
 - [ ] UI básica para inventario y feedback de texto
 - [ ] fondos provisionales
@@ -184,6 +184,32 @@ El sprint estará terminado cuando:
 
 ---
 
+## Documentación de referencia
+
+Este sprint se apoya en tres documentos complementarios que detallan la implementación exacta:
+
+1. **[MVP-Implementation-Quickstart.md](./MVP-Implementation-Quickstart.md)** ← **EMPEZAR AQUÍ**
+   - Checklist ejecutable paso a paso
+   - Fases de implementación (Scenes, GameObjects, Scripts, Validation)
+   - Referencia cruzada a los otros documentos
+
+2. **[MVP-Data-Specification.md](./MVP-Data-Specification.md)**
+   - Definición exacta de `RoomData`, `InteractableData`, `InventoryItemData`
+   - Valores concretos para cada objeto del MVP
+   - Validación de campos y tipos
+
+3. **[MVP-Concrete-Hierarchy.md](./MVP-Concrete-Hierarchy.md)**
+   - Estructura exacta de GameObjects en ambas escenas
+   - Propiedades de cada objeto (posición, sprite, collider, etc.)
+   - Componentes requeridos por cada interactable
+
+4. **[MVP-Flag-Sequence.md](./MVP-Flag-Sequence.md)**
+   - Flujo exacto de interacciones y cambios de estado
+   - Cuándo se activa cada flag y sus consecuencias
+   - Secuencia de validación en Play Mode
+
+---
+
 ## Riesgos y restricciones
 
 - No ampliar alcance más allá del MVP.
@@ -196,3 +222,5 @@ El sprint estará terminado cuando:
 ## Resultado esperado
 
 La entrega del sprint debe servir como base arquitectónica para el resto del proyecto: un juego mínimo, ejecutable, con una progresión real y validada, listo para ampliarse en siguientes sprints.
+
+El flujo debe completarse sin errores siguiendo exactamente la secuencia documentada en [MVP-Flag-Sequence.md](./MVP-Flag-Sequence.md).
