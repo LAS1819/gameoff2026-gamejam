@@ -105,45 +105,23 @@ public class RoomManager : MonoBehaviour
     public bool IsInteractableVisible(InteractableData interactable)
     {
         if (interactable == null)
-        {
             return false;
-        }
 
-        if (interactable.isPickedUp || interactable.isConsumed)
+        // Check reality visibility rules
+        if (RealityManager.Instance != null)
         {
-            return false;
-        }
-
-        if (interactable.id == "staff_key")
-        {
-            return !GameManager.Instance.HasFlag(GameFlagNames.HasStaffKey);
-        }
-
-        if (interactable.id == "front_door")
-        {
-            return !GameManager.Instance.HasFlag(GameFlagNames.DoorOpened);
-        }
-
-        if (interactable.id == "hallway_obstacle")
-        {
-            if (RealityManager.Instance != null && RealityManager.Instance.CurrentReality == RealityType.OtherSide)
-            {
+            bool isNormalReality = RealityManager.Instance.CurrentReality == RealityType.Normal;
+            bool shouldBeVisible = isNormalReality 
+                ? interactable.visibleInNormalReality 
+                : interactable.visibleInOtherReality;
+            
+            if (!shouldBeVisible)
                 return false;
-            }
-
-            return true;
         }
 
-        if (GameManager.Instance != null && GameManager.Instance.CurrentRoomId == "vestibulo")
-        {
-            return interactable.visibleInNormalReality;
-        }
+        // Check if interactable is consumed (temporary - for MVP we don't track this yet)
+        // Later: track in a persistent state system
 
-        if (RealityManager.Instance != null && RealityManager.Instance.CurrentReality == RealityType.OtherSide)
-        {
-            return interactable.visibleInOtherReality;
-        }
-
-        return interactable.visibleInNormalReality;
+        return true;
     }
 }

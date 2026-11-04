@@ -317,7 +317,7 @@ MonoBehaviour:
     requiredItemId: 
     resultFlag: HasStaffKey
     isPickedUp: 0
-    isConsumed: 0
+    isConsumed: 1
     consumeAfterUse: 0
     linkedRoomId: 
 --- !u!1 &323593156

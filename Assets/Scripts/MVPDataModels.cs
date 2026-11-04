@@ -41,38 +41,29 @@ public enum RealityType
 [Serializable]
 public class InteractableData
 {
-    public string id;
+    public string id;                               // Unique identifier for this interactable
     public string displayName;
     public string description;
     public InteractionType interactionType;
+    
+    // Visibility rules for reality system
     public bool visibleInNormalReality = true;
     public bool visibleInOtherReality = true;
-    public bool isVisible;
+    
+    // For Pickup interactions: what item does the player receive?
     public string itemId;
+    
+    // For Use interactions: what item is required to use this?
     public string requiredItemId;
+    
+    // What flag to set when this interaction succeeds?
     public string resultFlag;
-    public bool isPickedUp;
-    public bool isConsumed;
-    public bool consumeAfterUse;
+    
+    // For Transition interactions: which room to go to?
     public string linkedRoomId;
-
-    public InteractionType type
-    {
-        get => interactionType;
-        set => interactionType = value;
-    }
-
-    public string itemName
-    {
-        get => displayName;
-        set => displayName = value;
-    }
-
-    public string itemDescription
-    {
-        get => description;
-        set => description = value;
-    }
+    
+    // Should this interactable be consumed after first use? (e.g., key disappears after unlocking door)
+    public bool consumeAfterUse;
 }
 
 [Serializable]
