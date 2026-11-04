@@ -180,10 +180,21 @@ public class InteractionManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(interactable.linkedRoomId))
         {
+            Debug.LogError($"[InteractionManager] Transition '{interactable.id}' has no linkedRoomId set.");
             return false;
         }
 
-        return RoomManager.Instance != null && RoomManager.Instance.LoadRoom(interactable.linkedRoomId);
+        Debug.Log($"[InteractionManager] ResolveTransition: attempting to load room '{interactable.linkedRoomId}'");
+        
+        if (RoomManager.Instance == null)
+        {
+            Debug.LogError($"[InteractionManager] RoomManager instance not found. Cannot transition to '{interactable.linkedRoomId}'");
+            return false;
+        }
+
+        var success = RoomManager.Instance.LoadRoom(interactable.linkedRoomId);
+        Debug.Log($"[InteractionManager] LoadRoom('{interactable.linkedRoomId}') returned: {success}");
+        return success;
     }
 
     private void MarkConsumed(string interactableId)

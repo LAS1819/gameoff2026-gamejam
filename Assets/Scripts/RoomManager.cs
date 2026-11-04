@@ -64,7 +64,7 @@ public class RoomManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(roomId) || !rooms.TryGetValue(roomId, out var room))
         {
-            Debug.LogWarning($"Room not found: {roomId}");
+            Debug.LogWarning($"[RoomManager] Room not found: {roomId}");
             return false;
         }
 
@@ -75,9 +75,94 @@ public class RoomManager : MonoBehaviour
             GameManager.Instance.SetCurrentRoom(roomId);
         }
 
+        HideAllRooms();
+        ShowRoom(roomId);
+
         RefreshInteractables();
         RoomChanged?.Invoke(CurrentRoom);
+        
+        Debug.Log($"[RoomManager] Loaded room: {roomId}");
         return true;
+    }
+
+    private void HideAllRooms()
+    {
+        var roomsParent = FindRoomsParent();
+        if (roomsParent == null)
+        {
+            Debug.LogError("[RoomManager] Could not find 'Rooms' parent anywhere in scene!");
+            return;
+        }
+
+        foreach (Transform child in roomsParent.transform)
+        {
+            child.gameObject.SetActive(false);
+            Debug.Log($"[RoomManager] Deactivated: {child.gameObject.name}");
+        }
+    }
+
+    private void ShowRoom(string roomId)
+    {
+        var roomsParent = FindRoomsParent();
+        if (roomsParent == null)
+        {
+            Debug.LogError("[RoomManager] Could not find 'Rooms' parent!");
+            return;
+        }
+
+        foreach (Transform child in roomsParent.transform)
+        {
+            if (child.gameObject.name.Equals(roomId, System.StringComparison.OrdinalIgnoreCase))
+            {
+                child.gameObject.SetActive(true);
+                Debug.Log($"[RoomManager] Activated room: {roomId}");
+                return;
+            }
+        }
+
+        Debug.LogError($"[RoomManager] Room GameObject not found for: {roomId}. Available rooms: {string.Join(", ", GetAvailableRoomNames(roomsParent))}");
+    }
+
+    private GameObject FindRoomsParent()
+    {
+        // Try direct path first
+        var direct = GameObject.Find("Main/Rooms");
+        if (direct != null) return direct;
+
+        // Try just looking for any "Rooms" GameObject
+        var allRoomsObjects = FindObjectsOfType<Transform>();
+        foreach (var t in allRoomsObjects)
+        {
+            if (t.gameObject.name == "Rooms")
+            {
+                Debug.Log("[RoomManager] Found Rooms at path: " + GetFullPath(t));
+                return t.gameObject;
+            }
+        }
+
+        return null;
+    }
+
+    private string GetFullPath(Transform t)
+    {
+        var path = t.name;
+        var current = t.parent;
+        while (current != null)
+        {
+            path = current.name + "/" + path;
+            current = current.parent;
+        }
+        return path;
+    }
+
+    private string[] GetAvailableRoomNames(GameObject roomsParent)
+    {
+        var names = new System.Collections.Generic.List<string>();
+        foreach (Transform child in roomsParent.transform)
+        {
+            names.Add(child.gameObject.name);
+        }
+        return names.ToArray();
     }
 
     public bool TryGetRoom(string roomId, out RoomData room)
@@ -108,6 +193,11 @@ public class RoomManager : MonoBehaviour
         }
 
         if (interactable.id == "staff_key" && GameManager.Instance != null && GameManager.Instance.HasFlag(GameFlagNames.HasStaffKey))
+        {
+            return false;
+        }
+
+        if (interactable.id == "front_door" && GameManager.Instance != null && GameManager.Instance.HasFlag(GameFlagNames.DoorOpened))
         {
             return false;
         }
