@@ -1,8 +1,8 @@
 # MVP Specification - EMPEZAR AQUÍ
 
-**Status:** ✅ Ready for implementation  
+**Status:** 🟡 Lobby Complete, Hallway In Progress  
 **Target Time:** 2.5-3 hours  
-**Last Updated:** 2026-11-03
+**Last Updated:** 2026-11-04
 
 ---
 
@@ -27,104 +27,86 @@ A point-and-click horror game where you:
 **Everything is data. Managers consume data. No room-specific code.**
 
 ```plaintext
-Bootstrap Scene (persistent, DontDestroyOnLoad)
-└── Systems
-    ├── GameManager (flags + initialization)
-    ├── RoomManager (load rooms from data)
-    ├── InventoryManager (items)
-    ├── InteractionManager (click resolution)
-    ├── RealityManager (reality toggle + visibility)
-    ├── EventManager (stub)
-    ├── SaveManager (stub)
-    └── UIManager (stub)
-
-Main Scene (all gameplay)
+Main Scene (single gameplay scene)
+├── GameManager (flags + initialization)
+├── RoomManager (load rooms from data)
+├── InventoryManager (items)
+├── InteractionManager (click resolution)
+├── RealityManager (reality toggle + visibility)
+├── EventManager (stub)
+├── SaveManager (stub)
+├── UIManager (stub)
 └── Rooms
-    ├── Lobby (3 interactables)
-    │  ├── StaffKey (Pickup)
-    │  ├── FrontDoor (Use)
-    │  └── HallwayEntrance (Transition)
-    └── Hallway (3 interactables)
-       ├── HallwayObstacle (Examine, visible in Normal only)
-       ├── ShiftTrigger (Toggle)
-       └── LobbyExit (Transition)
+    ├── Lobby ✅ COMPLETE
+    │  ├── Visuals
+    │  ├── Props
+    │  └── Interactables
+    │     ├── StaffKey (Pickup) ✅
+    │     ├── FrontDoor (Use) ✅
+    │     └── HallwayEntrance (Transition) ✅
+    └── Hallway 🟡 IN PROGRESS
+       ├── Visuals
+       ├── Props
+       └── Interactables
+           ├── HallwayObstacle (Examine)
+           ├── ShiftTrigger (Toggle)
+           └── LobbyExit (Transition)
 ```
 
 ---
 
-## 🚀 Implementation (5 Phases)
+## 🚀 Implementation Status
 
-### Phase 1: Scenes (30 min)
+### Phase 1: Scenes ✅ COMPLETE (30 min)
 
-- [ ] Create `Scenes/Bootstrap.unity` with `Systems` parent
-- [ ] Create 8 child GameObjects (one per manager) — no scripts yet
-- [ ] Create `Scenes/Main.unity` with Camera, Rooms, FX containers
-- [ ] Create Lobby room container with Visuals, Props, Interactables folders
-- [ ] Create Hallway room container with Visuals, Props, Interactables folders
-- [ ] Create 6 empty GameObjects for interactables
+- [x] Create `Scenes/Main.unity` with Camera, Rooms, FX containers
+- [x] Create Lobby room container with Visuals, Props, Interactables folders
+- [x] Create Hallway room container with Visuals, Props, Interactables folders
+- [x] All 6 empty GameObjects for interactables created
 
-**Deliverable:** Correct scene hierarchy with all folders
+**Deliverable:** ✅ Correct scene hierarchy with all folders
 
 ---
 
-### Phase 2: Interactables (45 min)
+### Phase 2: Interactables - Lobby ✅ COMPLETE (45 min)
 
-For each of the 6 interactables below:
+For Lobby (3/3 complete):
 
-- [ ] Add SpriteRenderer (sprite + sorting order)
-- [ ] Add BoxCollider2D (IsTrigger = true)
-- [ ] Position in scene
-- [ ] Create + attach InteractableData (see data table below)
+| Name | Type | Position | Status |
+| ------ | ------ | ---------- | ------ |
+| StaffKey | Pickup | (3, 2, 0) | ✅ Complete |
+| FrontDoor | Use | (5, 0, 0) | ✅ Complete |
+| HallwayEntrance | Transition | (7, 0, 0) | ✅ Complete |
 
-**Lobby:**
-
-| Name | Type | Position | Visual | Data |
-| ------ | ------ | ---------- | -------- | ------ |
-| StaffKey | Pickup | (3, 2, 0) | key sprite | itemId: "staff_key", resultFlag: "HasStaffKey", visibleNormal: true, visibleOther: false |
-| FrontDoor | Use | (5, 0, 0) | door sprite | requiredItemId: "staff_key", resultFlag: "DoorOpened" |
-| HallwayEntrance | Transition | (7, 0, 0) | marker | linkedRoomId: "hallway" |
-
-**Hallway:**
-
-| Name | Type | Position | Visual | Data |
-| ------ | ------ | ---------- | -------- | ------ |
-| HallwayObstacle | Examine | (5, 0, 0) | stone figure | resultFlag: "RealityUnlocked", visibleNormal: true, visibleOther: false |
-| ShiftTrigger | Toggle | (10, 0, 0) | shimmer | resultFlag: "ShiftPerformed" |
-| LobbyExit | Transition | (-5, 0, 0) | marker | linkedRoomId: "lobby" |
-
-**Deliverable:** All 6 interactables with SpriteRenderer, BoxCollider2D, InteractableData
+**Deliverable:** ✅ All 3 Lobby interactables with SpriteRenderer, BoxCollider2D, InteractableData
 
 ---
 
-### Phase 3: Scripts (30 min)
+### Phase 2b: Interactables - Hallway 🟡 IN PROGRESS
 
-**InteractableBehaviour.cs** (attach to all 6 interactables):
+For Hallway (0/3 complete):
 
-```csharp
-public class InteractableBehaviour : MonoBehaviour
-{
-    public InteractableData data;
-    
-    private void OnMouseDown()
-    {
-        if (InteractionManager.Instance != null)
-            InteractionManager.Instance.TryInteract(data);
-        else
-            Debug.LogWarning("InteractionManager instance not found.");
-    }
-}
-```
+| Name | Type | Position | Status |
+| ------ | ------ | ---------- | ------ |
+| HallwayObstacle | Examine | (5, 0, 0) | 🟡 Pending |
+| ShiftTrigger | Toggle | (10, 0, 0) | 🟡 Pending |
+| LobbyExit | Transition | (-5, 0, 0) | 🟡 Pending |
 
-Visibility is refreshed by `InteractableBehaviour` using `RoomManager.IsInteractableVisible`, so no extra visibility script is required.
-
-**Bootstrap:**
-
-- Attach existing manager scripts to 8 GameObjects
-- Verify `DontDestroyOnLoad` is called in `GameManager.Awake()`
-
-**Deliverable:** All scripts attached and compiling
+**Next Task:** Configure Hallway interactables
 
 ---
+
+### Phase 3: Scripts ✅ COMPLETE
+
+**All core scripts implemented and working:**
+
+- [x] InteractableBehaviour (attach to all interactables)
+- [x] GameManager (flags, initialization, single-scene architecture)
+- [x] RoomManager (room loading, visibility toggling)
+- [x] InteractionManager (click resolution)
+- [x] InventoryManager (inventory tracking)
+- [x] RealityManager (reality toggle, visibility)
+- [x] EventManager, SaveManager, UIManager (stubs)
 
 ### Phase 4: Data Initialization (20 min)
 
@@ -307,7 +289,7 @@ MVP is complete when:
 | Flag not updating | Check resultFlag field is set in InteractableData |
 | Room doesn't load | Verify linkedRoomId exists in BuildDefaultRooms() |
 | Visibility not changing | Verify InteractableData visibility fields + current room id |
-| Systems reinit between rooms | Verify DontDestroyOnLoad called in GameManager |
+| Room GameObject not found | Verify "Rooms" parent GameObject exists in Main scene and contains room children |
 
 ---
 
