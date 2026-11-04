@@ -2,7 +2,7 @@
 
 - Fecha inicio: 03/11/2026 (miércoles)
 - Fecha objetivo: 08/11/2026 (domingo)
-- Estado: 🟡 IN PROGRESS - Lobby Complete, Hallway Configuration Pending
+- Estado: Planeado
 
 ## Objetivo
 
@@ -110,45 +110,45 @@ Implementar la base técnica y el flujo jugable mínimo para verificar que:
 
 ## Tareas por prioridad
 
-### Tarea 1 - Base técnica ✅ COMPLETE
+### Tarea 1 - Base técnica
 
-- [x] Crear GameManager
-- [x] Crear sistema de flags
-- [x] Definir Data models para Room, Interactable e InventoryItem
-- [x] Preparar estructura base de escenas y prefabs
+- [ ] Crear GameManager
+- [ ] Crear sistema de flags
+- [ ] Definir Data models para Room, Interactable e InventoryItem
+- [ ] Preparar estructura base de escenas y prefabs
 
-### Tarea 2 - Sistema de habitaciones ✅ COMPLETE
+### Tarea 2 - Sistema de habitaciones
 
-- [x] Implementar RoomManager
-- [x] Cargar sala activa
-- [x] Cambiar de sala
-- [x] Actualizar lista de elementos interactivos
+- [ ] Implementar RoomManager
+- [ ] Cargar sala activa
+- [ ] Cambiar de sala
+- [ ] Actualizar lista de elementos interactivos
 
-### Tarea 3 - Sistema de interacción y inventario ✅ COMPLETE
+### Tarea 3 - Sistema de interacción y inventario
 
-- [x] Implementar InventoryManager
-- [x] Implementar InteractionManager
-- [x] Añadir acción de examinar
-- [x] Añadir acción de recoger
-- [x] Añadir acción de usar objeto sobre interactivo
+- [ ] Implementar InventoryManager
+- [ ] Implementar InteractionManager
+- [ ] Añadir acción de examinar
+- [ ] Añadir acción de recoger
+- [ ] Añadir acción de usar objeto sobre interactivo
 
-### Tarea 4 - Sistema SHIFT / realidad 🟡 IN PROGRESS
+### Tarea 4 - Sistema SHIFT / realidad
 
 - [ ] Implementar RealityManager
 - [ ] Cambiar entre realidades
 - [ ] Actualizar los elementos que cambian visualmente
 - [ ] Hacer que el obstáculo del pasillo desaparezca en la realidad correcta
 
-### Tarea 5 - Validación del flujo MVP 🟡 IN PROGRESS
+### Tarea 5 - Validación del flujo MVP
 
-- [x] Vestíbulo: recoger llave ✅
-- [x] Puerta: activar flag y abrir acceso ✅
-- [x] Pasillo: cargar nueva habitación ✅
+- [ ] Vestíbulo: recoger llave
+- [ ] Puerta: activar flag y abrir acceso
+- [ ] Pasillo: cargar nueva habitación
 - [ ] SHIFT: cambiar visualmente de realidad
 - [ ] El obstáculo desaparece
 - [ ] El jugador puede continuar hacia la siguiente zona
 
-### Tarea 6 - Presentación mínima ⏳ NOT STARTED
+### Tarea 6 - Presentación mínima
 
 - [ ] UI básica para inventario y feedback de texto
 - [ ] fondos provisionales
