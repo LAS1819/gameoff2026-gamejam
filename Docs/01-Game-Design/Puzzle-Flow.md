@@ -38,11 +38,20 @@ A medida que el jugador explora el edificio, descubrirá que ambos mundos compar
 Primera zona donde se introduce SHIFT.
 
 - Estado general:
-  - Ruta parcialmente bloqueada.
-  - Introducción a las diferencias entre realidades.
+  - Ruta parcialmente bloqueada por un obstáculo visible.
+  - Introducción clara a la diferencia entre realidades.
+  - El espacio mantiene la misma composición básica, pero cambia su legibilidad y accesibilidad.
+  - El icono del Amuleto se activa (parpadea) para indicar disponibilidad de SHIFT.
 - Conexiones:
   - Biblioteca.
   - Dormitorio.
+- Objetivo de diseño:
+  - enseñar que la exploración no es lineal ni segura;
+  - mostrar un bloqueo que requiere manipular la realidad;
+  - activar la mecánica SHIFT como herramienta principal;
+  - preparar la sensación de progresión hacia zonas de mayor densidad narrativa.
+- Referencia visual: [Visual-Room-Hallway.md](./Visual-Room-Hallway.md)
+- Referencia mecánica: [SHIFT-Mechanic.md](./SHIFT-Mechanic.md)
 
 ### 3. Biblioteca - Library
 
@@ -132,9 +141,13 @@ Zona final.
 - Realidad Normal: La estantería está presente.
 - El Otro Lado: La estantería no existe.
 - Solución: Utilizar SHIFT para atravesar la zona.
+  - El icono del Amuleto en la UI parpadea indicando disponibilidad.
+  - El jugador puede hacer click en el icono o presionar LEFT SHIFT.
+  - Para detalles de la mecánica, ver [SHIFT-Mechanic.md](./SHIFT-Mechanic.md).
 - Enseña:
-  - Mecánica SHIFT.
+  - Mecánica SHIFT (introducción principal).
   - Estados Presente / Ausente.
+  - Interacción mediante UI y teclado.
 - Recompensa: Acceso a la Biblioteca.
 
 ### PUZLE 3 - Información Oculta
