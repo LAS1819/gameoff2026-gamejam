@@ -116,8 +116,8 @@ UICanvas (Canvas, resolución 640x360)
 
 1. **Canvas:**
    - [ ] Crear Canvas en raíz de Main
-   - [ ] Canvas Scaler → Reference Resolution: 640x360
-   - [ ] Render Mode: Screen Space - Overlay (o Camera si prefieres)
+   - [ ] Canvas Scaler → Scale With Screen Size (Reference Resolution: 640x360)
+   - [ ] Render Mode: Camera
 
 2. **ShiftIconContainer:**
    - [ ] RectTransform: Anchors Bottom-Right

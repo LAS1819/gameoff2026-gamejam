@@ -47,6 +47,22 @@ public class RealityManager : MonoBehaviour
         SetReality(CurrentReality == RealityType.Normal ? RealityType.OtherSide : RealityType.Normal);
     }
 
+    /// <summary>
+    /// Public static wrapper for UI buttons - can be called directly from Inspector
+    /// </summary>
+    public static void ToggleRealityStatic()
+    {
+        if (Instance != null)
+        {
+            Instance.ToggleReality();
+            Debug.Log("[RealityManager] Reality toggled from UI");
+        }
+        else
+        {
+            Debug.LogError("[RealityManager] Instance not found for UI toggle");
+        }
+    }
+
     private void UpdateBackgrounds()
     {
         // Always search fresh - rooms activate/deactivate dynamically
