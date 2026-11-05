@@ -167,6 +167,30 @@ Para el MVP:
 - El cambio entre realidades es instantáneo en MVP (sin animación de transición).
 - El audio de transición es opcional en MVP, pero recomendado para refuerzo.
 
+### Sistema de Input
+
+La entrada del teclado (LEFT SHIFT) utiliza **Unity Input System Package** (no el antiguo Input.GetKeyDown):
+
+```csharp
+// InputHandler.cs usa:
+using UnityEngine.InputSystem;
+
+if (Keyboard.current != null && Keyboard.current.leftShiftKey.wasPressedThisFrame)
+{
+    RealityManager.Instance?.ToggleReality();
+}
+```
+
+**Requisito en Player Settings**: El proyecto debe tener "Active Input Handling" configurado a "Input System Package".
+
+**Ventajas**:
+
+- Mejor rendimiento y arquitectura.
+- Soporte para múltiples dispositivos (teclado, gamepad, etc.).
+- Más flexible para futuros cambios de keybindings.
+
+**Alternativa futura**: Si necesitamos remapear teclas o usar múltiples dispositivos, podemos expandir a un InputActionAsset completo. Por ahora, acceso directo es suficiente para MVP.
+
 ---
 
 ## 9. Relación con la Progresión de Puzles

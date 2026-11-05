@@ -55,7 +55,7 @@ public class RoomManager : MonoBehaviour
 
             if (!string.IsNullOrEmpty(firstRoomId))
             {
-                LoadRoom(firstRoomId);
+                CurrentRoom = rooms[firstRoomId];
             }
         }
     }

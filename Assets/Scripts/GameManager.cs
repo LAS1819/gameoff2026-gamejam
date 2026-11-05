@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public static class GameFlagNames
 {
@@ -12,7 +11,6 @@ public static class GameFlagNames
 
 public class GameManager : MonoBehaviour
 {
-    public const string BootstrapSceneName = "Bootstrap";
     public const string MainSceneName = "Main";
     public const string LobbyRoomId = "lobby";
     public const string HallwayRoomId = "hallway";
@@ -37,35 +35,11 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDestroy()
-    {
-        if (Instance == this)
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
     }
 
     private void Start()
     {
-        var activeSceneName = SceneManager.GetActiveScene().name;
-        if (activeSceneName == BootstrapSceneName)
-        {
-            SceneManager.LoadScene(MainSceneName, LoadSceneMode.Single);
-            return;
-        }
-
         InitializeMVPIfNeeded();
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == MainSceneName)
-        {
-            InitializeMVPIfNeeded();
-        }
     }
 
     private void InitializeMVPIfNeeded()
