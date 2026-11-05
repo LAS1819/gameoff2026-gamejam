@@ -31,7 +31,7 @@ A medida que el jugador explora el edificio, descubrirá que ambos mundos compar
   - Introducción narrativa.
   - Aprendizaje de exploración e interacción.
 - Conexiones:
-  - `Pasillo Principal`.
+  - `Pasillo Principal` - `Hallway`.
 
 ### 2. Pasillo Principal - Hallway
 
@@ -43,8 +43,8 @@ Primera zona donde se introduce SHIFT.
   - El espacio mantiene la misma composición básica, pero cambia su legibilidad y accesibilidad.
   - El icono del Amuleto se activa (parpadea) para indicar disponibilidad de SHIFT.
 - Conexiones:
-  - `Biblioteca`.
-  - `Dormitorio`.
+  - `Biblioteca` - `Library`.
+  - `Dormitorio` - `Bedroom`.
 - Objetivo de diseño:
   - enseñar que la exploración no es lineal ni segura;
   - mostrar un bloqueo que requiere manipular la realidad;
@@ -62,8 +62,8 @@ Zona orientada a la obtención de información.
   - Pistas.
   - Primeros eventos opcionales.
 - Conexiones:
-  - `Pasillo Principal`.
-  - `Sótano`.
+  - `Pasillo Principal` - `Hallway`.
+  - `Sótano` - `Basement`.
 
 ### 4. Dormitorio - Bedroom
 
@@ -74,7 +74,7 @@ Zona orientada al uso de estados de objetos.
   - Información personal.
   - Recursos narrativos.
 - Conexiones:
-  - `Pasillo Principal`.
+  - `Pasillo Principal` - `Hallway`.
 
 ### 5. Sótano - Basement
 
@@ -85,8 +85,8 @@ Centro mecánico del edificio.
   - Instalaciones.
   - Eventos temporales.
 - Conexiones:
-  - `Biblioteca`.
-  - `Sala Ritual`.
+  - `Biblioteca` - `Library`.
+  - `Sala Ritual` - `Ritual Room`.
 
 ### 6. Sala Ritual - Ritual Room
 
@@ -96,8 +96,8 @@ Zona final.
   - Convergencia de ambas realidades.
   - Resolución del misterio principal.
 - Conexiones:
-  - `Sótano`.
-  - `Final`.
+  - `Sótano` - `Basement`.
+  - `Final` - `Ending`.
 
 ---
 

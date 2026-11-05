@@ -2,9 +2,9 @@
 
 - Fecha inicio: 03/11/2026 (miércoles)
 - Fecha objetivo: 08/11/2026 (domingo)
-- Estado: 🟡 IN PROGRESS - Lobby Complete, Hallway Configuration Pending
+- Estado: 🟡 IN PROGRESS - Lobby Complete, Hallway Final Push
 - Creado: 03/11/2026
-- Actualizado: 05/11/2026
+- Actualizado: 05/11/2026 (sesión Sprint 1 - Cierre MVP Base)
 
 ## Objetivo
 
@@ -135,29 +135,34 @@ Implementar la base técnica y el flujo jugable mínimo para verificar que:
 - [x] Añadir acción de recoger
 - [x] Añadir acción de usar objeto sobre interactivo
 
-### Tarea 4 - Sistema SHIFT / realidad 🟡 IN PROGRESS
+### Tarea 4 - Sistema SHIFT / realidad 🔴 IN PROGRESS (PRIORIDAD AHORA)
 
-- [ ] Crear Sprites necesarios para Hallway
-- [ ] Implementar RealityManager
-- [ ] Cambiar entre realidades
-- [ ] Actualizar los elementos que cambian visualmente
-- [ ] Hacer que el obstáculo del pasillo desaparezca en la realidad correcta
+- [x] Crear Sprites necesarios para Hallway
+- [x] Implementar RealityManager
+- [x] Cambiar entre realidades (código core)
+- [ ] **Conectar InputHandler → RealityManager (LEFT SHIFT)**
+- [ ] **Actualizar RealityManager para cambiar backgrounds dinámicamente**
+- [ ] **Configurar BackgroundNormal y BackgroundOtherSide en Hallway**
+- [ ] **Hacer que HallwayObstacle desaparezca en El Otro Lado (visibilidad dinámica)**
+- [ ] **Crear puertas placeholder para Library y Bedroom (logs en click)**
 
-### Tarea 5 - Validación del flujo MVP 🟡 IN PROGRESS
+### Tarea 5 - Validación del flujo MVP 🔴 IN PROGRESS
 
 - [x] Vestíbulo: recoger llave ✅
 - [x] Puerta: activar flag y abrir acceso ✅
 - [x] Pasillo: cargar nueva habitación ✅
-- [ ] SHIFT: cambiar visualmente de realidad
-- [ ] El obstáculo desaparece
-- [ ] El jugador puede continuar hacia la siguiente zona
+- [ ] **SHIFT (LEFT SHIFT): cambiar realidad visualmente con backgrounds**
+- [ ] **El obstáculo desaparece en El Otro Lado**
+- [ ] **Puertas Library/Bedroom responden (logs)**
+- [ ] **Flujo completo sin errores**: Lobby → Hallway → SHIFT → Toggle realidad → Puertas funcionales
 
 ### Tarea 6 - Presentación mínima ⏳ NOT STARTED
 
 - [ ] UI básica para inventario y feedback de texto
-- [ ] fondos provisionales
+- [ ] fondos provisionales (Normal y OtherSide en Hallway)
 - [ ] transiciones de realidad compactas
 - [ ] comprobación visual del flujo completo
+- [ ] Demo grabada del MVP funcionando end-to-end
 
 ---
 
@@ -169,14 +174,45 @@ Este sprint se considera completo si es posible grabar una demostración en la q
 2. recoger la Llave del Personal,
 3. usar la llave sobre la puerta,
 4. entrar al Pasillo Principal,
-5. activar SHIFT,
-6. cambiar a la otra realidad,
-7. ver que el obstáculo desaparece,
-8. poder avanzar sin errores de lógica ni de flujo.
+5. presionar LEFT SHIFT para cambiar de realidad,
+6. ver que el fondo cambia y el obstáculo desaparece,
+7. presionar LEFT SHIFT de nuevo para volver a la realidad normal,
+8. ver que el obstáculo reaparece y el fondo vuelve,
+9. hacer click en las puertas de Library y Bedroom (verán logs confirmando el click),
+10. completar la secuencia sin errores de lógica ni de flujo.
 
 ---
 
-## Definición de terminado
+## FOCUS SESSION - Sprint 1 Final Push (05/11/2026)
+
+### Estrategia de cierre: MVP Base → Demo Funcional
+
+En esta sesión nos enfocamos en **TERMINAR EL MVP BASE** (Opción A) con el mínimo viable:
+
+1. **Hallway SHIFT System Completo** (60-90 min)
+   - Conectar InputHandler ↔ RealityManager para LEFT SHIFT
+   - RealityManager cambia BackgroundNormal ↔ BackgroundOtherSide
+   - HallwayObstacle desaparece/aparece dinámicamente
+   - Validar transiciones visuales
+
+2. **Puertas Placeholder Library/Bedroom** (20-30 min)
+   - Crear dos GameObjects interactivos en Hallway
+   - Al clickear: log en consola confirmando la room
+   - Validar que el sistema de click funciona
+
+3. **Validación End-to-End** (20 min)
+   - Grabar demo del flujo completo
+   - Documentar cualquier bug
+
+### Alcance deliberadamente limitado
+
+- ❌ NO implementar Library/Bedroom rooms completas
+- ❌ NO implementar UI avanzada
+- ❌ NO agregar más interactables de los necesarios
+- ✅ Validar que la arquitectura base aguanta el flujo principal
+- ✅ Demostrar que SHIFT funciona como se intenta usar en el juego
+
+---
 
 El sprint estará terminado cuando:
 
