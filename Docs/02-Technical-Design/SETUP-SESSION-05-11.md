@@ -56,11 +56,11 @@ Completar el MVP Sprint 1 con un flujo funcional end-to-end:
 
 **Actions:**
 
-1. [ ] Crear sprite OtherSide (copiar v1 y aplicar filtro de color/oscuridad)
-2. [ ] En Unity, crear GameObject "BackgroundOtherSide" bajo Hallway/Visuals
-3. [ ] Adjuntar sprite OtherSide
-4. [ ] Verificar SpriteRenderer (Sorting Order 0)
-5. [ ] Desactivar GameObject (será activado por RealityManager)
+1. [x] Crear sprite OtherSide (copiar v1 y aplicar filtro de color/oscuridad)
+2. [x] En Unity, crear GameObject "BackgroundOtherSide" bajo Hallway/Visuals
+3. [x] Adjuntar sprite OtherSide
+4. [x] Verificar SpriteRenderer (Sorting Order 0)
+5. [x] Desactivar GameObject (será activado por RealityManager)
 
 ---
 
@@ -100,35 +100,51 @@ resultFlag: "RealityUnlocked"
 
 ---
 
-### Paso 4: Crear/Configurar ShiftTrigger 🟡 IMPORTANTE
+### Paso 4: Crear UI Shift Button (Bottom-Right) 🔴 IMPORTANTE
 
-**GameObject:** `Main/Rooms/Hallway/Interactables/ShiftTrigger`
+**Ubicación:** Canvas UI en pantalla (no world-space interactable)
 
-**Crear si no existe:**
+**Estructura esperada:**
 
-- [ ] GameObject "ShiftTrigger" bajo Interactables
-- [ ] SpriteRenderer (puede ser invisible o sprite sutil)
-  - Sprite: [opcional, puede ser transparente]
-  - Sorting Order: 2
-  - Position: (9, 0, 0)
-- [ ] BoxCollider2D
-  - IsTrigger: **true**
-  - Size: (1, 2)
-- [ ] InteractableBehaviour script
-
-**InteractableData en Inspector:**
-
-```
-id: "shift_trigger"
-displayName: "Reality Weak Point"
-description: "Reality feels thin here. You could SHIFT..."
-interactionType: Toggle
-visibleInNormalReality: true
-visibleInOtherReality: true
-resultFlag: "ShiftPerformed"
+```plaintext
+UICanvas (Canvas, resolución 640x360)
+└── ShiftIconContainer (RectTransform, Button)
+    └── Icon (Image, sprite encapuchado 64x64)
 ```
 
-**Nota:** Este interactable NO es necesario para MVP (LEFT SHIFT ya funciona), pero es útil para testing.
+**Setup detallado:**
+
+1. **Canvas:**
+   - [ ] Crear Canvas en raíz de Main
+   - [ ] Canvas Scaler → Reference Resolution: 640x360
+   - [ ] Render Mode: Screen Space - Overlay (o Camera si prefieres)
+
+2. **ShiftIconContainer:**
+   - [ ] RectTransform: Anchors Bottom-Right
+   - [ ] Anchor Position: (-20, 20) ← margen desde esquina
+   - [ ] Size: (64, 64) ← tamaño en píxeles
+   - [ ] Añadir Button component
+   - [ ] Navigation: None
+
+3. **Icon (child):**
+   - [ ] Image component
+   - [ ] Source Image: shift-icon-hooded-figure-v1.png (sprite a crear/importar)
+   - [ ] Preserve Aspect: true
+   - [ ] Set Native Size: true
+
+4. **Button OnClick:**
+   - [ ] Configurar listener
+   - [ ] Target: RealityManager
+   - [ ] Method: ToggleReality()
+
+**Sprite Requirements:**
+
+- Size: 64x64 píxeles (coherente con Pixel Perfect Camera)
+- Paleta: Encapuchado/figura de horror
+- Filter Mode: Point (no Linear)
+- Pixels Per Unit: 16
+
+**Nota:** El sprite puede ser placeholder por ahora. Lo importante es que el botón funcione. Luego mejoramos arte.
 
 ---
 
@@ -273,12 +289,19 @@ resultFlag: "BedroomExamined"
    - [ ] BackgroundOtherSide → INACTIVO
    - [ ] HallwayObstacle → VISIBLE
 
-7. **Test Puertas Placeholder:**
+7. **Test UI Shift Button:**
+   - [ ] Icono visible en bottom-right de pantalla
+   - [ ] Hover en icono → cambio visual (color, etc)
+   - [ ] Click en icono → realidad cambia (igual que LEFT SHIFT)
+   - [ ] Console log: "[UIShiftButton] Shift clicked" (si usas script)
+   - [ ] Background y obstáculo cambian igual que con LEFT SHIFT
+
+8. **Test Puertas Placeholder:**
    - [ ] Click en LibraryDoor → Console log sobre Library
    - [ ] Click en BedroomDoor → Console log sobre Bedroom
    - [ ] Ambas puertas responden
 
-8. **Volver a Lobby:**
+9. **Volver a Lobby:**
    - [ ] Click en LobbyExit → transición a Lobby
    - [ ] Console log: "[RoomManager] Loaded room: lobby" ✓
 
