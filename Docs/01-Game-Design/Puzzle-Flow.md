@@ -38,7 +38,7 @@ A medida que el jugador explora el edificio, descubrirá que ambos mundos compar
 Primera zona donde se introduce SHIFT.
 
 - Estado general:
-  - Ruta parcialmente bloqueada por un obstáculo visible.
+  - Ruta parcialmente bloqueada (block-obstacle) por un obstáculo visible.
   - Introducción clara a la diferencia entre realidades.
   - El espacio mantiene la misma composición básica, pero cambia su legibilidad y accesibilidad.
   - El icono del Amuleto se activa (parpadea) para indicar disponibilidad de SHIFT.
