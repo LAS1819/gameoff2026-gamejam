@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.3-proto] - 2026-11-05
+
+### Added
+
+- Input System upgrade for LEFT SHIFT handling
+- Hallway configuration guide (HALLWAY-SETUP.md)
+- SHIFT Mechanic complete design specification
+- InputHandler script with Input System Package support
+- Amuleto icon design and progression documentation
+
+### Changed
+
+- Migrated from legacy Input.GetKeyDown() to Input System Package APIs
+- Updated technical documentation with Input System requirements and implementation details
+
+### Notes
+
+- Player Settings requires "Active Input Handling" = "Input System Package"
+- Hallway ready for scene configuration
+- Next step: User configures HallwayObstacle, ShiftTrigger, and LobbyExit in Unity
+
+---
+
 ## [0.0.2-proto] - 2026-11-04
 
 ### Added
