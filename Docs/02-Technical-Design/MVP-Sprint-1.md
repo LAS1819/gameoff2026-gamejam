@@ -3,6 +3,8 @@
 - Fecha inicio: 03/11/2026 (miércoles)
 - Fecha objetivo: 08/11/2026 (domingo)
 - Estado: 🟡 IN PROGRESS - Lobby Complete, Hallway Configuration Pending
+- Creado: 03/11/2026
+- Actualizado: 05/11/2026
 
 ## Objetivo
 
@@ -119,6 +121,7 @@ Implementar la base técnica y el flujo jugable mínimo para verificar que:
 
 ### Tarea 2 - Sistema de habitaciones ✅ COMPLETE
 
+- [x] Crear Sprites necesarios para Lobby
 - [x] Implementar RoomManager
 - [x] Cargar sala activa
 - [x] Cambiar de sala
@@ -134,6 +137,7 @@ Implementar la base técnica y el flujo jugable mínimo para verificar que:
 
 ### Tarea 4 - Sistema SHIFT / realidad 🟡 IN PROGRESS
 
+- [ ] Crear Sprites necesarios para Hallway
 - [ ] Implementar RealityManager
 - [ ] Cambiar entre realidades
 - [ ] Actualizar los elementos que cambian visualmente

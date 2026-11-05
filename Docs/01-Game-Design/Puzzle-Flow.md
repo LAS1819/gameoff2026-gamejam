@@ -33,7 +33,7 @@ A medida que el jugador explora el edificio, descubrirá que ambos mundos compar
 - Conexiones:
   - Pasillo Principal.
 
-### 2. Pasillo Principal - Main Hallway
+### 2. Pasillo Principal - Hallway
 
 Primera zona donde se introduce SHIFT.
 
