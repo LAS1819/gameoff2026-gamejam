@@ -233,7 +233,7 @@ Esto favorece coherencia, evita duplicación de bindings y deja el sistema prepa
 
 ---
 
-## Plan de trabajo realista para 2 personas
+## Plan de trabajo realista
 
 ### Bloque A — UI básica (60-90 min)
 
