@@ -152,6 +152,13 @@ public class GameManager : MonoBehaviour
             connectedRoomIds = new List<string> { LobbyRoomId }
         };
 
+        AddHallwayInteractables(hallway);
+
+        return new List<RoomData> { lobby, hallway };
+    }
+
+    private static void AddHallwayInteractables(RoomData hallway)
+    {
         hallway.interactables.Add(new InteractableData
         {
             id = "hallway_obstacle",
@@ -185,7 +192,25 @@ public class GameManager : MonoBehaviour
             linkedRoomId = LobbyRoomId
         });
 
-        return new List<RoomData> { lobby, hallway };
+        hallway.interactables.Add(new InteractableData
+        {
+            id = "library_door",
+            displayName = "Mysterious Door (Library)",
+            description = "This door leads to the Library. [NOT YET IMPLEMENTED]",
+            interactionType = InteractionType.Examine,
+            visibleInNormalReality = false,
+            visibleInOtherReality = true
+        });
+
+        hallway.interactables.Add(new InteractableData
+        {
+            id = "bedroom_door",
+            displayName = "Mysterious Door (Bedroom)",
+            description = "This door leads to the Bedroom. [NOT YET IMPLEMENTED]",
+            interactionType = InteractionType.Examine,
+            visibleInNormalReality = false,
+            visibleInOtherReality = true
+        });
     }
 
     public bool HasFlag(string flagName)

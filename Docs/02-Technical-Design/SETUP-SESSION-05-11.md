@@ -167,21 +167,21 @@ UI
 
 ---
 
-### Paso 5: Crear LobbyExit 🟡 IMPORTANTE
+### Paso 5: Crear LobbyExit ✅ IMPORTANTE
 
 **GameObject:** `Main/Rooms/Hallway/Interactables/LobbyExit`
 
 **Crear si no existe:**
 
-- [ ] GameObject "LobbyExit" bajo Interactables
-- [ ] SpriteRenderer (puede ser invisible)
-  - Sprite: [opcional]
-  - Sorting Order: 2
-  - Position: (-7, 0, 0)
-- [ ] BoxCollider2D
+- [x] GameObject "LobbyExit" bajo Interactables
+- [x] SpriteRenderer (puede ser invisible)
+  - Sprite: [Sprite Provisional]
+  - Sorting Order: 1
+  - Position: (-18, -10)
+- [x] BoxCollider2D
   - IsTrigger: **true**
   - Size: (1, 3)
-- [ ] InteractableBehaviour script
+- [x] InteractableBehaviour script
 
 **InteractableData en Inspector:**
 
@@ -213,7 +213,7 @@ Estas son puertas que SOLO loguean cuando se clickea. No implementan lógica de 
 
 **InteractableData:**
 
-```
+```plaintext
 id: "library_door"
 displayName: "Mysterious Door (Library)"
 description: "This door leads to the Library. [NOT YET IMPLEMENTED]"
@@ -241,7 +241,7 @@ Debug.Log("[MVP] Clicked on Library Door - Navigation to Library not yet impleme
 
 **InteractableData:**
 
-```
+```plaintext
 id: "bedroom_door"
 displayName: "Bedroom Entrance"
 description: "A corridor leading to private quarters. [NOT YET IMPLEMENTED]"

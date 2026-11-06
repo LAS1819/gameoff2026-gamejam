@@ -156,11 +156,24 @@ public class InteractionManager : MonoBehaviour
 
     private bool ResolveExamine(InteractableData interactable)
     {
+        if (interactable != null &&
+            (interactable.id == "library_door" || interactable.id == "bedroom_door") &&
+            (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide))
+        {
+            Debug.LogWarning($"[InteractionManager] '{interactable.displayName}' can only be used in the Other Side reality.");
+            return false;
+        }
+
         if (!string.IsNullOrEmpty(interactable.resultFlag))
         {
             GameManager.Instance?.SetFlag(interactable.resultFlag, true);
         }
 
+        var descriptionText = !string.IsNullOrEmpty(interactable.description)
+            ? interactable.description
+            : $"You inspected {interactable.displayName}.";
+
+        Debug.Log($"[InteractionManager] Examine: {interactable.displayName} - {descriptionText}");
         return true;
     }
 

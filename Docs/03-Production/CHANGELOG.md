@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.5-proto] - 2026-11-06
+
+### Added
+
+- Hallway placeholder doors for the Library and Bedroom, registered as valid interactables in the hallway room data
+- `AddHallwayInteractables()` helper in `GameManager` to keep the room setup structured and easier to read
+- Debug console feedback for `library_door` and `bedroom_door` when examined in the correct reality
+
+### Changed
+
+- Hallway room setup was refactored out of the inline room factory flow to keep the prototype cleaner and reduce `GameManager` sprawl
+- `InteractionManager.ResolveExamine()` now emits the interactable description in logs and blocks interaction when the player is not in the Other Side
+- The two hallway doors were defined as visible only in the Other Side, matching the intended gameplay gate around the hallway obstacle
+
+### Fixed
+
+- Prevented the placeholder doors from being interactable in the normal reality before the obstacle is cleared
+- Corrected the hidden toggle behavior by making the hallway room data include the doors as real interactables instead of relying only on Scene objects
+- Avoided false-positive clickability for library/bedroom triggers before the reality shift is active
+
+### Notes
+
+- This is the prototype pass that stabilizes the hallway side-room placeholder flow and validates the intended gating logic before the next content iteration
+- The actual Library and Bedroom rooms are still placeholders; the interaction is now correctly tied to the Other Side and ready for the next content pass
+
+---
+
 ## [0.0.4-proto] - 2026-11-06
 
 ### Added
