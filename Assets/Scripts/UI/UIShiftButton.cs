@@ -2,43 +2,65 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// UI Button handler for the SHIFT mechanic.
-/// Connects Canvas button click to RealityManager.ToggleReality().
+/// UI Button handler for the SHIFT mechanic using UI Toolkit.
+/// Connects Panel Renderer button click to RealityManager.ToggleReality().
 /// </summary>
-
 [RequireComponent(typeof(PanelRenderer))]
 public class UIShiftButton : MonoBehaviour
 {
     private PanelRenderer m_PanelRenderer;
     private Button m_ShiftButton;
 
-    void Awake()
+    private void OnEnable()
     {
+        // Get the PanelRenderer component
         m_PanelRenderer = GetComponent<PanelRenderer>();
-        var root = m_PanelRenderer.visualTreeAsset.CloneTree();
-        m_ShiftButton = root.Q<Button>("shift-button");
 
-        // Debug
         if (m_PanelRenderer == null)
         {
             Debug.LogError("[UIShiftButton] PanelRenderer component not found!");
+            return;
         }
-        else
+
+        Debug.Log("[UIShiftButton] PanelRenderer found");
+
+        // Access the root visual element of the panel
+        var rootElement = m_PanelRenderer.rootVisualElement;
+
+        if (rootElement == null)
         {
-            Debug.Log("[UIShiftButton] PanelRenderer component found");
+            Debug.LogError("[UIShiftButton] Root visual element is null!");
+            return;
         }
+
+        Debug.Log("[UIShiftButton] Root visual element found");
+
+        // Query for the button by name in the visual tree
+        m_ShiftButton = rootElement.Q<Button>("shift-button");
+
         if (m_ShiftButton == null)
         {
-            Debug.LogError("[UIShiftButton] Button component not found!");
+            Debug.LogError("[UIShiftButton] Button 'shift-button' not found in UXML!");
+            Debug.Log("[UIShiftButton] Available elements: " + string.Join(", ", rootElement.Query().Build().ToList().Select(e => e.name)));
+            return;
         }
-        else
+
+        Debug.Log("[UIShiftButton] Shift button found - registering click handler");
+
+        // Register the click callback
+        m_ShiftButton.clicked += OnShiftButtonClicked;
+    }
+
+    private void OnDisable()
+    {
+        // Unregister the click callback to avoid memory leaks
+        if (m_ShiftButton != null)
         {
-            Debug.Log("[UIShiftButton] Button component found");
-            m_ShiftButton.clicked += OnShiftButtonClicked;
+            m_ShiftButton.clicked -= OnShiftButtonClicked;
         }
     }
 
-    public void OnShiftButtonClicked()
+    private void OnShiftButtonClicked()
     {
         Debug.Log("[UIShiftButton] Shift button clicked - toggling reality");
 
@@ -51,3 +73,4 @@ public class UIShiftButton : MonoBehaviour
         RealityManager.Instance.ToggleReality();
     }
 }
+
