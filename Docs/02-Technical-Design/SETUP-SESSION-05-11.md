@@ -213,7 +213,7 @@ Estas son puertas que SOLO loguean cuando se clickea. No implementan lógica de 
 
 **InteractableData:**
 
-```
+```plaintext
 id: "library_door"
 displayName: "Mysterious Door (Library)"
 description: "This door leads to the Library. [NOT YET IMPLEMENTED]"
@@ -241,7 +241,7 @@ Debug.Log("[MVP] Clicked on Library Door - Navigation to Library not yet impleme
 
 **InteractableData:**
 
-```
+```plaintext
 id: "bedroom_door"
 displayName: "Bedroom Entrance"
 description: "A corridor leading to private quarters. [NOT YET IMPLEMENTED]"
