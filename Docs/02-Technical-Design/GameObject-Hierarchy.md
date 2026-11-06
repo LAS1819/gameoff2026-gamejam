@@ -51,6 +51,11 @@ Main
 ├── Camera
 │   └── (orthographic, static position, centered on Lobby at start)
 │
+├── UI
+│   └── ShiftPanel
+│       ├── PanelRenderer (PanelSettings + ShiftUI.uxml)
+│       └── UIShiftButton (binds "shift-button" to RealityManager.ToggleReality)
+│
 └── Rooms
     ├── Lobby
     │   ├── Visuals
@@ -72,6 +77,13 @@ Main
             ├── ShiftTrigger
             └── MainHallwayExit
 ```
+
+### Runtime UI (UI Toolkit + Panel Renderer)
+
+- SHIFT icon/button is implemented with **UI Toolkit runtime** via **PanelRenderer**.
+- `ShiftUI.uxml` must contain a button with `name="shift-button"`.
+- `UIShiftButton` script binds click callback during panel reload and calls `RealityManager.Instance.ToggleReality()`.
+- Avoid mixing with legacy Canvas/Button setup for SHIFT to prevent duplicated or conflicting configuration.
 
 ---
 

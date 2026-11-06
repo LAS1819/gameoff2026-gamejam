@@ -100,51 +100,51 @@ resultFlag: "RealityUnlocked"
 
 ---
 
-### Paso 4: Crear UI Shift Button (Bottom-Right) 🔴 IMPORTANTE
+### Paso 4: Crear UI SHIFT con UI Toolkit + Panel Renderer 🔴 IMPORTANTE
 
-**Ubicación:** Canvas UI en pantalla (no world-space interactable)
+**Ubicación:** Runtime UI con Panel Renderer (sin Canvas/Button legacy).
 
 **Estructura esperada:**
 
 ```plaintext
-UICanvas (Canvas, resolución 640x360)
-└── ShiftIconContainer (RectTransform, Button)
-    └── Icon (Image, sprite encapuchado 64x64)
+UI
+└── ShiftPanel
+    ├── PanelRenderer
+    │   ├── Panel Settings: Assets/UI Toolkit/PanelSettings.asset
+    │   └── Source Asset: Assets/UI/ShiftUI.uxml
+    └── UIShiftButton.cs
 ```
 
 **Setup detallado:**
 
-1. **Canvas:**
-   - [ ] Crear Canvas en raíz de Main
-   - [ ] Canvas Scaler → Scale With Screen Size (Reference Resolution: 640x360)
-   - [ ] Render Mode: Camera
+1. **ShiftPanel:**
+   - [ ] GameObject activo en raíz `UI/ShiftPanel`
+   - [ ] Componente `PanelRenderer` activo
+   - [ ] `Panel Settings` asignado
+   - [ ] `Source Asset` asignado (`ShiftUI.uxml`)
 
-2. **ShiftIconContainer:**
-   - [ ] RectTransform: Anchors Bottom-Right
-   - [ ] Anchor Position: (-20, 20) ← margen desde esquina
-   - [ ] Size: (64, 64) ← tamaño en píxeles
-   - [ ] Añadir Button component
-   - [ ] Navigation: None
+2. **UXML (`ShiftUI.uxml`):**
+   - [ ] Existe un botón con `name=\"shift-button\"`
+   - [ ] Botón visible en esquina inferior derecha vía estilos UXML/USS o posicionamiento del panel
 
-3. **Icon (child):**
-   - [ ] Image component
-   - [ ] Source Image: shift-icon-hooded-figure-v1.png (sprite a crear/importar)
-   - [ ] Preserve Aspect: true
-   - [ ] Set Native Size: true
+3. **Binding C#:**
+   - [ ] `UIShiftButton.cs` en el mismo GameObject que `PanelRenderer`
+   - [ ] Registra callback con `RegisterUIReloadCallback(VersionedUIReloadCallback)`
+   - [ ] Busca el botón con `root.Q<Button>(\"shift-button\")`
+   - [ ] Conecta `clicked += OnShiftButtonClicked`
+   - [ ] En click ejecuta `RealityManager.Instance.ToggleReality()`
 
-4. **Button OnClick:**
-   - [ ] Configurar listener
-   - [ ] Target: RealityManager
-   - [ ] Method: ToggleReality()
+4. **Limpieza de legado Canvas (importante):**
+   - [ ] Mantener desactivado/eliminar `Canvas` y `ShiftIconContainer` anteriores para evitar configuraciones mezcladas
+   - [ ] Evitar tener dos sistemas activos para el mismo botón SHIFT
 
-**Sprite Requirements:**
+**Sprite Requirements (si usas icono personalizado):**
 
-- Size: 64x64 píxeles (coherente con Pixel Perfect Camera)
-- Paleta: Encapuchado/figura de horror
-- Filter Mode: Point (no Linear)
-- Pixels Per Unit: 16
+- Size recomendado: 64x64 px (coherente con 640x360)
+- Filter Mode: Point
+- Paleta coherente con el arte del juego
 
-**Nota:** El sprite puede ser placeholder por ahora. Lo importante es que el botón funcione. Luego mejoramos arte.
+**Nota:** El MVP prioriza comportamiento fiable de click + toggle. El arte final del icono puede iterarse después.
 
 ---
 
@@ -246,6 +246,8 @@ resultFlag: "BedroomExamined"
 
 - [ ] Existe un GameObject con InputHandler.cs adjunto
 - [ ] El script gestiona LEFT SHIFT → RealityManager.ToggleReality()
+- [ ] Existe `UI/ShiftPanel` con `PanelRenderer + UIShiftButton`
+- [ ] `PanelRenderer` tiene `PanelSettings` y `ShiftUI.uxml` asignados
 
 ---
 
@@ -290,10 +292,11 @@ resultFlag: "BedroomExamined"
    - [ ] HallwayObstacle → VISIBLE
 
 7. **Test UI Shift Button:**
-   - [ ] Icono visible en bottom-right de pantalla
-   - [ ] Hover en icono → cambio visual (color, etc)
-   - [ ] Click en icono → realidad cambia (igual que LEFT SHIFT)
-   - [ ] Console log: "[UIShiftButton] Shift clicked" (si usas script)
+   - [ ] Botón `shift-button` visible en pantalla (Panel Renderer)
+   - [ ] Hover en botón funciona
+   - [ ] Click en botón → realidad cambia (igual que LEFT SHIFT)
+   - [ ] Console log: "[UIShiftButton] Bound click handler to 'shift-button'."
+   - [ ] Console log: "[UIShiftButton] Shift button clicked - toggling reality"
    - [ ] Background y obstáculo cambian igual que con LEFT SHIFT
 
 8. **Test Puertas Placeholder:**
@@ -323,9 +326,10 @@ Una demo funcional que demuestre:
 
 ### Orden de Precedencia en RealityManager
 
-1. CacheBackgrounds() en Start() → busca objetos por nombre
-2. UpdateBackgrounds() en SetReality() → cambia visibilidad de GameObjects
-3. RoomManager.RefreshInteractables() → actualiza visibility de InteractableBehaviour según reglas
+1. `RoomManager.LoadRoom()` activa room actual.
+2. `RealityManager.HandleRoomChanged()` aplica la realidad actual a los backgrounds de esa room.
+3. `RealityManager.SetReality()` alterna estado y reaplica backgrounds.
+4. `RoomManager.RefreshInteractables()` sincroniza visibilidad de interactables con la realidad activa.
 
 ### Debug - Si algo falla
 
@@ -335,7 +339,8 @@ Problema: LEFT SHIFT no funciona
 
 Problema: Backgrounds no cambian
 → Verificar nombres exactos: "BackgroundNormal" y "BackgroundOtherSide"
-→ Verificar que existen bajo Hallway/Visuals
+→ Verificar que existen bajo RoomActual/Visuals (ej. Hallway/Visuals)
+→ Verificar que RoomManager.CurrentRoom.id coincide con el nombre de room en escena
 
 Problema: HallwayObstacle no desaparece
 → Verificar que InteractableData tiene visibleInOtherReality = false
@@ -344,6 +349,12 @@ Problema: HallwayObstacle no desaparece
 Problema: Transiciones no funcionan
 → Verificar linkedRoomId en InteractableData
 → Verificar que nombre de room en GameObject coincide con ID
+
+Problema: Botón SHIFT de UI Toolkit no responde
+→ Verificar PanelRenderer con PanelSettings + ShiftUI.uxml asignados
+→ Verificar que el UXML contiene name="shift-button"
+→ Verificar log: "[UIShiftButton] Bound click handler to 'shift-button'."
+→ Eliminar/desactivar Canvas legacy para evitar confusión de configuración
 ```
 
 ---
