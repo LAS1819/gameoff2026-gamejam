@@ -1,0 +1,37 @@
+:root {
+}
+
+.shift-button {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 64px;
+    height: 64px;
+    background-color: transparent;
+    border-width: 0px;
+    border-radius: 0px;
+    padding: 0px;
+    margin: 0px;
+    -unity-background-scale-mode: scale-to-fit;
+    cursor: link;
+}
+
+.shift-button:hover {
+    opacity: 0.9;
+}
+
+.shift-button:active {
+    opacity: 0.75;
+}
+
+.shift-button:disabled {
+    opacity: 0.35;
+}
+
+.shift-button.normal {
+    background-image: url("project://database/Assets/Art/UI/shift-icon-hooded-figure-normal-world.png");
+}
+
+.shift-button.other-side {
+    background-image: url("project://database/Assets/Art/UI/shift-icon-hooded-figure-other-world.png");
+}

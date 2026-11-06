@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.4-proto] - 2026-11-06
+
+### Added
+
+- Runtime SHIFT UI implemented with UI Toolkit + Panel Renderer
+- Clean icon-only interaction using a `VisualElement` instead of the native Unity Button
+- Room-based SHIFT gating: only enabled in the Hallway by default
+- Visual state switching between normal and Other Side via CSS classes
+- Hover, pressed, disabled feedback handled in USS
+
+### Changed
+
+- Shift logic separated from visual styling to keep the UI layer clean and avoid default button background artifacts
+- Updated the technical setup docs to reflect the actual Panel Renderer implementation and the final icon workflow
+- Adjusted the runtime UI so styling lives in `ShiftUI.uxml` + `shift-button-style-sheet.uss` instead of in C# code
+
+### Fixed
+
+- Removed the default button background that was appearing behind the SHIFT icon
+- Repaired the runtime binding flow for the UI Toolkit clean icon implementation
+- Prevented SHIFT from being triggered in rooms where it is not allowed
+
+### Notes
+
+- MVP loop remains focused on Hallway reality shifting as the technical core of the prototype
+- This release stabilizes the runtime UI layer and brings the SHIFT interaction closer to the final intended presentation
+
+---
+
 ## [0.0.3-proto] - 2026-11-05
 
 ### Added

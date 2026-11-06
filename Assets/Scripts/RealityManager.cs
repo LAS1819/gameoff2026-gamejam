@@ -24,6 +24,22 @@ public class RealityManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void OnEnable()
+    {
+        if (RoomManager.Instance != null)
+        {
+            RoomManager.Instance.RoomChanged += HandleRoomChanged;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (RoomManager.Instance != null)
+        {
+            RoomManager.Instance.RoomChanged -= HandleRoomChanged;
+        }
+    }
+
     public void SetReality(RealityType reality)
     {
         if (CurrentReality == reality)
@@ -47,10 +63,25 @@ public class RealityManager : MonoBehaviour
         SetReality(CurrentReality == RealityType.Normal ? RealityType.OtherSide : RealityType.Normal);
     }
 
+    /// <summary>
+    /// Public static wrapper for UI buttons - can be called directly from Inspector
+    /// </summary>
+    public static void ToggleRealityStatic()
+    {
+        if (Instance != null)
+        {
+            Instance.ToggleReality();
+            Debug.Log("[RealityManager] Reality toggled from UI");
+        }
+        else
+        {
+            Debug.LogError("[RealityManager] Instance not found for UI toggle");
+        }
+    }
+
     private void UpdateBackgrounds()
     {
-        // Always search fresh - rooms activate/deactivate dynamically
-        FindBackgrounds();
+        FindBackgroundsForCurrentRoom();
 
         if (backgroundNormal != null && backgroundOtherSide != null)
         {
@@ -72,26 +103,64 @@ public class RealityManager : MonoBehaviour
         }
     }
 
-    private void FindBackgrounds()
+    private void HandleRoomChanged(RoomData _)
     {
-        // Find backgrounds - includeInactive: true because BackgroundOtherSide is inactive by default
-        var allGameObjects = FindObjectsOfType<GameObject>(includeInactive: true);
-        
+        UpdateBackgrounds();
+    }
+
+    private void FindBackgroundsForCurrentRoom()
+    {
         backgroundNormal = null;
         backgroundOtherSide = null;
 
-        foreach (var go in allGameObjects)
+        var currentRoomId = RoomManager.Instance?.CurrentRoom?.id;
+        if (string.IsNullOrEmpty(currentRoomId))
         {
-            if (go.name == "BackgroundNormal" && backgroundNormal == null)
+            return;
+        }
+
+        var roomsRoot = GameObject.Find("Rooms");
+        if (roomsRoot == null)
+        {
+            Debug.LogWarning("[RealityManager] 'Rooms' root not found.");
+            return;
+        }
+
+        Transform roomRoot = null;
+        foreach (Transform child in roomsRoot.transform)
+        {
+            if (child.name.Equals(currentRoomId, StringComparison.OrdinalIgnoreCase))
             {
-                backgroundNormal = go;
-                Debug.Log($"[RealityManager] Found BackgroundNormal at {GetFullPath(go.transform)}");
+                roomRoot = child;
+                break;
             }
-            else if (go.name == "BackgroundOtherSide" && backgroundOtherSide == null)
-            {
-                backgroundOtherSide = go;
-                Debug.Log($"[RealityManager] Found BackgroundOtherSide at {GetFullPath(go.transform)}");
-            }
+        }
+
+        if (roomRoot == null)
+        {
+            Debug.LogWarning($"[RealityManager] Active room root not found for '{currentRoomId}'.");
+            return;
+        }
+
+        var visuals = roomRoot.Find("Visuals");
+        if (visuals == null)
+        {
+            return;
+        }
+
+        var normal = visuals.Find("BackgroundNormal");
+        var other = visuals.Find("BackgroundOtherSide");
+
+        if (normal != null)
+        {
+            backgroundNormal = normal.gameObject;
+            Debug.Log($"[RealityManager] Found BackgroundNormal at {GetFullPath(normal)}");
+        }
+
+        if (other != null)
+        {
+            backgroundOtherSide = other.gameObject;
+            Debug.Log($"[RealityManager] Found BackgroundOtherSide at {GetFullPath(other)}");
         }
     }
 
