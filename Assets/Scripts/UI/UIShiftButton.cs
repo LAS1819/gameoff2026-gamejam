@@ -1,17 +1,22 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 /// <summary>
-/// UI Button handler for the SHIFT mechanic using UI Toolkit.
-/// Connects Panel Renderer button click to RealityManager.ToggleReality().
+/// Logic for the Shift icon. All visual appearance is handled in the UXML/USS stylesheet.
 /// </summary>
 [RequireComponent(typeof(PanelRenderer))]
 public class UIShiftButton : MonoBehaviour
 {
+    [Header("Room gating")]
+    [SerializeField] private List<string> shiftEnabledRoomIds = new() { GameManager.HallwayRoomId };
+
     private PanelRenderer m_PanelRenderer;
-    private Button m_ShiftButton;
+    private VisualElement m_ShiftButton;
     private PanelRenderer.VersionedUIReloadCallback m_ReloadCallback;
     private int m_LastBoundVersion = -1;
+    private bool m_RoomEventsSubscribed;
+    private bool m_RealityEventsSubscribed;
 
     private void OnEnable()
     {
@@ -36,7 +41,13 @@ public class UIShiftButton : MonoBehaviour
 
         m_ReloadCallback = HandlePanelReloaded;
         m_PanelRenderer.RegisterUIReloadCallback(m_ReloadCallback);
-        Debug.Log("[UIShiftButton] Registered panel reload callback.");
+
+        TrySubscribeRuntimeEvents();
+    }
+
+    private void Start()
+    {
+        TrySubscribeRuntimeEvents();
     }
 
     private void OnDisable()
@@ -48,10 +59,11 @@ public class UIShiftButton : MonoBehaviour
 
         if (m_ShiftButton != null)
         {
-            m_ShiftButton.clicked -= OnShiftButtonClicked;
+            UnregisterCallbacks();
             m_ShiftButton = null;
         }
 
+        UnsubscribeRuntimeEvents();
         m_LastBoundVersion = -1;
     }
 
@@ -66,7 +78,7 @@ public class UIShiftButton : MonoBehaviour
 
         if (m_ShiftButton != null)
         {
-            m_ShiftButton.clicked -= OnShiftButtonClicked;
+            UnregisterCallbacks();
             m_ShiftButton = null;
         }
 
@@ -76,20 +88,45 @@ public class UIShiftButton : MonoBehaviour
             return;
         }
 
-        m_ShiftButton = root.Q<Button>("shift-button");
+        m_ShiftButton = root.Q<VisualElement>("shift-button");
         if (m_ShiftButton == null)
         {
-            Debug.LogError("[UIShiftButton] Button 'shift-button' not found in active visual tree.");
+            Debug.LogError("[UIShiftButton] VisualElement 'shift-button' not found in active visual tree.");
             return;
         }
 
-        m_ShiftButton.clicked += OnShiftButtonClicked;
-        Debug.Log("[UIShiftButton] Bound click handler to 'shift-button'.");
+        RegisterCallbacks();
+        RefreshButtonState();
     }
 
-    private void OnShiftButtonClicked()
+    private void RegisterCallbacks()
     {
-        Debug.Log("[UIShiftButton] Shift button clicked - toggling reality");
+        if (m_ShiftButton == null)
+        {
+            return;
+        }
+
+        m_ShiftButton.RegisterCallback<ClickEvent>(OnShiftButtonClicked);
+    }
+
+    private void UnregisterCallbacks()
+    {
+        if (m_ShiftButton == null)
+        {
+            return;
+        }
+
+        m_ShiftButton.UnregisterCallback<ClickEvent>(OnShiftButtonClicked);
+    }
+
+    private void OnShiftButtonClicked(ClickEvent evt)
+    {
+        if (!IsShiftAllowedInCurrentRoom())
+        {
+            var roomId = RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>";
+            Debug.LogWarning($"[UIShiftButton] SHIFT unavailable in room '{roomId}'.");
+            return;
+        }
 
         if (RealityManager.Instance == null)
         {
@@ -98,5 +135,95 @@ public class UIShiftButton : MonoBehaviour
         }
 
         RealityManager.Instance.ToggleReality();
+        GameManager.Instance?.SetFlag(GameFlagNames.ShiftPerformed, true);
+        Debug.Log("[UIShiftButton] Shift button clicked - toggling reality");
+    }
+
+    private void TrySubscribeRuntimeEvents()
+    {
+        if (!m_RoomEventsSubscribed && RoomManager.Instance != null)
+        {
+            RoomManager.Instance.RoomChanged += HandleRoomChanged;
+            m_RoomEventsSubscribed = true;
+        }
+
+        if (!m_RealityEventsSubscribed && RealityManager.Instance != null)
+        {
+            RealityManager.Instance.RealityChanged += HandleRealityChanged;
+            m_RealityEventsSubscribed = true;
+        }
+
+        RefreshButtonState();
+    }
+
+    private void UnsubscribeRuntimeEvents()
+    {
+        if (m_RoomEventsSubscribed && RoomManager.Instance != null)
+        {
+            RoomManager.Instance.RoomChanged -= HandleRoomChanged;
+        }
+
+        if (m_RealityEventsSubscribed && RealityManager.Instance != null)
+        {
+            RealityManager.Instance.RealityChanged -= HandleRealityChanged;
+        }
+
+        m_RoomEventsSubscribed = false;
+        m_RealityEventsSubscribed = false;
+    }
+
+    private void HandleRoomChanged(RoomData _)
+    {
+        RefreshButtonState();
+    }
+
+    private void HandleRealityChanged(RealityType _)
+    {
+        RefreshButtonState();
+    }
+
+    private void RefreshButtonState()
+    {
+        if (m_ShiftButton == null)
+        {
+            return;
+        }
+
+        var allowed = IsShiftAllowedInCurrentRoom();
+        m_ShiftButton.SetEnabled(allowed);
+        UpdateRealityClass();
+    }
+
+    private void UpdateRealityClass()
+    {
+        if (m_ShiftButton == null)
+        {
+            return;
+        }
+
+        var isOtherSide = RealityManager.Instance != null && RealityManager.Instance.CurrentReality == RealityType.OtherSide;
+
+        m_ShiftButton.EnableInClassList("normal", !isOtherSide);
+        m_ShiftButton.EnableInClassList("other-side", isOtherSide);
+    }
+
+    private bool IsShiftAllowedInCurrentRoom()
+    {
+        var roomId = RoomManager.Instance?.CurrentRoom?.id;
+        if (string.IsNullOrEmpty(roomId))
+        {
+            return false;
+        }
+
+        foreach (var allowedRoom in shiftEnabledRoomIds)
+        {
+            if (!string.IsNullOrWhiteSpace(allowedRoom) &&
+                roomId.Equals(allowedRoom, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

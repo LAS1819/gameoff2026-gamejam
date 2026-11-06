@@ -124,19 +124,33 @@ UI
    - [ ] `Source Asset` asignado (`ShiftUI.uxml`)
 
 2. **UXML (`ShiftUI.uxml`):**
-   - [ ] Existe un botón con `name=\"shift-button\"`
-   - [ ] Botón visible en esquina inferior derecha vía estilos UXML/USS o posicionamiento del panel
+   - [x] Existe un `VisualElement` con `name="shift-button"`
+   - [x] El elemento se visualiza en la esquina inferior derecha mediante estilos USS
+   - [x] No se usa un `Button` nativo para evitar el fondo por defecto del tema
 
 3. **Binding C#:**
-   - [ ] `UIShiftButton.cs` en el mismo GameObject que `PanelRenderer`
-   - [ ] Registra callback con `RegisterUIReloadCallback(VersionedUIReloadCallback)`
-   - [ ] Busca el botón con `root.Q<Button>(\"shift-button\")`
-   - [ ] Conecta `clicked += OnShiftButtonClicked`
-   - [ ] En click ejecuta `RealityManager.Instance.ToggleReality()`
+   - [x] `UIShiftButton.cs` en el mismo GameObject que `PanelRenderer`
+   - [x] Registra callback con `RegisterUIReloadCallback(VersionedUIReloadCallback)`
+   - [x] Busca el elemento con `root.Q<VisualElement>("shift-button")`
+   - [x] Conecta `RegisterCallback<ClickEvent>(OnShiftButtonClicked)`
+   - [x] En click ejecuta `RealityManager.Instance.ToggleReality()`
+   - [x] Lista `shiftEnabledRoomIds` configurada (MVP: `hallway`)
+   - [x] En room no permitida: warning log y sin toggle
+   - [x] Al click válido: set de flag `ShiftPerformed`
+   - [x] El cambio entre mundo normal y Other Side se gestiona mediante clases CSS (`normal` / `other-side`)
+   - [x] El styling visual (fondos, hover, pressed, opacity) vive en `shift-button-style-sheet.uss`
 
 4. **Limpieza de legado Canvas (importante):**
-   - [ ] Mantener desactivado/eliminar `Canvas` y `ShiftIconContainer` anteriores para evitar configuraciones mezcladas
-   - [ ] Evitar tener dos sistemas activos para el mismo botón SHIFT
+   - [x] Mantener desactivado/eliminar `Canvas` y `ShiftIconContainer` anteriores para evitar configuraciones mezcladas
+   - [x] Evitar tener dos sistemas activos para el mismo botón SHIFT
+
+**Estilo visual actual (UI Toolkit):**
+
+- El `VisualElement` `shift-button` es el único elemento visible.
+- No se usa `Button` para evitar el tema por defecto y el fondo blanco.
+- La textura se asigna desde la clase CSS `normal` / `other-side`.
+- El hover/pressed se controlan con `:hover` y `:active` en USS.
+- El estado bloqueado se representa con `:disabled` y con la lógica de room gating en C#.
 
 **Sprite Requirements (si usas icono personalizado):**
 
@@ -144,7 +158,7 @@ UI
 - Filter Mode: Point
 - Paleta coherente con el arte del juego
 
-**Nota:** El MVP prioriza comportamiento fiable de click + toggle. El arte final del icono puede iterarse después.
+**Nota:** El MVP prioriza comportamiento fiable de click + toggle. La apariencia visual del icono se resuelve en UI Toolkit, manteniendo la lógica separada del styling.
 
 ---
 
@@ -294,9 +308,12 @@ resultFlag: "BedroomExamined"
 7. **Test UI Shift Button:**
    - [ ] Botón `shift-button` visible en pantalla (Panel Renderer)
    - [ ] Hover en botón funciona
-   - [ ] Click en botón → realidad cambia (igual que LEFT SHIFT)
+   - [ ] En Lobby: click en botón NO cambia realidad y muestra warning
+   - [ ] En Hallway: click en botón SI cambia realidad (igual que LEFT SHIFT)
    - [ ] Console log: "[UIShiftButton] Bound click handler to 'shift-button'."
    - [ ] Console log: "[UIShiftButton] Shift button clicked - toggling reality"
+   - [ ] Console log warning cuando se pulsa en room no permitida
+   - [ ] El icono cambia entre Normal / OtherSide
    - [ ] Background y obstáculo cambian igual que con LEFT SHIFT
 
 8. **Test Puertas Placeholder:**

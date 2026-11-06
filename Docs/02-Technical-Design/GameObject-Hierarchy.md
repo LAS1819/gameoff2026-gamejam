@@ -80,9 +80,10 @@ Main
 
 ### Runtime UI (UI Toolkit + Panel Renderer)
 
-- SHIFT icon/button is implemented with **UI Toolkit runtime** via **PanelRenderer**.
-- `ShiftUI.uxml` must contain a button with `name="shift-button"`.
-- `UIShiftButton` script binds click callback during panel reload and calls `RealityManager.Instance.ToggleReality()`.
+- SHIFT icon is implemented with **UI Toolkit runtime** via **PanelRenderer**.
+- `ShiftUI.uxml` contains a `VisualElement` named `shift-button` and all visual styling lives in `shift-button-style-sheet.uss`.
+- `UIShiftButton` binds the click callback during panel reload and calls `RealityManager.Instance.ToggleReality()` only when the current room is allowed.
+- The button does not use a native Unity `Button`; instead it uses `RegisterCallback<ClickEvent>()` and CSS classes for `normal` and `other-side` state.
 - Avoid mixing with legacy Canvas/Button setup for SHIFT to prevent duplicated or conflicting configuration.
 
 ---
