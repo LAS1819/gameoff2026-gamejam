@@ -1,529 +1,263 @@
 # MVP Sprint 1 - Base del flujo jugable
 
-- Fecha inicio: 03/11/2026 (miércoles)
-- Fecha objetivo: 08/11/2026 (domingo)
-- Estado: 🟡 IN PROGRESS - Lobby Complete, Hallway Final Push
+- Fecha inicio: 03/11/2026
+- Fecha objetivo: 08/11/2026
+- Estado: 🟡 IN PROGRESS - Lobby validado, Hallway final push
 - Creado: 03/11/2026
-- Actualizado: 05/11/2026 (sesión Sprint 1 - Cierre MVP Base)
+- Actualizado: 06/11/2026
 
 ## Objetivo
 
-Entregar una primera versión funcional del MVP centrada en validar la arquitectura principal del juego y demostrar que el flujo mínimo de juego funciona de extremo a extremo:
+Validar la arquitectura del juego y demostrar el flujo mínimo de extremo a extremo:
 
-- entrada al vestíbulo
+- entrar al vestíbulo
 - recoger la llave del personal
 - abrir la puerta
 - entrar al pasillo
 - activar SHIFT
 - cambiar a la otra realidad
-- remover el obstáculo
+- eliminar el obstáculo
 - continuar el recorrido
 
-No se busca contenido completo ni pulido artístico. El objetivo principal es comprobar que los sistemas base están bien conectados y pueden sostener la propuesta del juego.
+No se busca contenido completo ni pulido artístico. El objetivo es comprobar que los sistemas base están bien conectados.
 
 ---
 
-## Alcance del sprint
+## Alcance
 
 ### Incluido
 
-- Sistema global de estado: GameManager
-- Sistema de flags
-- Habitaciones mínimas: Vestíbulo y Pasillo Principal
-- Objeto interactivo: Llave del Personal
-- Interacción básica: examinar, recoger, usar
-- Inventario mínimo
-- Cambio de sala
-- Sistema SHIFT básico
-- Cambio de realidad entre Normal y Other Side
-- UI mínima para feedback
-- Elementos visuales temporales para validar progresión
+- GameManager global con flags
+- RoomManager y carga por room ID
+- InventoryManager + InteractionManager
+- Lógica básica de examinar, recoger, usar
+- Sistema SHIFT y cambio de realidad
+- Hallway con obstacle gating
+- Puertas placeholder de Library/Bedroom (logs, no rooms reales)
 
 ### No incluido
 
-- Sistema temporal completo
-- Eventos dinámicos
-- Finales
-- Biblioteca, sótano, sala ritual
-- Guardado avanzado
-- Audio definitivo
+- Biblioteca / sótano / sala ritual reales
+- Save avanzado
+- Audio final
 - Arte final
-
----
-
-## Issue / entregable principal
-
-### Título
-
-`MVP Sprint 1 - Validar arquitectura y flujo mínimo SHIFT`
-
-### Descripción
-
-Implementar la base técnica y el flujo jugable mínimo para verificar que:
-
-1. el jugador puede interactuar con el entorno,
-2. el inventario funciona,
-3. las flags gestionan la progresión,
-4. la habitación y la realidad cambian correctamente,
-5. el cambio de realidad permite resolver el obstáculo principal del primer tramo del juego.
+- UI compleja o narrativa profunda
 
 ---
 
 ## Requisitos funcionales mínimos
 
-### 1. Game state y flags
+### 1. Estado del juego
 
-- Crear un sistema global de estado con acceso persistente durante la partida.
-- Implementar `SetFlag()` y `HasFlag()`.
-- Mantener al menos estas flags del MVP:
-  - `HasStaffKey`
-  - `DoorOpened`
-  - `RealityUnlocked`
+- SetFlag() y HasFlag() en GameManager
+- Flags mínimas: HasStaffKey, DoorOpened, RealityUnlocked, ShiftPerformed
 
 ### 2. Habitaciones
 
-- Cargar habitaciones por ID.
-- Cambiar entre Vestíbulo y Pasillo Principal.
-- Actualizar interactivos visibles en cada sala.
-- Mantener la posición del jugador entre cambios de sala.
+- Cargar rooms por ID
+- Cambiar entre Lobby y Hallway
+- Actualizar interactivos visibles por sala
+- Mantener continuidad del flujo
 
 ### 3. Inventario
 
-- Añadir objetos al inventario.
-- Eliminar objetos consumidos.
-- Consultar si un objeto está disponible.
-- Usar un objeto sobre un interactivo del escenario.
+- Añadir y eliminar objetos
+- Consultar disponibilidad
+- Usar un item sobre un interactivo
 
 ### 4. Interacción
 
-- Examinar objetos o elementos del escenario.
-- Recoger la llave.
-- Usar la llave sobre la puerta.
-- Resolver el acceso a la siguiente zona.
+- Examinar objetos
+- Recoger llave
+- Usar llave sobre puerta
+- Resolver acceso al siguiente tramo
 
 ### 5. SHIFT / realidad
 
-- Permitir alternar entre Normal y Other Side.
-- Cambiar el fondo o visualización del escenario.
-- Mostrar/ocultar interactivos según la realidad activa.
-- El obstáculo del pasillo debe desaparecer en la realidad correcta.
+- Alternar entre Normal y Other Side
+- Cambiar fondo visual
+- Mostrar/ocultar interactivos según la realidad
+- Obstáculo desaparece en la realidad correcta
 
 ---
 
-## Tareas por prioridad
+## Estado actual
 
-### Tarea 1 - Base técnica ✅ COMPLETE
+### Base técnica ✅
 
-- [x] Crear GameManager
-- [x] Crear sistema de flags
-- [x] Definir Data models para Room, Interactable e InventoryItem
-- [x] Preparar estructura base de escenas y prefabs
+- [x] GameManager
+- [x] sistema de flags
+- [x] modelos de Room / Interactable / InventoryItem
+- [x] estructura base de escenas y scripts
 
-### Tarea 2 - Sistema de habitaciones ✅ COMPLETE
+### Habitaciones ✅
 
-- [x] Crear Sprites necesarios para Lobby
-- [x] Implementar RoomManager
-- [x] Cargar sala activa
-- [x] Cambiar de sala
-- [x] Actualizar lista de elementos interactivos
+- [x] Lobby
+- [x] Hallway
+- [x] transición entre salas
+- [x] interactivos visibles por room
 
-### Tarea 3 - Sistema de interacción y inventario ✅ COMPLETE
+### Interacción e inventario ✅
 
-- [x] Implementar InventoryManager
-- [x] Implementar InteractionManager
-- [x] Añadir acción de examinar
-- [x] Añadir acción de recoger
-- [x] Añadir acción de usar objeto sobre interactivo
+- [x] recoger llave
+- [x] usar llave sobre puerta
+- [x] inventario mínimo
+- [x] lógica de interacción centralizada
 
-### Tarea 4 - Sistema SHIFT / realidad 🔴 IN PROGRESS (PRIORIDAD AHORA)
+### SHIFT / realidad ✅
 
-- [x] Crear Sprites necesarios para Hallway
-- [x] Implementar RealityManager
-- [x] Cambiar entre realidades (código core)
-- [ ] **Conectar InputHandler → RealityManager (LEFT SHIFT)**
-- [ ] **Actualizar RealityManager para cambiar backgrounds dinámicamente**
-- [ ] **Configurar BackgroundNormal y BackgroundOtherSide en Hallway**
-- [ ] **Hacer que HallwayObstacle desaparezca en El Otro Lado (visibilidad dinámica)**
-- [ ] **Crear puertas placeholder para Library y Bedroom (logs en click)**
+- [x] RealityManager funcional
+- [x] cambio entre realidades
+- [x] backgrounds por room
+- [x] obstacle oculto en Other Side
+- [x] puertas placeholder en Hallway
 
-### Tarea 5 - Validación del flujo MVP 🔴 IN PROGRESS
+### Validación del flujo ✅
 
-- [x] Vestíbulo: recoger llave ✅
-- [x] Puerta: activar flag y abrir acceso ✅
-- [x] Pasillo: cargar nueva habitación ✅
-- [ ] **SHIFT (LEFT SHIFT): cambiar realidad visualmente con backgrounds**
-- [ ] **El obstáculo desaparece en El Otro Lado**
-- [ ] **Puertas Library/Bedroom responden (logs)**
-- [ ] **Flujo completo sin errores**: Lobby → Hallway → SHIFT → Toggle realidad → Puertas funcionales
-
-### Tarea 6 - Presentación mínima ⏳ NOT STARTED
-
-- [ ] UI básica para inventario y feedback de texto
-- [ ] fondos provisionales (Normal y OtherSide en Hallway)
-- [ ] transiciones de realidad compactas
-- [ ] comprobación visual del flujo completo
-- [ ] Demo grabada del MVP funcionando end-to-end
+- [x] Lobby: recoger llave
+- [x] puerta: abrir acceso
+- [x] Hallway: cambiar de room
+- [x] SHIFT: cambiar realidad
+- [x] obstáculo desaparece / reaparece
+- [x] puertas placeholder responden con log
 
 ---
 
-## Criterios de aceptación
+## Criterios de aceptación del sprint
 
-Este sprint se considera completo si es posible grabar una demostración en la que se vea, de manera funcional:
+La demo se considera correcta si se puede grabar una secuencia funcional con:
 
-1. entrar en el Vestíbulo,
-2. recoger la Llave del Personal,
-3. usar la llave sobre la puerta,
-4. entrar al Pasillo Principal,
-5. presionar LEFT SHIFT para cambiar de realidad,
-6. ver que el fondo cambia y el obstáculo desaparece,
-7. presionar LEFT SHIFT de nuevo para volver a la realidad normal,
-8. ver que el obstáculo reaparece y el fondo vuelve,
-9. hacer click en las puertas de Library y Bedroom (verán logs confirmando el click),
-10. completar la secuencia sin errores de lógica ni de flujo.
-
----
-
-## Checklist de cierre - Ready para Demo 1
-
-Antes de dar por cerrada la entrega del sprint, se recomienda validar esta lista en orden y no movernos a contenido nuevo hasta que todo lo que esté marcado como bloqueante esté verde.
-
-### Bloqueantes del MVP (para demostrar el flujo principal)
-
-- [ ] Entrada al Vestíbulo desde la escena base funciona sin errores.
-- [ ] La llave del personal se recoge correctamente y entra al inventario.
-- [ ] La puerta del vestíbulo requiere la llave y se desbloquea con la flag `DoorOpened`.
-- [ ] El jugador entra al Pasillo Principal y la sala cambia correctamente.
-- [ ] `LEFT SHIFT` activa el cambio de realidad desde el teclado.
-- [ ] El `RealityManager` cambia el fondo visualmente entre `Normal` y `Other Side`.
-- [ ] El obstáculo del pasillo desaparece en `Other Side` y vuelve en `Normal`.
-- [ ] Las puertas placeholder de `Library` y `Bedroom` responden con log y no rompen el flujo.
-- [ ] El sistema de flags no se desincroniza durante la ejecución (sin `HasStaffKey`/`DoorOpened`/`RealityUnlocked` inconsistentes).
-- [ ] No hay errores críticos en consola durante una ejecución completa del flujo.
-- [ ] La secuencia puede repetirse en al menos 2 ejecuciones consecutivas sin bloqueos.
-
-### Validación visual mínima de la demo
-
-- [ ] Se ve claramente el cambio de fondo al activar SHIFT.
-- [ ] El obstáculo se oculta/aparece de forma visible y consistente.
-- [ ] La transición entre rooms mantiene la sensación de continuidad del recorrido.
-- [ ] El feedback de consola es claro y útil para validar el progreso.
-- [ ] El flujo queda grabable sin necesidad de explicar cada acción antes de la toma.
-
-### Guardas de scope para el cierre del sprint
-
-- [ ] No se añade contenido de `Library` ni `Bedroom` completo antes de la demo 1.
-- [ ] No se implementan sistemas grandes de UI o narrativa si bloquean la validación del flujo.
-- [ ] Si se trabaja extra fuera del MVP, se limita a pulido mínimo que no altere la arquitectura base.
-- [ ] Toda mejora post-demo debe estar documentada como tarea de siguiente sprint o follow-up.
-
-### Recomendación de prioridad para las 48 horas que quedan
-
-- [ ] Dar prioridad a cerrar la demo 1 con flujo estable y grabable.
-- [ ] Dejar para después la UI de inventario y feedback más elaborada.
-- [ ] Si se hace pulido extra, hacerlo como mejora local y no como bloqueante del MVP.
-
-### Post-demo: mejoras valiosas pero no esenciales para Sprint 1
-
-- [ ] Inventario visual con iconos por item y estado de recogida.
-- [ ] Cuadro de feedback textual con mensajes temporales al interactuar.
-- [ ] Transición leve entre habitaciones (fade / crossfade / overlay).
-- [ ] Transición visual entre realidad normal y Other Side (más suave que un cambio abrupto).
-- [ ] Feedback audio o FX mínimo para reforzar el momento SHIFT.
-
-> Recomendación clave: estas mejoras son buenas, pero no deben convertirse en una segunda arquitectura. Para este proyecto, vale con una implementación mínima y funcional: inventario básico, feedback textual y una transición muy simple. Eso mantiene la entrega del sprint centrada en la prueba del flujo principal, sin inflar la scope.
+1. entrada al Vestíbulo
+2. recogida de la Llave del Personal
+3. uso de la llave sobre la puerta
+4. entrada al Pasillo Principal
+5. LEFT SHIFT para cambiar de realidad
+6. fondo y obstáculo actualizados visualmente
+7. LEFT SHIFT para volver a la normalidad
+8. click en las puertas placeholder de Library y Bedroom (log de confirmación)
+9. secuencia sin errores lógicos ni de flujo
 
 ---
 
-## FOCUS SESSION - Sprint 1 Final Push (05/11/2026)
+## Checklist de cierre antes de la demo
 
-### Estrategia de cierre: MVP Base → Demo Funcional
+### Bloqueantes
 
-En esta sesión nos enfocamos en **TERMINAR EL MVP BASE** (Opción A) con el mínimo viable:
+- [ ] flujo completo Lobby → Hallway funciona repetidamente
+- [ ] LEFT SHIFT responde desde teclado
+- [ ] RealityManager cambia visualmente la realidad
+- [ ] obstáculo desaparece/en aparece correctamente
+- [ ] puertas placeholder no rompen la progresión
+- [ ] no hay errores críticos en consola
+- [ ] flags no se desincronizan
 
-1. **Hallway SHIFT System Completo** (60-90 min)
-   - Conectar InputHandler ↔ RealityManager para LEFT SHIFT
-   - RealityManager cambia BackgroundNormal ↔ BackgroundOtherSide
-   - HallwayObstacle desaparece/aparece dinámicamente
-   - Validar transiciones visuales
+### Visual / presentación mínima
 
-2. **Puertas Placeholder Library/Bedroom** (20-30 min)
-   - Crear dos GameObjects interactivos en Hallway
-   - Al clickear: log en consola confirmando la room
-   - Validar que el sistema de click funciona
+- [ ] cambio de fondo visible
+- [ ] realidades diferenciadas de forma clara
+- [ ] feedback de consola útil
+- [ ] la secuencia es grabable sin explicación extra
 
-3. **Validación End-to-End** (20 min)
-   - Grabar demo del flujo completo
-   - Documentar cualquier bug
+### Scope guard
 
-### Alcance deliberadamente limitado
-
-- ❌ NO implementar Library/Bedroom rooms completas
-- ❌ NO implementar UI avanzada
-- ❌ NO agregar más interactables de los necesarios
-- ✅ Validar que la arquitectura base aguanta el flujo principal
-- ✅ Demostrar que SHIFT funciona como se intenta usar en el juego
+- [ ] no se implementan Library/Bedroom reales antes de la demo
+- [ ] no se añade sistema grande si complica la demo
+- [ ] cualquier extra queda para siguiente sprint
 
 ---
 
-El sprint estará terminado cuando:
+## Polish mínimo recomendado para la demo 1
 
-- el flujo principal del MVP funciona sin bloquearse,
-- no hay errores críticos en la lógica de flags,
-- el inventario y la interacción responden correctamente,
-- la transición entre realidades es visible y consistente,
-- la secuencia puede repetirse con éxito en una sesión corta.
-
----
-
-## Propuesta de polish mínimo para la demo 1
-
-Este no es un sprint de contenido ni de sistemas nuevos. Es una capa de acabado mínimo para que la demo se sienta clara, legible y profesional sin romper la arquitectura del MVP.
+Esto no es un sistema nuevo: es una capa ligera para que la demo se sienta clara y terminada sin romper la arquitectura actual.
 
 ### Objetivo
 
-- dar feedback inmediato al jugador cuando recoge un objeto,
-- mostrar qué items tiene el personaje,
-- hacer que los cambios de room y de realidad no se sientan bruscos,
-- mantener el código simple y jugable para dos personas en una game jam.
+- feedback al recoger item
+- mostrar lo que lleva el personaje
+- hacer transición entre rooms y realidades menos brusca
+- mantener el código simple y mucho más manejable para 2 personas
 
-### Principio de diseño
+### 1) HUD centralizado con Panel Renderer
 
-- no crear un sistema gigante,
-- no añadir más de una UI principal y un overlay de transición,
-- mantener todo conectado con los managers existentes,
-- priorizar legibilidad sobre arte sofisticado.
+Usar el mismo patrón que ya tiene el SHIFT button:
 
-### 1) Inventario mínimo visual
+- un único PanelRenderer para todo el HUD
+- VisualTreeAsset + USS para los estilos
+- binding mediante RegisterUIReloadCallback()
+- eventos para actualizar inventario, feedback y overlay
 
-#### Estructura recomendada
+Recomendación:
 
-- `Canvas`
-  - `HUD`
-    - `InventoryPanel`
-      - `Slot_1`
-      - `Slot_2`
-      - `Slot_3`
-      - etc.
-  - `FeedbackPanel`
-  - `TransitionOverlay`
+- HUDRoot con InventoryPanel, FeedbackText, TransitionOverlay, RealityPulse
+- el ShiftButton ya no vive como UI aislada; forma parte del mismo HUD y se actualiza desde el mismo controller
+- el UIShiftButton solo manejaría el click y delegaría el estado visual al HUD root
 
-#### Requisitos
+Esto favorece coherencia, evita duplicación de bindings y deja el sistema preparado para crecer sin sobre-diseñar.
 
-- Un panel pequeño en la parte inferior o superior.
-- 2-4 slots fijos para la demo.
-- Cada slot muestra icono + estado vacío/ocupado.
-- El primer item es la `Staff Key`.
-- La UI se actualiza al `InventoryManager.ItemAdded` y `ItemRemoved`.
-- Si más adelante se añade más contenido, el sistema ampliará slots sin tocar la lógica principal.
+### 2) Inventario visual mínimo
 
-#### Implementación mínima
+- 2-4 slots fijos
+- iconos simples o placeholders
+- InventoryManager.ItemAdded / ItemRemoved actualiza el panel
+- Staff Key es el primer item visible
 
-- No hace falta un inventario complejo por escenas.
-- Solo necesitamos un `Image` por slot y un `Text` opcional con nombre.
-- La lógica puede vivir en `UIManager` con un método `RefreshInventoryUI()`.
-- Si el item tiene icono asociado, se puede asignar desde el `InventoryItemData` o dejarlo como referencia directa en el slot.
+### 3) Feedback textual
 
-### 2) Feedback textual mínimo
+- panel pequeño con texto temporal
+- UIManager.ShowFeedback('...')
+- mensaje de 1-2 segundos
+- solo el último mensaje necesita mostrarse
 
-#### Objetivo
+### 4) Transiciones mínimas
 
-- confirmar cada acción importante,
-- explicar al usuario qué ha pasado,
-- dar sensación de “sistema vivo” sin necesidad de diálogos largos.
+- fade negro entre rooms
+- pulse corto entre realidades
+- duración breve (0.25s-0.5s)
+- no más cinematografía que eso
 
-#### Mensajes recomendados
+### 5) Estructura recomendada
 
-- `Has recogido la Llave del Personal.`
-- `La puerta está cerrada. Necesitas una llave.`
-- `La puerta se abre con un chasquido.`
-- `Has entrado en el Pasillo Principal.`
-- `El otro lado te devuelve la visión de la realidad.`
+- GameManager: flags y estado global
+- InventoryManager: items
+- InteractionManager: acciones del jugador
+- RoomManager: rooms y transiciones
+- RealityManager: cambio de mundo
+- UIManager / HUDController: feedback + inventory + overlay
 
-#### Implementación
+### 6) Qué no hacer
 
-- Un panel de texto central con un `TextMeshProUGUI` o `Text`.
-- `UIManager.ShowFeedback(string message, float duration = 1.5f)`
-- El mensaje aparece con fade o slide suave y desaparece tras un tiempo.
-- No hace falta cola ni historial; solo el último mensaje es suficiente para la demo.
-
-### 3) Transición mínima entre rooms
-
-#### Opción recomendada
-
-- Fade negro sencillo `CanvasGroup` o `Image` full-screen.
-- El `RoomManager` activa overlay, carga la room, y luego desactiva overlay.
-
-#### Flujo
-
-1. `RoomManager.LoadRoom()` empieza la transición.
-2. Overlay se vuelve visible con alpha 0 -> 1.
-3. Se cambia la room.
-4. Overlay vuelve a alpha 1 -> 0.
-
-#### Duración recomendada
-
-- 0.25s a 0.5s, no más.
-- Debe sentirse corto y limpio, no cinematográfico.
-
-### 4) Transición mínima entre realidades
-
-#### Opción recomendada
-
-- Un `Image` o `CanvasGroup` con color tint que se activa al cambiar de realidad.
-- El cambio de fondo ya lo hace `RealityManager`; la transición solo suaviza la percepción visual.
-
-#### Reglas
-
-- Si la transición es muy corta, mejor que un efecto largo.
-- La idea es comunicar un “cambio de mundo”, no crear un segundo mini-puzzle.
-
-#### Implementación simple
-
-- `RealityManager` puede disparar un evento `RealityChanged` o invocar un `UIManager.TriggerRealityPulse()`.
-- El pulse puede ser un color de 0.2s a 0.4s con alpha de 0.15-0.25.
-
-### 5) Estructura técnica mínima
-
-#### Managers involucrados
-
-- `GameManager`: estado global y flags
-- `InventoryManager`: items recogidos
-- `InteractionManager`: acciones del jugador
-- `RoomManager`: carga de habitaciones y transiciones
-- `RealityManager`: cambio de mundo
-- `UIManager`: feedback, inventario y overlay
-
-#### Uso recomendado de UI Toolkit con Panel Renderer
-
-Para el pulido mínimo de la demo, conviene seguir el mismo patrón que ya usamos con [UIShiftButton.cs](../../Assets/Scripts/UI/UIShiftButton.cs) y [shift-button-style-sheet.uss](../../Assets/UI/shift-button-style-sheet.uss):
-
-- usar `PanelRenderer` en lugar de `UIDocument` si la intención es mostrar UI runtime en la escena,
-- mantener la lógica en scripts C# y el estilo en `.uss`,
-- separar claramente el árbol visual (`.uxml`) del comportamiento (`PanelRenderer` + script),
-- hacer binding después de cada recarga del panel y no depender de `Find` o `GameObject.Find` para cada elemento.
-
-Esto es más estable para una jam porque evita el patrón legacy de `UIDocument` y encaja mejor con un sistema de HUD dinámico, al mismo tiempo que reutiliza lo que ya hemos validado con el botón SHIFT.
-
-#### Estructura recomendada para el HUD
-
-- `HUDRoot` (GameObject con `PanelRenderer`)
-  - `InventoryPanel`
-    - `slot-0`
-    - `slot-1`
-    - `slot-2`
-  - `FeedbackText`
-  - `TransitionOverlay`
-  - `RealityPulse`
-
-#### Regla de implementación
-
-- el `PanelRenderer` debe llevar `PanelSettings` y `VisualTreeAsset` asignados,
-- el script escucha `RegisterUIReloadCallback()` para enlazar `VisualElement`s,
-- los cambios de estado se realizan con clases CSS (`.visible`, `.hidden`, `.full`, `.pulse`) y no con `SetEnabled()` para montar estados visuales,
-- la lógica del inventario se actualiza por eventos (`ItemAdded`, `ItemRemoved`, `RoomChanged`, `RealityChanged`).
-
-#### Patrón de comportamiento sugerido
-
-```csharp
-private void HandlePanelReloaded(PanelRenderer panelRenderer, VisualElement root, int version)
-{
-    inventorySlots = new List<VisualElement>
-    {
-        root.Q<VisualElement>("slot-0"),
-        root.Q<VisualElement>("slot-1"),
-        root.Q<VisualElement>("slot-2")
-    };
-
-    feedbackText = root.Q<Label>("feedback-text");
-    transitionOverlay = root.Q<VisualElement>("transition-overlay");
-    RefreshHud();
-}
-```
-
-Esto mantiene el patrón usado en el botón SHIFT: el binding se hace en una sola zona y luego la lógica visual se activa desde eventos. Resulta más sostenible que intentar gestionar cada elemento del HUD a mano en Update().
-
-#### Qué no hacer
-
-- No crear un manager específico para “TransitionEffects” si se puede hacer con una coroutine en `RoomManager`.
-- No crear un sistema de inventario completo con save/load o UI modular, porque no lo necesitamos todavía.
-- No introducir nuevas escenas ni arquetipos complejos.
-- No usar `UIDocument` en runtime si ya tenemos una solución de Panel Renderer funcionando y validada.
-
-### 6) Plan de trabajo realista
-
-#### Bloque A - Inventario + feedback (60-90 min)
-
-- [ ] crear `HUD` en la escena base
-- [ ] panel de inventario con 2-4 slots
-- [ ] mostrar `Staff Key` al recogerla
-- [ ] `UIManager.ShowFeedback()` para mensajes temporales
-
-#### Bloque B - Transiciones (45-60 min)
-
-- [ ] overlay de fade para room changes
-- [ ] pulse sutil entre realidades
-- [ ] validar que no rompe la lógica de flags
-
-#### Bloque C - Demo validation (30-45 min)
-
-- [ ] correr flujo completo
-- [ ] verificar UI y transiciones
-- [ ] grabar la demo con el mínimo de ajustes
-
-### 7) Criterio de éxito del polish mínimo
-
-La demo está lista si:
-
-- el jugador ve claramente que ha recogido la llave,
-- entiende cuándo abre la puerta,
-- no se pierde al entrar al pasillo,
-- el cambio de realidad se percibe sin que el flujo se rompa,
-- la transición entre rooms no genera lag ni confusión,
-- el total sigue siendo 3-4 funciones de UI, no un proyecto aparte.
-
-### Recomendación final
-
-Para esta jam y para un solo desarrollador, esta propuesta es la mejor relación entre esfuerzo y valor: suficiente para que el juego se sienta pulido, pero todavía muy pequeña, muy controlable y fácil de terminar. Si esto va bien, la demo parece más sólida y el siguiente sprint puede empezar desde una base mucho más limpia.
+- no crear un manager de transiciones separado
+- no construir UI compleja con más de un HUD principal
+- no entrar en Library/Bedroom real
+- no usar UIDocument runtime si ya tenemos PanelRenderer validado
 
 ---
 
-## Documentación de referencia
+## Plan de trabajo realista para 2 personas
 
-Este sprint se apoya en tres documentos complementarios que detallan la implementación exacta:
+### Bloque A — UI básica (60-90 min)
 
-1. **[MVP-Implementation-Quickstart.md](./MVP-Implementation-Quickstart.md)** ← **EMPEZAR AQUÍ**
-   - Checklist ejecutable paso a paso
-   - Fases de implementación (Scenes, GameObjects, Scripts, Validation)
-   - Referencia cruzada a los otros documentos
+- [ ] crear HUD root con PanelRenderer
+- [ ] panel de inventario
+- [ ] feedback textual
+- [ ] conectar ShiftButton al HUD centralizado
 
-2. **[MVP-Data-Specification.md](./MVP-Data-Specification.md)**
-   - Definición exacta de `RoomData`, `InteractableData`, `InventoryItemData`
-   - Valores concretos para cada objeto del MVP
-   - Validación de campos y tipos
+### Bloque B — Transiciones (45-60 min)
 
-3. **[MVP-Concrete-Hierarchy.md](./MVP-Concrete-Hierarchy.md)**
-   - Estructura exacta de GameObjects en ambas escenas
-   - Propiedades de cada objeto (posición, sprite, collider, etc.)
-   - Componentes requeridos por cada interactable
+- [ ] fade entre room changes
+- [ ] pulse de realidad
+- [ ] validación visual del flujo
 
-4. **[MVP-Flag-Sequence.md](./MVP-Flag-Sequence.md)**
-   - Flujo exacto de interacciones y cambios de estado
-   - Cuándo se activa cada flag y sus consecuencias
-   - Secuencia de validación en Play Mode
+### Bloque C — Demo final (30-45 min)
+
+- [ ] probar flujo completo de extremo a extremo
+- [ ] revisar consola y feedback
+- [ ] grabar demo
 
 ---
 
-## Riesgos y restricciones
+## Conclusión
 
-- No ampliar alcance más allá del MVP.
-- No empezar por contenido opcional ni contenido posterior al pasillo.
-- Si un sistema tarda demasiado en integrarse, simplificarlo antes que añadir complejidad.
-- Priorizar que el flujo funcione sobre pulir visualmente.
+El MVP base ya está bien encaminado. La prioridad ahora es cerrar la demo con flujo estable, evidenciar que SHIFT funciona y evitar que el polish mínimo convierta el sprint en un proyecto paralelo. El objetivo es seguir siendo simple, legible y terminable.
 
----
-
-## Resultado esperado
-
-La entrega del sprint debe servir como base arquitectónica para el resto del proyecto: un juego mínimo, ejecutable, con una progresión real y validada, listo para ampliarse en siguientes sprints.
-
-El flujo debe completarse sin errores siguiendo exactamente la secuencia documentada en [MVP-Flag-Sequence.md](./MVP-Flag-Sequence.md).
+El botón SHIFT debe integrarse dentro del HUD centralizado, no como pieza aislada: eso hace más limpia la UI y mantiene el patrón ya validado en el proyecto.
