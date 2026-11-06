@@ -37,6 +37,7 @@ Read [Technical-Design.md](./Technical-Design.md) for high-level philosophy.
 | **MVP-SPECIFICATION.md** | Complete MVP spec with 5 phases, data tables, validation checklist |
 | Technical-Design.md | High-level architecture philosophy |
 | MVP-Sprint-1.md | Sprint goals and acceptance criteria |
+| TD-HUD.md | Runtime HUD structure using Panel Renderer for the MVP polish pass |
 | GameObject-Hierarchy.md | General hierarchy patterns |
 
 **That's it. No more.**
