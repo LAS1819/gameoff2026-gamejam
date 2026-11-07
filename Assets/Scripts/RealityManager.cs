@@ -58,6 +58,31 @@ public class RealityManager : MonoBehaviour
         Debug.Log($"[RealityManager] Reality changed to: {CurrentReality}");
     }
 
+    public bool IsShiftAllowedInCurrentRoom()
+    {
+        var roomId = RoomManager.Instance?.CurrentRoom?.id;
+        if (string.IsNullOrWhiteSpace(roomId))
+        {
+            return false;
+        }
+
+        return roomId.Equals(GameManager.HallwayRoomId, StringComparison.OrdinalIgnoreCase);
+    }
+
+    public bool TryToggleReality()
+    {
+        if (!IsShiftAllowedInCurrentRoom())
+        {
+            UIManager.Instance?.ShowFeedback("Shift unavailable here.", 1.25f);
+            Debug.LogWarning($"[RealityManager] SHIFT blocked in room '{RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>"}'");
+            return false;
+        }
+
+        ToggleReality();
+        GameManager.Instance?.SetFlag(GameFlagNames.ShiftPerformed, true);
+        return true;
+    }
+
     public void ToggleReality()
     {
         SetReality(CurrentReality == RealityType.Normal ? RealityType.OtherSide : RealityType.Normal);

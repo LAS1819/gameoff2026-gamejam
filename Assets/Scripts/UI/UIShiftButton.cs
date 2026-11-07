@@ -121,22 +121,22 @@ public class UIShiftButton : MonoBehaviour
 
     private void OnShiftButtonClicked(ClickEvent evt)
     {
-        if (!IsShiftAllowedInCurrentRoom())
-        {
-            var roomId = RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>";
-            Debug.LogWarning($"[UIShiftButton] SHIFT unavailable in room '{roomId}'.");
-            return;
-        }
-
         if (RealityManager.Instance == null)
         {
             Debug.LogError("[UIShiftButton] RealityManager instance not found!");
             return;
         }
 
-        RealityManager.Instance.ToggleReality();
-        GameManager.Instance?.SetFlag(GameFlagNames.ShiftPerformed, true);
-        Debug.Log("[UIShiftButton] Shift button clicked - toggling reality");
+        var allowed = RealityManager.Instance.TryToggleReality();
+        if (allowed)
+        {
+            Debug.Log("[UIShiftButton] Shift button clicked - toggling reality");
+        }
+        else
+        {
+            var roomId = RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>";
+            Debug.LogWarning($"[UIShiftButton] SHIFT unavailable in room '{roomId}'.");
+        }
     }
 
     private void TrySubscribeRuntimeEvents()

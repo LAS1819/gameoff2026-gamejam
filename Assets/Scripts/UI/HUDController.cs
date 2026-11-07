@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -118,7 +119,7 @@ public class HUDController : MonoBehaviour
             return;
         }
 
-        var itemCount = InventoryManager.Instance?.GetItems().Count ?? 0;
+        var itemList = InventoryManager.Instance?.GetItems() ?? Array.Empty<InventoryItemData>();
         for (var index = 0; index < inventorySlots.Count; index++)
         {
             var slot = inventorySlots[index];
@@ -127,13 +128,82 @@ public class HUDController : MonoBehaviour
                 continue;
             }
 
-            var isFull = index < itemCount;
+            var item = index < itemList.Count ? itemList[index] : null;
+            slot.userData = item != null ? item.id : null;
+
+            var isFull = item != null;
             slot.EnableInClassList("full", isFull);
             slot.EnableInClassList("empty", !isFull);
 
+            var label = slot.Q<Label>("slot-label");
+            if (label == null)
+            {
+                label = new Label();
+                label.name = "slot-label";
+                label.AddToClassList("slot-label");
+                slot.Add(label);
+            }
+
+            var isSelected = item != null &&
+                !string.IsNullOrEmpty(InventoryManager.Instance?.SelectedItemId) &&
+                item.id == InventoryManager.Instance.SelectedItemId;
+            slot.EnableInClassList("selected", isSelected);
+            label.text = item == null ? string.Empty : GetSlotLabel(item);
+            label.style.display = item == null ? DisplayStyle.None : DisplayStyle.Flex;
+
             var isLast = index == inventorySlots.Count - 1;
             slot.style.marginRight = isLast ? 0 : 12;
+            slot.pickingMode = item == null ? PickingMode.Ignore : PickingMode.Position;
+            slot.focusable = item != null;
         }
+    }
+
+    private static string GetSlotLabel(InventoryItemData item)
+    {
+        if (item == null)
+        {
+            return string.Empty;
+        }
+
+        if (!string.IsNullOrWhiteSpace(item.displayName))
+        {
+            var displayName = item.displayName.Trim();
+            if (displayName.Contains("Key", StringComparison.OrdinalIgnoreCase))
+            {
+                return "K";
+            }
+
+            return displayName.Substring(0, 1).ToUpperInvariant();
+        }
+
+        return item.id != null && item.id.Length > 0 ? item.id.Substring(0, 1).ToUpperInvariant() : "I";
+    }
+
+    private void OnInventorySlotClicked(ClickEvent evt)
+    {
+        var target = evt.target as VisualElement;
+        var slot = target;
+
+        while (slot != null && !slot.ClassListContains("inventory-slot"))
+        {
+            slot = slot.parent;
+        }
+
+        if (slot == null || string.IsNullOrEmpty(slot.userData as string))
+        {
+            return;
+        }
+
+        var itemId = slot.userData as string;
+        var item = InventoryManager.Instance?.GetItemById(itemId);
+        if (item == null)
+        {
+            return;
+        }
+
+        InventoryManager.Instance.SelectItem(itemId);
+        ShowFeedback($"{item.displayName} selected.", 1.1f);
+        RefreshInventory();
     }
 
     private void ResolvePanelRenderer()
@@ -176,6 +246,30 @@ public class HUDController : MonoBehaviour
         {
             shiftButton.RegisterCallback<ClickEvent>(OnShiftButtonClicked);
             shiftClickBound = true;
+        }
+
+        foreach (var slot in inventorySlots)
+        {
+            if (slot != null)
+            {
+                slot.UnregisterCallback<ClickEvent>(OnInventorySlotClicked);
+                slot.RegisterCallback<ClickEvent>(OnInventorySlotClicked);
+            }
+        }
+
+        if (feedbackText != null)
+        {
+            feedbackText.pickingMode = PickingMode.Ignore;
+        }
+
+        if (transitionOverlay != null)
+        {
+            transitionOverlay.pickingMode = PickingMode.Ignore;
+        }
+
+        if (realityPulse != null)
+        {
+            realityPulse.pickingMode = PickingMode.Ignore;
         }
 
         RefreshInventory();
@@ -260,22 +354,18 @@ public class HUDController : MonoBehaviour
 
     private void OnShiftButtonClicked(ClickEvent _)
     {
-        if (!IsShiftAllowedInCurrentRoom())
-        {
-            var roomId = RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>";
-            Debug.LogWarning($"[HUDController] SHIFT unavailable in room '{roomId}'.");
-            ShowFeedback("Shift unavailable here.", 1.25f);
-            return;
-        }
-
         if (RealityManager.Instance == null)
         {
             Debug.LogError("[HUDController] RealityManager instance not found.");
             return;
         }
 
-        RealityManager.Instance.ToggleReality();
-        GameManager.Instance?.SetFlag(GameFlagNames.ShiftPerformed, true);
+        var allowed = RealityManager.Instance.TryToggleReality();
+        if (!allowed)
+        {
+            var roomId = RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>";
+            Debug.LogWarning($"[HUDController] SHIFT unavailable in room '{roomId}'.");
+        }
     }
 
     private void RefreshShiftButtonState()
@@ -287,6 +377,8 @@ public class HUDController : MonoBehaviour
 
         var allowed = IsShiftAllowedInCurrentRoom();
         shiftButton.SetEnabled(allowed);
+        shiftButton.pickingMode = allowed ? PickingMode.Position : PickingMode.Ignore;
+        shiftButton.focusable = allowed;
 
         var isOtherSide = RealityManager.Instance != null && RealityManager.Instance.CurrentReality == RealityType.OtherSide;
         shiftButton.EnableInClassList("normal", !isOtherSide);

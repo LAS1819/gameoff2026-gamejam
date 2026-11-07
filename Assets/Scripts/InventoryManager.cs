@@ -10,6 +10,9 @@ public class InventoryManager : MonoBehaviour
 
     public event Action<InventoryItemData> ItemAdded;
     public event Action<InventoryItemData> ItemRemoved;
+    public event Action<string> SelectedItemChanged;
+
+    public string SelectedItemId { get; private set; }
 
     private void Awake()
     {
@@ -64,6 +67,44 @@ public class InventoryManager : MonoBehaviour
         return items;
     }
 
+    public InventoryItemData GetItemById(string itemId)
+    {
+        if (string.IsNullOrEmpty(itemId))
+        {
+            return null;
+        }
+
+        return items.Find(item => item != null && item.id == itemId);
+    }
+
+    public bool SelectItem(string itemId)
+    {
+        if (!HasItem(itemId))
+        {
+            return false;
+        }
+
+        if (SelectedItemId == itemId)
+        {
+            return true;
+        }
+
+        SelectedItemId = itemId;
+        SelectedItemChanged?.Invoke(itemId);
+        return true;
+    }
+
+    public void ClearSelection()
+    {
+        if (string.IsNullOrEmpty(SelectedItemId))
+        {
+            return;
+        }
+
+        SelectedItemId = null;
+        SelectedItemChanged?.Invoke(null);
+    }
+
     public bool TryUseItem(string itemId)
     {
         return HasItem(itemId);
@@ -72,5 +113,6 @@ public class InventoryManager : MonoBehaviour
     public void ResetInventory()
     {
         items.Clear();
+        ClearSelection();
     }
 }
