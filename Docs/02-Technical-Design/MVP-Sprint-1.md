@@ -143,25 +143,25 @@ La demo se considera correcta si se puede grabar una secuencia funcional con:
 
 ### Bloqueantes
 
-- [ ] flujo completo Lobby → Hallway funciona repetidamente
-- [ ] LEFT SHIFT responde desde teclado
-- [ ] RealityManager cambia visualmente la realidad
-- [ ] obstáculo desaparece/en aparece correctamente
-- [ ] puertas placeholder no rompen la progresión
-- [ ] no hay errores críticos en consola
-- [ ] flags no se desincronizan
+- [x] flujo completo Lobby → Hallway funciona repetidamente
+- [x] LEFT SHIFT responde desde teclado
+- [x] RealityManager cambia visualmente la realidad
+- [x] obstáculo desaparece/en aparece correctamente
+- [x] puertas placeholder no rompen la progresión
+- [x] no hay errores críticos en consola
+- [x] flags no se desincronizan
 
 ### Visual / presentación mínima
 
 - [ ] cambio de fondo visible
 - [ ] realidades diferenciadas de forma clara
-- [ ] feedback de consola útil
-- [ ] la secuencia es grabable sin explicación extra
+- [x] feedback de consola útil
+- [ ] la secuencia es comprensible sin explicación extra
 
 ### Scope guard
 
-- [ ] no se implementan Library/Bedroom reales antes de la demo
-- [ ] no se añade sistema grande si complica la demo
+- [x] no se implementan Library/Bedroom reales antes de la demo
+- [x] no se añade sistema grande si complica la demo
 - [ ] cualquier extra queda para siguiente sprint
 
 ---
@@ -175,9 +175,9 @@ Esto no es un sistema nuevo: es una capa ligera para que la demo se sienta clara
 - feedback al recoger item
 - mostrar lo que lleva el personaje
 - hacer transición entre rooms y realidades menos brusca
-- mantener el código simple y mucho más manejable para 2 personas
+- mantener el código simple y mucho más manejable
 
-### 1) HUD centralizado con Panel Renderer
+### 1) HUD centralizado con Panel Renderer (COMPLETADO)
 
 Usar el mismo patrón que ya tiene el SHIFT button:
 
@@ -201,21 +201,21 @@ Esto favorece coherencia, evita duplicación de bindings y deja el sistema prepa
 - InventoryManager.ItemAdded / ItemRemoved actualiza el panel
 - Staff Key es el primer item visible
 
-### 3) Feedback textual
+### 3) Feedback textual (COMPLETADO)
 
 - panel pequeño con texto temporal
 - UIManager.ShowFeedback('...')
 - mensaje de 1-2 segundos
 - solo el último mensaje necesita mostrarse
 
-### 4) Transiciones mínimas
+### 4) Transiciones mínimas (COMPLETADO)
 
 - fade negro entre rooms
 - pulse corto entre realidades
 - duración breve (0.25s-0.5s)
 - no más cinematografía que eso
 
-### 5) Estructura recomendada
+### 5) Estructura recomendada (COMPLETADO)
 
 - GameManager: flags y estado global
 - InventoryManager: items
