@@ -22,14 +22,14 @@ define :memory_note do |n|
   synth :blade,
     note: n,
     release: 2,
-    amp: 0.45
+    amp: 0.55
 end
 
 define :particle_note do |n|
   synth :pretty_bell,
     note: n,
     release: rrand(1.5,3),
-    amp: 0.35
+    amp: 0.45
 end
 
 ############################################
@@ -48,7 +48,7 @@ define :memory_drone_normal do
       attack: 4,
       sustain: 8,
       release: 8,
-      amp: 0.45
+      amp: 0.55
   end
   
   sleep 16
@@ -81,6 +81,45 @@ define :father_theme_normal do
   end
 end
 
+define :father_theme_fragment_a do
+  memory_note :e3
+  sleep 2
+  memory_note :g3
+  sleep 4
+end
+
+define :father_theme_fragment_b do
+  memory_note :b3
+  sleep 2
+  memory_note :a3
+  sleep 4
+end
+
+define :father_theme_memory do
+  memory_note :e3
+  sleep 6
+end
+
+define :father_theme_echo do
+  with_fx :reverb, room: 1 do
+    synth :blade,
+      note: :e4,
+      release: 6,
+      amp: 0.25
+  end
+  sleep 8
+end
+
+define :play_father_memory do
+  [
+    lambda { father_theme_fragment_a },
+    lambda { father_theme_fragment_b },
+    lambda { father_theme_memory },
+    lambda { father_theme_echo },
+    lambda { father_theme_normal }
+  ].choose.call
+end
+
 ############################################
 # CHANNEL 3
 # BROKEN PULSE
@@ -95,7 +134,7 @@ define :broken_pulse_normal do
   sleep 8
   
   sample :elec_blip,
-    amp: 0.32,
+    amp: 0.42,
     rate: 0.25
   
   sleep 8
@@ -132,9 +171,9 @@ define :liminal_atmosphere_normal do
     
     synth :noise,
       attack: 3,
-      sustain: 4,
-      release: 4,
-      amp: 0.24
+      sustain: rrand(3.6,4),
+      release: rrand(2.8,3.2),
+      amp: rrand(0.01,0.08)
   end
 end
 
@@ -148,14 +187,11 @@ end
 ############################################
 
 define :memory_fragments_normal do
-  
   sleep [8,16,24].choose
-  
   use_synth :dark_ambience
-  
   play [:e4,:g4,:a4,:b4].choose,
     release: 6,
-    amp: 0.32
+    amp: 0.42
 end
 
 ############################################
@@ -171,7 +207,13 @@ end
 ############################################
 
 live_loop :channel_father_theme do
+  stop
   father_theme_normal
+end
+
+live_loop :channel_father_theme do
+  sleep [16,24,32,48].choose
+  play_father_memory
 end
 
 ############################################
@@ -196,7 +238,7 @@ end
 
 live_loop :channel_atmosphere do
   liminal_atmosphere_normal
-  sleep 12
+  sleep 6
 end
 
 ############################################
