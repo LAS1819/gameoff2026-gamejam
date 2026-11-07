@@ -1,6 +1,6 @@
 # Audio Design
 
-- **Versión del documento:** 0.2
+- **Versión del documento:** 0.4
 - **Creado:** 2026-11-07
 - **Última actualización:** 2026-11-07
 
@@ -16,9 +16,21 @@ La música, los ambientes y los efectos sonoros trabajarán conjuntamente para r
 
 Se priorizarán composiciones minimalistas, texturas industriales, drones, ruido, sintetizadores sencillos y silencios intencionados frente a piezas musicales complejas o constantes.
 
+El objetivo no es únicamente generar inquietud. El diseño debe acompañar el viaje emocional del protagonista desde la negación hacia la aceptación, permitiendo que la melancolía y la esperanza convivan con el terror psicológico.
+
 ### Filosofía Sonora
 
 **Terror psicológico moderno interpretado a través de las limitaciones de un videojuego retro.**
+
+---
+
+## Objetivo Emocional
+
+El jugador debe comenzar la aventura sintiendo inquietud y curiosidad.
+
+A medida que avanza la historia, el diseño sonoro debe evolucionar progresivamente hacia emociones más íntimas relacionadas con la pérdida, la memoria y la aceptación.
+
+La revelación final debe sentirse triste, pero también liberadora.
 
 ---
 
@@ -37,6 +49,9 @@ Se priorizarán composiciones minimalistas, texturas industriales, drones, ruido
 - Ambient industrial.
 - Síntesis retro.
 - Melancolía y misterio.
+- Duelo y aceptación.
+- Recuerdos fragmentados.
+- Esperanza melancólica.
 
 ## Temas (Themes)
 
@@ -45,6 +60,8 @@ Se priorizarán composiciones minimalistas, texturas industriales, drones, ruido
 El tema principal para la versión prototipo busca establecer la identidad sonora del juego, combinando elementos minimalistas, retro y ambientales con una atmósfera inquietante y melancólica.
 
 Más que una composición musical tradicional, funcionará como una ambientación sonora capaz de acompañar la exploración y transmitir la sensación de misterio constante que define la experiencia.
+
+Bajo la capa de misterio, el tema debe transmitir una sensación de pérdida y búsqueda. Su función narrativa consiste en reflejar a un protagonista que cree estar buscando respuestas, cuando en realidad está buscando una despedida.
 
 La estructura estará formada por 4 o 5 capas sonoras independientes, cada una con una función específica dentro de la mezcla:
 
@@ -70,9 +87,13 @@ Siempre que sea posible, el cambio entre versiones se realizará mediante transi
 
 Cuando el jugador cambie de realidad, lo ideal es que no perciba que la música ha cambiado. Debe sentir que el mundo ha comenzado a pudrirse a su alrededor.
 
+La versión asociada a **El Otro Lado** no debe percibirse como más hostil o terrorífica. También debe transmitir una sensación de irrealidad, falsedad y distancia emocional, reflejando la interpretación errónea de los recuerdos y acontecimientos que mantiene el protagonista.
+
 ---
 
 ## Ambientación (Ambience)
+
+Las ambientaciones podrán sugerir recuerdos, presencias o situaciones asociadas a la figura del padre sin mostrarlas explícitamente.
 
 ### Objetivos
 
