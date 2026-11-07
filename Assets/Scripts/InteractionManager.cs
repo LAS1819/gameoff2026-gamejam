@@ -62,11 +62,26 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
-        if (!string.IsNullOrEmpty(interactable.requiredItemId) &&
-            (InventoryManager.Instance == null || !InventoryManager.Instance.HasItem(interactable.requiredItemId)))
+        if (!string.IsNullOrEmpty(interactable.requiredItemId))
         {
-            Debug.LogWarning($"Missing required item for {interactable.id}: {interactable.requiredItemId}");
-            return false;
+            if (InventoryManager.Instance == null || !InventoryManager.Instance.HasItem(interactable.requiredItemId))
+            {
+                Debug.LogWarning($"Missing required item for {interactable.id}: {interactable.requiredItemId}");
+                UIManager.Instance?.ShowFeedback("Required item missing.", 1.5f);
+                return false;
+            }
+
+            var selectedItemId = InventoryManager.Instance.SelectedItemId;
+            if (string.IsNullOrEmpty(selectedItemId) || !selectedItemId.Equals(interactable.requiredItemId, StringComparison.OrdinalIgnoreCase))
+            {
+                var requiredItem = InventoryManager.Instance.GetItemById(interactable.requiredItemId);
+                var requiredName = requiredItem != null && !string.IsNullOrWhiteSpace(requiredItem.displayName)
+                    ? requiredItem.displayName
+                    : interactable.requiredItemId;
+
+                UIManager.Instance?.ShowFeedback($"Select {requiredName} first.", 1.5f);
+                return false;
+            }
         }
 
         var wasResolved = false;
@@ -130,6 +145,9 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
+        UIManager.Instance?.RefreshInventoryUI();
+        UIManager.Instance?.ShowFeedback($"Picked up {interactable.displayName}.", 1.5f);
+
         if (!string.IsNullOrEmpty(interactable.resultFlag))
         {
             GameManager.Instance?.SetFlag(interactable.resultFlag, true);
@@ -151,6 +169,7 @@ public class InteractionManager : MonoBehaviour
             MarkConsumed(interactable.id);
         }
 
+        UIManager.Instance?.ShowFeedback($"Used {interactable.displayName}.", 1.5f);
         return true;
     }
 
@@ -161,6 +180,7 @@ public class InteractionManager : MonoBehaviour
             (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide))
         {
             Debug.LogWarning($"[InteractionManager] '{interactable.displayName}' can only be used in the Other Side reality.");
+            UIManager.Instance?.ShowFeedback("This is only accessible in the Other Side.", 1.5f);
             return false;
         }
 
@@ -174,6 +194,7 @@ public class InteractionManager : MonoBehaviour
             : $"You inspected {interactable.displayName}.";
 
         Debug.Log($"[InteractionManager] Examine: {interactable.displayName} - {descriptionText}");
+        UIManager.Instance?.ShowFeedback(descriptionText, 2f);
         return true;
     }
 

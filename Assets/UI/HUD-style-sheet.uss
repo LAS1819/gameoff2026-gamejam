@@ -1,0 +1,131 @@
+VisualElement {}
+
+#hud-root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#inventory-panel {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    translate: -50% 0;
+    flex-direction: row;
+}
+
+.inventory-slot {
+    width: 64px;
+    height: 64px;
+    margin-right: 12px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.inventory-slot.full {
+    background-color: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.inventory-slot.selected {
+    background-color: rgba(255, 214, 102, 0.22);
+    border-color: rgba(255, 214, 102, 0.9);
+}
+
+.slot-label {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 11px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+
+#feedback-text {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    translate: -50% 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+#feedback-text.visible {
+    opacity: 1;
+}
+
+#shift-button {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.shift-button {
+    background-color: transparent;
+    border-width: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    -unity-background-scale-mode: scale-to-fit;
+    cursor: link;
+}
+
+.shift-button:hover {
+    opacity: 0.9;
+}
+
+.shift-button:active {
+    opacity: 0.75;
+}
+
+.shift-button:disabled {
+    opacity: 0.35;
+}
+
+.shift-button.normal {
+    background-image: url("project://database/Assets/Art/UI/shift-icon-hooded-figure-normal-world.png");
+}
+
+.shift-button.other-side {
+    background-image: url("project://database/Assets/Art/UI/shift-icon-hooded-figure-other-world.png");
+}
+
+#transition-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: opacity 0.3s ease;
+}
+
+#transition-overlay.active {
+    opacity: 1;
+}
+
+#reality-pulse {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background-color: rgba(120, 130, 255, 0.18);
+    transition: opacity 0.25s ease;
+}
+
+#reality-pulse.active {
+    opacity: 1;
+}

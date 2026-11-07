@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.6-proto] - 2026-11-07
+
+### Added
+
+- Central runtime HUD built around a single `HUDRoot` with Panel Renderer, UXML, and USS for the MVP demo layer
+- Inventory slot state and selected-item highlighting so the player can clearly see what has been picked up and what is currently prepared for use
+- Shared SHIFT gate logic in `RealityManager` so the room restriction is enforced consistently in both keyboard and UI paths
+- `TryToggleReality()` and `IsShiftAllowedInCurrentRoom()` helpers to centralize the reality-toggle rules without duplicating logic
+- Runtime feedback and overlay states in `HUDController` for room transitions and reality changes
+
+### Changed
+
+- Consolidated the HUD and SHIFT interaction into one runtime source of truth to avoid duplicate UI surfaces and conflicting click handlers
+- Updated `InteractionManager` to require an explicit item selection before a required item can be used on a target interactable, aligning with the Staff Key + Front Door flow
+- Refined the HUD lifecycle so `UIManager` delegates to `HUDController` instead of leaving the UI layer half-wired or disconnected from gameplay events
+- Cleaned the stylesheet to remove unsupported UI Toolkit patterns and keep the HUD compatible with the current runtime UI stack
+
+### Fixed
+
+- Prevented LEFT SHIFT from toggling reality outside the allowed room, matching the same restriction already applied to the HUD button
+- Removed the duplicate/legacy ShiftPanel conflict risk by keeping the control path centralized in the HUD root
+- Ensured inventory slots visibly reflect item presence and selection after pickup instead of only toggling a generic empty/full style
+- Stopped UI Toolkit warnings by replacing unsupported `inset`, `gap`, and pseudo-selector patterns with compatible layout rules
+
+### Notes
+
+- This pass stabilizes the demo-ready HUD layer and the core MVP interaction flow without expanding scope into extra rooms or content systems
+- The prototype remains focused on the Lobby → Hallway loop, while the actual Library and Bedroom rooms are still intentionally deferred for the next iteration
+
+---
+
 ## [0.0.5-proto] - 2026-11-06
 
 ### Added
