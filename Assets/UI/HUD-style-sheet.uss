@@ -26,10 +26,6 @@ VisualElement {}
     border-color: rgba(255, 255, 255, 0.2);
 }
 
-.inventory-slot:last-child {
-    margin-right: 0;
-}
-
 .inventory-slot.full {
     background-color: rgba(255, 255, 255, 0.18);
     border-color: rgba(255, 255, 255, 0.6);
@@ -52,9 +48,39 @@ VisualElement {}
     position: absolute;
     right: 24px;
     bottom: 24px;
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
+}
+
+.shift-button {
+    background-color: transparent;
+    border-width: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    -unity-background-scale-mode: scale-to-fit;
+    cursor: link;
+}
+
+.shift-button:hover {
+    opacity: 0.9;
+}
+
+.shift-button:active {
+    opacity: 0.75;
+}
+
+.shift-button:disabled {
+    opacity: 0.35;
+}
+
+.shift-button.normal {
+    background-image: url("project://database/Assets/Art/UI/shift-icon-hooded-figure-normal-world.png");
+}
+
+.shift-button.other-side {
+    background-image: url("project://database/Assets/Art/UI/shift-icon-hooded-figure-other-world.png");
 }
 
 #transition-overlay {

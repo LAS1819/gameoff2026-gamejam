@@ -4,7 +4,7 @@
 - Fecha objetivo: 08/11/2026
 - Estado: 🟡 IN PROGRESS - Lobby validado, Hallway final push
 - Creado: 03/11/2026
-- Actualizado: 06/11/2026
+- Actualizado: 07/11/2026
 
 ## Objetivo
 
@@ -237,16 +237,16 @@ Esto favorece coherencia, evita duplicación de bindings y deja el sistema prepa
 
 ### Bloque A — UI básica (60-90 min)
 
-- [ ] crear HUD root con PanelRenderer
-- [ ] panel de inventario
-- [ ] feedback textual
-- [ ] conectar ShiftButton al HUD centralizado
+- [x] crear HUD root con PanelRenderer
+- [x] panel de inventario (UXML/USS + binding runtime)
+- [x] feedback textual (UIManager -> HUDController)
+- [x] conectar ShiftButton al HUD centralizado
 
 ### Bloque B — Transiciones (45-60 min)
 
-- [ ] fade entre room changes
-- [ ] pulse de realidad
-- [ ] validación visual del flujo
+- [x] fade entre room changes (overlay corto)
+- [x] pulse de realidad
+- [ ] validación visual final del flujo en Play Mode
 
 ### Bloque C — Demo final (30-45 min)
 

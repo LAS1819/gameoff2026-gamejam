@@ -66,6 +66,7 @@ public class InteractionManager : MonoBehaviour
             (InventoryManager.Instance == null || !InventoryManager.Instance.HasItem(interactable.requiredItemId)))
         {
             Debug.LogWarning($"Missing required item for {interactable.id}: {interactable.requiredItemId}");
+            UIManager.Instance?.ShowFeedback("Required item missing.", 1.5f);
             return false;
         }
 
@@ -130,6 +131,9 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
+        UIManager.Instance?.RefreshInventoryUI();
+        UIManager.Instance?.ShowFeedback($"Picked up {interactable.displayName}.", 1.5f);
+
         if (!string.IsNullOrEmpty(interactable.resultFlag))
         {
             GameManager.Instance?.SetFlag(interactable.resultFlag, true);
@@ -151,6 +155,7 @@ public class InteractionManager : MonoBehaviour
             MarkConsumed(interactable.id);
         }
 
+        UIManager.Instance?.ShowFeedback($"Used {interactable.displayName}.", 1.5f);
         return true;
     }
 
@@ -161,6 +166,7 @@ public class InteractionManager : MonoBehaviour
             (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide))
         {
             Debug.LogWarning($"[InteractionManager] '{interactable.displayName}' can only be used in the Other Side reality.");
+            UIManager.Instance?.ShowFeedback("This is only accessible in the Other Side.", 1.5f);
             return false;
         }
 
@@ -174,6 +180,7 @@ public class InteractionManager : MonoBehaviour
             : $"You inspected {interactable.displayName}.";
 
         Debug.Log($"[InteractionManager] Examine: {interactable.displayName} - {descriptionText}");
+        UIManager.Instance?.ShowFeedback(descriptionText, 2f);
         return true;
     }
 
