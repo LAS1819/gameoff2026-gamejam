@@ -40,13 +40,35 @@ Se priorizarán composiciones minimalistas, texturas industriales, drones, ruido
 
 ## Temas (Themes)
 
-### Main Theme - Proto
+### Main Theme - Prototype
 
-El tema principal para la versión prototipo busca establecer la identidad sonora del juego, combinando elementos minimalistas y retro con una atmósfera inquietante y emocional. Más que una música, será una ambientación sonora que acompañe y refuerce la experiencia del jugador.
+El tema principal para la versión prototipo busca establecer la identidad sonora del juego, combinando elementos minimalistas, retro y ambientales con una atmósfera inquietante y melancólica.
 
-La idea es simular 4 o 5 canales de audio independientes, cada uno con su propio rol dentro de la mezcla, para crear una sensación de profundidad y movimiento dentro de las limitaciones sonoras del juego retro.
+Más que una composición musical tradicional, funcionará como una ambientación sonora capaz de acompañar la exploración y transmitir la sensación de misterio constante que define la experiencia.
 
-Después, mediante un editor de audio (si es necesario), se ajustarán los niveles, panoramización y efectos para lograr la mezcla final que refuerce la atmósfera deseada. Enfocando la masterización final para la versión prototipo, asegurando que todos los elementos sonoros se integren de manera coherente y efectiva dentro de las limitaciones técnicas del juego retro, sin comprometer la claridad y el impacto emocional de la experiencia sonora.
+La estructura estará formada por 4 o 5 capas sonoras independientes, cada una con una función específica dentro de la mezcla:
+
+- Drone o textura principal.
+- Motivo melódico simple.
+- Elementos rítmicos ocasionales.
+- Ruido o ambientación industrial.
+- Variaciones ambientales.
+
+La combinación de estas capas debe generar movimiento e interés sin perder simplicidad, evocando la sensación de terror psicológico moderno interpretado a través de las limitaciones de un videojuego retro.
+
+El tema principal debe poder descomponerse en varias de sus capas para reutilizar parte de sus elementos en otros momentos del juego.
+
+#### Variación - El Otro Lado
+
+El tema principal dispondrá de una segunda versión asociada a **El Otro Lado**.
+
+Ambas versiones compartirán la misma estructura base y utilizarán las mismas capas sonoras, modificando únicamente la mezcla, instrumentación y efectos aplicados a cada canal.
+
+El objetivo es reforzar la transición entre realidades sin necesidad de crear composiciones completamente diferentes.
+
+Siempre que sea posible, el cambio entre versiones se realizará mediante transiciones suaves y dinámicas, permitiendo que la música evolucione junto al estado del mundo.
+
+Cuando el jugador cambie de realidad, lo ideal es que no perciba que la música ha cambiado. Debe sentir que el mundo ha comenzado a pudrirse a su alrededor.
 
 ---
 
