@@ -1,16 +1,15 @@
 using UnityEngine;
 
 /// <summary>
-/// UIManager handles all UI elements: text feedback, inventory display, status messages.
-/// This is a stub for MVP. Later expansion: inventory UI, dialogue boxes, transitions.
-/// For MVP, focus is on core interaction and flag progression, not visual feedback.
+/// UIManager is a lightweight façade used by gameplay systems to interact with runtime HUD.
+/// Runtime rendering and bindings are handled by HUDController.
 /// </summary>
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
     [SerializeField] private string uiManagerName = "UIManager";
-    [SerializeField] private GameObject feedbackRoot;
+    [SerializeField] private HUDController hudController;
 
     private void Awake()
     {
@@ -26,20 +25,23 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"[{uiManagerName}] Initialized (stub for MVP)");
+        TryResolveHudController();
+        Debug.Log($"[{uiManagerName}] Initialized");
     }
 
     /// <summary>
-    /// Display temporary feedback text. Later: fade in/out with duration.
+    /// Display temporary feedback text through HUDController.
     /// </summary>
     public void ShowFeedback(string message, float duration = 2f)
     {
-        Debug.Log($"[{uiManagerName}] ShowFeedback: {message}");
-
-        if (feedbackRoot != null)
+        TryResolveHudController();
+        if (hudController != null)
         {
-            feedbackRoot.SetActive(true);
-            // TODO: fade out after duration
+            hudController.ShowFeedback(message, duration);
+        }
+        else
+        {
+            Debug.Log($"[{uiManagerName}] ShowFeedback fallback: {message}");
         }
     }
 
@@ -48,17 +50,26 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void HideFeedback()
     {
-        if (feedbackRoot != null)
-        {
-            feedbackRoot.SetActive(false);
-        }
+        ShowFeedback(string.Empty, 0f);
     }
 
     /// <summary>
-    /// Update inventory UI display. Not implemented for MVP.
+    /// Refresh inventory UI state.
     /// </summary>
     public void RefreshInventoryUI()
     {
-        Debug.Log($"[{uiManagerName}] RefreshInventoryUI() - stub method, not implemented for MVP");
+        TryResolveHudController();
+        if (hudController != null)
+        {
+            hudController.RefreshInventory();
+        }
+    }
+
+    private void TryResolveHudController()
+    {
+        if (hudController == null)
+        {
+            hudController = FindAnyObjectByType<HUDController>();
+        }
     }
 }

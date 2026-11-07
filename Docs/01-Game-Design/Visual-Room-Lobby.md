@@ -1,8 +1,8 @@
 # Game Off 2026 - VESTÍBULO
 
-- Versión 0.1 - Diseño Visual
+- Versión 0.2 - Diseño Visual
 - Creado: 03/11/2026
-- Actualizado: 03/11/2026
+- Actualizado: 05/11/2026
 
 ---
 
@@ -113,7 +113,7 @@ Sensación:
 
 ## 5. Interactivos principales
 
-### Llave del Personal - Staff Key
+### [x] Llave del Personal - Staff Key
 
 Función:
 
@@ -131,7 +131,7 @@ Objetivo:
 
 ---
 
-### Puerta Interior - Interior Door
+### [x] Puerta Interior - Interior Door
 
 Función:
 
@@ -154,7 +154,7 @@ Visualmente debe destacar mediante:
 
 ---
 
-### Mostrador de Recepción - Reception Desk
+### [x] Mostrador de Recepción - Reception Desk
 
 Tipo:
 
@@ -167,7 +167,7 @@ Propósito:
 
 ---
 
-### Fotografías Antiguas - Old Photographs
+### [x] Fotografías Antiguas - Old Photographs
 
 Tipo:
 
@@ -198,7 +198,7 @@ Recordatorio:
 
 ---
 
-## 7. Versión "Otro Lado"
+## 7. Versión "Otro Lado" <- No tiene versión "OTRO LADO"
 
 La geometría debe mantenerse prácticamente igual.
 
@@ -240,12 +240,12 @@ El Vestíbulo sigue siendo una zona relativamente segura.
 
 ### Obligatorio
 
-- [ ] Recepción
-- [ ] Puerta interior bloqueada
-- [ ] Llave del personal
+- [x] Recepción
+- [x] Puerta interior bloqueada
+- [x] Llave del personal
 - [ ] Banco de espera
 - [ ] Carteles médicos
-- [ ] Fotografías antiguas
+- [x] Fotografías antiguas
 - [ ] Ventanas laterales
 - [ ] Suelo deteriorado
 - [ ] Iluminación principal
@@ -260,6 +260,6 @@ El Vestíbulo sigue siendo una zona relativamente segura.
 
 ---
 
-## Prompt resumido para concept art
+## Concepto Visual
 
-"Vestíbulo de un antiguo sanatorio abandonado, pixel art HD, cámara fija frontal, recepción deteriorada, puerta interior bloqueada al fondo, banco de espera, fotografías antiguas, iluminación tenue, tonos marrones, verdes apagados y grises envejecidos, atmósfera melancólica y misteriosa, aventura gráfica de terror psicológico de los años 90 reinterpretada con presentación moderna, composición clara para objetos interactivos, resolución base 640x360."
+Vestíbulo de un antiguo sanatorio abandonado, pixel art HD, cámara fija frontal, recepción deteriorada, puerta interior bloqueada al fondo, banco de espera, fotografías antiguas, iluminación tenue, tonos marrones, verdes apagados y grises envejecidos, atmósfera melancólica y misteriosa, aventura gráfica de terror psicológico de los años 90 reinterpretada con presentación moderna, composición clara para objetos interactivos, resolución base 640x360.

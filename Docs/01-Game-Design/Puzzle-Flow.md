@@ -1,12 +1,12 @@
 # Game Off 2026 - PUZZLE FLOW
 
-- Versión 0.1 - Estructura de Progresión
+- Versión 0.2 - Estructura de Progresión
 - Creado: 03/11/2026
-- Actualizado: 03/11/2026
+- Actualizado: 05/11/2026
 
 ---
 
-Este documento define el flujo principal de juego a partir de los sistemas establecidos en el GDD, especialmente la mecánica SHIFT, el sistema temporal y los estados de objetos. [GameOff26-GameIdea-1 | Word], [GameOff26-...dea-1-v3 1 | PDF]
+Este documento define el flujo principal de juego a partir de los sistemas establecidos en el GDD, especialmente la mecánica SHIFT, el sistema temporal y los estados de objetos.
 
 ## 1. Localización
 
@@ -17,7 +17,7 @@ Tras un incidente desconocido, el lugar existe simultáneamente en dos versiones
 - La Realidad Normal.
 - El Otro Lado.
 
-A medida que el jugador explora el edificio, descubrirá que ambos mundos comparten elementos, pero presentan diferencias que alteran rutas, objetos y eventos. [GameOff26-GameIdea-1 | Word], [GameOff26-...dea-1-v3 1 | PDF]
+A medida que el jugador explora el edificio, descubrirá que ambos mundos comparten elementos, pero presentan diferencias que alteran rutas, objetos y eventos.
 
 ---
 
@@ -31,18 +31,27 @@ A medida que el jugador explora el edificio, descubrirá que ambos mundos compar
   - Introducción narrativa.
   - Aprendizaje de exploración e interacción.
 - Conexiones:
-  - Pasillo Principal.
+  - `Pasillo Principal` - `Hallway`.
 
-### 2. Pasillo Principal - Main Hallway
+### 2. Pasillo Principal - Hallway
 
 Primera zona donde se introduce SHIFT.
 
 - Estado general:
-  - Ruta parcialmente bloqueada.
-  - Introducción a las diferencias entre realidades.
+  - Ruta parcialmente bloqueada (block-obstacle) por un obstáculo visible.
+  - Introducción clara a la diferencia entre realidades.
+  - El espacio mantiene la misma composición básica, pero cambia su legibilidad y accesibilidad.
+  - El icono del Amuleto se activa (parpadea) para indicar disponibilidad de SHIFT.
 - Conexiones:
-  - Biblioteca.
-  - Dormitorio.
+  - `Biblioteca` - `Library`.
+  - `Dormitorio` - `Bedroom`.
+- Objetivo de diseño:
+  - enseñar que la exploración no es lineal ni segura;
+  - mostrar un bloqueo que requiere manipular la realidad;
+  - activar la mecánica SHIFT como herramienta principal;
+  - preparar la sensación de progresión hacia zonas de mayor densidad narrativa.
+- Referencia visual: [Visual-Room-Hallway.md](./Visual-Room-Hallway.md)
+- Referencia mecánica: [SHIFT-Mechanic.md](./SHIFT-Mechanic.md)
 
 ### 3. Biblioteca - Library
 
@@ -53,8 +62,8 @@ Zona orientada a la obtención de información.
   - Pistas.
   - Primeros eventos opcionales.
 - Conexiones:
-  - Pasillo Principal.
-  - Sótano.
+  - `Pasillo Principal` - `Hallway`.
+  - `Sótano` - `Basement`.
 
 ### 4. Dormitorio - Bedroom
 
@@ -65,7 +74,7 @@ Zona orientada al uso de estados de objetos.
   - Información personal.
   - Recursos narrativos.
 - Conexiones:
-  - Pasillo Principal.
+  - `Pasillo Principal` - `Hallway`.
 
 ### 5. Sótano - Basement
 
@@ -76,8 +85,8 @@ Centro mecánico del edificio.
   - Instalaciones.
   - Eventos temporales.
 - Conexiones:
-  - Biblioteca.
-  - Sala Ritual.
+  - `Biblioteca` - `Library`.
+  - `Sala Ritual` - `Ritual Room`.
 
 ### 6. Sala Ritual - Ritual Room
 
@@ -87,8 +96,8 @@ Zona final.
   - Convergencia de ambas realidades.
   - Resolución del misterio principal.
 - Conexiones:
-  - Sótano.
-  - Final.
+  - `Sótano` - `Basement`.
+  - `Final` - `Ending`.
 
 ---
 
@@ -123,23 +132,27 @@ Zona final.
   - Recoger objetos.
   - Uso básico del inventario.
 - Recompensa:
-  - Acceso al Pasillo Principal.
+  - Acceso al `Pasillo Principal`.
 
 ### PUZLE 2 - Primer SHIFT
 
-- Escenario: Pasillo Principal.
+- Escenario: `Pasillo Principal`.
 - Problema: Una estantería bloquea la ruta.
 - Realidad Normal: La estantería está presente.
 - El Otro Lado: La estantería no existe.
 - Solución: Utilizar SHIFT para atravesar la zona.
+  - El icono del Amuleto en la UI parpadea indicando disponibilidad.
+  - El jugador puede hacer click en el icono o presionar LEFT SHIFT.
+  - Para detalles de la mecánica, ver [SHIFT-Mechanic.md](./SHIFT-Mechanic.md).
 - Enseña:
-  - Mecánica SHIFT.
+  - Mecánica SHIFT (introducción principal).
   - Estados Presente / Ausente.
-- Recompensa: Acceso a la Biblioteca.
+  - Interacción mediante UI y teclado.
+- Recompensa: Acceso a la `Biblioteca`.
 
 ### PUZLE 3 - Información Oculta
 
-- Escenario: Biblioteca.
+- Escenario: `Biblioteca`.
 - Problema: Una cerradura requiere un código.
 - Realidad Normal: Se encuentra un libro aparentemente normal.
 - El Otro Lado: El contenido revela símbolos ocultos.
@@ -147,11 +160,11 @@ Zona final.
 - Enseña:
   - Información diferente según la realidad.
   - Observación.
-- Recompensa: Acceso al Dormitorio.
+- Recompensa: Acceso al `Dormitorio`.
 
 ### PUZLE 4 - Estado de Objetos
 
-- Escenario: Dormitorio.
+- Escenario: `Dormitorio`.
 - Problema: Una caja fuerte permanece cerrada.
 - Realidad Normal: La caja está intacta.
 - El Otro Lado: La caja está dañada.
@@ -162,7 +175,7 @@ Zona final.
 
 ### PUZLE 5 - Activación del Generador
 
-- Escenario: Sótano.
+- Recompensa: Acceso a la `Sala Ritual`.
 - Problema: El edificio no tiene energía.
 - Solución: Instalar el Fusible y activar el generador.
 - Consecuencia:
@@ -176,7 +189,7 @@ Zona final.
 
 ### PUZLE 6 - Convergencia
 
-- Escenario: Sala Ritual.
+- Escenario: `Sala Ritual`.
 - Problema: El ritual permanece incompleto.
 - Requiere:
   - Fotografía Antigua.
@@ -186,7 +199,7 @@ Zona final.
 - Solución: Alternar entre ambas realidades para reconstruir los acontecimientos.
 - Enseña:
   - Uso combinado de todos los sistemas.
-- Recompensa: Acceso al final.
+- Recompensa: Acceso al `final`.
 
 ---
 
@@ -235,12 +248,12 @@ El jugador reconstruye completamente los acontecimientos.
 
 ```mermaid
 graph TD
-    Vestíbulo --> Pasillo_Principal
-    Pasillo_Principal --> Biblioteca
-    Biblioteca --> Dormitorio
-    Dormitorio --> Sótano
-    Sótano --> Sala_Ritual
-    Sala_Ritual --> Final
+    `Vestíbulo` --> `Pasillo_Principal`
+    `Pasillo_Principal` --> `Biblioteca`
+    `Biblioteca` --> `Dormitorio`
+    `Dormitorio` --> `Sótano`
+    `Sótano` --> `Sala_Ritual`
+    `Sala_Ritual` --> `final`
 ```
 
-Este flujo aprovecha directamente los sistemas definidos en el GDD: exploración, SHIFT, estados de objetos, eventos temporales y terror psicológico, manteniendo un alcance razonable para un desarrollo individual durante la Game Off 2026. [GameOff26-GameIdea-1 | Word], [GameOff26-...dea-1-v3 1 | PDF]
+Este flujo aprovecha directamente los sistemas definidos en el GDD: exploración, SHIFT, estados de objetos, eventos temporales y terror psicológico, manteniendo un alcance razonable para un desarrollo individual durante la Game Off 2026.

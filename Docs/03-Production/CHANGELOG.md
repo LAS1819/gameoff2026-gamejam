@@ -2,6 +2,116 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.6-proto] - 2026-11-07
+
+### Added
+
+- Central runtime HUD built around a single `HUDRoot` with Panel Renderer, UXML, and USS for the MVP demo layer
+- Inventory slot state and selected-item highlighting so the player can clearly see what has been picked up and what is currently prepared for use
+- Shared SHIFT gate logic in `RealityManager` so the room restriction is enforced consistently in both keyboard and UI paths
+- `TryToggleReality()` and `IsShiftAllowedInCurrentRoom()` helpers to centralize the reality-toggle rules without duplicating logic
+- Runtime feedback and overlay states in `HUDController` for room transitions and reality changes
+
+### Changed
+
+- Consolidated the HUD and SHIFT interaction into one runtime source of truth to avoid duplicate UI surfaces and conflicting click handlers
+- Updated `InteractionManager` to require an explicit item selection before a required item can be used on a target interactable, aligning with the Staff Key + Front Door flow
+- Refined the HUD lifecycle so `UIManager` delegates to `HUDController` instead of leaving the UI layer half-wired or disconnected from gameplay events
+- Cleaned the stylesheet to remove unsupported UI Toolkit patterns and keep the HUD compatible with the current runtime UI stack
+
+### Fixed
+
+- Prevented LEFT SHIFT from toggling reality outside the allowed room, matching the same restriction already applied to the HUD button
+- Removed the duplicate/legacy ShiftPanel conflict risk by keeping the control path centralized in the HUD root
+- Ensured inventory slots visibly reflect item presence and selection after pickup instead of only toggling a generic empty/full style
+- Stopped UI Toolkit warnings by replacing unsupported `inset`, `gap`, and pseudo-selector patterns with compatible layout rules
+
+### Notes
+
+- This pass stabilizes the demo-ready HUD layer and the core MVP interaction flow without expanding scope into extra rooms or content systems
+- The prototype remains focused on the Lobby → Hallway loop, while the actual Library and Bedroom rooms are still intentionally deferred for the next iteration
+
+---
+
+## [0.0.5-proto] - 2026-11-06
+
+### Added
+
+- Hallway placeholder doors for the Library and Bedroom, registered as valid interactables in the hallway room data
+- `AddHallwayInteractables()` helper in `GameManager` to keep the room setup structured and easier to read
+- Debug console feedback for `library_door` and `bedroom_door` when examined in the correct reality
+
+### Changed
+
+- Hallway room setup was refactored out of the inline room factory flow to keep the prototype cleaner and reduce `GameManager` sprawl
+- `InteractionManager.ResolveExamine()` now emits the interactable description in logs and blocks interaction when the player is not in the Other Side
+- The two hallway doors were defined as visible only in the Other Side, matching the intended gameplay gate around the hallway obstacle
+
+### Fixed
+
+- Prevented the placeholder doors from being interactable in the normal reality before the obstacle is cleared
+- Corrected the hidden toggle behavior by making the hallway room data include the doors as real interactables instead of relying only on Scene objects
+- Avoided false-positive clickability for library/bedroom triggers before the reality shift is active
+
+### Notes
+
+- This is the prototype pass that stabilizes the hallway side-room placeholder flow and validates the intended gating logic before the next content iteration
+- The actual Library and Bedroom rooms are still placeholders; the interaction is now correctly tied to the Other Side and ready for the next content pass
+
+---
+
+## [0.0.4-proto] - 2026-11-06
+
+### Added
+
+- Runtime SHIFT UI implemented with UI Toolkit + Panel Renderer
+- Clean icon-only interaction using a `VisualElement` instead of the native Unity Button
+- Room-based SHIFT gating: only enabled in the Hallway by default
+- Visual state switching between normal and Other Side via CSS classes
+- Hover, pressed, disabled feedback handled in USS
+
+### Changed
+
+- Shift logic separated from visual styling to keep the UI layer clean and avoid default button background artifacts
+- Updated the technical setup docs to reflect the actual Panel Renderer implementation and the final icon workflow
+- Adjusted the runtime UI so styling lives in `ShiftUI.uxml` + `shift-button-style-sheet.uss` instead of in C# code
+
+### Fixed
+
+- Removed the default button background that was appearing behind the SHIFT icon
+- Repaired the runtime binding flow for the UI Toolkit clean icon implementation
+- Prevented SHIFT from being triggered in rooms where it is not allowed
+
+### Notes
+
+- MVP loop remains focused on Hallway reality shifting as the technical core of the prototype
+- This release stabilizes the runtime UI layer and brings the SHIFT interaction closer to the final intended presentation
+
+---
+
+## [0.0.3-proto] - 2026-11-05
+
+### Added
+
+- Input System upgrade for LEFT SHIFT handling
+- Hallway configuration guide (HALLWAY-SETUP.md)
+- SHIFT Mechanic complete design specification
+- InputHandler script with Input System Package support
+- Amuleto icon design and progression documentation
+
+### Changed
+
+- Migrated from legacy Input.GetKeyDown() to Input System Package APIs
+- Updated technical documentation with Input System requirements and implementation details
+
+### Notes
+
+- Player Settings requires "Active Input Handling" = "Input System Package"
+- Hallway ready for scene configuration
+- Next step: User configures HallwayObstacle, ShiftTrigger, and LobbyExit in Unity
+
+---
+
 ## [0.0.2-proto] - 2026-11-04
 
 ### Added

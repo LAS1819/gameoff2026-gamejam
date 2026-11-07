@@ -2,7 +2,7 @@
 
 **Status:** 🟡 Lobby Complete, Hallway In Progress  
 **Target Time:** 2.5-3 hours  
-**Last Updated:** 2026-11-04
+**Last Updated:** 2026-11-06
 
 ---
 
@@ -176,17 +176,6 @@ private void BuildDefaultRooms()
                 visibleInNormalReality = true,
                 visibleInOtherReality = false,
                 resultFlag = "RealityUnlocked"
-            },
-            // ShiftTrigger
-            new InteractableData
-            {
-                id = "shift_trigger",
-                displayName = "The Other Side",
-                description = "Reality feels thin here...",
-                interactionType = InteractionType.Toggle,
-                visibleInNormalReality = true,
-                visibleInOtherReality = true,
-                resultFlag = "ShiftPerformed"
             },
             // LobbyExit
             new InteractableData
