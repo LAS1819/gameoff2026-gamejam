@@ -1,95 +1,122 @@
 # TD-HUD - UI mínima del MVP con Panel Renderer
 
-- **Versión:** 1.0
+- **Versión:** 1.1
 - **Creado:** 2026-11-06
-- **Actualizado:** 2026-11-06
-
----
+- **Actualizado:** 2026-11-07
 
 ## Objetivo
 
-Diseñar un HUD mínimo, estable y reutilizable para la demo del sprint 1 sin crear una arquitectura de UI compleja.
+Diseñar un HUD mínimo, estable y reutilizable para la demo del sprint 1 sin añadir una segunda arquitectura de UI.
 
-La intención es:
+La idea es:
 
 - mostrar inventario básico,
 - dar feedback textual al jugador,
-- integrar el SHIFT button dentro del mismo sistema,
-- reutilizar el patrón que ya funciona con `PanelRenderer` y `UIShiftButton`.
+- integrar `SHIFT` en el mismo sistema,
+- mantener el patrón ya validado por `PanelRenderer` y `UIShiftButton`.
 
----
+## Regla base
 
-## Principio general
+No usamos `UIDocument` runtime para este caso. La UI del MVP debe seguir este patrón:
 
-Usaremos el mismo enfoque que ya tenemos para el SHIFT:
-
-- `PanelRenderer` como raíz visual runtime
-- `VisualTreeAsset` para la estructura del HUD
+- `PanelRenderer` en un GameObject raíz
+- `VisualTreeAsset` para estructura
 - `USS` para estilos
 - binding por `RegisterUIReloadCallback()`
 - actualización por eventos, no por `Update()`
 
-Esto evita el patrón legacy de `UIDocument`, mantiene la lógica sencilla y encaja con un proyecto de jam de 2 personas.
+Esto es más estable para una jam y encaja con la arquitectura actual del proyecto.
 
----
-
-## Estructura recomendada
-
-### 1) Archivos
+## Archivos recomendados
 
 - `Assets/UI/HUD.uxml`
 - `Assets/UI/HUD.uss`
 - `Assets/Scripts/UI/HUDController.cs`
-- `Assets/Scripts/UI/UIShiftButton.cs` (se conserva, pero pasa a ser un botón dentro del HUD)
+- `Assets/Scripts/UI/UIShiftButton.cs` (se conserva, pero trabaja dentro del HUD)
 
-### 2) Jerarquía visual
+## Jerarquía visual sugerida
+
+Importante: con `PanelRenderer`, los bloques no son `GameObjects` separados dentro de la escena. Lo normal es tener un único `GameObject` con `PanelRenderer` y dentro de ese árbol visual crear los `VisualElement`s: `InventoryPanel`, `slot-*`, `feedback-text`, `shift-button`, etc.
 
 ```text
-HUDRoot (GameObject con PanelRenderer)
-├── InventoryPanel
-│   ├── slot-0
-│   ├── slot-1
-│   └── slot-2
-├── FeedbackText
-├── ShiftButton
-├── TransitionOverlay
-└── RealityPulse
+HUDRoot (GameObject con PanelRenderer + HUDController)
+├── InventoryPanel (VisualElement)
+│   ├── slot-0 (VisualElement)
+│   ├── slot-1 (VisualElement)
+│   └── slot-2 (VisualElement)
+├── FeedbackText (Label)
+├── ShiftButton (VisualElement)
+├── TransitionOverlay (VisualElement)
+└── RealityPulse (VisualElement)
 ```
 
-### 3) Roles
+### Componentes recomendados por bloque
 
-- `InventoryPanel`: muestra objetos recogidos.
-- `FeedbackText`: texto temporal de acción y progreso.
-- `ShiftButton`: botón de SHIFT, integrado en el mismo HUD.
-- `TransitionOverlay`: fade para cambiar de room.
-- `RealityPulse`: ligero flash al cambiar de realidad.
+- `HUDRoot`
+  - `PanelRenderer`
+  - `HUDController` (script)
+  - `PanelSettings` asignado en el `PanelRenderer`
+  - `VisualTreeAsset` asignado al `PanelRenderer`
 
----
+- `InventoryPanel`
+  - `VisualElement` (sin collider ni SpriteRenderer)
+  - contenedor del inventario
+  - generalmente sin script propio
+
+- `slot-0`, `slot-1`, `slot-2`
+  - `VisualElement` (sin collider ni SpriteRenderer)
+  - pueden tener estilo de fondo, borde y tamaño fijo
+  - si luego se añaden iconos, se usan `background-image` o un `Image` dentro del slot
+
+- `FeedbackText`
+  - `Label` (`UnityEngine.UIElements.Label`)
+  - texto temporal para mensajes del juego
+  - no necesita `TextMeshPro` ni `Text` nativo para este caso
+
+- `ShiftButton`
+  - `VisualElement` con `RegisterCallback<ClickEvent>()`
+  - opcionalmente script `UIShiftButton` para la lógica de validación
+  - no necesita `Button` nativo ni `BoxCollider`
+
+- `TransitionOverlay`
+  - `VisualElement`
+  - fondo negro o fade, con clase `.active`
+  - se activa solo durante la transición entre rooms
+
+- `RealityPulse`
+  - `VisualElement`
+  - flash corto al cambiar de realidad
+  - no necesita `Image` ni `SpriteRenderer` por sí mismo
+
+## Qué hace cada bloque
+
+- `InventoryPanel`: muestra objetos recogidos, con slots fijos para la demo.
+- `FeedbackText`: texto temporal para confirmar acciones.
+- `ShiftButton`: botón de cambio de realidad, integrado en el mismo HUD.
+- `TransitionOverlay`: fade entre rooms.
+- `RealityPulse`: flash pequeño al cambiar de realidad.
 
 ## Patrón de runtime
 
-### HUDController
+El `HUDController` será el punto central de la UI.
 
-`HUDController` será el punto de control visual del sistema.
-
-Sus responsabilidades:
+Debe:
 
 - suscribirse a eventos de `InventoryManager`, `RoomManager` y `RealityManager`
-- enlazar elementos del `VisualTreeAsset` tras cada recarga del panel
-- refrescar inventario y feedback cuando cambie el estado
-- activar/desactivar overlay y pulse visual
+- enlazar los elementos del árbol visual tras cada recarga del panel
+- actualizar inventario y estado visual sin depender de `Update()`
 
-### Eventos a escuchar
+### Eventos clave
 
 - `InventoryManager.ItemAdded`
 - `InventoryManager.ItemRemoved`
 - `RoomManager.RoomChanged`
 - `RealityManager.RealityChanged`
 
-### Flujo de actualización
+### Flujo de binding
 
 ```csharp
-private void HandlePanelReloaded(PanelRenderer panelRenderer, VisualElement root, int version)
+private void HandlePanelReloaded(PanelRenderer renderer, VisualElement root, int version)
 {
     inventorySlots = new List<VisualElement>
     {
@@ -98,95 +125,26 @@ private void HandlePanelReloaded(PanelRenderer panelRenderer, VisualElement root
         root.Q<VisualElement>("slot-2")
     };
 
-    feedbackLabel = root.Q<Label>("feedback-text");
+    feedbackText = root.Q<Label>("feedback-text");
     transitionOverlay = root.Q<VisualElement>("transition-overlay");
     realityPulse = root.Q<VisualElement>("reality-pulse");
     shiftButton = root.Q<VisualElement>("shift-button");
 
-    RefreshInventoryUI();
-    RefreshFeedbackState();
+    RefreshInventory();
 }
 ```
 
----
-
 ## Integración con el SHIFT actual
 
-El `UIShiftButton` no debe ser una UI aislada con su propio binding completo. Debe seguir este patrón:
+La clave aquí es que el `shift-button` no es una UI aislada. Debe formar parte del mismo HUD. El patrón correcto es:
 
-- el `ShiftButton` vive en el mismo `HUDRoot`
-- `UIShiftButton` solo maneja click y lógica de validación
-- el `HUDController` gestiona el estado visual del botón a partir de `RealityManager` y `RoomManager`
+- `HUDController` publica/actualiza el visual del botón
+- `UIShiftButton` solo valida el click y ejecuta `RealityManager.Instance.ToggleReality()`
+- la lógica visual queda en el controller, no en un script adicional de UI
 
-### Regla clave
+Importante: si estamos usando `PanelRenderer`, no debemos esperar `OnMouseDown()` sobre un `MonoBehaviour` para el botón. La interacción real debe hacerse por `ClickEvent` sobre el `VisualElement` o por un callback del mismo `UIShiftButton` preparado para runtime UI.
 
-`UIShiftButton` no debe hacer binding manual de cada elemento del HUD. Solo debe:
-
-- verificar si SHIFT está permitido en la room actual
-- llamar a `RealityManager.Instance.ToggleReality()`
-- activar el flag `ShiftPerformed`
-- delegar la visualización del estado al `HUDController`
-
-Esto mantiene el mismo patrón que ya hemos validado con el botón SHIFT y evita fragmentar la UI.
-
----
-
-## Estado visual recomendado
-
-### Inventario
-
-Clases CSS:
-
-- `.inventory-slot`
-- `.inventory-slot.full`
-- `.inventory-slot.empty`
-
-Regla:
-
-- slot vacío -> fondo gris / opacidad baja
-- slot con ítem -> icono visible + borde activo
-
-### Feedback
-
-Clases CSS:
-
-- `.feedback-text`
-- `.feedback-text.visible`
-
-Regla:
-
-- se activa con una pequeña animación de aparición
-- se oculta tras 1.5s a 2s
-- no hay cola de mensajes compleja
-
-### Transición
-
-Clases CSS:
-
-- `.transition-overlay`
-- `.transition-overlay.active`
-
-Regla:
-
-- alpha de 0 a 1 al entrar en room
-- alpha de 1 a 0 al salir de la transición
-- duración 0.25s-0.5s
-
-### Pulse de realidad
-
-Clases CSS:
-
-- `.reality-pulse`
-- `.reality-pulse.active`
-
-Regla:
-
-- flash corto al cambiar normal ↔ Other Side
-- no más de 0.3s-0.5s
-
----
-
-## Estructura de la capa visual
+## Estructura visual mínima
 
 ### HUD.uxml
 
@@ -200,9 +158,7 @@ Regla:
         </ui:VisualElement>
 
         <ui:Label name="feedback-text" class="feedback-text" text="" />
-
         <ui:VisualElement name="shift-button" class="shift-button normal" />
-
         <ui:VisualElement name="transition-overlay" class="transition-overlay" />
         <ui:VisualElement name="reality-pulse" class="reality-pulse" />
     </ui:VisualElement>
@@ -214,16 +170,13 @@ Regla:
 ```css
 #hud-root {
     position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
 }
 
 #inventory-panel {
     position: absolute;
-    bottom: 24px;
     left: 50%;
+    bottom: 24px;
     translate: -50% 0;
     flex-direction: row;
     gap: 12px;
@@ -290,11 +243,7 @@ Regla:
 }
 ```
 
----
-
-## Código sugerido
-
-### HUDController.cs
+## Lógica mínima sugerida
 
 ```csharp
 public class HUDController : MonoBehaviour
@@ -302,10 +251,9 @@ public class HUDController : MonoBehaviour
     [SerializeField] private PanelRenderer panelRenderer;
 
     private List<VisualElement> inventorySlots;
-    private Label feedbackLabel;
+    private Label feedbackText;
     private VisualElement transitionOverlay;
     private VisualElement realityPulse;
-    private VisualElement shiftButton;
 
     private void OnEnable()
     {
@@ -328,99 +276,59 @@ public class HUDController : MonoBehaviour
             root.Q<VisualElement>("slot-2")
         };
 
-        feedbackLabel = root.Q<Label>("feedback-text");
+        feedbackText = root.Q<Label>("feedback-text");
         transitionOverlay = root.Q<VisualElement>("transition-overlay");
         realityPulse = root.Q<VisualElement>("reality-pulse");
-        shiftButton = root.Q<VisualElement>("shift-button");
 
-        RefreshInventoryUI();
+        RefreshInventory();
     }
 
-    private void SubscribeEvents()
-    {
-        InventoryManager.Instance.ItemAdded += HandleItemAdded;
-        InventoryManager.Instance.ItemRemoved += HandleItemRemoved;
-        RoomManager.Instance.RoomChanged += HandleRoomChanged;
-        RealityManager.Instance.RealityChanged += HandleRealityChanged;
-    }
-
-    private void RefreshInventoryUI()
+    private void RefreshInventory()
     {
         var items = InventoryManager.Instance.GetItems();
         for (int i = 0; i < inventorySlots.Count; i++)
         {
             var slot = inventorySlots[i];
-            slot.RemoveFromClassList("full");
-            slot.AddToClassList(i < items.Count ? "full" : "empty");
+            slot.EnableInClassList("full", i < items.Count);
+            slot.EnableInClassList("empty", i >= items.Count);
         }
     }
 
     public void ShowFeedback(string text)
     {
-        if (feedbackLabel == null) return;
-        feedbackLabel.text = text;
-        feedbackLabel.AddToClassList("visible");
+        if (feedbackText == null) return;
+        feedbackText.text = text;
+        feedbackText.AddToClassList("visible");
     }
 }
 ```
-
-### UIShiftButton.cs
-
-Mantenerlo corto y claro:
-
-- validación de room
-- toggle de realidad
-- flag `ShiftPerformed`
-- no binding de elementos del HUD
-
-```csharp
-public class UIShiftButton : MonoBehaviour
-{
-    private void OnMouseDown()
-    {
-        if (!CanShiftInCurrentRoom())
-        {
-            return;
-        }
-
-        RealityManager.Instance.ToggleReality();
-        GameManager.Instance.SetFlag(GameFlagNames.ShiftPerformed, true);
-    }
-}
-```
-
-Preferible: si se usa como `VisualElement` del HUD, entonces queda aún más limpio con callback directo al `ClickEvent` del propio `shift-button` en `HUDController`.
-
----
 
 ## Qué priorizar
 
 ### Sí
 
-- un solo HUD principal
+- un único HUD principal
 - `PanelRenderer` para runtime
 - eventos para actualizar la UI
-- mínimo 2-4 slots de inventario
-- feedback de texto temporal
+- 2-4 slots de inventario
+- feedback textual corto
 - fade y pulse cortos
 
 ### No
 
 - `UIDocument` runtime
-- varias UIs separadas para cada sistema
-- un sistema completo de inventario con data tables y assets extra
+- varias UIs separadas por sistema
+- más de un HUD principal
 - transiciones largas o complejas
-- scripts de UI con lógica duplicada
-
----
+- scripts de UI duplicados
 
 ## Criterio de éxito
 
-La implementación está bien si:
+La solución es buena si:
 
-- el flujo de demo queda claro y legible,
-- el jugador ve que recogió la llave y que el mundo cambia,
-- la UI no rompe la arquitectura actual,
-- el sistema es fácil de mantener aunque solo seamos dos personas en la jam.
+- el jugador entiende qué ha recogido,
+- la transición entre rooms y realidades se siente clara,
+- el SHIFT está integrado en el mismo HUD,
+- el sistema sigue siendo simple y mantenible para una jam de dos personas.
 
-Esto da una base decente para el siguiente sprint sin convertir la demo en un sistema de UI gigante.
+Eso nos da una base suficiente para la demo sin inflar el scope ni crear una segunda arquitectura.

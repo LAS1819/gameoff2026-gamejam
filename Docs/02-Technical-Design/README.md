@@ -1,6 +1,7 @@
 # Technical Design - MVP
 
 **Quick Links:**
+
 - **[MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md)** ← START HERE (contains everything)
 - [Technical-Design.md](./Technical-Design.md) (high-level design reference only)
 - [MVP-Sprint-1.md](./MVP-Sprint-1.md) (sprint goals)
@@ -33,7 +34,7 @@ Read [Technical-Design.md](./Technical-Design.md) for high-level philosophy.
 ## 📋 Files
 
 | File | Purpose |
-|------|---------|
+| ------ | --------- |
 | **MVP-SPECIFICATION.md** | Complete MVP spec with 5 phases, data tables, validation checklist |
 | Technical-Design.md | High-level architecture philosophy |
 | MVP-Sprint-1.md | Sprint goals and acceptance criteria |

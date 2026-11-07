@@ -1,0 +1,88 @@
+VisualElement {}
+
+#hud-root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#inventory-panel {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    translate: -50% 0;
+    flex-direction: row;
+}
+
+.inventory-slot {
+    width: 64px;
+    height: 64px;
+    margin-right: 12px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border-width: 2px;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.inventory-slot:last-child {
+    margin-right: 0;
+}
+
+.inventory-slot.full {
+    background-color: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+#feedback-text {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    translate: -50% 0;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+#feedback-text.visible {
+    opacity: 1;
+}
+
+#shift-button {
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+}
+
+#transition-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    transition: opacity 0.3s ease;
+}
+
+#transition-overlay.active {
+    opacity: 1;
+}
+
+#reality-pulse {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    background-color: rgba(120, 130, 255, 0.18);
+    transition: opacity 0.25s ease;
+}
+
+#reality-pulse.active {
+    opacity: 1;
+}

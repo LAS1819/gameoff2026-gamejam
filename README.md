@@ -43,6 +43,7 @@ The current implementation is a technical foundation for the first sprint:
 - room management
 - inventory and interaction flow
 - reality switching support for normal / alternate reality
+- runtime HUD pass based on Panel Renderer for the MVP polish layer
 
 ## Unity setup
 
