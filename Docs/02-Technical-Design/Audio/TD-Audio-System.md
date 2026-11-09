@@ -20,3 +20,7 @@ El sistema de audio se compone de varios módulos que trabajan en conjunto para 
 - **Música (Music):** el formato final de los clips de música será **MP3** con compresión de 192 kbps.
 - **Ambiente (Ambient):** el formato final de los clips de audio ambiental será **MP3** con compresión de 192 kbps.
 - **Efectos de Sonido (SFX):** el formato final de los clips de efectos de sonido será **OGG** con compresión de 192 kbps.
+
+## Normalización de Volumen
+
+Para asegurar una experiencia auditiva consistente, todos los clips de audio serán normalizados a un nivel de volumen estándar, que será de -3db. Esto incluye música, efectos de sonido y audio ambiental. La normalización ayuda a evitar variaciones bruscas de volumen entre diferentes tipos de audio y garantiza que los sonidos importantes no se pierdan en la mezcla general del juego.
