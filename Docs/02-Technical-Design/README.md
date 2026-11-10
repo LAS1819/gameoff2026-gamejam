@@ -45,5 +45,6 @@ Read [Technical-Design.md](./Technical-Design.md) for high-level philosophy.
 | Gameplay/Rooms/Room-Lobby.md | Technical room spec for the Lobby: interactables, items, flags and flow |
 | Gameplay/Rooms/Room-Hallway.md | Technical room spec for the Hallway: SHIFT, reality gating and transition logic |
 | Gameplay/Rooms/Room-Bedroom.md | Technical room spec for the Bedroom: light, flashlight, key and threat system |
+| Gameplay/Rooms/Room-Bedroom-Setup.md | Unity hierarchy and naming blueprint for the Bedroom room setup |
 
 **That's it. No more.**
