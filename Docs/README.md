@@ -14,6 +14,8 @@ Docs/
     Game-GDD.md
     MVP-Overview.md
     Puzzle-Flow.md
+    Room-Lobby.md
+    Room-Hallway.md
     Visual-Guide.md
   02-Technical-Design/
     README.md (← MVP documentation index)
