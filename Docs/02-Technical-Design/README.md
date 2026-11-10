@@ -38,6 +38,7 @@ Read [Technical-Design.md](./Technical-Design.md) for high-level philosophy.
 | **MVP-SPECIFICATION.md** | Complete MVP spec with 5 phases, data tables, validation checklist |
 | **MVP-Sprint-1.md** | Sprint goals and acceptance criteria for the base playable flow |
 | **MVP-Sprint-2.md** | Recommended next sprint priorities for Bedroom, light gating and room flow continuity |
+| **Room-Architecture.md** | Recommended room construction pattern to keep GameManager lean and data-driven |
 | Technical-Design.md | High-level architecture philosophy |
 | TD-HUD.md | Runtime HUD structure using Panel Renderer for the MVP polish pass |
 | GameObject-Hierarchy.md | General hierarchy patterns |
