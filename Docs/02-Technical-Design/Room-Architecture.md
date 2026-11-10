@@ -1,6 +1,6 @@
 # Room Architecture Pattern - MVP
 
-- Versión 0.2
+- Versión 0.4
 - Creado: 10/11/2026
 - Actualizado: 10/11/2026
 
@@ -8,15 +8,16 @@
 
 ## Objetivo
 
-Mantener `GameManager` como gestor de arranque y dejar la definición de rooms/interactables en una capa de contenido. Esto reduce responsabilidad, evita “God Manager” y facilita añadir Lobby/Hallway/Bedroom sin mezclar runtime state con data del juego.
+Mantener `GameManager` como gestor de arranque y mover la definición de rooms/interactables a una capa de contenido. Así evitamos mezclar runtime state con data del juego.
 
-## Regla base
+### Regla base
 
-- `GameManager`: bootstrapping, flags globales, carga inicial.
-- `DefaultRoomCatalog` / `RoomFactory`: define rooms y `InteractableData`.
-- `RoomManager`: gestiona room activa + estados de room.
-- `InteractableBehaviour`: solo click + visibilidad.
-- `InteractableData`: fuente de verdad del interactable.
+- `GameManager`: bootstrap, flags globales, room inicial.
+- `DefaultRoomCatalog`: define rooms y `InteractableData`.
+- `RoomFactory`: opcional, materializa GameObjects desde la data.
+- `RoomManager`: room activa y visibilidad.
+- `InteractableBehaviour`: click + visibilidad.
+- `InteractableData`: fuente de verdad.
 
 Seleccionamos Opción A: data en código para el MVP.
 
@@ -32,25 +33,25 @@ Seleccionamos Opción A: data en código para el MVP.
 - creación de `InteractableData`;
 - carga de rooms.
 
-Esto funciona, pero ya está mezclando contenido, flujo y estado global. Para un MVP es válido, pero no es una base escalable.
+Funciona, pero mezcla contenido, flujo y estado global. No es sostenible a medio plazo.
 
 ---
 
 ## Estructura recomendada
 
-### 1. GameManager
+### `GameManager`
 
-Debe quedar como:
+Responsabilidad:
 
 - `EnsureRuntimeSystems()`
 - `InitializeMVP()`
 - `SetFlag()` / `HasFlag()`
 - `SetCurrentRoom()`
-- `LoadRoom()` inicial
+- cargar room inicial
 
-No debe tener la data de cada room dentro del mismo archivo.
+Debe quedar limpio y no construir rooms manualmente.
 
-### 2. DefaultRoomCatalog
+### `DefaultRoomCatalog`
 
 ```csharp
 public static class DefaultRoomCatalog
@@ -65,36 +66,69 @@ public static class DefaultRoomCatalog
 }
 ```
 
-Aquí va toda la construcción de:
+Responsabilidad:
 
-- `RoomData`
-- `InteractableData`
-- `connectedRoomIds`
-- `requiredItemId`
-- `resultFlag`
-- `linkedRoomId`
-- visibilidad por realidad
+- construir `RoomData` por room;
+- crear `InteractableData`;
+- definir `connectedRoomIds`, `requiredItemId`, `linkedRoomId`, flags etc.
 
-### 3. RoomFactory (opcional)
+### `RoomFactory` (opcional, recomendado si se instancian objetos)
 
-Útil si se quiere materializar GameObjects a partir de `RoomData`, pero no obligatorio para MVP. En una primera fase, `RoomManager` puede consumir directamente la data y crear objetos runtime.
+```csharp
+public class RoomFactory : MonoBehaviour
+{
+    public GameObject CreateRoom(RoomData room) { ... }
+    public GameObject CreateInteractable(InteractableData data) { ... }
+}
+```
 
-### 4. RoomManager
+Responsabilidad:
 
-Responsabilidades:
+- instanciar GO de room y interactables;
+- enlazar `InteractableBehaviour` con `InteractableData`;
+- aplicar visibilidad inicial.
 
-- almacenar rooms;
-- cargar room actual;
-- evaluar visibilidad del interactable según room + realidad;
-- mantener el estado de la room.
+### `RoomManager`
 
-### 5. InteractableBehaviour
+Responsabilidad:
 
-Debe recibir `InteractableData` y delegar en `InteractionManager.TryInteract(data)`. No debe crear data ni definir rooms.
+- `SetRooms(List<RoomData>)`
+- `LoadRoom(string roomId)`
+- `GetCurrentRoom()`
+- `IsInteractableVisible(InteractableData data)`
+- gestionar estado activo de cada room
 
-### 6. InteractableData
+### `InteractableBehaviour`
 
-La configuración del interactable debe vivir aquí:
+```csharp
+public class InteractableBehaviour : MonoBehaviour
+{
+    public void Configure(InteractableData data) { ... }
+    private void OnMouseDown() { InteractionManager.Instance.TryInteract(data); }
+}
+```
+
+Responsabilidad:
+
+- recibir `InteractableData`;
+- click + visibilidad;
+- delegar al `InteractionManager`.
+
+No debe crear data ni decidir qué room existe.
+
+### `InteractionManager`
+
+Responsabilidad:
+
+- `TryInteract(InteractableData data)`
+- `TryPickup`, `TryUse`, `TryTransition`, `TryToggle`
+- validar items y flags
+
+### `InteractableData`
+
+Fuente de verdad del interactable.
+
+Debe incluir:
 
 - id
 - displayName
@@ -109,7 +143,20 @@ La configuración del interactable debe vivir aquí:
 
 ---
 
-## Patrón de MVP
+## Clases concretas recomendadas
+
+- `Assets/Scripts/Rooms/DefaultRoomCatalog.cs`
+- `Assets/Scripts/Rooms/RoomManager.cs`
+- `Assets/Scripts/Rooms/RoomFactory.cs` (opcional)
+- `Assets/Scripts/InteractableBehaviour.cs`
+- `Assets/Scripts/InteractionManager.cs`
+- `Assets/Scripts/GameManager.cs`
+
+`RoomData` y `InteractableData` ya existen y deben mantenerse como modelos centrales.
+
+---
+
+## Patrón de inicialización
 
 ```csharp
 public void InitializeMVP()
@@ -130,7 +177,7 @@ public void InitializeMVP()
 }
 ```
 
-Esto ya limpia mucho el flujo sin introducir complejidad innecesaria.
+Esto deja `GameManager` limpio y separa claramente contenido y runtime.
 
 ---
 
@@ -138,24 +185,25 @@ Esto ya limpia mucho el flujo sin introducir complejidad innecesaria.
 
 No mezclar dos fuentes de verdad.
 
-Para este proyecto, la ruta correcta es:
+Para este proyecto:
 
 - data en código para rooms/interactables;
-- editor solo para prefabs, colliders, sprites, referencias visuales.
+- editor solo para prefabs, colliders, sprites y ajustes visuales.
 
-Eso evita inconsistencias y hace más legible la producción del MVP.
+Esto evita inconsistencias y mantiene el MVP legible.
 
 ---
 
-## Separación que buscamos
+## Separación final
 
 ```text
 GameManager        -> bootstrap + flags + room start
 DefaultRoomCatalog -> room definitions and interactable data
-RoomManager        -> active room and room logic
-InteractableBehaviour -> visual interaction bridge
-InteractionManager -> actual resolution of actions
-InteractableData   -> configuration source of truth
+RoomFactory        -> instantiate room content (optional)
+RoomManager        -> room active state and visibility
+InteractableBehaviour -> click + visibility bridge
+InteractionManager -> resolve actions and requirements
+InteractableData   -> source of truth
 ```
 
 ---
@@ -164,9 +212,10 @@ InteractableData   -> configuration source of truth
 
 Mantener esta arquitectura simple:
 
-- `GameManager` no define rooms a mano.
-- `DefaultRoomCatalog` crea la data del juego.
-- `RoomManager` gestiona room state.
-- `InteractableBehaviour` solo responde a interacción.
+- `GameManager` no define rooms a mano;
+- `DefaultRoomCatalog` crea la data del juego;
+- `RoomManager` gestiona room state;
+- `InteractableBehaviour` solo responde a interacción;
+- `RoomFactory` materializa el contenido si hace falta.
 
-Con eso, Lobby/Hallway/Bedroom quedan bien separados, el proyecto sigue siendo simple y la deuda técnica no crece innecesariamente.
+Con eso, Lobby/Hallway/Bedroom quedan bien separados y el proyecto sigue simple.
