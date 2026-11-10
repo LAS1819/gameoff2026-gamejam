@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.7-proto] - 2026-11-10
+
+### Added
+
+- Initial runtime audio foundation with a dedicated `AudioManager` and `MusicManager` under the main runtime hierarchy
+- Looping Theme Father soundtrack playback tied to the game's runtime lifecycle
+- Audio mixer baseline with `Master`, `Music`, `Ambient`, and `SFX` groups for clean future expansion
+- Unity import and workflow guidance for music/ambient vs SFX handling in the technical design document
+- Audio system design notes capturing the runtime architecture, mixer guidance, and migration path for future content
+
+### Changed
+
+- Wired `GameManager` to initialize the audio system alongside the rest of the runtime managers
+- Kept the music system aligned with the current project pattern so the audio layer responds to runtime state instead of bypassing the game's existing architecture
+- Reworked the technical design doc to keep the audio specification compact, practical, and consistent with the current sprint scope
+
+### Fixed
+
+- Ensured the music source is explicitly assigned to the `Music` bus so it reaches the mixer output instead of being left un-routed
+- Reduced the risk of unmaintainable audio design by avoiding a `Resources`-based dependency in the first runtime pass
+
+### Notes
+
+- This pass establishes the initial audio runtime foundation without over-expanding the feature set beyond the current MVP scope
+- The project is still intentionally scoped to a single global theme while the actual Library and other rooms remain deferred for future content passes
+- The next step is to expand the audio system only when additional rooms or narrative cues require separate ambience and cue logic
+
+---
+
 ## [0.0.6-proto] - 2026-11-07
 
 ### Added
