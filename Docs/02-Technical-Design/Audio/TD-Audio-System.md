@@ -184,6 +184,98 @@ La comunicación debe ser por eventos y lectura de estado, no por referencias di
 
 ---
 
+## Importación en Unity
+
+La importación debe dejarse con ajustes que favorezcan la estabilidad del juego y la sensación de continuidad musical.
+
+La versión exacta de la interfaz de Unity puede variar según la versión del editor, pero el patrón de trabajo es siempre el mismo. Lo importante es mantener un preset consistente para cada tipo de audio:
+
+### Preset recomendado
+
+#### Música y ambiente (clips largos)
+
+- `Load Type`: `Streaming`
+- `Preload Audio Data`: `false`
+- `Spatial Blend`: `0` (2D)
+- `Force To Mono`: `false` salvo que haga falta ahorrar memoria adicional
+- `Compression Format`: la opción disponible según el archivo y la versión de Unity (`Vorbis`, `PCM`, `ADPCM`, o el codec del propio archivo si aparece). Lo importante es que la música larga no se cargue completa de golpe.
+
+Motivo: las pistas largas no deben cargarse de una vez en memoria si queremos evitar cortes o picos al entrar a la escena. Con streaming, el audio se consume durante la reproducción y resulta más estable para un tema principal.
+
+#### SFX (clips cortos)
+
+- `Load Type`: `Decompress On Load`
+- `Preload Audio Data`: `true`
+- `Spatial Blend`: `0` en la mayoría de los casos; solo activar 3D si el sonido realmente necesita dirección.
+- `Compression Format`: `Vorbis` o `PCM` según el archivo y el balance entre calidad y tamaño; para SFX cortos, `Vorbis` suele ser la opción más equilibrada.
+
+Esto hace que los SFX sean rápidos y fiables, algo importante cuando aparecen varios eventos seguidos.
+
+### Regla práctica para la Jam
+
+- Música larga -> `Streaming` siempre.
+- SFX cortos -> `Decompress On Load` y `Vorbis` o `PCM` según lo que convenga.
+- Música principal -> 2D por defecto y `loop = true`.
+
+No hace falta obsesionarse con el nombre exacto de cada opción del importador; lo importante es respetar el patrón y dejarlo consistente en todos los archivos.
+
+---
+
+## Audio Mixer: guía rápida y útil para la Jam
+
+El `Audio Mixer` no es complicado y sí vale la pena para este proyecto. En una jam, no hace falta un sistema enorme; con 3-4 grupos ya es suficiente.
+
+### Estructura recomendada
+
+Crear un `Audio Mixer` con estos grupos:
+
+- `Master`
+  - `Music`
+  - `Ambient`
+  - `SFX`
+
+Esto permite controlar el volumen total y separar claramente los canales sin tocar el contenido.
+
+### Cómo hacerlo en Unity
+
+1. Crear un `Audio Mixer` en `Assets > Create > Audio Mixer`.
+2. Abrir el mixer y crear grupos:
+   - `Master`
+   - `Music`
+   - `Ambient`
+   - `SFX`
+3. `Music`, `Ambient` y `SFX` deben quedar como subgrupos de `Master`.
+4. En cada `AudioSource`, asignar el `Output` al grupo correspondiente.
+5. Ajustar `Volume` por grupo según la mezcla final.
+
+### Para este proyecto
+
+- `Music` debe llevar el tema principal y el tema dinámico.
+- `Ambient` debe llevar capas ambientales y room ambiences.
+- `SFX` debe llevar pickup, puertas, shift, feedback y eventos puntuales.
+
+Esto facilita el ducking: por ejemplo, cuando suena un SFX importante, la música puede bajar un poco sin que haya que tocar el clip individual.
+
+### ¿Es complicado?
+
+No para este proyecto: es un setup rápido, de 5 a 10 minutos si está bien organizado. No es sobreingeniería, y sí ayuda mucho a la mezcla y a la legibilidad del audio.
+
+La recomendación es hacerlo, porque además encaja muy bien con el patrón de managers del proyecto: el `AudioManager` decide qué clip tocar, y el `Audio Mixer` decide cómo se mezcla desde la salida final.
+
+### Importante: ¿qué se ve en el mixer?
+
+El mixer no es un espectro gráfico. Lo normal es ver un nivel de salida (VU/medidor de volumen) por grupo, no una onda o un espectro visual. Si el `AudioSource` no está conectado al grupo correcto mediante `outputAudioMixerGroup`, no verás actividad en `Music` aunque el audio esté sonando.
+
+Para que el grupo `Music` muestre movimiento:
+
+1. Crear un `Audio Mixer` y un grupo `Music`.
+2. En el `AudioSource` de la música, asignar `Output` al grupo `Music`.
+3. Reproducir el tema y comprobar que el medidor del bus cambia.
+
+Si se quiere ver un espectro real de frecuencias, eso ya requiere un visualizador FFT o un plugin específico; no es lo que muestra el mixer por defecto.
+
+---
+
 ## Datos y contenido
 
 La solución más simple y reutilizable es usar datos descriptivos en lugar de hardcodear clips.
@@ -213,9 +305,11 @@ Esto hace que el contenido sea reutilizable, legible y fácil de depurar.
 Assets/
   Audio/
     Music/
+      ThemeFather.mp3
     Ambient/
     SFX/
     Mixers/
+      Master.mixer
   Scripts/
     Audio/
       AudioManager.cs
@@ -227,6 +321,49 @@ Assets/
 ```
 
 La clave no es la cantidad de archivos, sino mantener una estructura uniforme desde el principio.
+
+---
+
+## Jerarquía recomendada en Unity
+
+Para una primera implementación clara y sin sobreingenierizar, basta con un GameObject raíz para el audio y dejar los subcomponentes organizados así:
+
+```text
+GameManager
+├── AudioManager (AudioManager)
+│   ├── MusicManager (MusicManager)
+│   ├── AmbientManager (AmbientManager) [si se necesita]
+│   └── SFXManager (SFXManager) [si se necesita]
+├── RoomManager
+├── RealityManager
+├── EventManager
+└── UIManager
+```
+
+### Recomendación práctica
+
+- `AudioManager` debe ir como hijo del `GameManager`, porque la lógica de runtime ya está habitualmente controlada por ese root.
+- `MusicManager` debe tener un `AudioSource` propio en el mismo GameObject o como child.
+- `AmbientManager` y `SFXManager` pueden empezar como simples componentes con sus propios `AudioSource` cuando haga falta, pero no es obligatorio desde el inicio.
+- El audio no va a la escena de juego como objeto “suelto”; va a vivir dentro de esta estructura para que quede controlado desde el mismo sistema de sistemas del proyecto.
+
+### Configuración mínima por objeto
+
+- `MusicManager`
+  - `AudioSource` attached
+  - `themeFatherClip` serializado
+  - `loop = true`
+  - `normalVolume = 0.80`
+  - `otherSideVolume = 0.90`
+  - `normalPitch = 1f`
+  - `otherSidePitch = 1.08f`
+
+- `AudioManager`
+  - asigna la referencia de la clip al `MusicManager`
+  - se suscribe a eventos del sistema
+  - se deja como root de audio del runtime
+
+Esto es suficiente para el MVP y mantiene la escena limpia.
 
 ---
 
