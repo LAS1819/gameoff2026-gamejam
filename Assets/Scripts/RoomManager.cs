@@ -77,12 +77,87 @@ public class RoomManager : MonoBehaviour
 
         HideAllRooms();
         ShowRoom(roomId);
+        BindCurrentRoomInteractables();
 
         RefreshInteractables();
         RoomChanged?.Invoke(CurrentRoom);
         
         Debug.Log($"[RoomManager] Loaded room: {roomId}");
         return true;
+    }
+
+    private void BindCurrentRoomInteractables()
+    {
+        if (CurrentRoom == null)
+        {
+            return;
+        }
+
+        var roomRoot = FindRoomRootById(CurrentRoom.id);
+        if (roomRoot == null)
+        {
+            return;
+        }
+
+        var interactableBehaviours = roomRoot.GetComponentsInChildren<InteractableBehaviour>(true);
+        foreach (var behaviour in interactableBehaviours)
+        {
+            if (behaviour == null)
+            {
+                continue;
+            }
+
+            var currentData = behaviour.GetData();
+            var catalogMatch = CurrentRoom.interactables.Find(item =>
+                item != null && IsSameInteractable(behaviour.gameObject.name, item));
+
+            if (catalogMatch == null)
+            {
+                continue;
+            }
+
+            if (currentData == null || string.IsNullOrEmpty(currentData.id) ||
+                !currentData.id.Equals(catalogMatch.id, StringComparison.OrdinalIgnoreCase))
+            {
+                behaviour.Configure(catalogMatch);
+            }
+        }
+    }
+
+    private bool IsSameInteractable(string objectName, InteractableData data)
+    {
+        if (string.IsNullOrEmpty(objectName) || data == null)
+        {
+            return false;
+        }
+
+        var normalizedObjectName = NormalizeIdentifier(objectName);
+        var normalizedId = NormalizeIdentifier(data.id);
+        var normalizedDisplayName = NormalizeIdentifier(data.displayName);
+
+        return objectName.Equals(data.id, StringComparison.OrdinalIgnoreCase)
+            || objectName.Equals(data.displayName, StringComparison.OrdinalIgnoreCase)
+            || normalizedObjectName.Equals(normalizedId, StringComparison.OrdinalIgnoreCase)
+            || normalizedObjectName.Equals(normalizedDisplayName, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string NormalizeIdentifier(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return string.Empty;
+        }
+
+        var builder = new System.Text.StringBuilder();
+        foreach (var character in value)
+        {
+            if (char.IsLetterOrDigit(character))
+            {
+                builder.Append(char.ToLowerInvariant(character));
+            }
+        }
+
+        return builder.ToString();
     }
 
     private void HideAllRooms()
@@ -112,7 +187,7 @@ public class RoomManager : MonoBehaviour
 
         foreach (Transform child in roomsParent.transform)
         {
-            if (child.gameObject.name.Equals(roomId, System.StringComparison.OrdinalIgnoreCase))
+            if (child.gameObject.name.Equals(roomId, StringComparison.OrdinalIgnoreCase))
             {
                 child.gameObject.SetActive(true);
                 Debug.Log($"[RoomManager] Activated room: {roomId}");
@@ -121,6 +196,25 @@ public class RoomManager : MonoBehaviour
         }
 
         Debug.LogError($"[RoomManager] Room GameObject not found for: {roomId}. Available rooms: {string.Join(", ", GetAvailableRoomNames(roomsParent))}");
+    }
+
+    private GameObject FindRoomRootById(string roomId)
+    {
+        var roomsParent = FindRoomsParent();
+        if (roomsParent == null || string.IsNullOrEmpty(roomId))
+        {
+            return null;
+        }
+
+        foreach (Transform child in roomsParent.transform)
+        {
+            if (child.gameObject.name.Equals(roomId, StringComparison.OrdinalIgnoreCase))
+            {
+                return child.gameObject;
+            }
+        }
+
+        return null;
     }
 
     private GameObject FindRoomsParent()
@@ -207,6 +301,16 @@ public class RoomManager : MonoBehaviour
             return false;
         }
 
+        if (interactable.id == "flashlight_tool" && GameManager.Instance != null && GameManager.Instance.HasFlag(GameFlagNames.HasFlashlight))
+        {
+            return false;
+        }
+
+        if (interactable.id == "library_key" && GameManager.Instance != null && GameManager.Instance.HasFlag(GameFlagNames.HasLibraryKey))
+        {
+            return false;
+        }
+
         if (RealityManager.Instance != null)
         {
             var isNormalReality = RealityManager.Instance.CurrentReality == RealityType.Normal;
@@ -230,6 +334,9 @@ public class RoomManager : MonoBehaviour
             return false;
         }
 
-        return CurrentRoom.interactables.Exists(item => item != null && item.id == interactableId);
+        var targetId = NormalizeIdentifier(interactableId);
+        return CurrentRoom.interactables.Exists(item =>
+            item != null &&
+            NormalizeIdentifier(item.id).Equals(targetId, StringComparison.OrdinalIgnoreCase));
     }
 }

@@ -12,6 +12,30 @@ public class InteractableBehaviour : MonoBehaviour
     private Collider2D hitCollider;
     private bool warnedMissingData;
 
+    public void Configure(InteractableData config)
+    {
+        if (config == null)
+        {
+            return;
+        }
+
+        data = config;
+        if (!string.IsNullOrEmpty(config.id))
+        {
+            gameObject.name = config.id;
+        }
+    }
+
+    public InteractableData GetData()
+    {
+        return data;
+    }
+
+    public bool HasData()
+    {
+        return data != null;
+    }
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();

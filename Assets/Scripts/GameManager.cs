@@ -7,6 +7,10 @@ public static class GameFlagNames
     public const string DoorOpened = "DoorOpened";
     public const string RealityUnlocked = "RealityUnlocked";
     public const string ShiftPerformed = "ShiftPerformed";
+    public const string HasFlashlight = "HasFlashlight";
+    public const string BedroomLightOn = "BedroomLightOn";
+    public const string BedroomWardrobeOpened = "BedroomWardrobeOpened";
+    public const string HasLibraryKey = "HasLibraryKey";
 }
 
 public class GameManager : MonoBehaviour
@@ -14,6 +18,7 @@ public class GameManager : MonoBehaviour
     public const string MainSceneName = "Main";
     public const string LobbyRoomId = "lobby";
     public const string HallwayRoomId = "hallway";
+    public const string BedroomRoomId = "bedroom";
 
     public static GameManager Instance { get; private set; }
 
@@ -60,6 +65,10 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.DoorOpened, false);
         SetFlag(GameFlagNames.RealityUnlocked, false);
         SetFlag(GameFlagNames.ShiftPerformed, false);
+        SetFlag(GameFlagNames.HasFlashlight, false);
+        SetFlag(GameFlagNames.BedroomLightOn, false);
+        SetFlag(GameFlagNames.BedroomWardrobeOpened, false);
+        SetFlag(GameFlagNames.HasLibraryKey, false);
 
         EnsureRuntimeSystems();
         InventoryManager.Instance?.ResetInventory();
@@ -67,7 +76,7 @@ public class GameManager : MonoBehaviour
 
         if (RoomManager.Instance != null)
         {
-            RoomManager.Instance.SetRooms(BuildDefaultRooms());
+            RoomManager.Instance.SetRooms(DefaultRoomCatalog.BuildMvpRooms());
             RoomManager.Instance.LoadRoom(LobbyRoomId);
         }
 
@@ -103,115 +112,7 @@ public class GameManager : MonoBehaviour
 
     public static List<RoomData> BuildDefaultRooms()
     {
-        var lobby = new RoomData
-        {
-            id = LobbyRoomId,
-            displayName = "Lobby",
-            connectedRoomIds = new List<string> { HallwayRoomId }
-        };
-
-        lobby.interactables.Add(new InteractableData
-        {
-            id = "staff_key",
-            itemId = "staff_key",
-            displayName = "Staff Key",
-            description = "A brass key marked with the staff insignia.",
-            interactionType = InteractionType.Pickup,
-            visibleInNormalReality = true,
-            visibleInOtherReality = false,
-            resultFlag = GameFlagNames.HasStaffKey,
-            consumeAfterUse = true
-        });
-
-        lobby.interactables.Add(new InteractableData
-        {
-            id = "front_door",
-            displayName = "Front Door",
-            description = "A heavy door with an old brass keyhole.",
-            interactionType = InteractionType.Use,
-            visibleInNormalReality = true,
-            visibleInOtherReality = true,
-            requiredItemId = "staff_key",
-            resultFlag = GameFlagNames.DoorOpened
-        });
-
-        lobby.interactables.Add(new InteractableData
-        {
-            id = "hallway_entrance",
-            displayName = "Main Hallway Entrance",
-            description = "You can continue into the darkness.",
-            interactionType = InteractionType.Transition,
-            visibleInNormalReality = true,
-            visibleInOtherReality = true,
-            linkedRoomId = HallwayRoomId
-        });
-
-        var hallway = new RoomData
-        {
-            id = HallwayRoomId,
-            displayName = "Main Hallway",
-            connectedRoomIds = new List<string> { LobbyRoomId }
-        };
-
-        AddHallwayInteractables(hallway);
-
-        return new List<RoomData> { lobby, hallway };
-    }
-
-    private static void AddHallwayInteractables(RoomData hallway)
-    {
-        hallway.interactables.Add(new InteractableData
-        {
-            id = "hallway_obstacle",
-            displayName = "Hallway Obstacle",
-            description = "A massive figure blocks the path in this reality.",
-            interactionType = InteractionType.Examine,
-            visibleInNormalReality = true,
-            visibleInOtherReality = false,
-            resultFlag = GameFlagNames.RealityUnlocked
-        });
-
-        hallway.interactables.Add(new InteractableData
-        {
-            id = "shift_trigger",
-            displayName = "Shifting Point",
-            description = "Reality feels thin at this spot.",
-            interactionType = InteractionType.Toggle,
-            visibleInNormalReality = true,
-            visibleInOtherReality = true,
-            resultFlag = GameFlagNames.ShiftPerformed
-        });
-
-        hallway.interactables.Add(new InteractableData
-        {
-            id = "lobby_exit",
-            displayName = "Lobby Exit",
-            description = "Return to the lobby.",
-            interactionType = InteractionType.Transition,
-            visibleInNormalReality = true,
-            visibleInOtherReality = true,
-            linkedRoomId = LobbyRoomId
-        });
-
-        hallway.interactables.Add(new InteractableData
-        {
-            id = "library_door",
-            displayName = "Mysterious Door (Library)",
-            description = "This door leads to the Library. [NOT YET IMPLEMENTED]",
-            interactionType = InteractionType.Examine,
-            visibleInNormalReality = false,
-            visibleInOtherReality = true
-        });
-
-        hallway.interactables.Add(new InteractableData
-        {
-            id = "bedroom_door",
-            displayName = "Mysterious Door (Bedroom)",
-            description = "This door leads to the Bedroom. [NOT YET IMPLEMENTED]",
-            interactionType = InteractionType.Examine,
-            visibleInNormalReality = false,
-            visibleInOtherReality = true
-        });
+        return DefaultRoomCatalog.BuildMvpRooms();
     }
 
     public bool HasFlag(string flagName)
