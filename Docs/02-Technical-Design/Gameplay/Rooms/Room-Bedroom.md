@@ -53,11 +53,11 @@ RoomData
 
 ## 3. Interactables principales
 
-### 3.1 BedroomLamp / LampSwitch
+### 3.1 RoofLamp / RoofLampSwitch
 
 ```text
-id: "bedroom_lamp"
-displayName: "Bedroom Lamp"
+id: "roof-lamp"
+displayName: "Roof Lamp"
 interactionType: Toggle
 visibleInNormalReality: true
 visibleInOtherReality: true
@@ -286,7 +286,7 @@ ItemData
 
 | Flag | Descripción | Origen |
 | ------ | ------------- | -------- |
-| BedroomLightOn | La luz de la habitación está encendida | `bedroom_lamp` |
+| BedroomLightOn | La luz de la habitación está encendida | `roof-lamp` |
 | FlashlightUnlocked | Se ha recogido la linterna | `flashlight_pickup` |
 | WardrobeOpened | El jugador ha abierto el armario | `wardrobe` |
 | MonsterVisible | El monstruo está bloqueando la interacción | `wardrobe_monster` |
@@ -331,7 +331,7 @@ Player switches to OtherSide
 → key hidden / blocked
 
 Player returns to Normal
-→ turns on BedroomLamp
+→ turns on roof-lamp
 → returns to OtherSide
 → MonsterVisible = false
 → key becomes visible
@@ -348,7 +348,7 @@ Esto mantiene la Room clara, peligrosa y manejable sin sobrecargar el sistema.
 
 ### Normal Reality
 
-- `bedroom_lamp` visible
+- `roof-lamp` visible
 - `flashlight_pickup` visible
 - `wardrobe` visible
 - `window` visible
@@ -358,7 +358,7 @@ Esto mantiene la Room clara, peligrosa y manejable sin sobrecargar el sistema.
 
 ### Other Side
 
-- `bedroom_lamp` visible, pero no usable para encenderla
+- `roof-lamp` visible, pero no usable para encenderla
 - `flashlight_pickup` oculto
 - `wardrobe` visible
 - `window` bloqueada / tapiada
@@ -377,12 +377,12 @@ Load Room bedroom
 → player enters room in Normal
 → finds flashlight and picks it up
 → flashlight becomes permanent UI tool
-→ player turns on bedroom lamp in Normal
+→ player turns on roof-lamp in Normal
 → player switches to OtherSide
 → opens wardrobe
 → if lamp is ON: no monster, key can appear
-→ if lamp is OFF: monster appears and blocks the interaction
-→ player returns to Normal and turns lamp on
+→ if roof-lamp is OFF: monster appears and blocks the interaction
+→ player returns to Normal and turns roof-lamp on
 → returns to OtherSide
 → monster disappears
 → key becomes collectible
