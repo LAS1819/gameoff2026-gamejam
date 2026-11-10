@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
         EnsureRuntimeSystem<RealityManager>("RealityManager");
         EnsureRuntimeSystem<EventManager>("EventManager");
         EnsureRuntimeSystem<SaveManager>("SaveManager");
+        EnsureRuntimeSystem<AudioManager>("AudioManager");
         EnsureRuntimeSystem<UIManager>("UIManager");
     }
 
