@@ -294,6 +294,7 @@ public class RoomManager : MonoBehaviour
 
     public void RefreshInteractables()
     {
+        RefreshConditionalInteractableObjects();
         InteractablesRefreshed?.Invoke();
     }
 
@@ -341,6 +342,11 @@ public class RoomManager : MonoBehaviour
 
         if (interactable.id == "library_key" && GameManager.Instance != null)
         {
+            if (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide)
+            {
+                return false;
+            }
+
             if (!GameManager.Instance.HasFlag(GameFlagNames.BedroomWardrobeOpened))
             {
                 return false;
@@ -350,15 +356,9 @@ public class RoomManager : MonoBehaviour
             {
                 return false;
             }
-
-            if (GameManager.Instance.HasFlag(GameFlagNames.BedroomMonsterVisible))
-            {
-                return false;
-            }
         }
 
-        if (interactable.id == "wardrobe_monster" && GameManager.Instance != null &&
-            !GameManager.Instance.HasFlag(GameFlagNames.BedroomMonsterVisible))
+        if (interactable.id == "wardrobe_monster" && !IsBedroomMonsterConditionMet())
         {
             return false;
         }
@@ -390,5 +390,75 @@ public class RoomManager : MonoBehaviour
         return CurrentRoom.interactables.Exists(item =>
             item != null &&
             NormalizeIdentifier(item.id).Equals(targetId, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private bool IsBedroomMonsterConditionMet()
+    {
+        if (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide)
+        {
+            return false;
+        }
+
+        if (GameManager.Instance == null)
+        {
+            return false;
+        }
+
+        var wardrobeOpen = GameManager.Instance.HasFlag(GameFlagNames.BedroomWardrobeOpened);
+        var lightOn = GameManager.Instance.HasFlag(GameFlagNames.BedroomLightOn);
+        return wardrobeOpen && !lightOn;
+    }
+
+    private void RefreshConditionalInteractableObjects()
+    {
+        if (CurrentRoom == null || !CurrentRoom.id.Equals(GameManager.BedroomRoomId, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        var roomRoot = FindRoomRootById(CurrentRoom.id);
+        if (roomRoot == null)
+        {
+            return;
+        }
+
+        var behaviours = roomRoot.GetComponentsInChildren<InteractableBehaviour>(true);
+        foreach (var behaviour in behaviours)
+        {
+            var data = behaviour != null ? behaviour.GetData() : null;
+            if (data == null)
+            {
+                continue;
+            }
+
+            var isConditional = data.id.Equals("library_key", StringComparison.OrdinalIgnoreCase)
+                || data.id.Equals("wardrobe_monster", StringComparison.OrdinalIgnoreCase);
+            if (!isConditional)
+            {
+                continue;
+            }
+
+            var shouldBeActive = IsInteractableVisible(data);
+            if (behaviour.gameObject.activeSelf != shouldBeActive)
+            {
+                behaviour.gameObject.SetActive(shouldBeActive);
+            }
+
+            if (data.id.Equals("wardrobe_monster", StringComparison.OrdinalIgnoreCase))
+            {
+                var spriteState = behaviour.GetComponent<SpriteStateController>() ?? behaviour.GetComponentInChildren<SpriteStateController>(true);
+                if (spriteState != null)
+                {
+                    if (shouldBeActive)
+                    {
+                        spriteState.PlayLoop();
+                    }
+                    else
+                    {
+                        spriteState.StopLoop();
+                    }
+                }
+            }
+        }
     }
 }

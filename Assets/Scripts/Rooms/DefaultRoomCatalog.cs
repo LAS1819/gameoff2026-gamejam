@@ -199,8 +199,7 @@ public static class DefaultRoomCatalog
             description = "A looming shape blocks the wardrobe from the darkness.",
             interactionType = InteractionType.Examine,
             visibleInNormalReality = false,
-            visibleInOtherReality = true,
-            resultFlag = GameFlagNames.BedroomMonsterVisible
+            visibleInOtherReality = true
         });
 
         bedroom.interactables.Add(new InteractableData
