@@ -186,7 +186,7 @@ public static class DefaultRoomCatalog
             id = "wardrobe",
             displayName = "Wardrobe",
             description = "An old wardrobe. Something is hiding inside.",
-            interactionType = InteractionType.Examine,
+            interactionType = InteractionType.Use,
             visibleInNormalReality = true,
             visibleInOtherReality = true,
             resultFlag = GameFlagNames.BedroomWardrobeOpened

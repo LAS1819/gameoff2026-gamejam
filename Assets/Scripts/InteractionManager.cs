@@ -159,6 +159,11 @@ public class InteractionManager : MonoBehaviour
 
     private bool ResolveUse(InteractableData interactable)
     {
+        if (interactable.id.Equals("wardrobe", StringComparison.OrdinalIgnoreCase))
+        {
+            return ResolveWardrobe(interactable);
+        }
+
         if (!string.IsNullOrEmpty(interactable.resultFlag))
         {
             GameManager.Instance?.SetFlag(interactable.resultFlag, true);
@@ -170,6 +175,27 @@ public class InteractionManager : MonoBehaviour
         }
 
         UIManager.Instance?.ShowFeedback($"Used {interactable.displayName}.", 1.5f);
+        return true;
+    }
+
+    private bool ResolveWardrobe(InteractableData interactable)
+    {
+        if (GameManager.Instance == null)
+        {
+            return false;
+        }
+
+        var isAlreadyOpen = GameManager.Instance.HasFlag(GameFlagNames.BedroomWardrobeOpened);
+        if (isAlreadyOpen)
+        {
+            UIManager.Instance?.ShowFeedback("The wardrobe is already open.", 1.5f);
+            return false;
+        }
+
+        GameManager.Instance.SetFlag(GameFlagNames.BedroomWardrobeOpened, true);
+        ApplyInteractableState(interactable.id, 1);
+
+        UIManager.Instance?.ShowFeedback("You open the wardrobe.", 1.5f);
         return true;
     }
 
@@ -237,5 +263,67 @@ public class InteractionManager : MonoBehaviour
         {
             consumedInteractables.Add(interactableId);
         }
+    }
+
+    private static void ApplyInteractableState(string interactableId, int stateIndex)
+    {
+        var target = FindInteractableObject(interactableId);
+        if (target == null)
+        {
+            return;
+        }
+
+        var spriteState = target.GetComponent<SpriteStateController>();
+        if (spriteState != null)
+        {
+            spriteState.SetState(stateIndex);
+        }
+    }
+
+    private static GameObject FindInteractableObject(string interactableId)
+    {
+        if (string.IsNullOrEmpty(interactableId))
+        {
+            return null;
+        }
+
+        var currentRoom = RoomManager.Instance?.CurrentRoom;
+        if (currentRoom != null)
+        {
+            var roomRoot = GameObject.Find("Rooms/" + currentRoom.id);
+            if (roomRoot != null)
+            {
+                foreach (var behaviour in roomRoot.GetComponentsInChildren<InteractableBehaviour>(true))
+                {
+                    if (behaviour != null && behaviour.GetData() != null &&
+                        behaviour.GetData().id.Equals(interactableId, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return behaviour.gameObject;
+                    }
+                }
+            }
+        }
+
+        var directMatch = GameObject.Find(interactableId);
+        if (directMatch != null)
+        {
+            return directMatch;
+        }
+
+        var interactables = FindObjectsByType<InteractableBehaviour>(FindObjectsSortMode.None);
+        foreach (var behaviour in interactables)
+        {
+            if (behaviour == null || behaviour.GetData() == null)
+            {
+                continue;
+            }
+
+            if (behaviour.GetData().id.Equals(interactableId, StringComparison.OrdinalIgnoreCase))
+            {
+                return behaviour.gameObject;
+            }
+        }
+
+        return null;
     }
 }
