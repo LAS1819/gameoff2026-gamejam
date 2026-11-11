@@ -209,6 +209,11 @@ public class UIShiftButton : MonoBehaviour
 
     private bool IsShiftAllowedInCurrentRoom()
     {
+        if (RealityManager.Instance != null)
+        {
+            return RealityManager.Instance.IsShiftAllowedInCurrentRoom();
+        }
+
         var roomId = RoomManager.Instance?.CurrentRoom?.id;
         if (string.IsNullOrEmpty(roomId))
         {

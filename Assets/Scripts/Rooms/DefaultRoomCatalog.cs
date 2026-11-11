@@ -194,6 +194,17 @@ public static class DefaultRoomCatalog
 
         bedroom.interactables.Add(new InteractableData
         {
+            id = "wardrobe_monster",
+            displayName = "Monster",
+            description = "A looming shape blocks the wardrobe from the darkness.",
+            interactionType = InteractionType.Examine,
+            visibleInNormalReality = false,
+            visibleInOtherReality = true,
+            resultFlag = GameFlagNames.BedroomMonsterVisible
+        });
+
+        bedroom.interactables.Add(new InteractableData
+        {
             id = "window",
             displayName = "Window",
             description = "The window looks out into a sealed, impossible darkness.",

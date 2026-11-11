@@ -11,6 +11,7 @@ public class RealityManager : MonoBehaviour
 
     private GameObject backgroundNormal;
     private GameObject backgroundOtherSide;
+    private bool roomEventsSubscribed;
 
     private void Awake()
     {
@@ -26,18 +27,30 @@ public class RealityManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (RoomManager.Instance != null)
+        TrySubscribeRoomEvents();
+    }
+
+    private void Start()
+    {
+        TrySubscribeRoomEvents();
+    }
+
+    private void Update()
+    {
+        if (!roomEventsSubscribed)
         {
-            RoomManager.Instance.RoomChanged += HandleRoomChanged;
+            TrySubscribeRoomEvents();
         }
     }
 
     private void OnDisable()
     {
-        if (RoomManager.Instance != null)
+        if (roomEventsSubscribed && RoomManager.Instance != null)
         {
             RoomManager.Instance.RoomChanged -= HandleRoomChanged;
         }
+
+        roomEventsSubscribed = false;
     }
 
     public void SetReality(RealityType reality)
@@ -134,6 +147,18 @@ public class RealityManager : MonoBehaviour
         UpdateBackgrounds();
     }
 
+    private void TrySubscribeRoomEvents()
+    {
+        if (roomEventsSubscribed || RoomManager.Instance == null)
+        {
+            return;
+        }
+
+        RoomManager.Instance.RoomChanged += HandleRoomChanged;
+        roomEventsSubscribed = true;
+        UpdateBackgrounds();
+    }
+
     private void FindBackgroundsForCurrentRoom()
     {
         backgroundNormal = null;
@@ -145,7 +170,7 @@ public class RealityManager : MonoBehaviour
             return;
         }
 
-        var roomsRoot = GameObject.Find("Rooms");
+        var roomsRoot = GameObject.Find("Main/Rooms") ?? GameObject.Find("Rooms");
         if (roomsRoot == null)
         {
             Debug.LogWarning("[RealityManager] 'Rooms' root not found.");

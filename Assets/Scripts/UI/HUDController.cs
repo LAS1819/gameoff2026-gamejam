@@ -11,7 +11,7 @@ public class HUDController : MonoBehaviour
     [SerializeField] private PanelRenderer panelRenderer;
 
     [Header("Shift settings")]
-    [SerializeField] private List<string> shiftEnabledRoomIds = new() { GameManager.HallwayRoomId };
+    [SerializeField] private List<string> shiftEnabledRoomIds = new() { GameManager.HallwayRoomId, GameManager.BedroomRoomId };
 
     [Header("Timings")]
     [SerializeField] private float feedbackDuration = 2f;
@@ -387,6 +387,11 @@ public class HUDController : MonoBehaviour
 
     private bool IsShiftAllowedInCurrentRoom()
     {
+        if (RealityManager.Instance != null)
+        {
+            return RealityManager.Instance.IsShiftAllowedInCurrentRoom();
+        }
+
         var roomId = RoomManager.Instance?.CurrentRoom?.id;
         if (string.IsNullOrWhiteSpace(roomId))
         {

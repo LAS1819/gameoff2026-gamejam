@@ -244,6 +244,10 @@ public class InteractionManager : MonoBehaviour
         if (GameManager.Instance != null)
         {
             GameManager.Instance.SetFlag(GameFlagNames.BedroomLightOn, nextState);
+            if (nextState)
+            {
+                GameManager.Instance.SetFlag(GameFlagNames.BedroomMonsterVisible, false);
+            }
         }
 
         if (!string.IsNullOrEmpty(interactable.resultFlag))
@@ -329,6 +333,10 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
+        var reality = RealityManager.Instance != null ? RealityManager.Instance.CurrentReality : RealityType.Normal;
+        var isOtherSide = reality == RealityType.OtherSide;
+        var isLightOn = GameManager.Instance.HasFlag(GameFlagNames.BedroomLightOn);
+
         var isAlreadyOpen = wardrobeController.IsOpen;
         if (isAlreadyOpen)
         {
@@ -338,10 +346,61 @@ public class InteractionManager : MonoBehaviour
             return true;
         }
 
+        if (isOtherSide && !isLightOn)
+        {
+            SetMonsterVisible(true);
+            UIManager.Instance?.ShowFeedback("Something moves inside. You should turn on the light first.", 1.9f);
+            return false;
+        }
+
         wardrobeController.SetOpen(true);
         GameManager.Instance.SetFlag(GameFlagNames.BedroomWardrobeOpened, true);
+
+        if (isOtherSide && isLightOn)
+        {
+            SetMonsterVisible(false);
+            var keyGiven = TryGiveLibraryKey();
+            UIManager.Instance?.ShowFeedback(keyGiven ? "You open the wardrobe and find the library key." : "The wardrobe is empty now.", 1.8f);
+            return true;
+        }
+
         UIManager.Instance?.ShowFeedback("You open the wardrobe.", 1.5f);
         return true;
+    }
+
+    private bool TryGiveLibraryKey()
+    {
+        if (GameManager.Instance == null || InventoryManager.Instance == null)
+        {
+            return false;
+        }
+
+        if (GameManager.Instance.HasFlag(GameFlagNames.HasLibraryKey) || InventoryManager.Instance.HasItem("library_key"))
+        {
+            return false;
+        }
+
+        var keyAdded = InventoryManager.Instance.AddItem(new InventoryItemData
+        {
+            id = "library_key",
+            displayName = "Library Key",
+            description = "A small key hidden in the wardrobe. It opens the library door.",
+            isKeyItem = true
+        });
+
+        if (!keyAdded)
+        {
+            return false;
+        }
+
+        GameManager.Instance.SetFlag(GameFlagNames.HasLibraryKey, true);
+        UIManager.Instance?.RefreshInventoryUI();
+        return true;
+    }
+
+    private static void SetMonsterVisible(bool visible)
+    {
+        GameManager.Instance?.SetFlag(GameFlagNames.BedroomMonsterVisible, visible);
     }
 
     private bool ResolveExamine(InteractableData interactable)

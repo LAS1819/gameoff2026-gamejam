@@ -339,6 +339,30 @@ public class RoomManager : MonoBehaviour
             return false;
         }
 
+        if (interactable.id == "library_key" && GameManager.Instance != null)
+        {
+            if (!GameManager.Instance.HasFlag(GameFlagNames.BedroomWardrobeOpened))
+            {
+                return false;
+            }
+
+            if (!GameManager.Instance.HasFlag(GameFlagNames.BedroomLightOn))
+            {
+                return false;
+            }
+
+            if (GameManager.Instance.HasFlag(GameFlagNames.BedroomMonsterVisible))
+            {
+                return false;
+            }
+        }
+
+        if (interactable.id == "wardrobe_monster" && GameManager.Instance != null &&
+            !GameManager.Instance.HasFlag(GameFlagNames.BedroomMonsterVisible))
+        {
+            return false;
+        }
+
         if (RealityManager.Instance != null)
         {
             var isNormalReality = RealityManager.Instance.CurrentReality == RealityType.Normal;
