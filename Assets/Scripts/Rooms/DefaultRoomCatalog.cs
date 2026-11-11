@@ -161,12 +161,12 @@ public static class DefaultRoomCatalog
 
         bedroom.interactables.Add(new InteractableData
         {
-            id = "lamp",
-            displayName = "Bedroom Lamp",
-            description = "A weak lamp in the corner of the room.",
-            interactionType = InteractionType.Toggle,
+            id = "ceiling_light",
+            displayName = "Ceiling Light",
+            description = "A worn ceiling light hanging over the room.",
+            interactionType = InteractionType.Use,
             visibleInNormalReality = true,
-            visibleInOtherReality = false,
+            visibleInOtherReality = true,
             resultFlag = GameFlagNames.BedroomLightOn
         });
 
@@ -175,9 +175,9 @@ public static class DefaultRoomCatalog
             id = "switch",
             displayName = "Light Switch",
             description = "The switch that controls the room light.",
-            interactionType = InteractionType.Toggle,
+            interactionType = InteractionType.Use,
             visibleInNormalReality = true,
-            visibleInOtherReality = false,
+            visibleInOtherReality = true,
             resultFlag = GameFlagNames.BedroomLightOn
         });
 

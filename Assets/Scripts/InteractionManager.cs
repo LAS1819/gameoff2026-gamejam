@@ -159,6 +159,11 @@ public class InteractionManager : MonoBehaviour
 
     private bool ResolveUse(InteractableData interactable, GameObject sourceObject)
     {
+        if (IsLightInteractable(interactable))
+        {
+            return ResolveLightSwitch(interactable);
+        }
+
         if (interactable.id.Equals("wardrobe", StringComparison.OrdinalIgnoreCase))
         {
             return ResolveWardrobe(interactable, sourceObject);
@@ -176,6 +181,126 @@ public class InteractionManager : MonoBehaviour
 
         UIManager.Instance?.ShowFeedback($"Used {interactable.displayName}.", 1.5f);
         return true;
+    }
+
+    private bool ResolveToggle(InteractableData interactable)
+    {
+        if (IsLightInteractable(interactable))
+        {
+            return ResolveLightSwitch(interactable);
+        }
+
+        if (interactable != null && interactable.id.Equals("shift_trigger", StringComparison.OrdinalIgnoreCase))
+        {
+            RealityManager.Instance?.ToggleReality();
+
+            if (!string.IsNullOrEmpty(interactable.resultFlag))
+            {
+                GameManager.Instance?.SetFlag(interactable.resultFlag, true);
+            }
+
+            return true;
+        }
+
+        if (!string.IsNullOrEmpty(interactable.resultFlag))
+        {
+            GameManager.Instance?.SetFlag(interactable.resultFlag, true);
+        }
+
+        return true;
+    }
+
+    private bool IsLightInteractable(InteractableData interactable)
+    {
+        if (interactable == null || string.IsNullOrEmpty(interactable.id))
+        {
+            return false;
+        }
+
+        return interactable.id.Equals("switch", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("lamp", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("ceiling_light", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("ceiling-light", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("roof_lamp", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("roof-lamp", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private bool ResolveLightSwitch(InteractableData interactable)
+    {
+        var target = FindLightTargetObject();
+
+        var spriteState = target != null
+            ? target.GetComponent<SpriteStateController>() ?? target.GetComponentInChildren<SpriteStateController>()
+            : null;
+
+        var isLightOn = GameManager.Instance != null && GameManager.Instance.HasFlag(GameFlagNames.BedroomLightOn);
+        var nextState = !isLightOn;
+
+        if (spriteState != null)
+        {
+            spriteState.SetState(nextState ? 1 : 0);
+        }
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetFlag(GameFlagNames.BedroomLightOn, nextState);
+        }
+
+        if (!string.IsNullOrEmpty(interactable.resultFlag))
+        {
+            GameManager.Instance?.SetFlag(interactable.resultFlag, nextState);
+        }
+
+        UIManager.Instance?.ShowFeedback(nextState ? "You switch on the ceiling light." : "You switch off the ceiling light.", 1.75f);
+        return true;
+    }
+
+    private static GameObject FindLightTargetObject()
+    {
+        var candidateNames = new[]
+        {
+            "CeilingLamp",
+            "CeilingLight",
+            "ceiling_lamp",
+            "ceiling_light",
+            "ceiling-light",
+            "Lamp",
+            "lamp",
+            "RoofLamp",
+            "roof_lamp",
+            "roof-lamp"
+        };
+
+        foreach (var candidate in candidateNames)
+        {
+            var found = GameObject.Find(candidate);
+            if (found != null)
+            {
+                return found;
+            }
+        }
+
+        var allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
+        foreach (var candidate in allObjects)
+        {
+            if (candidate == null)
+            {
+                continue;
+            }
+
+            var name = candidate.name;
+            var normalized = name.Trim();
+            var lower = normalized.ToLowerInvariant();
+
+            if ((lower.Contains("ceiling") && (lower.Contains("lamp") || lower.Contains("light"))) ||
+                (lower.Contains("roof") && lower.Contains("lamp")) ||
+                lower.Equals("lamp") || lower.Equals("ceilinglamp") || lower.Equals("ceilinglight"))
+            {
+                return candidate;
+            }
+        }
+
+        return null;
     }
 
     private bool ResolveWardrobe(InteractableData interactable, GameObject sourceObject)
@@ -241,18 +366,6 @@ public class InteractionManager : MonoBehaviour
 
         Debug.Log($"[InteractionManager] Examine: {interactable.displayName} - {descriptionText}");
         UIManager.Instance?.ShowFeedback(descriptionText, 2f);
-        return true;
-    }
-
-    private bool ResolveToggle(InteractableData interactable)
-    {
-        RealityManager.Instance?.ToggleReality();
-
-        if (!string.IsNullOrEmpty(interactable.resultFlag))
-        {
-            GameManager.Instance?.SetFlag(interactable.resultFlag, true);
-        }
-
         return true;
     }
 
