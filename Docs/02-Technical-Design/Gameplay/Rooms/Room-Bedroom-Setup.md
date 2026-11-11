@@ -33,8 +33,8 @@ Rooms
     ├── Interactables
     │   ├── bed
     │   ├── nightstand
-    │   ├── roof-lamp
-    │   ├── roof-lamp-switch
+    │   ├── ceiling_light
+    │   ├── ceiling_light_switch
     │   ├── wardrobe
     │   ├── window
     │   ├── hallway_exit
@@ -55,8 +55,8 @@ Mantener nombres estables y muy claros:
 - `bedroom` = GO principal de la room
 - `bed` = cama
 - `nightstand` = mesita de noche
-- `roof-lamp` = lámpara de habitación
-- `roof-lamp-switch` = interruptor del techo
+- `ceiling_light` = lámpara de habitación
+- `ceiling_light_switch` = interruptor del techo
 - `wardrobe` = armario
 - `window` = ventana
 - `hallway_exit` = salida hacia el pasillo
@@ -105,17 +105,17 @@ Y debe tener un `InteractableData` asociado con:
 - `visibleInOtherReality = true`
 - `resultFlag = "BedroomWardrobeOpened"` o equivalente
 
-### 3. `roof-lamp`
+### 3. `ceiling_light`
 
-- `id = "roof-lamp"`
+- `id = "ceiling_light"`
 - `interactionType = InteractionType.Toggle`
 - `visibleInNormalReality = true`
 - `visibleInOtherReality = false`
 - `resultFlag = "BedroomLightOn"`
 
-### 4. `roof-lamp-switch`
+### 4. `ceiling_light_switch`
 
-- `id = "roof-lamp-switch"`
+- `id = "ceiling_light_switch"`
 - `interactionType = InteractionType.Toggle`
 - `visibleInNormalReality = true`
 - `visibleInOtherReality = false`
