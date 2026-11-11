@@ -126,7 +126,7 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
   - `bedroom_lamp`
   - `flashlight_pickup`
   - `wardrobe`
-  - `wardrobe_key`
+  - `library_key`
   - `wardrobe_monster`
   - `bedroom_exit`
 - [ ] definir `RoomConnection` y `linkedRoomId` para volver a Hallway
@@ -149,7 +149,7 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 
 ### Bloque D — Key reward + flow validation (45-60 min)
 
-- [ ] `wardrobe_key` visible solo cuando se cumplen condiciones
+- [ ] `library_key` visible solo cuando se cumplen condiciones
 - [ ] recoger key actualiza `LibraryKeyFound`
 - [ ] key queda visible en el flujo real y no rompe la room
 - [ ] probar retorno a Hallway y acceso posterior si se requiere
@@ -157,7 +157,7 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 ### Bloque E — End-to-end validation (30-45 min)
 
 - [ ] entrar a Bedroom desde Hallway
-- [ ] recoger linterna
+- [ ] recoger linterna (`flashlight_pickup`)
 - [ ] encender la luz en Normal
 - [ ] cambiar a Other Side
 - [ ] abrir armario con luz encendida para acceder a la llave
@@ -172,7 +172,7 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 ### Mantener
 
 - la estructura simple de rooms basada en data;
-- la luz como acción clave y no como extra opcional;
+- la luz de la habitación (`ceiling_light`) como acción clave y no como extra opcional;
 - la amenaza del monstruo como bloqueo circunstancial, no como enemigo completo;
 - la lógica del armario como punto de decisión claro;
 - una room con un punto fuerte de narración y un objetivo concreto.
@@ -217,7 +217,7 @@ La Room Bedroom se considera correcta si se cumple la siguiente prueba de flujo:
 
 - [ ] Bedroom room data creada
 - [ ] Flashlight tool disponible en UI
-- [ ] BedroomLamp solo funciona en Normal
+- [ ] `ceiling_light` solo funciona en Normal
 - [ ] Wardrobe muestra lógica variable por realidad
 - [ ] MonsterVisible solo se activa con la condición correcta
 - [ ] WardrobeKey aparece solo cuando la luz está encendida
