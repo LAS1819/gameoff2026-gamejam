@@ -41,6 +41,7 @@ Read [Technical-Design.md](./Technical-Design.md) for high-level philosophy.
 | **Room-Architecture.md** | Recommended room construction pattern to keep GameManager lean and data-driven |
 | Technical-Design.md | High-level architecture philosophy |
 | TD-HUD.md | Runtime HUD structure using Panel Renderer for the MVP polish pass |
+| TD-Interactables.md | Generic interactable model, current types, visibility logic and future extensions |
 | GameObject-Hierarchy.md | General hierarchy patterns |
 | Gameplay/Rooms/Room-Lobby.md | Technical room spec for the Lobby: interactables, items, flags and flow |
 | Gameplay/Rooms/Room-Hallway.md | Technical room spec for the Hallway: SHIFT, reality gating and transition logic |
