@@ -19,10 +19,7 @@ public class InteractableBehaviour : MonoBehaviour
         }
 
         data = config;
-        if (!string.IsNullOrEmpty(config.id))
-        {
-            gameObject.name = config.id;
-        }
+        warnedMissingData = false;
     }
 
     public InteractableData GetData()
@@ -65,7 +62,7 @@ public class InteractableBehaviour : MonoBehaviour
             return;
         }
 
-        InteractionManager.Instance.TryInteract(data);
+        InteractionManager.Instance.TryInteract(data, gameObject);
         RefreshState();
     }
 

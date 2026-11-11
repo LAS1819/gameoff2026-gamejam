@@ -108,19 +108,7 @@ public class RoomManager : MonoBehaviour
             }
 
             var currentData = behaviour.GetData();
-            var objectName = behaviour.gameObject.name;
-            
-            // First try matching the object's own name
-            var catalogMatch = CurrentRoom.interactables.Find(item =>
-                item != null && IsSameInteractable(objectName, item));
-            
-            // If not found and this is a hitbox child, try the parent's name
-            if (catalogMatch == null && behaviour.transform.parent != null)
-            {
-                var parentName = behaviour.transform.parent.name;
-                catalogMatch = CurrentRoom.interactables.Find(item =>
-                    item != null && IsSameInteractable(parentName, item));
-            }
+            var catalogMatch = FindCatalogMatchForTransform(behaviour.transform, roomRoot.transform);
 
             if (catalogMatch == null)
             {
@@ -133,6 +121,35 @@ public class RoomManager : MonoBehaviour
                 behaviour.Configure(catalogMatch);
             }
         }
+    }
+
+    private InteractableData FindCatalogMatchForTransform(Transform start, Transform roomRoot)
+    {
+        if (CurrentRoom == null || start == null)
+        {
+            return null;
+        }
+
+        var current = start;
+        while (current != null)
+        {
+            var match = CurrentRoom.interactables.Find(item =>
+                item != null && IsSameInteractable(current.name, item));
+
+            if (match != null)
+            {
+                return match;
+            }
+
+            if (current == roomRoot)
+            {
+                break;
+            }
+
+            current = current.parent;
+        }
+
+        return null;
     }
 
     private bool IsSameInteractable(string objectName, InteractableData data)

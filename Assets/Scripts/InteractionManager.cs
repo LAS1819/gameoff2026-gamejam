@@ -42,10 +42,10 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
-        return TryInteract(interactable);
+        return TryInteract(interactable, null);
     }
 
-    public bool TryInteract(InteractableData interactable)
+    public bool TryInteract(InteractableData interactable, GameObject sourceObject = null)
     {
         if (interactable == null || string.IsNullOrEmpty(interactable.id))
         {
@@ -91,7 +91,7 @@ public class InteractionManager : MonoBehaviour
                 wasResolved = ResolvePickup(interactable);
                 break;
             case InteractionType.Use:
-                wasResolved = ResolveUse(interactable);
+                wasResolved = ResolveUse(interactable, sourceObject);
                 break;
             case InteractionType.Examine:
                 wasResolved = ResolveExamine(interactable);
@@ -157,11 +157,11 @@ public class InteractionManager : MonoBehaviour
         return true;
     }
 
-    private bool ResolveUse(InteractableData interactable)
+    private bool ResolveUse(InteractableData interactable, GameObject sourceObject)
     {
         if (interactable.id.Equals("wardrobe", StringComparison.OrdinalIgnoreCase))
         {
-            return ResolveWardrobe(interactable);
+            return ResolveWardrobe(interactable, sourceObject);
         }
 
         if (!string.IsNullOrEmpty(interactable.resultFlag))
@@ -178,22 +178,29 @@ public class InteractionManager : MonoBehaviour
         return true;
     }
 
-    private bool ResolveWardrobe(InteractableData interactable)
+    private bool ResolveWardrobe(InteractableData interactable, GameObject sourceObject)
     {
         if (GameManager.Instance == null)
         {
             return false;
         }
 
-        var wardrobeObject = FindInteractableObject(interactable.id);
-        if (wardrobeObject == null)
-        {
-            return false;
-        }
+        var wardrobeController = sourceObject != null
+            ? sourceObject.GetComponent<WardrobeController>() ?? sourceObject.GetComponentInParent<WardrobeController>()
+            : null;
 
-        var wardrobeController = wardrobeObject.GetComponent<WardrobeController>();
         if (wardrobeController == null)
         {
+            var wardrobeObject = FindInteractableObject(interactable.id);
+            if (wardrobeObject != null)
+            {
+                wardrobeController = wardrobeObject.GetComponent<WardrobeController>() ?? wardrobeObject.GetComponentInParent<WardrobeController>();
+            }
+        }
+
+        if (wardrobeController == null)
+        {
+            Debug.LogWarning($"[InteractionManager] WardrobeController not found for interactable '{interactable.id}'.");
             return false;
         }
 
@@ -303,7 +310,7 @@ public class InteractionManager : MonoBehaviour
         var currentRoom = RoomManager.Instance?.CurrentRoom;
         if (currentRoom != null)
         {
-            var roomRoot = GameObject.Find("Rooms/" + currentRoom.id);
+            var roomRoot = FindRoomRoot(currentRoom.id);
             if (roomRoot != null)
             {
                 foreach (var behaviour in roomRoot.GetComponentsInChildren<InteractableBehaviour>(true))
@@ -334,6 +341,30 @@ public class InteractionManager : MonoBehaviour
             if (behaviour.GetData().id.Equals(interactableId, StringComparison.OrdinalIgnoreCase))
             {
                 return behaviour.gameObject;
+            }
+        }
+
+        return null;
+    }
+
+    private static GameObject FindRoomRoot(string roomId)
+    {
+        if (string.IsNullOrEmpty(roomId))
+        {
+            return null;
+        }
+
+        var roomsParent = GameObject.Find("Main/Rooms") ?? GameObject.Find("Rooms");
+        if (roomsParent == null)
+        {
+            return null;
+        }
+
+        foreach (Transform child in roomsParent.transform)
+        {
+            if (child.gameObject.name.Equals(roomId, StringComparison.OrdinalIgnoreCase))
+            {
+                return child.gameObject;
             }
         }
 
