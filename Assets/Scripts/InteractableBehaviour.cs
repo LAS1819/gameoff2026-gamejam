@@ -4,7 +4,6 @@ using UnityEngine;
 /// InteractableBehaviour handles mouse clicks on interactables.
 /// It also keeps visual/collider state in sync with room + reality rules.
 /// </summary>
-[RequireComponent(typeof(Collider2D))]
 public class InteractableBehaviour : MonoBehaviour
 {
     [SerializeField] private InteractableData data;

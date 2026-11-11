@@ -185,16 +185,29 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
-        var isAlreadyOpen = GameManager.Instance.HasFlag(GameFlagNames.BedroomWardrobeOpened);
-        if (isAlreadyOpen)
+        var wardrobeObject = FindInteractableObject(interactable.id);
+        if (wardrobeObject == null)
         {
-            UIManager.Instance?.ShowFeedback("The wardrobe is already open.", 1.5f);
             return false;
         }
 
-        GameManager.Instance.SetFlag(GameFlagNames.BedroomWardrobeOpened, true);
-        ApplyInteractableState(interactable.id, 1);
+        var wardrobeController = wardrobeObject.GetComponent<WardrobeController>();
+        if (wardrobeController == null)
+        {
+            return false;
+        }
 
+        var isAlreadyOpen = wardrobeController.IsOpen;
+        if (isAlreadyOpen)
+        {
+            wardrobeController.SetOpen(false);
+            GameManager.Instance.SetFlag(GameFlagNames.BedroomWardrobeOpened, false);
+            UIManager.Instance?.ShowFeedback("You close the wardrobe.", 1.5f);
+            return true;
+        }
+
+        wardrobeController.SetOpen(true);
+        GameManager.Instance.SetFlag(GameFlagNames.BedroomWardrobeOpened, true);
         UIManager.Instance?.ShowFeedback("You open the wardrobe.", 1.5f);
         return true;
     }

@@ -108,8 +108,19 @@ public class RoomManager : MonoBehaviour
             }
 
             var currentData = behaviour.GetData();
+            var objectName = behaviour.gameObject.name;
+            
+            // First try matching the object's own name
             var catalogMatch = CurrentRoom.interactables.Find(item =>
-                item != null && IsSameInteractable(behaviour.gameObject.name, item));
+                item != null && IsSameInteractable(objectName, item));
+            
+            // If not found and this is a hitbox child, try the parent's name
+            if (catalogMatch == null && behaviour.transform.parent != null)
+            {
+                var parentName = behaviour.transform.parent.name;
+                catalogMatch = CurrentRoom.interactables.Find(item =>
+                    item != null && IsSameInteractable(parentName, item));
+            }
 
             if (catalogMatch == null)
             {
