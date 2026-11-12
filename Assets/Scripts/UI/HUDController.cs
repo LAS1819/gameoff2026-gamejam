@@ -13,6 +13,11 @@ public class HUDController : MonoBehaviour
     [Header("Shift settings")]
     [SerializeField] private List<string> shiftEnabledRoomIds = new() { GameManager.HallwayRoomId, GameManager.BedroomRoomId };
 
+    [Header("Lantern icon")]
+    [SerializeField] private Sprite lanternNotObtainedSprite;
+    [SerializeField] private Sprite lanternObtainedSprite;
+    [SerializeField] private string lanternItemId = "flashlight_tool";
+
     [Header("Timings")]
     [SerializeField] private float feedbackDuration = 2f;
     [SerializeField] private float roomTransitionDuration = 0.35f;
@@ -23,6 +28,7 @@ public class HUDController : MonoBehaviour
     private readonly List<VisualElement> inventorySlots = new();
     private Label feedbackText;
     private VisualElement shiftButton;
+    private VisualElement lanternIcon;
     private VisualElement transitionOverlay;
     private VisualElement realityPulse;
 
@@ -156,6 +162,27 @@ public class HUDController : MonoBehaviour
             slot.pickingMode = item == null ? PickingMode.Ignore : PickingMode.Position;
             slot.focusable = item != null;
         }
+
+        RefreshLanternState();
+    }
+
+    public void RefreshLanternState()
+    {
+        if (lanternIcon == null)
+        {
+            return;
+        }
+
+        var hasLantern = InventoryManager.Instance != null && InventoryManager.Instance.HasItem(lanternItemId);
+        if (!hasLantern && GameManager.Instance != null && GameManager.Instance.HasFlag(GameFlagNames.HasFlashlight))
+        {
+            hasLantern = true;
+        }
+
+        var selectedSprite = hasLantern ? (lanternObtainedSprite != null ? lanternObtainedSprite : lanternNotObtainedSprite) : lanternNotObtainedSprite;
+        lanternIcon.style.backgroundImage = selectedSprite != null ? new StyleBackground(selectedSprite) : new StyleBackground();
+        lanternIcon.style.opacity = hasLantern ? 1f : 0.9f;
+        lanternIcon.pickingMode = PickingMode.Ignore;
     }
 
     private static string GetSlotLabel(InventoryItemData item)
@@ -248,6 +275,13 @@ public class HUDController : MonoBehaviour
             shiftClickBound = true;
         }
 
+        lanternIcon = root.Q<VisualElement>("lantern-icon");
+        if (lanternIcon != null)
+        {
+            lanternIcon.pickingMode = PickingMode.Ignore;
+            lanternIcon.focusable = false;
+        }
+
         foreach (var slot in inventorySlots)
         {
             if (slot != null)
@@ -274,6 +308,7 @@ public class HUDController : MonoBehaviour
 
         RefreshInventory();
         RefreshShiftButtonState();
+        RefreshLanternState();
     }
 
     private void TrySubscribeRuntimeEvents()
@@ -299,6 +334,7 @@ public class HUDController : MonoBehaviour
 
         RefreshShiftButtonState();
         RefreshInventory();
+        RefreshLanternState();
     }
 
     private void UnsubscribeRuntimeEvents()
@@ -327,11 +363,13 @@ public class HUDController : MonoBehaviour
     private void HandleItemAdded(InventoryItemData _)
     {
         RefreshInventory();
+        RefreshLanternState();
     }
 
     private void HandleItemRemoved(InventoryItemData _)
     {
         RefreshInventory();
+        RefreshLanternState();
     }
 
     private void HandleRoomChanged(RoomData _)

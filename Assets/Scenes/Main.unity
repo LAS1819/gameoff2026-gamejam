@@ -2474,6 +2474,9 @@ MonoBehaviour:
   panelRenderer: {fileID: 0}
   shiftEnabledRoomIds:
   - hallway
+  lanternNotObtainedSprite: {fileID: 1426271938, guid: 6d30d81ac4b34b14ba80fcd6910dcdd5, type: 3}
+  lanternObtainedSprite: {fileID: -371352943, guid: 6d30d81ac4b34b14ba80fcd6910dcdd5, type: 3}
+  lanternItemId: flashlight_tool
   feedbackDuration: 2
   roomTransitionDuration: 0.35
   realityPulseDuration: 0.25

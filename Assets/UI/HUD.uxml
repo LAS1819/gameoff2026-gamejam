@@ -8,6 +8,7 @@
         </ui:VisualElement>
         <ui:Label name="feedback-text" text="" class="feedback-text"/>
         <ui:VisualElement name="shift-button" class="shift-button normal"/>
+        <ui:VisualElement name="lantern-icon" class="lantern-icon"/>
         <ui:VisualElement name="transition-overlay" class="transition-overlay"/>
         <ui:VisualElement name="reality-pulse" class="reality-pulse"/>
     </ui:VisualElement>
