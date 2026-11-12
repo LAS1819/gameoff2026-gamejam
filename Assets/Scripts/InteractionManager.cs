@@ -59,6 +59,14 @@ public class InteractionManager : MonoBehaviour
 
         if (RoomManager.Instance != null && !RoomManager.Instance.IsInteractableVisible(interactable))
         {
+            if (interactable.id.Equals("bedroom_door", StringComparison.OrdinalIgnoreCase)
+                && RoomManager.Instance.CurrentRoom != null
+                && RoomManager.Instance.CurrentRoom.id.Equals(GameManager.HallwayRoomId, StringComparison.OrdinalIgnoreCase)
+                && (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide))
+            {
+                UIManager.Instance?.ShowFeedback("Something blocks the way in this reality.", 1.5f);
+            }
+
             return false;
         }
 
@@ -386,9 +394,12 @@ public class InteractionManager : MonoBehaviour
             GameManager.Instance?.SetFlag(interactable.resultFlag, true);
         }
 
-        var descriptionText = !string.IsNullOrEmpty(interactable.description)
-            ? interactable.description
-            : $"You inspected {interactable.displayName}.";
+        var currentReality = RealityManager.Instance != null ? RealityManager.Instance.CurrentReality : RealityType.Normal;
+        var descriptionText = interactable.GetDescriptionForReality(currentReality);
+        if (string.IsNullOrWhiteSpace(descriptionText))
+        {
+            descriptionText = $"You inspected {interactable.displayName}.";
+        }
 
         Debug.Log($"[InteractionManager] Examine: {interactable.displayName} - {descriptionText}");
         UIManager.Instance?.ShowFeedback(descriptionText, 2f);

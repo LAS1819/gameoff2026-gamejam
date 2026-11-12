@@ -363,6 +363,14 @@ public class RoomManager : MonoBehaviour
             return false;
         }
 
+        if (interactable.id.Equals("bedroom_door", StringComparison.OrdinalIgnoreCase)
+            && CurrentRoom != null
+            && CurrentRoom.id.Equals(GameManager.HallwayRoomId, StringComparison.OrdinalIgnoreCase)
+            && (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide))
+        {
+            return false;
+        }
+
         if (RealityManager.Instance != null)
         {
             var isNormalReality = RealityManager.Instance.CurrentReality == RealityType.Normal;

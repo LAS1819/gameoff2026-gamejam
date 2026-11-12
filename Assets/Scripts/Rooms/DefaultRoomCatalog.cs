@@ -126,9 +126,9 @@ public static class DefaultRoomCatalog
         {
             id = "bedroom_door",
             displayName = "Mysterious Door (Bedroom)",
-            description = "This door leads to the Bedroom. [NOT YET IMPLEMENTED]",
+            description = "This door leads to the Bedroom.",
             interactionType = InteractionType.Transition,
-            visibleInNormalReality = true,
+            visibleInNormalReality = false,
             visibleInOtherReality = true,
             linkedRoomId = GameManager.BedroomRoomId
         });
@@ -207,6 +207,8 @@ public static class DefaultRoomCatalog
             id = "window",
             displayName = "Window",
             description = "The window looks out into a sealed, impossible darkness.",
+            descriptionInNormalReality = "The window looks out into a sealed, impossible darkness. The outside is still and empty, but it feels wrong to look at it too long.",
+            descriptionInOtherReality = "The glass does not reflect the room anymore. Beyond it, the darkness is not empty: it is waiting.",
             interactionType = InteractionType.Examine,
             visibleInNormalReality = true,
             visibleInOtherReality = true
@@ -242,6 +244,8 @@ public static class DefaultRoomCatalog
             id = "hallway_exit",
             displayName = "Hallway Exit",
             description = "Leave the bedroom and return to the hallway.",
+            descriptionInNormalReality = "The bedroom door leads back to the hallway. Beyond it, the corridor is quiet and familiar.",
+            descriptionInOtherReality = "The same doorway feels wrong. The hallway beyond is not the same place it was a moment ago.",
             interactionType = InteractionType.Transition,
             visibleInNormalReality = true,
             visibleInOtherReality = true,
