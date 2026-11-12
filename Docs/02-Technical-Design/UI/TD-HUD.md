@@ -2,7 +2,8 @@
 
 - **Versión:** 2.0
 - **Creado:** 2026-11-06
-- **Actualizado:** 2026-11-07
+- **Actualizado:** 2026-11-12
+- **Autor:** @LAS1819
 - **Estado:** Implementación de código completada, pendiente wiring manual en escena
 
 ## Objetivo
