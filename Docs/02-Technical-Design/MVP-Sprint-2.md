@@ -25,13 +25,13 @@ No se busca contenido completo, ni arte final, ni sistemas secundarios. La idea 
 
 ### Incluido
 
-- Bedroom room data y interactables
-- luz de la habitación en la Realidad Normal
-- Flashlight como herramienta permanente en UI
-- Wardrobe como eje de bloqueo y progresión
-- key hidden en el Otro Lado
-- monstruo que bloquea la interacción al abrir el armario sin luz
-- transiciones entre rooms sin romper la base del MVP
+- `Bedroom` room data y `Interactables`
+- luz de la habitación en la `Realidad Normal`
+- `Flashlight` como herramienta permanente en `UI`
+- `Wardrobe` como eje de bloqueo y progresión
+- `key` hidden en el `Otro Lado`
+- `monstruo` que bloquea la interacción al abrir el armario sin luz
+- transiciones entre `rooms` sin romper la base del MVP
 - validación de flujo de room + flags + realidad
 
 ### No incluido
@@ -54,23 +54,23 @@ El objetivo principal del sprint es conseguir una room que se sienta “terminad
 1. Room Bedroom cargada por ID
 2. LampTrigger visible y usable solo en Normal
 3. Flashlight pickup + UI tool
-4. Wardrobe interactable visible en ambas realidades
-5. WardrobeKey visible solo en Other Side cuando la luz está encendida
-6. Monster bloquea la interacción si se abre el armario en Other Side sin luz
-7. Si la luz está encendida, el monstruo desaparece y la llave se vuelve accesible
+4. `Wardrobe` interactable visible en ambas realidades
+5. `LibraryKey` visible solo en `Other Side` cuando la luz está encendida
+6. `Monster` bloquea la interacción si se abre el armario en `Other Side` sin luz
+7. Si la luz está encendida, el `monstruo` desaparece y la `llave` se vuelve accesible
 
 ### Prioridad 2 — Consistencia del flujo
 
 Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido y no se rompe por una room aislada:
 
-- Lobby → Hallway → Bedroom
-- Room transitions correctas
-- RoomManager conserva estado entre cambios de room
-- flags de luz y armario persistentes mientras el jugador se mueve por el building state
+- `Lobby` → `Hallway` → `Bedroom`
+- `Room` transitions correctas
+- `RoomManager` conserva estado entre cambios de `room`
+- flags de luz y armario persistentes mientras el jugador se mueve por el `building state`
 
 ### Prioridad 3 — Preparación para la siguiente iteración
 
-- definir una estructura reutilizable para futuras rooms;
+- definir una estructura reutilizable para futuras `rooms`;
 - dejar el patrón de `Use` + `Toggle` + `Pickup` validado;
 - preparar la base para que Library y Basement lleguen sin rediseñar el sistema.
 
@@ -96,18 +96,18 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 
 ### 3. Interacción
 
-- recoger linterna;
-- activar lámpara solo en Normal;
-- abrir armario;
-- obtener llave desde Otro Lado cuando se cumplen las condiciones;
-- bloquear la interacción con monstruo si se intenta abrir el armario sin luz.
+- recoger `Lantern`;
+- activar `Ceiling Light` solo en `Normal`;
+- abrir `Wardrobe`;
+- obtener `LibraryKey` desde `Other Side` cuando se cumplen las condiciones;
+- bloquear la interacción con `Monster` si se intenta abrir el `Wardrobe` sin luz.
 
 ### 4. Lógica de luz
 
 - la luz se enciende desde la Realidad Normal;
 - no se permite encenderla en el Otro Lado;
-- si la luz está encendida, la amenaza del monstruo desaparece por completo;
-- si la luz está apagada, el armario en Other Side presenta bloqueo.
+- si la luz está encendida, la amenaza del `Monster` desaparece por completo;
+- si la luz está apagada, el `Wardrobe` en `Other Side` presenta bloqueo.
 
 ### 5. SHIFT / realidad
 
@@ -121,23 +121,23 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 
 ### Bloque A — Bedroom data + room structure (45-60 min)
 
-- [ ] crear `RoomData` de Bedroom con los interactables base
-- [ ] definir `InteractableData` para:
+- [x] crear `RoomData` de Bedroom con los interactables base
+- [x] definir `InteractableData` para:
   - [x] `ceiling_light`
-  - [ ] `flashlight_pickup`
+  - [x] `lantern_pickup`
   - [x] `wardrobe`
   - [x] `library_key`
   - [x] `wardrobe_monster`
-  - [ ] `bedroom_exit`
-- [ ] definir `RoomConnection` y `linkedRoomId` para volver a Hallway
-- [ ] asegurar visibilidad por realidad con los valores correctos
+  - [x] `bedroom_exit`
+- [x] definir `RoomConnection` y `linkedRoomId` para volver a Hallway
+- [x] asegurar visibilidad por realidad con los valores correctos
 
 ### Bloque B — Flashlight + UI tool (45-60 min)
 
-- [ ] crear el item `flashlight`
-- [ ] hacer que no se comporte como inventario clásico
-- [ ] conectar a UI permanente o HUD button
-- [ ] validar que se activa correctamente y se mantiene disponible
+- [x] crear el item `lantern`
+- [x] hacer que no se comporte como inventario clásico
+- [x] conectar a UI permanente o HUD button
+- [x] validar que se activa correctamente y se mantiene disponible
 
 ### Bloque C — Ceiling Light + Wardrobe gating (60-90 min)
 
@@ -145,25 +145,25 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 - [x] solo usable en Normal
 - [x] `wardrobe` abre y registra `WardrobeOpened`
 - [x] `wardrobe_monster` aparece solo si `WardrobeOpened && OtherSide && !BedroomLightOn`
-- [ ] cierre del armario/monstruo al encender la luz
+- [x] cierre del armario/monstruo al encender la luz
 
 ### Bloque D — Key reward + flow validation (45-60 min)
 
 - [x] `library_key` visible solo cuando se cumplen condiciones
-- [ ] recoger key actualiza `LibraryKeyFound`
-- [ ] key queda visible en el flujo real y no rompe la room
-- [ ] probar retorno a Hallway y acceso posterior si se requiere
+- [x] recoger key actualiza `LibraryKeyFound`
+- [x] key queda visible en el flujo real y no rompe la room
+- [x] probar retorno a Hallway y acceso posterior si se requiere
 
 ### Bloque E — End-to-end validation (30-45 min)
 
 - [x] entrar a `Bedroom` desde Hallway
-- [ ] recoger linterna (`flashlight_pickup`)
+- [x] recoger linterna (`lantern_pickup`)
 - [x] encender la luz en Normal
 - [x] cambiar a Other Side
 - [x] abrir armario con luz encendida para acceder a la llave
-- [ ] volver a la habitación y comprobar que la lógica no se desincroniza
-- [ ] volver a Hallway sin errores
-- [ ] validar consola y flags
+- [x] volver a la habitación y comprobar que la lógica no se desincroniza
+- [x] volver a Hallway sin errores
+- [x] validar consola y flags
 
 ---
 
@@ -199,8 +199,8 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 La `Room Bedroom` se considera correcta si se cumple la siguiente prueba de flujo:
 
 1. El jugador entra a `Bedroom` desde `Hallway`.
-2. Encuentra y recoge la `flashlight`.
-3. Se activa como tool permanente en UI.
+2. Encuentra y recoge la `lantern`.
+3. Se activa como tool permanente en UI (aunque todavía no se pueda usar).
 4. El jugador enciende la `ceiling_light` en la Realidad Normal.
 5. Cambia a la `Other Side`.
 6. Abre el `wardrobe` y, si la luz está encendida, el `wardrobe_monster` no aparece y la `library_key` queda accesible.
@@ -215,27 +215,27 @@ La `Room Bedroom` se considera correcta si se cumple la siguiente prueba de fluj
 
 ### Bloqueantes
 
-- [ ] Bedroom room data creada
-- [ ] Flashlight tool disponible en UI
-- [ ] `ceiling_light` solo funciona en `Normal`
-- [ ] `Wardrobe` muestra lógica variable por realidad
-- [ ] MonsterVisible solo se activa con la condición correcta
-- [ ] WardrobeKey aparece solo cuando la luz está encendida
-- [ ] no existen errores de `room loading` ni flags inconsistentes
+- [x] Bedroom room data creada
+- [x] Lantern tool disponible en UI
+- [x] `ceiling_light` solo funciona en `Normal`
+- [x] `Wardrobe` muestra lógica variable por realidad
+- [x] MonsterVisible solo se activa con la condición correcta
+- [x] WardrobeKey aparece solo cuando la luz está encendida
+- [x] no existen errores de `room loading` ni flags inconsistentes
 
 ### Funcional
 
-- [ ] `SHIFT` sigue funcionando al cambiar entre realidades
-- [ ] exit de `Bedroom` vuelve correctamente a `Hallway`
-- [ ] el flujo `Lobby` → `Hallway` → `Bedroom` es reproducible
-- [ ] la lógica del `wardrobe` es clara y no requiere “trucos” del `designer`
+- [x] `SHIFT` sigue funcionando al cambiar entre realidades
+- [x] exit de `Bedroom` vuelve correctamente a `Hallway`
+- [x] el flujo `Lobby` → `Hallway` → `Bedroom` es reproducible
+- [x] la lógica del `wardrobe` es clara y no requiere “trucos” del `designer`
 
 ### Scope guard
 
-- [ ] no se añade `salud` por ahora
-- [ ] no se inicia trabajo de `Library` real
-- [ ] la `room` se mantiene dentro del enfoque MVP
-- [ ] no se crea infraestructura de más para un `sistema` futuro inmediato
+- [x] no se añade `salud` por ahora
+- [x] no se inicia trabajo de `Library` real
+- [x] la `room` se mantiene dentro del enfoque MVP
+- [x] no se crea infraestructura de más para un `sistema` futuro inmediato
 
 ---
 
