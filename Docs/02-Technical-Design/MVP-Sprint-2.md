@@ -4,7 +4,7 @@
 - Fecha objetivo: 15/11/2026
 - Estado: 🟡 PLANIFICADO - Base de Lobby/Hallway validada, Bedroom como prioridad MVP
 - Creado: 10/11/2026
-- Actualizado: 10/11/2026
+- Actualizado: 12/11/2026
 
 ## Objetivo
 
@@ -123,12 +123,12 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 
 - [ ] crear `RoomData` de Bedroom con los interactables base
 - [ ] definir `InteractableData` para:
-  - `bedroom_lamp`
-  - `flashlight_pickup`
-  - `wardrobe`
-  - `wardrobe_key`
-  - `wardrobe_monster`
-  - `bedroom_exit`
+  - [x] `ceiling_light`
+  - [ ] `flashlight_pickup`
+  - [x] `wardrobe`
+  - [x] `library_key`
+  - [x] `wardrobe_monster`
+  - [ ] `bedroom_exit`
 - [ ] definir `RoomConnection` y `linkedRoomId` para volver a Hallway
 - [ ] asegurar visibilidad por realidad con los valores correctos
 
@@ -139,28 +139,28 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 - [ ] conectar a UI permanente o HUD button
 - [ ] validar que se activa correctamente y se mantiene disponible
 
-### Bloque C — Lamp + Wardrobe gating (60-90 min)
+### Bloque C — Ceiling Light + Wardrobe gating (60-90 min)
 
-- [ ] `bedroom_lamp` cambia `BedroomLightOn`
-- [ ] solo usable en Normal
-- [ ] `wardrobe` abre y registra `WardrobeOpened`
-- [ ] `wardrobe_monster` aparece solo si `WardrobeOpened && OtherSide && !BedroomLightOn`
+- [x] `ceiling_light`/`switch` cambia `BedroomLightOn`
+- [x] solo usable en Normal
+- [x] `wardrobe` abre y registra `WardrobeOpened`
+- [x] `wardrobe_monster` aparece solo si `WardrobeOpened && OtherSide && !BedroomLightOn`
 - [ ] cierre del armario/monstruo al encender la luz
 
 ### Bloque D — Key reward + flow validation (45-60 min)
 
-- [ ] `wardrobe_key` visible solo cuando se cumplen condiciones
+- [x] `library_key` visible solo cuando se cumplen condiciones
 - [ ] recoger key actualiza `LibraryKeyFound`
 - [ ] key queda visible en el flujo real y no rompe la room
 - [ ] probar retorno a Hallway y acceso posterior si se requiere
 
 ### Bloque E — End-to-end validation (30-45 min)
 
-- [ ] entrar a Bedroom desde Hallway
-- [ ] recoger linterna
-- [ ] encender la luz en Normal
-- [ ] cambiar a Other Side
-- [ ] abrir armario con luz encendida para acceder a la llave
+- [x] entrar a `Bedroom` desde Hallway
+- [ ] recoger linterna (`flashlight_pickup`)
+- [x] encender la luz en Normal
+- [x] cambiar a Other Side
+- [x] abrir armario con luz encendida para acceder a la llave
 - [ ] volver a la habitación y comprobar que la lógica no se desincroniza
 - [ ] volver a Hallway sin errores
 - [ ] validar consola y flags
@@ -171,15 +171,15 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 
 ### Mantener
 
-- la estructura simple de rooms basada en data;
-- la luz como acción clave y no como extra opcional;
-- la amenaza del monstruo como bloqueo circunstancial, no como enemigo completo;
+- la estructura simple de `Rooms` basada en data;
+- la luz de la habitación (`ceiling_light`) como acción clave y no como extra opcional;
+- la amenaza del `wardrobe_monster` como bloqueo circunstancial, no como enemigo completo;
 - la lógica del armario como punto de decisión claro;
-- una room con un punto fuerte de narración y un objetivo concreto.
+- una `Room` con un punto fuerte de narración y un objetivo concreto.
 
 ### Simplificar
 
-- sin sistema de salud o cordura;
+- sin sistema de `salud` o `cordura`;
 - sin batería compleja para la linterna;
 - sin varias condiciones de monstruo;
 - sin añadir lógica de combat o IA extra;
@@ -187,7 +187,7 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 
 ### Dejar fuera del sprint
 
-- segunda amenaza de terror distinta;
+- segunda amenaza de terror distinta (`wardrobe_monster` ya está incluida);
 - puzzles adicionales dentro de la Bedroom;
 - implementación de objetos de biblioteca reales;
 - save system, checkpoints complejos o sistema de muerte.
@@ -196,17 +196,17 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 
 ## Criterios de aceptación del sprint
 
-La Room Bedroom se considera correcta si se cumple la siguiente prueba de flujo:
+La `Room Bedroom` se considera correcta si se cumple la siguiente prueba de flujo:
 
-1. El jugador entra a Bedroom desde Hallway.
-2. Encuentra y recoge la linterna.
+1. El jugador entra a `Bedroom` desde `Hallway`.
+2. Encuentra y recoge la `flashlight`.
 3. Se activa como tool permanente en UI.
-4. El jugador enciende la lámpara en la Realidad Normal.
-5. Cambia a la otra realidad.
-6. Abre el armario y, si la luz está encendida, el monstruo no aparece y la llave queda accesible.
-7. Si prueba abrir el armario con la luz apagada, el monstruo bloquea la interacción.
-8. Vuelve a la Realidad Normal, enciende la lámpara y resuelve la condición.
-9. La llave puede obtenerse en el Otro Lado y la room funciona sin desincronizar flags.
+4. El jugador enciende la `ceiling_light` en la Realidad Normal.
+5. Cambia a la `Other Side`.
+6. Abre el `wardrobe` y, si la luz está encendida, el `wardrobe_monster` no aparece y la `library_key` queda accesible.
+7. Si prueba abrir el armario con la luz apagada, el `wardrobe_monster` bloquea la interacción.
+8. Vuelve a la Realidad Normal, enciende la `ceiling_light` y resuelve la condición.
+9. La `library_key` puede obtenerse en el `Other Side` y la `Room` funciona sin desincronizar flags.
 10. El flujo completo no rompe la estructura del proyecto ni requiere lógica extra paralela.
 
 ---
@@ -217,25 +217,25 @@ La Room Bedroom se considera correcta si se cumple la siguiente prueba de flujo:
 
 - [ ] Bedroom room data creada
 - [ ] Flashlight tool disponible en UI
-- [ ] BedroomLamp solo funciona en Normal
-- [ ] Wardrobe muestra lógica variable por realidad
+- [ ] `ceiling_light` solo funciona en `Normal`
+- [ ] `Wardrobe` muestra lógica variable por realidad
 - [ ] MonsterVisible solo se activa con la condición correcta
 - [ ] WardrobeKey aparece solo cuando la luz está encendida
-- [ ] no existen errores de room loading ni flags inconsistentes
+- [ ] no existen errores de `room loading` ni flags inconsistentes
 
 ### Funcional
 
-- [ ] SHIFT sigue funcionando al cambiar entre realidades
-- [ ] exit de Bedroom vuelve correctamente a Hallway
-- [ ] el flujo Lobby → Hallway → Bedroom es reproducible
-- [ ] la lógica del armario es clara y no requiere “trucos” del diseñador
+- [ ] `SHIFT` sigue funcionando al cambiar entre realidades
+- [ ] exit de `Bedroom` vuelve correctamente a `Hallway`
+- [ ] el flujo `Lobby` → `Hallway` → `Bedroom` es reproducible
+- [ ] la lógica del `wardrobe` es clara y no requiere “trucos” del `designer`
 
 ### Scope guard
 
-- [ ] no se añade salud por ahora
-- [ ] no se inicia trabajo de Library real
-- [ ] la room se mantiene dentro del enfoque MVP
-- [ ] no se crea infraestructura de más para un sistema futuro inmediato
+- [ ] no se añade `salud` por ahora
+- [ ] no se inicia trabajo de `Library` real
+- [ ] la `room` se mantiene dentro del enfoque MVP
+- [ ] no se crea infraestructura de más para un `sistema` futuro inmediato
 
 ---
 
@@ -243,13 +243,13 @@ La Room Bedroom se considera correcta si se cumple la siguiente prueba de flujo:
 
 El Sprint 2 debe centrarse en una sola idea sólida:
 
-la Bedroom es la primera Room donde las reglas del juego se vuelven más humanas, más emocionales y más peligrosas, pero sin dejar de ser manejables.
+la `Bedroom` es la primera `Room` donde las reglas del juego se vuelven más humanas, más emocionales y más peligrosas, pero sin dejar de ser manejables.
 
 Por eso, la prioridad no es añadir complejidad, sino dejar bien resuelto el bloque clave:
 
-- luz en Normal;
-- monstruo en Other Side si el armario se abre sin luz;
-- llave en armario como recompensa y progresión;
-- flujo limpio entre rooms y realidades.
+- luz en `Normal`;
+- monstruo en `Other Side` si el armario se abre sin luz;
+- llave en `wardrobe` como recompensa y progresión;
+- flujo limpio entre `rooms` y realidades.
 
 Si esta parte funciona, la base del proyecto queda mucho más fuerte para el siguiente bloque de contenido y para la siguiente iteración de diseño.

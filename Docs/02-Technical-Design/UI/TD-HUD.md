@@ -1,8 +1,9 @@
-# TD-HUD - HUD mínimo runtime (Sprint 1)
+# TD-HUD - HUD mínimo runtime (Sprint 2)
 
 - **Versión:** 2.0
 - **Creado:** 2026-11-06
-- **Actualizado:** 2026-11-07
+- **Actualizado:** 2026-11-12
+- **Autor:** @LAS1819
 - **Estado:** Implementación de código completada, pendiente wiring manual en escena
 
 ## Objetivo
@@ -57,10 +58,14 @@ HUDRoot (GameObject)
     │   ├── slot-1
     │   └── slot-2
     ├── feedback-text
+    ├── lantern-icon
+    │   └── sprite-state (0 = no-obtained, 1 = obtained-off, 2 = obtained-on)
     ├── shift-button
     ├── transition-overlay
     └── reality-pulse
 ```
+
+La `lantern-icon` se coloca encima del `shift-button` para mantener la misma lógica visual que el resto del `HUD`: compacta, permanente y legible.
 
 ## Comportamiento implementado
 
@@ -81,6 +86,16 @@ HUDRoot (GameObject)
 - Respeta gating por room (por defecto `hallway`).
 - Actualiza clases visuales `normal` / `other-side`.
 - Marca flag `ShiftPerformed`.
+
+### Lantern UI
+
+- El icono de la `Linterna` es permanente y visible desde el inicio en la `UI`.
+- En estado inicial se usa el Sprite 0 del `spritesheet-ui-icon-lantern-v1`.
+- Este sprite representa la silueta de la `Linterna` sin obtener.
+- Cuando el jugador recoge la `Linterna` en `Bedroom`, el `HUD` cambia al Sprite 1 del mismo atlas.
+- El Sprite 1 representa la `Linterna` obtenida, pero apagada.
+- La `Linterna` no se usa todavía fuera del `Sótano`; su uso quedará bloqueado por gating de room cuando se implemente la futura mecánica.
+- El icono se sitúa por encima del `shift-button`, sin romper la compactación visual del `HUD`.
 
 ### Transiciones visuales
 
@@ -135,13 +150,27 @@ En el GO de `UIManager`:
 
 ### 4) Verificación rápida en Play Mode
 
-1. recoger llave → slot pasa a `full` + feedback
-2. usar puerta → feedback + fondo cambia
-3. transición Lobby/Hallway → overlay visible corto
-4. SHIFT en Hallway → cambia realidad + pulse + botón pulsable
-5. SHIFT fuera de Hallway → botón deshabilitado (gris) + no reacciona
+1. recoger `llave` → slot pasa a `full` + feedback
+2. usar `puerta` → feedback + fondo cambia
+3. transición `Lobby`/`Hallway` → overlay visible corto
+4. SHIFT en `Hallway` → cambia realidad + pulse + botón pulsable
+5. SHIFT fuera de `Hallway` → botón deshabilitado (gris) + no reacciona
+6. `Linterna` en estado inicial → Sprite 0 visible en `HUD`
+7. obtener la `Linterna` en `Bedroom` → Sprite 1 visible en `HUD`
+8. sin `Sótano` activo → la `Linterna` no usable, solo estado de posesión
 
-**El shift-button ahora es pequeño, pulsable y parte del HUD central.**
+**El `shift-button` ahora es pequeño, pulsable y parte del `HUD` central.**
+
+### 5) Configuración del Lantern icon en HUD
+
+En el `HUD` centralizado, confirmar:
+
+- `lantern-icon` existe como elemento visual de la capa superior del `HUD`
+- se usa el `spritesheet-ui-icon-lantern-v1`
+- el Sprite 0 se asigna al inicio del juego
+- al recoger la `Linterna` en `Bedroom` se cambia a Sprite 1
+- el icono se deja visible aunque no esté disponible para usar en la `sala` actual
+- el botón SHIFT permanece debajo para preservar la jerarquía visual
 
 ## Criterio de done para Demo 1
 

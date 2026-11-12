@@ -43,6 +43,8 @@ public class InteractableData
     public string id;                               // Unique identifier for this interactable
     public string displayName;
     public string description;
+    public string descriptionInNormalReality;
+    public string descriptionInOtherReality;
     public InteractionType interactionType;
     
     // Visibility rules for reality system
@@ -63,6 +65,21 @@ public class InteractableData
     
     // Should this interactable be consumed after first use? (e.g., key disappears after unlocking door)
     public bool consumeAfterUse;
+
+    public string GetDescriptionForReality(RealityType reality)
+    {
+        if (reality == RealityType.Normal && !string.IsNullOrWhiteSpace(descriptionInNormalReality))
+        {
+            return descriptionInNormalReality;
+        }
+
+        if (reality == RealityType.OtherSide && !string.IsNullOrWhiteSpace(descriptionInOtherReality))
+        {
+            return descriptionInOtherReality;
+        }
+
+        return string.IsNullOrWhiteSpace(description) ? displayName : description;
+    }
 }
 
 [Serializable]

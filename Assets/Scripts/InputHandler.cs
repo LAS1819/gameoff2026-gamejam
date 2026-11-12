@@ -10,7 +10,7 @@ public class InputHandler : MonoBehaviour
 
     private void HandleShiftInput()
     {
-        if (Keyboard.current == null || !Keyboard.current.leftShiftKey.wasPressedThisFrame)
+        if (!IsShiftPressed())
         {
             return;
         }
@@ -22,11 +22,22 @@ public class InputHandler : MonoBehaviour
 
         if (!RealityManager.Instance.IsShiftAllowedInCurrentRoom())
         {
-            Debug.LogWarning($"[InputHandler] LEFT SHIFT blocked in room '{RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>"}'");
+            Debug.LogWarning($"[InputHandler] SHIFT blocked in room '{RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>"}'");
             return;
         }
 
         RealityManager.Instance.TryToggleReality();
-        Debug.Log("[InputHandler] LEFT SHIFT pressed - toggling reality");
+        Debug.Log("[InputHandler] SHIFT pressed - toggling reality");
+    }
+
+    private static bool IsShiftPressed()
+    {
+        var keyboard = Keyboard.current;
+        if (keyboard == null)
+        {
+            return false;
+        }
+
+        return keyboard.leftShiftKey.wasPressedThisFrame || keyboard.rightShiftKey.wasPressedThisFrame;
     }
 }

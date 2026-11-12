@@ -73,6 +73,8 @@ Zona orientada al uso de estados de objetos.
   - Objetos dañados.
   - Información personal.
   - Recursos narrativos.
+  - Encuentro de la `Linterna`
+  - Primara amenaza del monstruo visible en el Otro Lado.
 - Conexiones:
   - `Pasillo Principal` - `Hallway`.
 
@@ -84,6 +86,7 @@ Centro mecánico del edificio.
   - Generador.
   - Instalaciones.
   - Eventos temporales.
+  - Uso de la `Linterna`
 - Conexiones:
   - `Biblioteca` - `Library`.
   - `Sala Ritual` - `Ritual Room`.

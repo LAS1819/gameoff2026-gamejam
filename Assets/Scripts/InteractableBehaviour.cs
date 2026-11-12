@@ -4,13 +4,33 @@ using UnityEngine;
 /// InteractableBehaviour handles mouse clicks on interactables.
 /// It also keeps visual/collider state in sync with room + reality rules.
 /// </summary>
-[RequireComponent(typeof(Collider2D))]
 public class InteractableBehaviour : MonoBehaviour
 {
     [SerializeField] private InteractableData data;
     private SpriteRenderer spriteRenderer;
     private Collider2D hitCollider;
     private bool warnedMissingData;
+
+    public void Configure(InteractableData config)
+    {
+        if (config == null)
+        {
+            return;
+        }
+
+        data = config;
+        warnedMissingData = false;
+    }
+
+    public InteractableData GetData()
+    {
+        return data;
+    }
+
+    public bool HasData()
+    {
+        return data != null;
+    }
 
     private void Awake()
     {
@@ -42,7 +62,7 @@ public class InteractableBehaviour : MonoBehaviour
             return;
         }
 
-        InteractionManager.Instance.TryInteract(data);
+        InteractionManager.Instance.TryInteract(data, gameObject);
         RefreshState();
     }
 

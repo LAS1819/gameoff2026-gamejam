@@ -42,14 +42,20 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
-        return TryInteract(interactable);
+        return TryInteract(interactable, null);
     }
 
-    public bool TryInteract(InteractableData interactable)
+    public bool TryInteract(InteractableData interactable, GameObject sourceObject = null)
     {
         if (interactable == null || string.IsNullOrEmpty(interactable.id))
         {
             return false;
+        }
+
+        if (IsAlreadyCollected(interactable))
+        {
+            UIManager.Instance?.ShowFeedback("There is nothing interesting here.", 1.5f);
+            return true;
         }
 
         if (IsConsumed(interactable.id))
@@ -57,53 +63,17 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
-        if (RoomManager.Instance != null && !RoomManager.Instance.IsInteractableVisible(interactable))
+        if (!InteractionGuard.CanProcess(interactable))
         {
             return false;
         }
 
-        if (!string.IsNullOrEmpty(interactable.requiredItemId))
+        if (!InteractionGuard.HasRequiredItem(interactable))
         {
-            if (InventoryManager.Instance == null || !InventoryManager.Instance.HasItem(interactable.requiredItemId))
-            {
-                Debug.LogWarning($"Missing required item for {interactable.id}: {interactable.requiredItemId}");
-                UIManager.Instance?.ShowFeedback("Required item missing.", 1.5f);
-                return false;
-            }
-
-            var selectedItemId = InventoryManager.Instance.SelectedItemId;
-            if (string.IsNullOrEmpty(selectedItemId) || !selectedItemId.Equals(interactable.requiredItemId, StringComparison.OrdinalIgnoreCase))
-            {
-                var requiredItem = InventoryManager.Instance.GetItemById(interactable.requiredItemId);
-                var requiredName = requiredItem != null && !string.IsNullOrWhiteSpace(requiredItem.displayName)
-                    ? requiredItem.displayName
-                    : interactable.requiredItemId;
-
-                UIManager.Instance?.ShowFeedback($"Select {requiredName} first.", 1.5f);
-                return false;
-            }
+            return false;
         }
 
-        var wasResolved = false;
-        switch (interactable.interactionType)
-        {
-            case InteractionType.Pickup:
-                wasResolved = ResolvePickup(interactable);
-                break;
-            case InteractionType.Use:
-                wasResolved = ResolveUse(interactable);
-                break;
-            case InteractionType.Examine:
-                wasResolved = ResolveExamine(interactable);
-                break;
-            case InteractionType.Toggle:
-                wasResolved = ResolveToggle(interactable);
-                break;
-            case InteractionType.Transition:
-                wasResolved = ResolveTransition(interactable);
-                break;
-        }
-
+        var wasResolved = InteractionResolver.Resolve(interactable, sourceObject, MarkConsumed);
         if (wasResolved)
         {
             RoomManager.Instance?.RefreshInteractables();
@@ -118,117 +88,30 @@ public class InteractionManager : MonoBehaviour
         return !string.IsNullOrEmpty(interactableId) && consumedInteractables.Contains(interactableId);
     }
 
-    public void ResetRuntimeState()
+    private static bool IsAlreadyCollected(InteractableData interactable)
     {
-        consumedInteractables.Clear();
-    }
-
-    private bool ResolvePickup(InteractableData interactable)
-    {
-        if (InventoryManager.Instance == null)
+        if (interactable == null || interactable.interactionType != InteractionType.Pickup)
         {
-            Debug.LogWarning("InventoryManager instance not found.");
             return false;
         }
 
         var itemId = string.IsNullOrEmpty(interactable.itemId) ? interactable.id : interactable.itemId;
-        var itemAdded = InventoryManager.Instance.AddItem(new InventoryItemData
+        if (InventoryManager.Instance != null && InventoryManager.Instance.HasItem(itemId))
         {
-            id = itemId,
-            displayName = interactable.displayName,
-            description = interactable.description,
-            isKeyItem = true
-        });
-
-        if (!itemAdded)
-        {
-            return false;
+            return true;
         }
 
-        UIManager.Instance?.RefreshInventoryUI();
-        UIManager.Instance?.ShowFeedback($"Picked up {interactable.displayName}.", 1.5f);
-
-        if (!string.IsNullOrEmpty(interactable.resultFlag))
+        if (!string.IsNullOrEmpty(interactable.resultFlag) && GameManager.Instance != null && GameManager.Instance.HasFlag(interactable.resultFlag))
         {
-            GameManager.Instance?.SetFlag(interactable.resultFlag, true);
+            return true;
         }
 
-        MarkConsumed(interactable.id);
-        return true;
+        return false;
     }
 
-    private bool ResolveUse(InteractableData interactable)
+    public void ResetRuntimeState()
     {
-        if (!string.IsNullOrEmpty(interactable.resultFlag))
-        {
-            GameManager.Instance?.SetFlag(interactable.resultFlag, true);
-        }
-
-        if (interactable.consumeAfterUse)
-        {
-            MarkConsumed(interactable.id);
-        }
-
-        UIManager.Instance?.ShowFeedback($"Used {interactable.displayName}.", 1.5f);
-        return true;
-    }
-
-    private bool ResolveExamine(InteractableData interactable)
-    {
-        if (interactable != null &&
-            (interactable.id == "library_door" || interactable.id == "bedroom_door") &&
-            (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide))
-        {
-            Debug.LogWarning($"[InteractionManager] '{interactable.displayName}' can only be used in the Other Side reality.");
-            UIManager.Instance?.ShowFeedback("This is only accessible in the Other Side.", 1.5f);
-            return false;
-        }
-
-        if (!string.IsNullOrEmpty(interactable.resultFlag))
-        {
-            GameManager.Instance?.SetFlag(interactable.resultFlag, true);
-        }
-
-        var descriptionText = !string.IsNullOrEmpty(interactable.description)
-            ? interactable.description
-            : $"You inspected {interactable.displayName}.";
-
-        Debug.Log($"[InteractionManager] Examine: {interactable.displayName} - {descriptionText}");
-        UIManager.Instance?.ShowFeedback(descriptionText, 2f);
-        return true;
-    }
-
-    private bool ResolveToggle(InteractableData interactable)
-    {
-        RealityManager.Instance?.ToggleReality();
-
-        if (!string.IsNullOrEmpty(interactable.resultFlag))
-        {
-            GameManager.Instance?.SetFlag(interactable.resultFlag, true);
-        }
-
-        return true;
-    }
-
-    private bool ResolveTransition(InteractableData interactable)
-    {
-        if (string.IsNullOrEmpty(interactable.linkedRoomId))
-        {
-            Debug.LogError($"[InteractionManager] Transition '{interactable.id}' has no linkedRoomId set.");
-            return false;
-        }
-
-        Debug.Log($"[InteractionManager] ResolveTransition: attempting to load room '{interactable.linkedRoomId}'");
-        
-        if (RoomManager.Instance == null)
-        {
-            Debug.LogError($"[InteractionManager] RoomManager instance not found. Cannot transition to '{interactable.linkedRoomId}'");
-            return false;
-        }
-
-        var success = RoomManager.Instance.LoadRoom(interactable.linkedRoomId);
-        Debug.Log($"[InteractionManager] LoadRoom('{interactable.linkedRoomId}') returned: {success}");
-        return success;
+        consumedInteractables.Clear();
     }
 
     private void MarkConsumed(string interactableId)
