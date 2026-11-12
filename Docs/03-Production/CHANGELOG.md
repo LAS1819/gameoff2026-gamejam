@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.8-proto] - 2026-11-12
+
+### Added
+
+- Complete Bedroom flow in the main runtime loop, including the wardrobe, light switch, monster visibility, library key, hallway exit, and window interactables
+- Lantern HUD state and persistent icon behavior aligned with the existing shift-button UI patterns
+- Nightstand interaction that grants the flashlight state without creating a false inventory item, keeping the HUD-driven lantern logic consistent
+- Generic repeated-interaction fallback feedback so exhausted or already-used interactables do not produce misleading state transitions
+- Runtime room bootstrap adjustments that keep the Lobby visible at startup and prevent the scene from starting in the wrong room
+- Audio output routing through the `MainAudioMixer` `Music` group so generated AudioSources respect the intended project mixer structure
+
+### Changed
+
+- Refined the interaction model to handle room-specific visibility, reality-aware descriptions, and conditional object activation more consistently across scenes
+- Updated `GameManager` and `RoomManager` runtime setup to ensure the active Room and Room catalog are initialized in the correct order on startup
+- Switched Shift detection to the Input System package path and removed the legacy `Input.GetKeyDown` usage that conflicted with the active Player Settings configuration
+- Kept the Lantern and HUD logic aligned with the broader MVP requirement: the item is a persistent world state indicator rather than a regular inventory slot item
+- Continued the project’s minimal, gameplay-first architecture without adding unnecessary abstraction layers or broad framework systems
+
+### Fixed
+
+- Resolved the startup room issue where the Lobby could fail to appear when entering Play because the room loader was relying on a stale CurrentRoom condition
+- Fixed the Shift input failure caused by mixing legacy `UnityEngine.Input` calls with the active Input System package setup
+- Corrected the Nightstand logic so it does not create phantom inventory entries or consume the object incorrectly after the first pickup
+- Prevented the bedroom door and related scene state from being shown under the wrong room or reality conditions
+- Ensured runtime AudioSource generation follows the configured mixer hierarchy instead of bypassing the mixer output path
+
+### Notes
+
+- This release completes the Bedroom-focused MVP work on the current branch and consolidates the room, UI, interaction, and runtime stability changes behind a single versioned milestone
+- The project remains intentionally scoped to a minimal, playable loop for the game-jam MVP rather than expanding into full inventory or backend systems
+- The current branch is ready for a final review and release candidate pass before broader content work begins
+
+---
+
 ## [0.0.7-proto] - 2026-11-10
 
 ### Added
