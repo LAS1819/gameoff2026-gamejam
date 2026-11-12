@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour
         EnsureRuntimeSystem<SaveManager>("SaveManager");
         EnsureRuntimeSystem<AudioManager>("AudioManager");
         EnsureRuntimeSystem<UIManager>("UIManager");
+        EnsureRuntimeSystem<InputHandler>("InputHandler");
     }
 
     private void EnsureRuntimeSystem<T>(string objectName) where T : MonoBehaviour

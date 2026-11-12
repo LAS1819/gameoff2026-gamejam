@@ -65,6 +65,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void RefreshLanternState()
+    {
+        TryResolveHudController();
+        if (hudController != null)
+        {
+            hudController.RefreshLanternState();
+        }
+    }
+
     private void TryResolveHudController()
     {
         if (hudController == null)

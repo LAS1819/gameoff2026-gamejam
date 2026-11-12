@@ -24,13 +24,42 @@ internal static class InteractionResolver
 
     private static bool ResolvePickup(InteractableData interactable, Action<string> onConsumed)
     {
+        var itemId = string.IsNullOrEmpty(interactable.itemId) ? interactable.id : interactable.itemId;
+        var isLanternPickup = itemId.Equals("flashlight_tool", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("nightstand", StringComparison.OrdinalIgnoreCase);
+
+        if (isLanternPickup)
+        {
+            if (InventoryManager.Instance != null)
+            {
+                InventoryManager.Instance.RemoveItem("flashlight_tool");
+            }
+
+            GameManager.Instance?.SetFlag(GameFlagNames.HasFlashlight, true);
+            UIManager.Instance?.RefreshInventoryUI();
+
+            var feedbackMessage = "You find the flashlight on the nightstand. No need to use it now.";
+            UIManager.Instance?.ShowFeedback(feedbackMessage, 1.8f);
+
+            if (!string.IsNullOrEmpty(interactable.resultFlag))
+            {
+                GameManager.Instance?.SetFlag(interactable.resultFlag, true);
+            }
+
+            if (interactable.consumeAfterUse)
+            {
+                onConsumed?.Invoke(interactable.id);
+            }
+
+            return true;
+        }
+
         if (InventoryManager.Instance == null)
         {
             Debug.LogWarning("InventoryManager instance not found.");
             return false;
         }
 
-        var itemId = string.IsNullOrEmpty(interactable.itemId) ? interactable.id : interactable.itemId;
         var itemAdded = InventoryManager.Instance.AddItem(new InventoryItemData
         {
             id = itemId,
@@ -45,14 +74,20 @@ internal static class InteractionResolver
         }
 
         UIManager.Instance?.RefreshInventoryUI();
-        UIManager.Instance?.ShowFeedback($"Picked up {interactable.displayName}.", 1.5f);
+
+        var pickupMessage = $"Picked up {interactable.displayName}.";
+        UIManager.Instance?.ShowFeedback(pickupMessage, 1.8f);
 
         if (!string.IsNullOrEmpty(interactable.resultFlag))
         {
             GameManager.Instance?.SetFlag(interactable.resultFlag, true);
         }
 
-        onConsumed?.Invoke(interactable.id);
+        if (interactable.consumeAfterUse)
+        {
+            onConsumed?.Invoke(interactable.id);
+        }
+
         return true;
     }
 

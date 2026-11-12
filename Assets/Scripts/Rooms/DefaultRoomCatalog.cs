@@ -153,8 +153,11 @@ public static class DefaultRoomCatalog
         {
             id = "nightstand",
             displayName = "Nightstand",
-            description = "A small nightstand with old objects on top.",
-            interactionType = InteractionType.Examine,
+            description = "A small nightstand with old objects on top. One of them is a flashlight.",
+            itemId = "flashlight_tool",
+            interactionType = InteractionType.Pickup,
+            resultFlag = GameFlagNames.HasFlashlight,
+            consumeAfterUse = false,
             visibleInNormalReality = true,
             visibleInOtherReality = true
         });

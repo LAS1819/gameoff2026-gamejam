@@ -3,6 +3,8 @@ using UnityEngine.Audio;
 
 public class MusicManager : MonoBehaviour
 {
+    [SerializeField] private AudioMixer mainAudioMixer;
+    [SerializeField] private string musicGroupName = "Music";
     [SerializeField] private AudioClip themeFatherClip;
     [SerializeField] private AudioMixerGroup musicOutputGroup;
     [SerializeField] private bool loop = true;
@@ -89,10 +91,51 @@ public class MusicManager : MonoBehaviour
             musicSource = gameObject.AddComponent<AudioSource>();
         }
 
+        ResolveOutputGroup();
+
         if (musicOutputGroup != null)
         {
             musicSource.outputAudioMixerGroup = musicOutputGroup;
         }
+    }
+
+    private void ResolveOutputGroup()
+    {
+        if (musicOutputGroup != null)
+        {
+            return;
+        }
+
+        if (mainAudioMixer == null)
+        {
+            mainAudioMixer = LoadMainMixer();
+        }
+
+        if (mainAudioMixer == null)
+        {
+            return;
+        }
+
+        var groups = mainAudioMixer.FindMatchingGroups(musicGroupName);
+        if (groups != null && groups.Length > 0)
+        {
+            musicOutputGroup = groups[0];
+        }
+    }
+
+    private static AudioMixer LoadMainMixer()
+    {
+        var mixer = Resources.Load<AudioMixer>("MainAudioMixer");
+        if (mixer != null)
+        {
+            return mixer;
+        }
+
+#if UNITY_EDITOR
+        return UnityEditor.AssetDatabase.LoadAssetAtPath<AudioMixer>("Assets/Audio/MainAudioMixer.mixer");
+#else
+        return null;
+#endif
     }
 
     private void ApplyClip()
@@ -107,6 +150,7 @@ public class MusicManager : MonoBehaviour
             musicSource.clip = themeFatherClip;
         }
 
+        ResolveOutputGroup();
         musicSource.loop = loop;
         musicSource.outputAudioMixerGroup = musicOutputGroup;
         musicSource.volume = normalVolume;

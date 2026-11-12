@@ -52,6 +52,12 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
+        if (IsAlreadyCollected(interactable))
+        {
+            UIManager.Instance?.ShowFeedback("There is nothing interesting here.", 1.5f);
+            return true;
+        }
+
         if (IsConsumed(interactable.id))
         {
             return false;
@@ -80,6 +86,27 @@ public class InteractionManager : MonoBehaviour
     public bool IsConsumed(string interactableId)
     {
         return !string.IsNullOrEmpty(interactableId) && consumedInteractables.Contains(interactableId);
+    }
+
+    private static bool IsAlreadyCollected(InteractableData interactable)
+    {
+        if (interactable == null || interactable.interactionType != InteractionType.Pickup)
+        {
+            return false;
+        }
+
+        var itemId = string.IsNullOrEmpty(interactable.itemId) ? interactable.id : interactable.itemId;
+        if (InventoryManager.Instance != null && InventoryManager.Instance.HasItem(itemId))
+        {
+            return true;
+        }
+
+        if (!string.IsNullOrEmpty(interactable.resultFlag) && GameManager.Instance != null && GameManager.Instance.HasFlag(interactable.resultFlag))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void ResetRuntimeState()
