@@ -44,25 +44,65 @@ public class InteractableBehaviour : MonoBehaviour
         RefreshState();
     }
 
-    private void OnMouseDown()
+    private void Update()
     {
-        var mouse = Mouse.current;
-        if (mouse != null && !mouse.leftButton.wasPressedThisFrame)
+        if (!IsMouseOverThisObject())
         {
             return;
         }
 
-        HandlePrimaryClick();
+        var mouse = Mouse.current;
+        if (mouse == null)
+        {
+            return;
+        }
+
+        if (mouse.leftButton.wasPressedThisFrame)
+        {
+            HandlePrimaryClick();
+        }
+        else if (mouse.rightButton.wasPressedThisFrame)
+        {
+            HandleExamineClick();
+        }
     }
 
-    private void OnMouseOver()
+    private bool IsMouseOverThisObject()
     {
-        var mouse = Mouse.current;
-        if (mouse == null || !mouse.rightButton.wasPressedThisFrame)
+        if (!TryResolveInteractionManager(out var interactionManager))
         {
-            return;
+            return false;
         }
 
+        var mouse = Mouse.current;
+        if (mouse == null)
+        {
+            return false;
+        }
+
+        var mousePos = mouse.position.ReadValue();
+        var mainCamera = Camera.main;
+        if (mainCamera == null)
+        {
+            return false;
+        }
+
+        var ray = mainCamera.ScreenPointToRay(mousePos);
+        var hits = Physics2D.RaycastAll(ray.origin, ray.direction);
+
+        foreach (var hit in hits)
+        {
+            if (hit.collider.gameObject == gameObject)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void HandleExamineClick()
+    {
         if (!TryResolveInteractionManager(out var interactionManager))
         {
             return;

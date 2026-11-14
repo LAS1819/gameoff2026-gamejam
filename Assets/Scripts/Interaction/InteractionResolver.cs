@@ -163,11 +163,6 @@ internal static class InteractionResolver
             return false;
         }
 
-        if (!string.IsNullOrEmpty(interactable.resultFlag))
-        {
-            GameManager.Instance?.SetFlag(interactable.resultFlag, true);
-        }
-
         var currentReality = RealityManager.Instance != null ? RealityManager.Instance.CurrentReality : RealityType.Normal;
         var descriptionText = interactable.GetDescriptionForReality(currentReality);
         if (string.IsNullOrWhiteSpace(descriptionText))

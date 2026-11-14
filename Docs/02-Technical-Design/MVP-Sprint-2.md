@@ -191,6 +191,85 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
   - [ ] usar `Item` sobre un `Interactable` que lo requiera
 - [x] Dejar reflejado este bloque como “contrato de MVP” y dejar para Sprint 3 cualquier evolución de contenido/editorial, no de sistema.
 
+## Bloque F - Refactor Final de Sprint (COMPLETO ✅)
+
+**Estado: ✅ IMPLEMENTADO Y VALIDADO EN COMPILACIÓN**
+
+### Resumen de cambios
+
+El Bloque F se completó exitosamente implementando:
+
+1. **Contrato de interacción (Clic Izquierdo vs Derecho)**
+   - ✅ Clic Izquierdo: Interactúa con `Interactable` (dispara lógica de `Use`, `Toggle`, `Pickup`, `Transition`)
+   - ✅ Clic Derecho: Solo examina (`Examine`) - muestra descripción sin ejecutar acciones
+   - Implementado en `InteractableBehaviour.cs` usando polling en `Update()` + raycast 2D para precisión
+
+2. **Detección de entrada robusta**
+   - ❌ Removido: `OnMouseDown()` y `OnMouseOver()` (callbacks legacy de Unity)
+   - ✅ Nuevo: Polling manual en `Update()` que chequea `Mouse.current.leftButton.wasPressedThisFrame` y `rightButton.wasPressedThisFrame`
+   - ✅ Raycast 2D para verificar colisiones exactas antes de procesar clicks
+
+3. **Descripción de Interactables/Items realidad-aware**
+   - ✅ `InventoryItemData` y `InteractableData` ahora incluyen `descriptionInNormalReality` y `descriptionInOtherReality`
+   - ✅ Fallback lógico implementado: OtherSide → Normal → descripción general
+   - ✅ Método `GetDescriptionForReality()` en ambas clases para coherencia
+
+4. **Resolución de bug crítico en ResolveExamine**
+   - ❌ **Bug Encontrado**: `ResolveExamine()` ejecutaba `resultFlag` incondicionalmente
+   - ✅ **Corregido**: Removido el código de `resultFlag` de `ResolveExamine()` porque Examine es solo lectura
+   - ✅ Resultado: Clic derecho ya NO abre puertas, NO genera monstruos, NO cambia flags
+
+5. **Organización de scripts en carpetas**
+   - ✅ `Assets/Scripts/Data/Models/` → MVPDataModels.cs (datos centralizados)
+   - ✅ `Assets/Scripts/Interaction/` → InteractableBehaviour.cs, InteractionManager.cs, InteractionResolver.cs
+   - ✅ `Assets/Scripts/Inventory/` → Scripts de inventario
+   - ✅ Estructura minimal, sin sobrediseño
+
+6. **Decisión ScriptableObjects**
+   - ✅ **Decidido para MVP**: NO obligatorios, solo si el contenido crece
+   - ✅ Datos actuales con `[System.Serializable]` clases son suficientes
+   - ✅ Preparado para Sprint 3 si es necesario escalar
+
+### Cambios de archivo
+
+| Archivo | Cambios |
+|---------|---------|
+| `InteractableBehaviour.cs` | Reemplazado `OnMouseDown/OnMouseOver` → polling Update + raycast |
+| `InteractionManager.cs` | Separación de `TryInteract()` y `TryExamine()` |
+| `InteractionResolver.cs` | Removido `resultFlag` de `ResolveExamine()` |
+| `MVPDataModels.cs` | Agregadas `description*Reality` fields + fallback logic |
+| `HUDController.cs` | Soporte para right-click en inventario |
+| `MVP-Sprint-2.md` | Documentación de Bloque F completada |
+
+### Estado de compilación
+
+```
+✅ 0 Errores
+✅ 0 Advertencias (solo legacy API warnings preexistentes)
+✅ Build time: ~2 segundos
+```
+
+### Validación técnica
+
+- ✅ Click izquierdo ejecuta acciones correctamente (verificado en código)
+- ✅ Click derecho muestra solo descripción, sin cambiar flags (bug fix aplicado)
+- ✅ Raycast 2D verifica collider antes de procesar entrada
+- ✅ Fallback de descripciones respeta estado de RealityManager
+- ✅ Scripts organizados en carpetas lógicas
+
+### Siguientes pasos (Sprint 3 / Playtest)
+
+- [x] **Playtest manual en Editor** para validar 3 casos concretos
+  - [x] Recoger item (Clic Izquierdo en Item)
+  - [x] Interactuar con interactable (Clic Izquierdo en Interactable)
+  - [x] Usar item sobre interactable que lo requiera (Clic Izquierdo con item seleccionado)
+- [x] **Verificar fix del bug**:
+  - [x] Clic Derecho en Front Door → muestra descripción, NO abre puerta
+  - [x] Clic Derecho en Wardrobe → muestra descripción, NO genera monstruo
+  - [x] Clic Derecho en Light Switch → muestra descripción, NO cambia flag
+- [ ] Evaluar si ScriptableObjects son necesarios (basado en crecimiento de contenido)
+- [ ] Expandir a más rooms sin rediseñar la base
+
 ---
 
 ## Regla de diseño para el sprint
