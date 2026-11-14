@@ -1,51 +1,52 @@
 # Technical Design - MVP
 
-**Quick Links:**
+This folder contains the active technical blueprint for the project, including the MVP specification, sprint plan and room-level implementation notes.
 
-- **[MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md)** ← START HERE (contains everything)
-- [Technical-Design.md](./Technical-Design.md) (high-level design reference only)
-- [MVP-Sprint-1.md](./MVP-Sprint-1.md) (sprint goals)
-- [GameObject-Hierarchy.md](./GameObject-Hierarchy.md) (general patterns reference)
+## Quick links
 
----
-
-## 📖 How to Use This Folder
-
-### For Building the MVP
-
-**Open [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md) and follow the 5 phases:**
-
-1. **Phase 1:** Create scenes & hierarchy (30 min)
-2. **Phase 2:** Add interactables with data (45 min)
-3. **Phase 3:** Attach scripts (30 min)
-4. **Phase 4:** Initialize data in GameManager (20 min)
-5. **Phase 5:** Validate in Play Mode (30 min)
-
-**Total: 2.5-3 hours to working MVP**
+- [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md) — core MVP spec and system rules
+- [MVP-Sprint-1.md](./MVP-Sprint-1.md) — base playable flow
+- [MVP-Sprint-2.md](./MVP-Sprint-2.md) — Bedroom, interaction contract and validation decisions
+- [MVP-Sprint-3.md](./MVP-Sprint-3.md) — Library and Basement preparation
+- [Technical-Design.md](./Technical-Design.md) — architecture principles and overall system direction
+- [GameObject-Hierarchy.md](./GameObject-Hierarchy.md) — object hierarchy patterns
 
 ---
 
-### For Understanding Architecture
+## How to use this folder
 
-Read [Technical-Design.md](./Technical-Design.md) for high-level philosophy.
+### For the current MVP
+
+Start with [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md), then follow the progression:
+
+1. [MVP-Sprint-1.md](./MVP-Sprint-1.md)
+2. [MVP-Sprint-2.md](./MVP-Sprint-2.md)
+3. [MVP-Sprint-3.md](./MVP-Sprint-3.md)
+
+This ensures the game stays aligned with the current architecture rather than drifting into larger feature scope too early.
+
+### For system understanding
+
+Read [Technical-Design.md](./Technical-Design.md) for the overall philosophy behind the room system, interactions and reality logic.
 
 ---
 
-## 📋 Files
+## Files in the folder
 
 | File | Purpose |
-| ------ | --------- |
-| **MVP-SPECIFICATION.md** | Complete MVP spec with 5 phases, data tables, validation checklist |
-| **MVP-Sprint-1.md** | Sprint goals and acceptance criteria for the base playable flow |
-| **MVP-Sprint-2.md** | Recommended next sprint priorities for Bedroom, light gating and room flow continuity |
-| **Room-Architecture.md** | Recommended room construction pattern to keep GameManager lean and data-driven |
-| Technical-Design.md | High-level architecture philosophy |
-| TD-HUD.md | Runtime HUD structure using Panel Renderer for the MVP polish pass |
-| TD-Interactables.md | Generic interactable model, current types, visibility logic and future extensions |
-| GameObject-Hierarchy.md | General hierarchy patterns |
-| Gameplay/Rooms/Room-Lobby.md | Technical room spec for the Lobby: interactables, items, flags and flow |
-| Gameplay/Rooms/Room-Hallway.md | Technical room spec for the Hallway: SHIFT, reality gating and transition logic |
-| Gameplay/Rooms/Room-Bedroom.md | Technical room spec for the Bedroom: light, flashlight, key and threat system |
-| Gameplay/Rooms/Room-Bedroom-Setup.md | Unity hierarchy and naming blueprint for the Bedroom room setup |
+| --- | --- |
+| [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md) | Core MVP spec and system boundaries |
+| [MVP-Sprint-1.md](./MVP-Sprint-1.md) | Base playable-flow sprint |
+| [MVP-Sprint-2.md](./MVP-Sprint-2.md) | Bedroom closure and interaction contract |
+| [MVP-Sprint-3.md](./MVP-Sprint-3.md) | Library build and Basement preparation |
+| [Technical-Design.md](./Technical-Design.md) | Architecture overview |
+| [GameObject-Hierarchy.md](./GameObject-Hierarchy.md) | General hierarchy patterns |
+| [Gameplay/Rooms/Room-Lobby.md](./Gameplay/Rooms/Room-Lobby.md) | Lobby room setup |
+| [Gameplay/Rooms/Room-Hallway.md](./Gameplay/Rooms/Room-Hallway.md) | Hallway room setup |
+| [Gameplay/Rooms/Room-Bedroom.md](./Gameplay/Rooms/Room-Bedroom.md) | Bedroom technical setup |
+| [Gameplay/Rooms/Room-Library.md](./Gameplay/Rooms/Room-Library.md) | Library technical setup and progression plan |
+| [Gameplay/Rooms/Room-Bedroom-Setup.md](./Gameplay/Rooms/Room-Bedroom-Setup.md) | Unity scene setup reference |
+| [UI/TD-HUD.md](./UI/TD-HUD.md) | HUD design and runtime references |
+| [TD-Interactables.md](./TD-Interactables.md) | Generic interactable model |
 
-**That's it. No more.**
+This is the active technical reference set for the MVP and the next room iteration.

@@ -1,46 +1,56 @@
-# MVP Sprint 3 - Library teaser and basement setup
+# MVP Sprint 3 - Library y preparación para Basement
 
 - Fecha inicio: 12/11/2026
 - Fecha objetivo: 19/11/2026
-- Estado: 🟡 PLANIFICADO - Bedroom cerrada, Library como siguiente paso mínimo y jugable
+- Estado: 🟡 EN PLANEAMIENTO - primero `Library`, luego preparación para `Basement`
 - Creado: 12/11/2026
-- Actualizado: 12/11/2026
+- Actualizado: 14/11/2026
 
 ## Objetivo
 
-Avanzar una vez más en la progresión del MVP sin perder el ritmo ni complicar el sistema. La prioridad del sprint es materializar la `Library` como la siguiente `Room` narrativa y funcional, pero con un alcance pequeño, legible y reutilizable.
+Este sprint cierra la transición entre la Bedroom validada y la siguiente fase de contenido del MVP: la `Library`.
 
-La idea no es convertir la `Library` en un sistema completo de libros, archivos y puzles encadenados. La idea es dejar una `Room` clara, con presencia narrativa, un objeto clave, un cambio de significado entre realidades y una puerta o acceso secreto que deje preparada la siguiente iteración del juego.
+La prioridad es clara: construir una room pequeña, legible y narrativa que funcione como punto de narrativa, progresión y preparación para el `Basement`, sin abrir un sistema demasiado grande ni romper la arquitectura actual.
 
-Por eso, este sprint debe priorizar:
-
-- avanzar la historia y la progresión;
-- mantener la arquitectura simple y data-driven;
-- reforzar el tono de memoria, recuerdo y verdad manipulada;
-- preparar el camino hacia el `Basement` sin convertir la room en un puzle enorme.
+La `Library` no debe ser una "mega-room" de contenido; debe ser una pieza útil del juego que refuerce la identidad del edificio, la manipulación de la memoria y el cambio entre realidades.
 
 ---
 
-## Alcance
+## Baseline heredada del Sprint 2
+
+Este sprint asume como contrato fijo todo lo definido en el Sprint 2:
+
+- Clic izquierdo: interactuar, recoger o usar el item seleccionado.
+- Clic derecho: `Examine` directo, sin menús ni side-effects.
+- Input System de Unity, sin APIs legacy del `Input` clásico.
+- Descripciones por realidad con fallback: `Other Side` -> `Normal` -> general.
+- Estructura mínima de datos y scripts: `RoomData`, `InteractableData`, `ItemData` y lógica de interacción sin sobrediseño.
+- No se exige migración a `ScriptableObject` todavía; se revisará solo si el contenido crece más de lo previsto.
+
+Esto permite que el Sprint 3 se centre en contenido, room logic y progresión, no en reordenar la base del sistema.
+
+---
+
+## Alcance del sprint
 
 ### Incluido
 
-- `Library` room data y `Interactables` básicos
-- libro principal y objeto oculto dentro de él
-- estantería o elemento especial que actúa como clave visual
-- cambio de significado del mismo contenido entre `Realidad Normal` y `Other Side`
-- una puerta o acceso al `Sótano` como teaser de progresión
+- `Library` room data e interactables base
+- libro principal o estantería como elemento central de la room
+- item oculto con significado narrativo y funcional
+- cambio de significado entre `Normal` y `Other Side`
+- teaser de `Basement` o acceso secreto sugerido
 - salida de vuelta al `Hallway`
-- validación del flujo con la `Bedroom` y la lógica de `SHIFT`
+- validación del flujo con `Bedroom`, `Hallway` y `SHIFT`
 
 ### No incluido
 
-- biblioteca completa con docenas de libros interactivos
-- sistema completo de clasificación de documentos o estanterías
-- puzzle de Sótano completo
-- múltiples cascadas de mecánicas secundarias
-- audio o VFX finales
-- más sistemas de progresión que los estrictamente necesarios
+- biblioteca completa con decenas de libros interactivos
+- sistema de archivos, documentos o estanterías complejas
+- puzzle completo del `Basement`
+- múltiples ramas de progresión o contenido secundario
+- VFX, audio final o pulido artístico exhaustivo
+- ingeniería extra no necesaria para el MVP
 
 ---
 
@@ -48,99 +58,98 @@ Por eso, este sprint debe priorizar:
 
 ### Prioridad 1 — Library mínima funcional
 
-El objetivo principal es que la `Library` se sienta como una `Room` distinta de la `Bedroom` y que tenga un punto de progresión claro:
+La `Library` debe sentirse distinta de la `Bedroom` y debe producir un avance claro en la progresión.
 
-1. `Library` carga como room desde `Hallway` (se necesita `Library Key`)
-2. existe un libro principal claramente identificable
-3. el libro contiene un objeto oculto (`Disquete`)
-4. ese item es relevante para la progresión futura
-5. la estantería o el conjunto de libros revela un secreto una vez se activa la lógica de la `Other Side`
-6. hay un acceso o puerta que sugiere el siguiente bloque del juego
+1. Se carga desde `Hallway` con la llave o la lógica apropiada.
+2. Tiene un elemento central identificable: libro o estantería.
+3. Ese elemento revela un item oculto o pista útil.
+4. La room tiene un secreto o salida que sugiere un paso más adelante.
+5. La tensión de la `Other Side` se nota visual o textualmente.
 
-### Prioridad 2 — Preparación para el Sótano
+### Prioridad 2 — Preparación para Basement
 
-La `Library` no tiene que resolverse entera, pero sí debe dejarla preparada para que el siguiente bloque sea más fácil de construir:
+La `Library` debe dejar una base reutilizable para el siguiente bloque:
 
-- la progresión del `Disquete` debe quedar clara;
-- la puerta o acceso debe sentirse “por descubrir” y no arbitrario;
-- la tensión narrativa debe sentirse más fuerte en `Other Side`;
-- debe quedar una base para el `Código`/`Candado` del `Basement` sin gastar demasiado esfuerzo ahora.
+- la progresión del item oculto debe ser clara;
+- la salida o acceso debe sentirse sugerente y no arbitrario;
+- la room debe dejar pistas narrativas de lo que viene después;
+- la lógica debe ser simple y mantenible.
 
-### Prioridad 3 — Refuerzo del tono
+### Prioridad 3 — Refuerzo de tono
 
-La `Library` debe ser la `Room` de:
+La `Library` debe reforzar la identidad del edificio como un espacio de memoria y verdad manipulada.
 
-- memoria archivada;
-- recuerdo manipulable;
-- negación y distancia narrativa;
-- diferencia entre lo que ocurrió y lo que se recuerda.
+No hace falta convertirla en un gran rompecabezas. Basta con que:
 
-No se busca que sea enorme. Se busca que se sienta importante como `Room`.
+- la memoria cambie de forma visible entre realidades;
+- el contenido parezca “verdadero” en una realidad y distorsionado en la otra;
+- la room comunique que la verdad del edificio no es estable.
 
 ---
 
 ## Requisitos funcionales mínimos
 
-### 1. Estructura de room
+### 1. Room setup
 
-- `Library` debe estar integrada al `RoomManager` como una room más del sistema.
-- Debe poder cargarse desde el `Hallway` con un `linkedRoomId` claro (y con la llave correspondiente).
-- Debe mantener el patrón actual de `RoomData` + `InteractableData` + `flags`.
+- `Library` integrada al `RoomManager` como room funcional más.
+- Carga desde `Hallway` con `linkedRoomId` coherente.
+- Sigue el modelo actual de `RoomData`, `InteractableData`, `ItemData` y flags.
 
 ### 2. Interacción principal
 
-- un `Worn Book` o `Memory Book` debe ser el objeto central;
-- su comportamiento debe cambiar entre realidades;
-- al examinarlo, debe revelar un objeto oculto o pista clave;
-- ese item debe ser útil, no decorativo.
+- El elemento central debe ser interactuable y memorable.
+- Debe variar su comportamiento entre realidades.
+- Al examinarlo, debe ofrecer una pista, un item oculto o una sensación de secretos.
+- El objeto obtenido debe ser útil y no decorativo.
 
 ### 3. Lógica de realidad
 
-- la misma estantería o mismo libro debe comportarse distinto entre `Normal` y `Other Side`;
-- el cambio de significado debe quedar visible sin necesidad de crear un sistema complejo;
-- la room debe reforzar la idea de que la memoria cambia según la realidad.
+- El mismo libro/estantería debe comportarse distinto en `Normal` y `Other Side`.
+- El cambio debe ser visible sin introducir un sistema complejo.
+- La room debe apoyar la idea de que la memoria y la verdad son frágiles.
 
-### 4. Progresión de la room
+### 4. Progresión mínima
 
-- el jugador debe poder avanzar a la siguiente etapa sin que la room se rompa;
-- la room debe sugerir que lo que se ha encontrado aquí es importante para el siguiente bloque;
-- la salida o secreto de la room no debe depender de un montante de lógica difícil de mantener.
+- El jugador entiende qué ha encontrado y por qué importa.
+- La room prepára la siguiente fase sin romper la base del juego.
+- La salida o secreto debe apuntar al `Basement` sin requerir lógica gigantesca.
 
 ---
 
 ## Plan de trabajo por bloques
 
-### Bloque A — Library room data (30-45 min)
+### Bloque A — Room data y estructura (30-45 min)
 
-- crear la `Library` room con sus `Interactables` básicos;
-- definir `book`, `shelf`, `basement_secret`, `library_exit`;
-- asegurar que la `Room` se carga y se visualiza con el sistema actual.
+- crear `Library` como room cargable desde el `Hallway`;
+- definir interactables base: libro, estantería, acceso/el secreto, salida;
+- validar que se visualiza y carga con el sistema actual.
 
-### Bloque B — Libro principal y objeto oculto (45-60 min)
+### Bloque B — Elemento central y item oculto (45-60 min)
 
-- definir la mecánica del `Worn Book`;
-- decidir el item oculto que se obtiene (`Disquete`) y su utilidad narrativa (se usará en `Ordenador` de la `Bedroom`);
-- asegurar que el objeto tenga sentido en la progresión y no sea un “extra” sin consequence (ofrece `Código` para el `Basement` al usarlo en el `Ordenador` de la `Bedroom`).
+- definir el objeto principal (`Worn Book`, `Memory Book` o equivalente);
+- decidir el item oculto relevante (`Disquete`, `Key Fragment`, etc.);
+- asegurar que su valor narrativo y funcional quede claro.
 
-### Bloque C — Realidad y estantería (45-60 min)
+### Bloque C — Cambio entre realidades (45-60 min)
 
-- vincular la diferencia visual o textual entre `Normal` y `Other Side`;
-- dejar claro que la estantería y los títulos cambian cuando se cambia de realidad;
-- dejar un primer “punto de secreto” que se revele en `Other Side`.
+- vincular la lógica visual y textual de la room a `Normal` / `Other Side`;
+- hacer visible que el contenido o la estantería cambia según la realidad;
+- dejar un punto de descubrimiento que se vuelva legible en la realidad correcta.
 
-### Bloque D — Teaser del Sótano / salida (30-45 min)
+### Bloque D — Teaser de Basement (30-45 min)
 
-- preparar un paso o puerta visible tras resolver la lógica mínima;
-- no hacer un puzle final completo; solo dejar la puerta como una promesa de siguiente contenido;
-- mantener esta parte simple y narrativa, no compleja.
+- preparar un acceso, secreto o puerta sugerente;
+- mantenerlo simple y narrativo, no como puzzle completo;
+- dejar una promesa para la siguiente iteración.
 
 ### Bloque E — Validación end-to-end (30 min)
 
-- entrar desde `Hallway` con llave `Library Key`;
-- comprobar libro + item oculto;
-- cambiar de realidad y ver cómo la room reacciona;
-- comprobar salida y flujo general;
-- asegurarse de que no rompe la lógica previa de `Bedroom` ni de `SHIFT`.
+- entrar desde `Hallway`;
+- interactuar con la room;
+- obtener el item oculto;
+- comprobar cambio de realidad;
+- ver la salida o acceso sugerido;
+- confirmar que no rompe `Bedroom`, `Hallway` ni el flujo global.
 
 ---
 
@@ -148,82 +157,73 @@ No se busca que sea enorme. Se busca que se sienta importante como `Room`.
 
 ### Mantener
 
-- la estructura simple de `Rooms` basada en `RoomData`;
-- la lógica de `SHIFT` como eje central de la room;
-- un objeto principal con significado narrativo claro;
-- una sensación de memoria manipulada y de verdad distorsionada;
-- la room como un paso de historia, no como una mini-sistema completo.
+- la arquitectura data-driven existente;
+- la lógica de `SHIFT` como eje central del juego;
+- la room como una pieza de progresión, no como un sistema independiente;
+- una solución simple y legible para futuras rooms.
 
 ### Simplificar
 
-- no crear decenas de libros interactivos;
-- no hacer puzzles de clasificación o búsquedas de texto;
-- no introducir sistemas secundarios que no sean necesarios;
-- no abrir el Sótano completo ni convertir la room en una nueva metroidvania.
+- limitar el número de interactables;
+- evitar puzzles complejos o ramificaciones de contenido;
+- no abrir el `Basement` completo;
+- no introducir sistemas que no sirvan directamente a la narrativa y la progresión.
 
-### Dejar fuera del sprint
+### Evitar
 
-- sistema completo de basements / puzzle de archivos;
-- múltiples ramas de progresión;
-- raids de lore complejos;
-- puzzles de varios pasos con estados muy variados;
-- contenido de arte final o VFX exhaustivos.
-
----
-
-## Criterios de aceptación del sprint
-
-La `Library` se considera lista para esta iteración si:
-
-1. El jugador entra desde `Hallway` con llave `Library Key`.
-2. Ve una room distinta de `Bedroom` y con identidad propia.
-3. Encuentra un elemento clave central (libro o estantería) con un significado claro.
-4. Ese elemento cambia de significado o de apariencia entre realidades.
-5. Descubre un objeto oculto (`Disquete`).
-6. La room sugiere la presencia de un secreto o una puerta del `Sótano` sin necesitar un puzle enorme.
-7. La room no rompe la base del sistema ni complica la topos de gameplay actual.
-8. La room funciona como preparación narrativa para el siguiente bloque del proyecto.
+- docenas de libros interactivos;
+- varias capas de puzzle o estado por room;
+- sistemas de scripting “de futuro” que no se necesiten ahora;
+- crear contenido grande antes de validar la room mínima.
 
 ---
 
-## Checklist de cierre del sprint
+## Criterios de aceptación
+
+La `Library` se considera lista si:
+
+1. El jugador puede entrar en la room desde `Hallway` con la lógica adecuada.
+2. La room tiene identidad propia respecto a la `Bedroom`.
+3. El elemento central tiene sentido narrativo y funcional.
+4. El cambio de realidad se percibe claramente.
+5. El player obtiene un item oculto o pista relevante.
+6. La room sugiere la siguiente fase del proyecto sin resolverla completa.
+7. La room no rompe la infraestructura base ni aumenta la complejidad innecesariamente.
+8. La room sirve como puente claro hacia el `Basement`.
+
+---
+
+## Checklist final
 
 ### Bloqueantes
 
-- [ ] `Library` room data creada
-- [ ] libro principal identificable
+- [ ] `Library` cargada y funcional desde `Hallway`
+- [ ] elemento central identificable
 - [ ] item oculto recuperable
 - [ ] cambio entre realidades visible
-- [ ] salida o secreto del Sótano sugerido
-- [ ] flujo sin errores de `room loading`
+- [ ] teaser de `Basement` o secret door sugerido
+- [ ] sin errores de room loading ni flujo
 
 ### Funcional
 
 - [ ] `SHIFT` sigue funcionando dentro de la room
-- [ ] la room no rompe la base de la `Bedroom`
-- [ ] `Hallway` y `Library` tienen transición coherente
+- [ ] la room no rompe la base de `Bedroom`
 - [ ] el jugador entiende qué ha encontrado y por qué importa
+- [ ] la Library se siente preparada para la siguiente iteración
 
 ### Scope guard
 
-- [ ] no se añade lógica de puzzle complejo
+- [ ] no se añade contenido que rompa el MVP
 - [ ] no se resuelve el `Basement` completo
-- [ ] no se abre la siguiente iteración con sistemas de más
-- [ ] la room sigue dentro del enfoque MVP y del game jam
+- [ ] no se sobreingenieriza la room
+- [ ] la solución sigue siendo clara y mantenible
 
 ---
 
 ## Recomendación técnica final
 
-Este sprint debe ser una prueba de disciplina, no de ambición.
+La `Library` debe ser lo más limpia y legible posible: una room pequeña, importa su tono, genera progresión y marca la siguiente etapa del juego.
 
-La mejor versión de la `Library` ahora no es la que abarque todo el mundo de la memoria. Es la que comunica muy bien que:
+Esto es un sprint de disciplina, no de ambición. La mejor versión de la `Library` es la que hace sentir el edificio como un lugar de memoria distorsionada y prepara el `Basement` de manera natural, sin inflar la complejidad.
 
-- el edificio está hecho de recuerdos;
-- la memoria se reescribe con la realidad;
-- la verdad no es una sola versión;
-- el siguiente bloque de progresión aparece con forma de secreto.
-
-Si esta room funciona con claridad, el siguiente paso hacia el `Basement` será mucho más fácil y mucho menos frágil.
-
-En resumen: la `Library` debe ser una room narrativa fuerte, pequeña, clara y útil, no un sistema gigante de contenido.
+En resumen: la `Library` debe ser una room narrativa sólida, pequeña, útil y elegantemente simple.

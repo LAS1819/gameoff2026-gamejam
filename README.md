@@ -1,57 +1,63 @@
-# Game Off 2026 - Game Jam Project
+# Game Off 2026 — Horror Game Jam Prototype
 
-This repository contains the prototype for the Game Off 2026 game jam entry.
+This repository contains the prototype for a short narrative horror experience built for the Game Off 2026 jam.
 
-## Project goal
+## Project aim
 
-The MVP focuses on validating the core loop of the game:
+The project focuses on validating a clean, playable MVP loop before expanding content:
 
-- enter the lobby
-- collect the staff key
-- unlock the door
-- enter the hallway
-- activate SHIFT
-- change reality
-- remove the obstacle and continue the route
+- enter the Lobby
+- collect the Staff Key
+- unlock the exit / route forward
+- move through the Hallway
+- use SHIFT to change reality
+- progress through the Bedroom logic
+- continue into the Library and beyond as the system expands
 
-The implementation prioritizes a strong technical foundation and a playable vertical slice over art polish or full content scope.
+The priority is a solid technical foundation and a playable vertical slice over art polish or broad content scope.
+
+## Current status
+
+The game is in active MVP development with the core systems validated:
+
+- room loading and transitions
+- inventory and interaction flow
+- reality switching between normal / alternate reality
+- room flags and game state management
+- click-based interaction contract for left / right mouse actions
+- documentation and sprint planning aligned to MVP scope
 
 ## Repository structure
 
 ```text
-Assets/             Unity project assets and scripts
-Docs/               project documentation, split by type
+Assets/             Unity project files and scripts
+Docs/               design, technical documentation and sprint plans
 ProjectSettings/     Unity project settings
 Packages/            Unity package configuration
 UserSettings/        local editor settings
 ```
 
-## Documentation
+## Documentation map
 
-The project documentation is organized by type to keep it readable and maintainable.
+- [Docs/README.md](Docs/README.md) — documentation structure and naming conventions
+- [Docs/01-Game-Design](Docs/01-Game-Design) — GDD, gameplay flow and room design
+- [Docs/02-Technical-Design](Docs/02-Technical-Design) — technical architecture, MVP specification and sprint docs
+- [Docs/03-Production](Docs/03-Production) — production notes and changelog
 
-- `Docs/README.md` — recommended structure and naming convention
-- `Docs/01-Game-Design/` — GDD, puzzle flow, visual references and MVP summary
-- `Docs/02-Technical-Design/` — technical architecture, sprint plan and scene/object hierarchy
+Key technical docs:
 
-## MVP status
-
-The current implementation is a technical foundation for the first sprint:
-
-- shared data models
-- global game state with flags
-- room management
-- inventory and interaction flow
-- reality switching support for normal / alternate reality
-- runtime HUD pass based on Panel Renderer for the MVP polish layer
+- [Docs/02-Technical-Design/MVP-SPECIFICATION.md](Docs/02-Technical-Design/MVP-SPECIFICATION.md)
+- [Docs/02-Technical-Design/MVP-Sprint-1.md](Docs/02-Technical-Design/MVP-Sprint-1.md)
+- [Docs/02-Technical-Design/MVP-Sprint-2.md](Docs/02-Technical-Design/MVP-Sprint-2.md)
+- [Docs/02-Technical-Design/MVP-Sprint-3.md](Docs/02-Technical-Design/MVP-Sprint-3.md)
 
 ## Unity setup
 
 1. Open the project in Unity.
-2. Load the main gameplay scene.
-3. Validate the progression in Play Mode.
-4. Keep the scope limited to the MVP loop before expanding content.
+2. Load the primary gameplay scene.
+3. Validate the flow in Play Mode.
+4. Keep scope tight and avoid expanding systems before the MVP loop is stable.
 
 ## Public repository note
 
-This project is public because it is required by the game jam, so documentation and setup instructions should remain clear and reusable for external reviewers.
+This repository is public as required by the game jam. The documentation aims to stay clear, structured and understandable for external reviewers while preserving a clean internal workflow.
