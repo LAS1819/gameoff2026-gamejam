@@ -204,10 +204,11 @@ El Bloque F se completó exitosamente implementando:
    - ✅ Clic Derecho: Solo examina (`Examine`) - muestra descripción sin ejecutar acciones
    - Implementado en `InteractableBehaviour.cs` usando polling en `Update()` + raycast 2D para precisión
 
-2. **Detección de entrada robusta**
-   - ❌ Removido: `OnMouseDown()` y `OnMouseOver()` (callbacks legacy de Unity)
-   - ✅ Nuevo: Polling manual en `Update()` que chequea `Mouse.current.leftButton.wasPressedThisFrame` y `rightButton.wasPressedThisFrame`
+2. **Detección de entrada robusta (Input System)**
+   - ❌ Removido: Callbacks legacy de Unity + `Input.mousePosition`
+   - ✅ Nuevo: Polling manual en `Update()` con `Mouse.current.leftButton.wasPressedThisFrame` (Input System)
    - ✅ Raycast 2D para verificar colisiones exactas antes de procesar clicks
+   - ✅ Posición del ratón via `Mouse.current.position.ReadValue()` (Input System Package)
 
 3. **Descripción de Interactables/Items realidad-aware**
    - ✅ `InventoryItemData` y `InteractableData` ahora incluyen `descriptionInNormalReality` y `descriptionInOtherReality`
@@ -226,15 +227,14 @@ El Bloque F se completó exitosamente implementando:
    - ✅ Estructura minimal, sin sobrediseño
 
 6. **Decisión ScriptableObjects**
-   - ✅ **Decidido para MVP**: NO obligatorios, solo si el contenido crece
-   - ✅ Datos actuales con `[System.Serializable]` clases son suficientes
-   - ✅ Preparado para Sprint 3 si es necesario escalar
+   - ✅ **Decidido para MVP**: NO obligatorios en Sprint 2, pero recomendación para Sprint 3
+   - ✅ Ver sección siguiente (Evaluación SO)
 
 ### Cambios de archivo
 
 | Archivo | Cambios |
 |---------|---------|
-| `InteractableBehaviour.cs` | Reemplazado `OnMouseDown/OnMouseOver` → polling Update + raycast |
+| `InteractableBehaviour.cs` | Reemplazado callbacks legacy → polling Update + raycast + Input System |
 | `InteractionManager.cs` | Separación de `TryInteract()` y `TryExamine()` |
 | `InteractionResolver.cs` | Removido `resultFlag` de `ResolveExamine()` |
 | `MVPDataModels.cs` | Agregadas `description*Reality` fields + fallback logic |
@@ -247,6 +247,7 @@ El Bloque F se completó exitosamente implementando:
 ✅ 0 Errores
 ✅ 0 Advertencias (solo legacy API warnings preexistentes)
 ✅ Build time: ~2 segundos
+✅ Input System Package compliant
 ```
 
 ### Validación técnica
@@ -256,19 +257,62 @@ El Bloque F se completó exitosamente implementando:
 - ✅ Raycast 2D verifica collider antes de procesar entrada
 - ✅ Fallback de descripciones respeta estado de RealityManager
 - ✅ Scripts organizados en carpetas lógicas
+- ✅ Input System (no legacy Input Manager)
+- ✅ Null-checks explícitos (sin `?.` operators)
 
-### Siguientes pasos (Sprint 3 / Playtest)
+---
 
-- [x] **Playtest manual en Editor** para validar 3 casos concretos
-  - [x] Recoger item (Clic Izquierdo en Item)
-  - [x] Interactuar con interactable (Clic Izquierdo en Interactable)
-  - [x] Usar item sobre interactable que lo requiera (Clic Izquierdo con item seleccionado)
-- [x] **Verificar fix del bug**:
-  - [x] Clic Derecho en Front Door → muestra descripción, NO abre puerta
-  - [x] Clic Derecho en Wardrobe → muestra descripción, NO genera monstruo
-  - [x] Clic Derecho en Light Switch → muestra descripción, NO cambia flag
-- [ ] Evaluar si ScriptableObjects son necesarios (basado en crecimiento de contenido)
-- [ ] Expandir a más rooms sin rediseñar la base
+## ScriptableObject Evaluation (Sprint 3 Decision)
+
+**Estado: EVALUACIÓN COMPLETA - RECOMENDACIÓN HÍBRIDA**
+
+### Recomendación para Sprint 3+
+
+**Opción Recomendada**: Migración Híbrida Pragmática
+
+**Ahora (antes de Library)**:
+
+- ✅ Mantén el sistema actual (clases `[System.Serializable]`)
+- ✅ Library sin ScriptableObjects (rápido, manejable)
+
+**Después de Library (antes de Basement)**:
+
+- ⏰ Dedica ~1 hora a migración selectiva:
+  - Crear `Assets/Data/Items/` → ItemData como ScriptableObject
+  - Crear `Assets/Data/Interactables/EventData.cs` → EventData como SO
+  - Refactorizar RoomData para usar referencias SO
+
+**Basement + Ritual Room**:
+
+- ✅ Usa ScriptableObjects desde el design (escalable, mantenible)
+
+### Por qué esta estrategia
+
+| Métrica | Actual (SO) | Library (SO) | Basement (SO) |
+| --------- | ----------- | ------------- | -------------- |
+| Items totales | 2 | 9-12 | 18-22 |
+| Interactables | 15 | 25-35 | 45-55 |
+| Duplicación | Mínima | Media | Crítica sin SO |
+| Mantenimiento | Trivial | Manejable | Imposible sin SO |
+
+**Break-even point**: Entre Library y Basement (25+ items)
+
+### Beneficios diferidos (Sprint 3+)
+
+- ✅ Cambios globales en 1 clic (ej: "Staff Key" description)
+- ✅ Reutilizar items entre rooms (drag-drop)
+- ✅ Inspector limpio, escalable
+- ✅ Fundación sólida para expandir antes de fin de jam
+
+### Costo inicial vs Beneficio
+
+```pt
+Setup: ~1 hora (después de Library validada)
+Ahorro repetitivo: ~5-10 horas (Basement + Ritual + futuras rooms)
+ROI: +400-1000%
+```
+
+**Documentación completa**: `SCRIPTABLEOBJECT_EVALUATION.md` (en session state)
 
 ---
 
