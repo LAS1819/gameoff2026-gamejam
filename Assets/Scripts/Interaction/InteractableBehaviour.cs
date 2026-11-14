@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// InteractableBehaviour handles mouse clicks on interactables.
@@ -45,24 +46,29 @@ public class InteractableBehaviour : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (data == null)
+        var mouse = Mouse.current;
+        if (mouse != null && !mouse.leftButton.wasPressedThisFrame)
         {
-            if (!warnedMissingData)
-            {
-                warnedMissingData = true;
-                Debug.LogError($"[InteractableBehaviour] '{gameObject.name}' has no InteractableData assigned.", gameObject);
-            }
-
             return;
         }
 
-        if (InteractionManager.Instance == null)
+        HandlePrimaryClick();
+    }
+
+    private void OnMouseOver()
+    {
+        var mouse = Mouse.current;
+        if (mouse == null || !mouse.rightButton.wasPressedThisFrame)
         {
-            Debug.LogWarning($"[InteractableBehaviour] InteractionManager not found for '{data.id}'.");
             return;
         }
 
-        InteractionManager.Instance.TryInteract(data, gameObject);
+        if (!TryResolveInteractionManager(out var interactionManager))
+        {
+            return;
+        }
+
+        interactionManager.TryExamine(data);
         RefreshState();
     }
 
@@ -94,5 +100,40 @@ public class InteractableBehaviour : MonoBehaviour
         {
             hitCollider.enabled = visible;
         }
+    }
+
+    private void HandlePrimaryClick()
+    {
+        if (!TryResolveInteractionManager(out var interactionManager))
+        {
+            return;
+        }
+
+        interactionManager.TryInteract(data, gameObject);
+        RefreshState();
+    }
+
+    private bool TryResolveInteractionManager(out InteractionManager interactionManager)
+    {
+        interactionManager = InteractionManager.Instance;
+
+        if (data == null)
+        {
+            if (!warnedMissingData)
+            {
+                warnedMissingData = true;
+                Debug.LogError($"[InteractableBehaviour] '{gameObject.name}' has no InteractableData assigned.", gameObject);
+            }
+
+            return false;
+        }
+
+        if (interactionManager == null)
+        {
+            Debug.LogWarning($"[InteractableBehaviour] InteractionManager not found for '{data.id}'.");
+            return false;
+        }
+
+        return true;
     }
 }

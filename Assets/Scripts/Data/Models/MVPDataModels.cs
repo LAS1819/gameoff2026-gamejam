@@ -7,6 +7,8 @@ public class InventoryItemData
     public string id;
     public string displayName;
     public string description;
+    public string descriptionInNormalReality;
+    public string descriptionInOtherReality;
     public bool isKeyItem;
 
     public InventoryItemData()
@@ -19,6 +21,29 @@ public class InventoryItemData
         this.displayName = displayName;
         this.description = description;
         this.isKeyItem = isKeyItem;
+    }
+
+    public string GetDescriptionForReality(RealityType reality)
+    {
+        if (reality == RealityType.Normal && !string.IsNullOrWhiteSpace(descriptionInNormalReality))
+        {
+            return descriptionInNormalReality;
+        }
+
+        if (reality == RealityType.OtherSide)
+        {
+            if (!string.IsNullOrWhiteSpace(descriptionInOtherReality))
+            {
+                return descriptionInOtherReality;
+            }
+
+            if (!string.IsNullOrWhiteSpace(descriptionInNormalReality))
+            {
+                return descriptionInNormalReality;
+            }
+        }
+
+        return string.IsNullOrWhiteSpace(description) ? displayName : description;
     }
 }
 
@@ -73,9 +98,17 @@ public class InteractableData
             return descriptionInNormalReality;
         }
 
-        if (reality == RealityType.OtherSide && !string.IsNullOrWhiteSpace(descriptionInOtherReality))
+        if (reality == RealityType.OtherSide)
         {
-            return descriptionInOtherReality;
+            if (!string.IsNullOrWhiteSpace(descriptionInOtherReality))
+            {
+                return descriptionInOtherReality;
+            }
+
+            if (!string.IsNullOrWhiteSpace(descriptionInNormalReality))
+            {
+                return descriptionInNormalReality;
+            }
         }
 
         return string.IsNullOrWhiteSpace(description) ? displayName : description;

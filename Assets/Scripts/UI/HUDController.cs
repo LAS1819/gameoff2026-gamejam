@@ -233,6 +233,39 @@ public class HUDController : MonoBehaviour
         RefreshInventory();
     }
 
+    private void OnInventorySlotContextClicked(ContextClickEvent evt)
+    {
+        var target = evt.target as VisualElement;
+        var slot = target;
+
+        while (slot != null && !slot.ClassListContains("inventory-slot"))
+        {
+            slot = slot.parent;
+        }
+
+        if (slot == null || string.IsNullOrEmpty(slot.userData as string))
+        {
+            return;
+        }
+
+        var itemId = slot.userData as string;
+        var item = InventoryManager.Instance?.GetItemById(itemId);
+        if (item == null)
+        {
+            return;
+        }
+
+        var currentReality = RealityManager.Instance != null ? RealityManager.Instance.CurrentReality : RealityType.Normal;
+        var description = item.GetDescriptionForReality(currentReality);
+        if (string.IsNullOrWhiteSpace(description))
+        {
+            description = $"You inspect {item.displayName}.";
+        }
+
+        ShowFeedback(description, 2f);
+        evt.StopPropagation();
+    }
+
     private void ResolvePanelRenderer()
     {
         if (panelRenderer == null)
@@ -288,6 +321,8 @@ public class HUDController : MonoBehaviour
             {
                 slot.UnregisterCallback<ClickEvent>(OnInventorySlotClicked);
                 slot.RegisterCallback<ClickEvent>(OnInventorySlotClicked);
+                slot.UnregisterCallback<ContextClickEvent>(OnInventorySlotContextClicked);
+                slot.RegisterCallback<ContextClickEvent>(OnInventorySlotContextClicked);
             }
         }
 

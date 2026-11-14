@@ -165,6 +165,32 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 - [x] volver a Hallway sin errores
 - [x] validar consola y flags
 
+### Bloque F - Cierre técnico del MVP
+
+- [x] Definir la convención de interacción por ratón para el juego.
+  - [x] Clic Izquierdo: interactuar con `Interactable`, recoger `Item` o usar el `Item` seleccionado sobre un `Interactable`.
+  - [x] Clic Derecho: `Examine` directo y sin menú contextual en esta versión MVP.
+- [x] Cerrar el contrato de `Item` para Sprint 2.
+  - [x] `InventoryItemData` será la definición base de `Item` del MVP.
+  - [x] No crear una jerarquía compleja de runtime ni lógica extra en `Item` por ahora.
+  - [x] `InteractableData` seguirá controlando `itemId` y `requiredItemId`; `InventoryManager` gestiona la colección del jugador.
+- [x] Definir la política de descripciones por realidad.
+  - [x] `description` como fallback general.
+  - [x] `descriptionInNormalReality` y `descriptionInOtherReality` si existen.
+  - [x] Si la realidad activa no tiene descripción, usar la `Realidad Normal` o la descripción general.
+- [x] Ordenar la estructura mínima de scripts para claridad y mantenimiento.
+  - [x] `Data`/`Models`: `RoomData`, `InteractableData`, `InventoryItemData`.
+  - [x] `Rooms`: `RoomFactory` y generación de habitaciones.
+  - [x] `Interaction`: `InteractableBehaviour` y resolución de acciones.
+  - [x] `Inventory`: gestión de items y inventario.
+- [x] Decidir explícitamente que `ScriptableObject`s no son obligatorios en este MVP.
+  - [x] Se valorarán solo si el contenido crece y hace falta una edición más rápida en el editor.
+- [ ] Validar el flujo mínimo con 3 casos concretos (pendiente de playtest manual).
+  - [ ] recoger `Item`
+  - [ ] interactuar con `Interactable`
+  - [ ] usar `Item` sobre un `Interactable` que lo requiera
+- [x] Dejar reflejado este bloque como “contrato de MVP” y dejar para Sprint 3 cualquier evolución de contenido/editorial, no de sistema.
+
 ---
 
 ## Regla de diseño para el sprint

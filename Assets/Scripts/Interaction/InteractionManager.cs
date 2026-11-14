@@ -83,6 +83,33 @@ public class InteractionManager : MonoBehaviour
         return wasResolved;
     }
 
+    public bool TryExamine(InteractableData interactable)
+    {
+        if (interactable == null || string.IsNullOrEmpty(interactable.id))
+        {
+            return false;
+        }
+
+        if (IsConsumed(interactable.id))
+        {
+            return false;
+        }
+
+        if (!InteractionGuard.CanProcess(interactable))
+        {
+            return false;
+        }
+
+        var wasResolved = InteractionResolver.ResolveExamineOnly(interactable);
+        if (wasResolved)
+        {
+            RoomManager.Instance?.RefreshInteractables();
+            InteractionResolved?.Invoke(interactable.id, interactable);
+        }
+
+        return wasResolved;
+    }
+
     public bool IsConsumed(string interactableId)
     {
         return !string.IsNullOrEmpty(interactableId) && consumedInteractables.Contains(interactableId);

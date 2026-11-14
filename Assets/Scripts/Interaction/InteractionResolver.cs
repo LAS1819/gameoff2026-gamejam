@@ -3,6 +3,11 @@ using UnityEngine;
 
 internal static class InteractionResolver
 {
+    public static bool ResolveExamineOnly(InteractableData interactable)
+    {
+        return ResolveExamine(interactable);
+    }
+
     public static bool Resolve(InteractableData interactable, GameObject sourceObject, Action<string> onConsumed)
     {
         switch (interactable.interactionType)
@@ -41,7 +46,8 @@ internal static class InteractionResolver
             var feedbackMessage = "You find the flashlight on the nightstand. No need to use it now.";
             UIManager.Instance?.ShowFeedback(feedbackMessage, 1.8f);
 
-            if (!string.IsNullOrEmpty(interactable.resultFlag))
+            if (interactable.interactionType == InteractionType.Examine &&
+                !string.IsNullOrEmpty(interactable.resultFlag))
             {
                 GameManager.Instance?.SetFlag(interactable.resultFlag, true);
             }
@@ -65,6 +71,8 @@ internal static class InteractionResolver
             id = itemId,
             displayName = interactable.displayName,
             description = interactable.description,
+            descriptionInNormalReality = interactable.descriptionInNormalReality,
+            descriptionInOtherReality = interactable.descriptionInOtherReality,
             isKeyItem = true
         });
 
