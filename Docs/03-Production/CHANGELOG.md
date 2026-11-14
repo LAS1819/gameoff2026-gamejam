@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.9-proto] - 2026-11-14
+
+### Added
+
+- Mouse interaction contract for the MVP: left click resolves `Interactable` actions and item use / pickup flows, while right click is reserved for `Examine` only
+- Input System-based click handling using polling and raycast validation so the runtime responds only to the intended button and collider
+- Reality-aware description support for interactables and items with normal / other-side fallback logic aligned to the current data model
+- Documentation of the final Sprint 2 technical decision: the current system stays lightweight, and ScriptableObjects remain optional unless content scale forces a migration
+
+### Changed
+
+- Refactored the interaction flow around explicit left/right click resolution so examine behavior is separated from active game-state resolution
+- Simplified the interaction architecture by keeping the room, interactable, and inventory data contracts clear and easy to extend without adding unnecessary abstraction layers
+- Kept the gameplay loop aligned with the MVP scope: fast iteration, no premature frameworking, and no extra systems before the content demand is proven
+- Kept the runtime docs consistent with the final technical decisions for the Sprint 2 closeout and the Library/Basement preparation path
+
+### Fixed
+
+- Resolved the critical bug where right-clicking an interactable could still trigger the underlying `resultFlag` logic and mutate state during `Examine`
+- Fixed the Input System incompatibility caused by legacy `UnityEngine.Input.mousePosition` reads while the project had active Input System Package enabled in Player Settings
+- Prevented false-positive interaction resolution by validating the hit target with a 2D raycast before processing the click event
+- Corrected the mismatch between “read-only examine” and “state-changing interaction” so only actual interactions mutate room or progression flags
+
+### Notes
+
+- This release closes the core interaction contract for the current MVP and stabilizes the final click-resolution model before the Library pass begins
+- The project keeps the current data-first architecture as the default while leaving ScriptableObjects as a clear future migration option only if content scale requires it
+- The current branch is now ready for the next room-expansion pass with the interaction rules and technical contract already frozen and documented
+
+---
+
 ## [0.0.8-proto] - 2026-11-12
 
 ### Added
