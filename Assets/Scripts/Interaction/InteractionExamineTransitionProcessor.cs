@@ -1,0 +1,104 @@
+using System;
+using UnityEngine;
+
+internal static class InteractionExamineTransitionProcessor
+{
+    public static bool ResolveExamine(InteractableData interactable)
+    {
+        if (interactable == null)
+        {
+            return false;
+        }
+
+        if ((interactable.id == "library_door" || interactable.id == "bedroom_door") &&
+            (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide))
+        {
+            Debug.LogWarning($"[InteractionManager] '{interactable.displayName}' can only be used in the Other Side reality.");
+
+            var uiManager = UIManager.Instance;
+            if (uiManager != null)
+            {
+                uiManager.ShowFeedback("This is only accessible in the Other Side.", 1.5f);
+            }
+
+            return false;
+        }
+
+        if (interactable.id.Equals("hallway_obstacle", StringComparison.OrdinalIgnoreCase)
+            && !string.IsNullOrEmpty(interactable.resultFlag))
+        {
+            var gameManager = GameManager.Instance;
+            if (gameManager != null)
+            {
+                gameManager.SetFlag(interactable.resultFlag, true);
+            }
+        }
+        else if (interactable.id.Equals("shelf_secret_door", StringComparison.OrdinalIgnoreCase))
+        {
+            var gameManager = GameManager.Instance;
+            if (gameManager != null)
+            {
+                gameManager.SetFlag(GameFlagNames.LibrarySecretRevealed, true);
+                gameManager.SetFlag(GameFlagNames.BasementDoorVisible, true);
+            }
+        }
+        else if (interactable.id.Equals("right_shelf", StringComparison.OrdinalIgnoreCase)
+            && !string.IsNullOrEmpty(interactable.resultFlag))
+        {
+            var gameManager = GameManager.Instance;
+            if (gameManager != null)
+            {
+                gameManager.SetFlag(interactable.resultFlag, true);
+            }
+        }
+
+        var currentReality = RealityManager.Instance != null ? RealityManager.Instance.CurrentReality : RealityType.Normal;
+        var descriptionText = interactable.GetDescriptionForReality(currentReality);
+        if (string.IsNullOrWhiteSpace(descriptionText))
+        {
+            descriptionText = $"You inspected {interactable.displayName}.";
+        }
+
+        Debug.Log($"[InteractionManager] Examine: {interactable.displayName} - {descriptionText}");
+
+        var ui = UIManager.Instance;
+        if (ui != null)
+        {
+            ui.ShowFeedback(descriptionText, 2f);
+        }
+
+        return true;
+    }
+
+    public static bool ResolveTransition(InteractableData interactable, Action<string> onConsumed)
+    {
+        if (interactable == null)
+        {
+            return false;
+        }
+
+        if (string.IsNullOrEmpty(interactable.linkedRoomId))
+        {
+            Debug.LogError($"[InteractionManager] Transition '{interactable.id}' has no linkedRoomId set.");
+            return false;
+        }
+
+        if (interactable.consumeAfterUse)
+        {
+            InteractionOutcomeProcessor.ConsumeRequiredItemIfNeeded(interactable);
+            InteractionOutcomeProcessor.MarkConsumedIfNeeded(interactable, onConsumed);
+        }
+
+        Debug.Log($"[InteractionManager] ResolveTransition: attempting to load room '{interactable.linkedRoomId}'");
+
+        if (RoomManager.Instance == null)
+        {
+            Debug.LogError($"[InteractionManager] RoomManager instance not found. Cannot transition to '{interactable.linkedRoomId}'");
+            return false;
+        }
+
+        var success = RoomManager.Instance.LoadRoom(interactable.linkedRoomId);
+        Debug.Log($"[InteractionManager] LoadRoom('{interactable.linkedRoomId}') returned: {success}");
+        return success;
+    }
+}

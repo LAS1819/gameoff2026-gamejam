@@ -252,7 +252,7 @@ public class RoomManager : MonoBehaviour
         if (direct != null) return direct;
 
         // Try just looking for any "Rooms" GameObject
-        var allRoomsObjects = FindObjectsOfType<Transform>();
+        var allRoomsObjects = UnityEngine.Object.FindObjectsByType<Transform>();
         foreach (var t in allRoomsObjects)
         {
             if (t.gameObject.name == "Rooms")
