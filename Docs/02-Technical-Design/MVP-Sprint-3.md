@@ -118,31 +118,38 @@ No hace falta convertirla en un gran rompecabezas. Basta con que:
 
 ## Plan de trabajo por bloques
 
-### Bloque A — Room data y estructura (30-45 min)
+### Bloque A - Diseño Gráfico MVP de Room Library
+
+- definir el estilo visual de la `Library` (colores, iluminación, detalles gráficos);
+- crear los assets gráficos necesarios para los interactables base;
+- asegurar que los elementos clave sean reconocibles y coherentes con la narrativa;
+- validar que la room se vea bien en ambas realidades (`Normal` y `Other Side`).
+
+### Bloque B — Room data y estructura (30-45 min)
 
 - crear `Library` como room cargable desde el `Hallway`;
 - definir interactables base: libro, estantería, acceso/el secreto, salida;
 - validar que se visualiza y carga con el sistema actual.
 
-### Bloque B — Elemento central y item oculto (45-60 min)
+### Bloque C — Elemento central y item oculto (45-60 min)
 
 - definir el objeto principal (`Worn Book`, `Memory Book` o equivalente);
 - decidir el item oculto relevante (`Disquete`, `Key Fragment`, etc.);
 - asegurar que su valor narrativo y funcional quede claro.
 
-### Bloque C — Cambio entre realidades (45-60 min)
+### Bloque D — Cambio entre realidades (45-60 min)
 
 - vincular la lógica visual y textual de la room a `Normal` / `Other Side`;
 - hacer visible que el contenido o la estantería cambia según la realidad;
 - dejar un punto de descubrimiento que se vuelva legible en la realidad correcta.
 
-### Bloque D — Teaser de Basement (30-45 min)
+### Bloque E — Teaser de Basement (30-45 min)
 
 - preparar un acceso, secreto o puerta sugerente;
 - mantenerlo simple y narrativo, no como puzzle completo;
 - dejar una promesa para la siguiente iteración.
 
-### Bloque E — Validación end-to-end (30 min)
+### Bloque F — Validación end-to-end (30 min)
 
 - entrar desde `Hallway`;
 - interactuar con la room;
