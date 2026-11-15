@@ -49,7 +49,8 @@ public static class DefaultRoomCatalog
             visibleInNormalReality = true,
             visibleInOtherReality = true,
             requiredItemId = "staff_key",
-            resultFlag = GameFlagNames.DoorOpened
+            resultFlag = GameFlagNames.DoorOpened,
+            consumeAfterUse = true
         });
 
         lobby.interactables.Add(new InteractableData
@@ -118,12 +119,14 @@ public static class DefaultRoomCatalog
         {
             id = "library_door",
             displayName = "Library Door",
-            description = "A door to the library, half-hidden behind the shape of the corridor.",
-            descriptionInOtherReality = "The Library is behind this door. You can feel the hall breathing behind it.",
+            description = "A locked door to the library, half-hidden behind the shape of the corridor.",
+            descriptionInOtherReality = "The Library is behind this door. It is locked, and the key is still somewhere in the house.",
             interactionType = InteractionType.Transition,
             visibleInNormalReality = false,
             visibleInOtherReality = true,
-            linkedRoomId = GameManager.LibraryRoomId
+            requiredItemId = "library_key",
+            linkedRoomId = GameManager.LibraryRoomId,
+            consumeAfterUse = true
         });
 
         hallway.interactables.Add(new InteractableData
@@ -161,11 +164,11 @@ public static class DefaultRoomCatalog
             description = "A worn book half-hidden among the shelves. It feels older than the room itself.",
             descriptionInNormalReality = "The book looks ordinary at first glance, but it feels carefully preserved.",
             descriptionInOtherReality = "The spine is wrong. It seems to remember a version of the room that does not exist here.",
-            interactionType = InteractionType.Pickup,
+            interactionType = InteractionType.Use,
             visibleInNormalReality = true,
             visibleInOtherReality = false,
             resultFlag = GameFlagNames.WornBookFound,
-            consumeAfterUse = false
+            consumeAfterUse = true
         });
 
         library.interactables.Add(new InteractableData
@@ -224,8 +227,8 @@ public static class DefaultRoomCatalog
 
         library.interactables.Add(new InteractableData
         {
-            id = "library_exit",
-            displayName = "Library Exit",
+            id = "hallway_exit",
+            displayName = "Hallway Exit",
             description = "Return to the hallway.",
             interactionType = InteractionType.Transition,
             visibleInNormalReality = true,

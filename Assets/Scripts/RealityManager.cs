@@ -80,7 +80,8 @@ public class RealityManager : MonoBehaviour
         }
 
         return roomId.Equals(GameManager.HallwayRoomId, StringComparison.OrdinalIgnoreCase)
-            || roomId.Equals(GameManager.BedroomRoomId, StringComparison.OrdinalIgnoreCase);
+            || roomId.Equals(GameManager.BedroomRoomId, StringComparison.OrdinalIgnoreCase)
+            || roomId.Equals(GameManager.LibraryRoomId, StringComparison.OrdinalIgnoreCase);
     }
 
     public bool TryToggleReality()

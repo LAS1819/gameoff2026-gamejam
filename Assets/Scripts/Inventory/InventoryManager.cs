@@ -58,6 +58,12 @@ public class InventoryManager : MonoBehaviour
 
         items.Remove(item);
 
+        if (SelectedItemId == item.id)
+        {
+            SelectedItemId = null;
+            SelectedItemChanged?.Invoke(null);
+        }
+
         ItemRemoved?.Invoke(item);
         return true;
     }

@@ -111,9 +111,19 @@ internal static class InteractionResolver
             return ResolveWardrobe(interactable, sourceObject);
         }
 
+        if (interactable.id.Equals("worn_book", StringComparison.OrdinalIgnoreCase))
+        {
+            return ResolveWornBookUse(interactable, onConsumed);
+        }
+
         if (!string.IsNullOrEmpty(interactable.resultFlag))
         {
             GameManager.Instance?.SetFlag(interactable.resultFlag, true);
+        }
+
+        if (interactable.consumeAfterUse && !string.IsNullOrEmpty(interactable.requiredItemId))
+        {
+            InventoryManager.Instance?.RemoveItem(interactable.requiredItemId);
         }
 
         if (interactable.consumeAfterUse)
@@ -163,7 +173,12 @@ internal static class InteractionResolver
             return false;
         }
 
-        if (!string.IsNullOrEmpty(interactable.resultFlag))
+        if (interactable != null && interactable.id.Equals("worn_book", StringComparison.OrdinalIgnoreCase))
+        {
+            // The Worn Book is picked up via Use, not by examining it in the scene.
+            // Examining it only reveals text and keeps the object in place until the player decides to take it.
+        }
+        else if (!string.IsNullOrEmpty(interactable.resultFlag))
         {
             GameManager.Instance?.SetFlag(interactable.resultFlag, true);
         }
@@ -204,6 +219,43 @@ internal static class InteractionResolver
         var success = RoomManager.Instance.LoadRoom(interactable.linkedRoomId);
         Debug.Log($"[InteractionManager] LoadRoom('{interactable.linkedRoomId}') returned: {success}");
         return success;
+    }
+
+    private static bool ResolveWornBookUse(InteractableData interactable, Action<string> onConsumed)
+    {
+        if (InventoryManager.Instance == null)
+        {
+            Debug.LogWarning("InventoryManager instance not found.");
+            return false;
+        }
+
+        var item = new InventoryItemData
+        {
+            id = "worn_book",
+            displayName = "Worn Book",
+            description = "A worn book with a hidden compartment in its back pages.",
+            descriptionInNormalReality = "The cover is worn, but the pages feel preserved, as if the book has been carefully kept from the world.",
+            descriptionInOtherReality = "The pages are not just old: they feel archived, as if they remember a version of the house that still exists somewhere else.",
+            isKeyItem = true
+        };
+
+        var itemAdded = InventoryManager.Instance.AddItem(item);
+        if (!itemAdded)
+        {
+            UIManager.Instance?.ShowFeedback("You already have the Worn Book.", 1.5f);
+            return false;
+        }
+
+        GameManager.Instance?.SetFlag(GameFlagNames.WornBookFound, true);
+        UIManager.Instance?.RefreshInventoryUI();
+        UIManager.Instance?.ShowFeedback("You take the Worn Book and add it to your inventory.", 1.8f);
+
+        if (interactable.consumeAfterUse)
+        {
+            onConsumed?.Invoke(interactable.id);
+        }
+
+        return true;
     }
 
     private static bool ResolveWardrobe(InteractableData interactable, GameObject sourceObject)
