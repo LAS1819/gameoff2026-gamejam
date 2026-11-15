@@ -12,6 +12,14 @@ public static class GameFlagNames
     public const string BedroomWardrobeOpened = "BedroomWardrobeOpened";
     public const string BedroomMonsterVisible = "BedroomMonsterVisible";
     public const string HasLibraryKey = "HasLibraryKey";
+    public const string WornBookFound = "WornBookFound";
+    public const string FloppyDiskRecovered = "FloppyDiskRecovered";
+    public const string LibraryMemoriesObserved = "LibraryMemoriesObserved";
+    public const string LibraryShelfActivated = "LibraryShelfActivated";
+    public const string LibrarySecretRevealed = "LibrarySecretRevealed";
+    public const string BasementDoorVisible = "BasementDoorVisible";
+    public const string BasementUnlocked = "BasementUnlocked";
+    public const string BasementCodeAcquired = "BasementCodeAcquired";
 }
 
 public class GameManager : MonoBehaviour
@@ -20,6 +28,7 @@ public class GameManager : MonoBehaviour
     public const string LobbyRoomId = "lobby";
     public const string HallwayRoomId = "hallway";
     public const string BedroomRoomId = "bedroom";
+    public const string LibraryRoomId = "library";
 
     public static GameManager Instance { get; private set; }
 
@@ -71,6 +80,14 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.BedroomWardrobeOpened, false);
         SetFlag(GameFlagNames.BedroomMonsterVisible, false);
         SetFlag(GameFlagNames.HasLibraryKey, false);
+        SetFlag(GameFlagNames.WornBookFound, false);
+        SetFlag(GameFlagNames.FloppyDiskRecovered, false);
+        SetFlag(GameFlagNames.LibraryMemoriesObserved, false);
+        SetFlag(GameFlagNames.LibraryShelfActivated, false);
+        SetFlag(GameFlagNames.LibrarySecretRevealed, false);
+        SetFlag(GameFlagNames.BasementDoorVisible, false);
+        SetFlag(GameFlagNames.BasementUnlocked, false);
+        SetFlag(GameFlagNames.BasementCodeAcquired, false);
 
         EnsureRuntimeSystems();
         InventoryManager.Instance?.ResetInventory();

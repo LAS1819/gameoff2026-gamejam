@@ -358,6 +358,29 @@ public class RoomManager : MonoBehaviour
             }
         }
 
+        if (interactable.id.Equals("worn_book", StringComparison.OrdinalIgnoreCase)
+            && GameManager.Instance != null
+            && GameManager.Instance.HasFlag(GameFlagNames.WornBookFound))
+        {
+            return false;
+        }
+
+        if (interactable.id.Equals("shelf_secret_door", StringComparison.OrdinalIgnoreCase)
+            && GameManager.Instance != null
+            && !GameManager.Instance.HasFlag(GameFlagNames.LibraryShelfActivated))
+        {
+            return false;
+        }
+
+        if (interactable.id.Equals("basement_door", StringComparison.OrdinalIgnoreCase)
+            && GameManager.Instance != null
+            && (!GameManager.Instance.HasFlag(GameFlagNames.BasementDoorVisible)
+                || !GameManager.Instance.HasFlag(GameFlagNames.LibraryShelfActivated)
+                || !GameManager.Instance.HasFlag(GameFlagNames.BasementCodeAcquired)))
+        {
+            return false;
+        }
+
         if (interactable.id == "wardrobe_monster" && !IsBedroomMonsterConditionMet())
         {
             return false;

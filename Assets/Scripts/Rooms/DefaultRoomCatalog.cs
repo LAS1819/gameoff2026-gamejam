@@ -7,12 +7,14 @@ public static class DefaultRoomCatalog
         var lobby = CreateLobby();
         var hallway = CreateHallway();
         var bedroom = CreateBedroom();
+        var library = CreateLibrary();
 
         return new List<RoomData>
         {
             lobby,
             hallway,
-            bedroom
+            bedroom,
+            library
         };
     }
 
@@ -115,11 +117,13 @@ public static class DefaultRoomCatalog
         hallway.interactables.Add(new InteractableData
         {
             id = "library_door",
-            displayName = "Mysterious Door (Library)",
-            description = "This door leads to the Library. [NOT YET IMPLEMENTED]",
-            interactionType = InteractionType.Examine,
+            displayName = "Library Door",
+            description = "A door to the library, half-hidden behind the shape of the corridor.",
+            descriptionInOtherReality = "The Library is behind this door. You can feel the hall breathing behind it.",
+            interactionType = InteractionType.Transition,
             visibleInNormalReality = false,
-            visibleInOtherReality = true
+            visibleInOtherReality = true,
+            linkedRoomId = GameManager.LibraryRoomId
         });
 
         hallway.interactables.Add(new InteractableData
@@ -131,6 +135,102 @@ public static class DefaultRoomCatalog
             visibleInNormalReality = false,
             visibleInOtherReality = true,
             linkedRoomId = GameManager.BedroomRoomId
+        });
+    }
+
+    private static RoomData CreateLibrary()
+    {
+        var library = new RoomData
+        {
+            id = GameManager.LibraryRoomId,
+            displayName = "Library",
+            connectedRoomIds = new List<string> { GameManager.HallwayRoomId }
+        };
+
+        AddLibraryInteractables(library);
+        return library;
+    }
+
+    private static void AddLibraryInteractables(RoomData library)
+    {
+        library.interactables.Add(new InteractableData
+        {
+            id = "worn_book",
+            itemId = "worn_book",
+            displayName = "Worn Book",
+            description = "A worn book half-hidden among the shelves. It feels older than the room itself.",
+            descriptionInNormalReality = "The book looks ordinary at first glance, but it feels carefully preserved.",
+            descriptionInOtherReality = "The spine is wrong. It seems to remember a version of the room that does not exist here.",
+            interactionType = InteractionType.Pickup,
+            visibleInNormalReality = true,
+            visibleInOtherReality = false,
+            resultFlag = GameFlagNames.WornBookFound,
+            consumeAfterUse = false
+        });
+
+        library.interactables.Add(new InteractableData
+        {
+            id = "interactive_shelf",
+            displayName = "Interactive Shelf",
+            description = "A shelf with a narrow gap between the books, as if something once belonged there.",
+            descriptionInNormalReality = "The shelf looks ordinary. It feels clean, neat, and safe.",
+            descriptionInOtherReality = "There is a hollow space in the shelf, as though something was removed from this world.",
+            interactionType = InteractionType.Use,
+            visibleInNormalReality = true,
+            visibleInOtherReality = true,
+            requiredItemId = "worn_book",
+            resultFlag = GameFlagNames.LibraryShelfActivated
+        });
+
+        library.interactables.Add(new InteractableData
+        {
+            id = "shelf_secret_door",
+            displayName = "Shelf Secret Door",
+            description = "The wall behind the shelf is no longer where it should be.",
+            descriptionInNormalReality = "Nothing is here; only a shelf and the stillness of the room.",
+            descriptionInOtherReality = "Behind the shelf, a hidden panel shifts as if it is trying to remember its own shape.",
+            interactionType = InteractionType.Examine,
+            visibleInNormalReality = false,
+            visibleInOtherReality = true,
+            resultFlag = GameFlagNames.LibrarySecretRevealed
+        });
+
+        library.interactables.Add(new InteractableData
+        {
+            id = "right_shelf",
+            displayName = "Right Shelf",
+            description = "A shelf lined with records and old memories, each one placed carefully by hand.",
+            descriptionInNormalReality = "The books are neat, dated, and almost too organized.",
+            descriptionInOtherReality = "The labels do not match the memories they describe. Something in the room has been refiled.",
+            interactionType = InteractionType.Examine,
+            visibleInNormalReality = true,
+            visibleInOtherReality = true,
+            resultFlag = GameFlagNames.LibraryMemoriesObserved
+        });
+
+        library.interactables.Add(new InteractableData
+        {
+            id = "basement_door",
+            displayName = "Basement Door",
+            description = "A heavy door hidden behind the shelf, leading somewhere underneath the building.",
+            descriptionInNormalReality = "The wall is flat and empty. Nothing should be here.",
+            descriptionInOtherReality = "The door is there now, as if the room has finally decided to remember it.",
+            interactionType = InteractionType.Use,
+            visibleInNormalReality = false,
+            visibleInOtherReality = true,
+            requiredItemId = "basement_code",
+            resultFlag = GameFlagNames.BasementUnlocked
+        });
+
+        library.interactables.Add(new InteractableData
+        {
+            id = "library_exit",
+            displayName = "Library Exit",
+            description = "Return to the hallway.",
+            interactionType = InteractionType.Transition,
+            visibleInNormalReality = true,
+            visibleInOtherReality = true,
+            linkedRoomId = GameManager.HallwayRoomId
         });
     }
 
