@@ -1,24 +1,24 @@
 # Room Library — Technical Spec
 
-- Versión 0.1
+- Versión 0.2
 - Creado: 14/11/2026
-- Actualizado: 14/11/2026
+- Actualizado: 15/11/2026
 
 ---
 
 ## 1. Objetivo de la Room
 
-La Library es la primera Room del juego diseñada como espacio de memoria archivada, ambigüedad y revelación progresiva.
+La `Library` es la primera `Room` del juego diseñada como espacio de memoria archivada, ambigüedad y revelación progresiva.
 
 Su función técnica es:
 
-- introducir una Room centrada en la memoria y el archivo de recuerdos;
+- introducir una `Room` centrada en la memoria y el archivo de recuerdos;
 - reforzar la idea de que la misma información cambia de significado entre realidades;
-- entregar el item oculto clave (`Floppy Disk` / `Disquete`) que encadena con la Bedroom;
+- entregar el `Item` oculto clave (`Floppy Disk` / `Disquete`) que encadena con la `Bedroom`;
 - sugerir el acceso al `Basement` sin resolverlo todavía como un puzle completo;
 - sentar una base reutilizable para rooms con contenido interpretativo más profundo.
 
-Es una Room de progresión narrativa y observación, no de contenido infinito. Tiene que sentirse “importante” sin convertirse en un sistema gigante de libros o archivos.
+Es una `Room` de progresión narrativa y observación, no de contenido infinito. Tiene que sentirse “importante” sin convertirse en un sistema gigante de libros o archivos.
 
 ---
 
@@ -30,12 +30,13 @@ RoomData
 - displayName: "Library"
 - connectedRoomIds: ["hallway"]
 - interactables:
-  - memory_shelves
+  - shelf-interactable (normal / other-side)
+  - shelf-secret-door
+  - shelf-right
   - worn_book
-  - special_shelf
   - basement_door
-  - library_exit
-  - hidden_note (primer Interactable/Item relacionado con `Documentos`)
+  - library_exit (to `Hallway`)
+  - (futuro) hidden_note (primer Interactable/Item relacionado con `Documentos`)
 ```
 
 ### Estado inicial
@@ -44,40 +45,14 @@ RoomData
 - La Room se ve ordenada, silenciosa, casi tranquila.
 - Las estanterías parecen contener recuerdos guardados con cuidado.
 - El `Worn Book` es visible y puede ser recogido o examinado.
-- La puerta del `Basement` está oculta tras una `Estantería Especial`.
+- La puerta del `Basement` está oculta tras una `Shelf Secret Door`.
 - El secreto del acceso se activa cuando la Room se interpreta correctamente en el Otro Lado.
 
 ---
 
 ## 3. Interactables principales
 
-### 3.1 MemoryShelves
-
-```text
-id: "memory_shelves"
-displayName: "Memory Shelves"
-interactionType: Examine
-visibleInNormalReality: true
-visibleInOtherReality: true
-resultFlag: LibraryMemoriesObserved
-```
-
-#### Propósito
-
-- actuar como el elemento visual y narrativo central de la Room;
-- reforzar la idea de recuerdos archivados y clasificados;
-- dar pistas concretas sobre la relación con el padre y sobre la manipulación de la memoria.
-
-#### Reglas técnicas
-
-- Deben existir como un set de estanterías o una zona de visualización principal.
-- Los títulos, descripciones y mensajes deben cambiar ligeramente entre realidades.
-- No hace falta crear docenas de libros individuales; basta con una composición concentrada y un par de textos destacados.
-- Deben aportar valor narrativo y no servir solo como “decoración”.
-
----
-
-### 3.2 WornBook
+### 3.1 WornBook
 
 ```text
 id: "worn_book"
@@ -85,7 +60,7 @@ displayName: "Worn Book"
 interactionType: Pickup
 itemId: "worn_book"
 visibleInNormalReality: true
-visibleInOtherReality: true
+visibleInOtherReality: false
 resultFlag: WornBookFound
 consumeAfterUse: false
 ```
@@ -98,20 +73,20 @@ consumeAfterUse: false
 
 #### Reglas técnicas
 
-- El book puede recogerse directamente o examinarse antes de recogerlo.
-- La descripción del libro debe cambiar entre `Normal` y `Other Side`.
-- Al interactuar con él mediante `Examinar`, puede revelarse la presencia del item oculto.
-- Debe quedar claro que el objeto tiene un valor superior al de un “simple libro”.
-- El `Worn Book` puede usarse en el `Special Shelf` para activar el secreto de la Room, sin necesidad de haber obtenido antes el `Disquete`. Por lo que debe poder sacarse de nuevo del estante si es necesario. Haciendo que el `Special Shelf` vuelva a su estado inicial.
+- El `Worn Book` puede recogerse directamente o examinarse antes de recogerlo (descripción, pero no obtención de `Floppy Disk`).
+- La descripción del `Worn Book` debe cambiar entre `Normal` y `Other Side`.
+- Al interactuar con él mediante `Examinar` desde `Inventory`, puede revelarse la presencia del item oculto.
+- Debe quedar claro que el `Worn Book` tiene un valor superior al de un “simple libro”.
+- El `Worn Book` puede usarse en el `Interactive Shelf` para activar el secreto de la Room, sin necesidad de haber obtenido antes el `Disquete`. Por lo que debe poder sacarse de nuevo del estante si es necesario. Haciendo que el `Shelf Secret Door` vuelva a su estado inicial.
 
 ---
 
-### 3.3 SpecialShelf
+### 3.2 SpecialShelf
 
 ```text
-id: "special_shelf"
-displayName: "Special Shelf"
-interactionType: Use
+id: "interactive_shelf"
+displayName: "Interactive Shelf"
+interactionType: Use (sólo interactivo en `Other Side`)
 visibleInNormalReality: true
 visibleInOtherReality: true
 requiresItem: "worn_book"
@@ -120,22 +95,23 @@ resultFlag: SpecialShelfActivated
 
 #### Propósito
 
-- convertir la estantería en un punto de resolución del secreto de la Room;
+- convertir la estantería en un punto de resolución del secreto de la `Room`;
 - definir la relación entre el libro recogido y el acceso oculto al `Basement`;
 - preparar la lógica del `SHIFT` y la manipulación del espacio.
 
 #### Reglas técnicas
 
-- La estantería tiene un hueco o un orden concreto.
-- El `Worn Book` debe poder colocarse allí como solución de la Room.
-- Cuando el item está colocado, la realidad activa debe dejar ver el secreto oculto.
+- En `Other Side`, la estantería tiene un hueco, donde estará el colisionador de detección de Interactions.
+- En `Normal` reality, la estantería se ve como una estantería común y corriente, sin indicios del hueco oculto. El Colisionador de detección abarcará toda la estantería, no solo el hueco. (cambio de Colliders, tamaño o distinto GameObject)
+- El `Worn Book` debe poder colocarse allí como solución de la `Room` (sólo en `Other Side`).
+- Cuando el item está colocado, la estantería `Shelf Secret Door` debe desplazarse hacia la derecha, quedando detrás de la `Right Shelf`.
 - La estantería debe poder volver a su estado inicial si se retira el `Worn Book`.
 - Se implementará una animación para que la estantería se desplace hacia un lado al activar el secreto. Debe poder revertirse si se retira el `Worn Book`.
-- Una vez hecha la interacción, la room debe sugerir que la verdad del lugar se desplaza cuando se cambia a la otra realidad.
+- Una vez hecha la interacción, la `Room` debe sugerir que la verdad del lugar se desplaza cuando se cambia a la otra realidad.
 
 ---
 
-### 3.4 BasementDoor
+### 3.3 BasementDoor
 
 ```text
 id: "basement_door"
@@ -162,7 +138,7 @@ resultFlag: BasementUnlocked
 
 ---
 
-### 3.5 LibraryExit
+### 3.4 LibraryExit
 
 ```text
 id: "library_exit"
@@ -187,9 +163,39 @@ visibleInOtherReality: true
 
 ---
 
-## 4. Items del Room
+## 4 PROPS
 
-### 4.1 WornBook
+### 4.1 MemoryShelves
+
+```text
+id: "right-shelf"
+displayName: "Right Shelf"
+interactionType: Examine
+visibleInNormalReality: true
+visibleInOtherReality: true
+resultFlag: LibraryMemoriesObserved
+```
+
+#### Propósito
+
+- actuar como el elemento visual y narrativo central de la Room;
+- reforzar la idea de recuerdos archivados y clasificados;
+- dar pistas concretas sobre la relación con el padre y sobre la manipulación de la memoria.
+- sirve como capa superior para que la `Shelf Secret Door` pase por detrás de su capa visual.
+
+#### Reglas técnicas
+
+- Deben existir como un set de estanterías o una zona de visualización principal.
+- Los títulos, descripciones y mensajes deben cambiar ligeramente entre realidades.
+- No hace falta crear docenas de libros individuales; basta con una composición concentrada y un par de textos destacados.
+- Deben aportar valor narrativo y no servir solo como “decoración”.
+- Debe permitir que otros elementos interactivos, como la `Shelf Secret Door`, se integren visualmente sin romper la composición de la estantería.
+
+---
+
+## 5. Items del Room
+
+### 5.1 WornBook
 
 ```text
 ItemData
@@ -214,7 +220,7 @@ ItemData
 
 ---
 
-### 4.2 FloppyDisk / Disquete
+### 5.2 FloppyDisk / Disquete
 
 ```text
 ItemData
@@ -239,7 +245,7 @@ ItemData
 
 ---
 
-### 4.3 BasementCode
+### 5.3 BasementCode
 
 ```text
 ItemData
@@ -263,7 +269,7 @@ ItemData
 
 ---
 
-## 5. Flags y estado relevantes
+## 6. Flags y estado relevantes
 
 ```text
 LibraryMemoriesObserved
@@ -283,7 +289,7 @@ BasementCodeAcquired
 
 ---
 
-## 6. Flow de progresión
+## 7. Flow de progresión
 
 ### Secuencia recomendada para MVP
 
@@ -300,7 +306,7 @@ BasementCodeAcquired
 
 ---
 
-## 7. Scope guard del MVP
+## 8. Scope guard del MVP
 
 ### Mantener
 
@@ -326,7 +332,7 @@ BasementCodeAcquired
 
 ---
 
-## 8. Recomendación final
+## 9. Recomendación final
 
 La `Library` debe sentirse como la Room de la memoria archivada, no como una biblioteca recreativa.
 
@@ -340,6 +346,6 @@ La mejor versión del MVP es aquella que deja claro:
 
 ---
 
-## 9. Resumen corto
+## 10. Resumen corto
 
 La `Library` es la Room de la memoria guardada. Aquí el jugador encuentra el `Worn Book`, descubre el `Disquete` oculto, entiende que la misma información cambia según la realidad y deja preparado el acceso al `Basement` como una promesa narrativa concreta y funcional.
