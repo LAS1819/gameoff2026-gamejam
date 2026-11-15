@@ -195,6 +195,15 @@ La `Library` se considera lista si:
 
 ## Checklist final
 
+### Fundamentales
+
+- [ ] `UI Inventory`: mejorar UI de Inventario en pantalla de forma gráfica. Más contraste, sprites, etc...
+- [ ] `UI Inventory Navigation`: en caso de necesitarlo, implementar botones dinámicos a la izquierda y derecha de los tres `slots` para moverse en caso de tener más de tres items en el inventario.
+- [ ] `Inventory / Item Consumption`: implementar la lógica para consumir items desde el inventario y reflejar los cambios en la UI (como `staff key` o `library key`). Esto puede ser opcional, ya que hace que el jugador no sepa bien si el item sigue siendo útil o no, dando más dificultad, pero para la JAM podemos dejar la consumición automática.
+- [ ] `Inventory / Item Feedback`: mostrar visualmente en la UI cuando un item ha sido consumido o utilizado, para que el jugador tenga claridad sobre el estado de sus items.
+- [ ] `SFX`: implementar efectos de sonido base para interacciones clave, como consumir items, cambiar de realidad o activar elementos centrales de la room.
+- [ ] `Music`: implementar nueva música de fondo (Remember Song) para reforzar la atmósfera y la narrativa.
+
 ### Bloqueantes
 
 - [ ] `Library` cargada y funcional desde `Hallway`
