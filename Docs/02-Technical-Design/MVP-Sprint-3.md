@@ -1,10 +1,10 @@
 # MVP Sprint 3 - Library y preparación para Basement
 
-- Fecha inicio: 12/11/2026
-- Fecha objetivo: 19/11/2026
+- Fecha inicio: 16/11/2026
+- Fecha objetivo: 22/11/2026
 - Estado: 🟡 EN PLANEAMIENTO - primero `Library`, luego preparación para `Basement`
 - Creado: 12/11/2026
-- Actualizado: 14/11/2026
+- Actualizado: 15/11/2026
 
 ## Objetivo
 
@@ -118,12 +118,20 @@ No hace falta convertirla en un gran rompecabezas. Basta con que:
 
 ## Plan de trabajo por bloques
 
-### Bloque A - Diseño Gráfico MVP de Room Library
+### Bloque A - Identidad visual de la Room Library
 
-- definir el estilo visual de la `Library` (colores, iluminación, detalles gráficos);
-- crear los assets gráficos necesarios para los interactables base;
-- asegurar que los elementos clave sean reconocibles y coherentes con la narrativa;
-- validar que la room se vea bien en ambas realidades (`Normal` y `Other Side`).
+Objetivos:
+
+1. definir la identidad visual de la `Library` como room de memoria y archivo;
+2. establecer la diferencia clara entre `Normal` y `Other Side` sin romper la legibilidad del espacio;
+3. dejar el libro central y el secreto de la room reconocibles desde la cámara fija.
+
+Puntos clave:
+
+- definir la paleta, iluminación y sensación general de la room;
+- decidir qué elementos se repiten entre realidades y qué cambia realmente;
+- destacar visualmente el `Worn Book` y la `Special Shelf` como ejes della room;
+- validar que la room se lea bien a simple vista y que la historia de la memoria quede clara.
 
 ### Bloque B — Room data y estructura (30-45 min)
 
@@ -202,7 +210,7 @@ La `Library` se considera lista si:
 
 ## Checklist final
 
-### Fundamentales
+### Cross-system / polish
 
 - [ ] `UI Inventory`: mejorar UI de Inventario en pantalla de forma gráfica. Más contraste, sprites, etc...
 - [ ] `UI Inventory Navigation`: en caso de necesitarlo, implementar botones dinámicos a la izquierda y derecha de los tres `slots` para moverse en caso de tener más de tres items en el inventario.
