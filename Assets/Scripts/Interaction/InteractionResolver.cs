@@ -128,6 +128,11 @@ internal static class InteractionResolver
             return InteractionSpecialCases.ResolveWardrobe(interactable, sourceObject);
         }
 
+        if (interactable.id.Equals("shelf_interactive", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolveShelfInteractive(interactable, onConsumed);
+        }
+
         if (interactable.id.Equals("worn_book", StringComparison.OrdinalIgnoreCase))
         {
             return InteractionSpecialCases.ResolveWornBookUse(interactable, onConsumed);

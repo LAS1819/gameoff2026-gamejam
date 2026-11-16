@@ -53,6 +53,30 @@ internal static class InteractionOutcomeProcessor
         {
             inventoryManager.RemoveItem(interactable.requiredItemId);
         }
+
+        var flagName = GetFlagNameForConsumedItem(interactable.requiredItemId);
+        if (!string.IsNullOrEmpty(flagName) && GameManager.Instance != null)
+        {
+            GameManager.Instance.SetFlag(flagName, false);
+        }
+    }
+
+    private static string GetFlagNameForConsumedItem(string itemId)
+    {
+        if (string.IsNullOrEmpty(itemId))
+        {
+            return null;
+        }
+
+        switch (itemId)
+        {
+            case "staff_key":
+                return GameFlagNames.HasStaffKey;
+            case "library_key":
+                return GameFlagNames.HasLibraryKey;
+            default:
+                return null;
+        }
     }
 
     public static void MarkConsumedIfNeeded(InteractableData interactable, Action<string> onConsumed)

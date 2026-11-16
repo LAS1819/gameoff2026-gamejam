@@ -120,14 +120,44 @@ public class GameManager : MonoBehaviour
 
     private void EnsureRuntimeSystem<T>(string objectName) where T : MonoBehaviour
     {
-        if (FindAnyObjectByType<T>() != null)
+        var systems = FindObjectsByType<T>(FindObjectsInactive.Include);
+
+        T primarySystem = null;
+        for (var index = 0; index < systems.Length; index++)
         {
-            return;
+            var system = systems[index];
+            if (system == null)
+            {
+                continue;
+            }
+
+            if (primarySystem == null)
+            {
+                primarySystem = system;
+                continue;
+            }
+
+            Destroy(system.gameObject);
         }
 
-        var systemObject = new GameObject(objectName);
-        systemObject.transform.SetParent(transform);
-        systemObject.AddComponent<T>();
+        if (primarySystem == null)
+        {
+            var systemObject = new GameObject(objectName);
+            systemObject.transform.SetParent(transform);
+            primarySystem = systemObject.AddComponent<T>();
+        }
+        else
+        {
+            if (primarySystem.transform.parent != transform)
+            {
+                primarySystem.transform.SetParent(transform);
+            }
+
+            if (!primarySystem.gameObject.name.Equals(objectName, System.StringComparison.Ordinal))
+            {
+                primarySystem.gameObject.name = objectName;
+            }
+        }
     }
 
     public static List<RoomData> BuildDefaultRooms()

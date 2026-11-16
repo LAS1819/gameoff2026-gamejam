@@ -285,6 +285,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!1 &60781733
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,6 +393,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!1 &110081033
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +455,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &110081036
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -647,6 +656,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &120173720
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -820,6 +832,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &240745952
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1092,6 +1107,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!1 &321088948
 GameObject:
   m_ObjectHideFlags: 0
@@ -1152,6 +1170,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &321088951
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1386,6 +1407,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &381934508
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1725,6 +1749,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &455020880
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1988,6 +2015,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &589441807
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2090,6 +2120,7 @@ GameObject:
   - component: {fileID: 639422247}
   - component: {fileID: 639422248}
   - component: {fileID: 639422249}
+  - component: {fileID: 639422250}
   m_Layer: 0
   m_Name: ShelfInteractive
   m_TagString: Untagged
@@ -2218,6 +2249,35 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 10.2, y: 9.7}
   m_EdgeRadius: 0
+--- !u!114 &639422250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639422246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a20e4255a38aa346927b373ec5f7858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractableBehaviour
+  data:
+    id: 
+    displayName: 
+    description: 
+    descriptionInNormalReality: 
+    descriptionInOtherReality: 
+    interactionType: 0
+    visibleInNormalReality: 1
+    visibleInOtherReality: 1
+    itemId: 
+    requiredItemId: 
+    resultFlag: 
+    linkedRoomId: 
+    consumeAfterUse: 0
+  normalSprite: {fileID: 21300000, guid: d19e94c8ff628f5418368b6c2fb81c09, type: 3}
+  otherSideSprite: {fileID: 21300000, guid: f4aa08b80a6b7614aaa73234f93649f4, type: 3}
+  useRealitySprites: 1
 --- !u!1 &725985456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2436,6 +2496,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &817440296
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2602,6 +2665,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &818924709
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3185,6 +3251,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!1 &1190423509
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,6 +3264,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1190423510}
   - component: {fileID: 1190423511}
+  - component: {fileID: 1190423512}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -3230,6 +3300,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   themeFatherClip: {fileID: 8300000, guid: 47976e67bc8f70746ae709dd2ebe107a, type: 3}
+--- !u!114 &1190423512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190423509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e2ac589f7947145a911f863d95f7df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicManager
+  mainAudioMixer: {fileID: 0}
+  musicGroupName: Music
+  themeFatherClip: {fileID: 0}
+  musicOutputGroup: {fileID: 0}
+  loop: 1
+  normalVolume: 0.8
+  normalPitch: 1
+  otherSidePitch: 1.08
+  otherSideVolume: 0.9
 --- !u!1 &1195302709
 GameObject:
   m_ObjectHideFlags: 0
@@ -3733,6 +3824,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &1297668472
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4043,6 +4137,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &1423243404
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4149,6 +4246,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!61 &1427725063
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4440,6 +4540,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!1 &1429042741
 GameObject:
   m_ObjectHideFlags: 0
@@ -4715,6 +4818,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!1 &1834209477
 GameObject:
   m_ObjectHideFlags: 0
@@ -5222,6 +5328,9 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 0}
+  useRealitySprites: 0
 --- !u!1 &2036302250
 GameObject:
   m_ObjectHideFlags: 0
