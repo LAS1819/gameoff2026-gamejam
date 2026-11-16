@@ -22,7 +22,6 @@ public partial class RoomManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public void SetRooms(List<RoomData> roomList)

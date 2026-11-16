@@ -17,6 +17,7 @@ public static class GameFlagNames
     public const string LibraryMemoriesObserved = "LibraryMemoriesObserved";
     public const string LibraryShelfActivated = "LibraryShelfActivated";
     public const string LibrarySecretRevealed = "LibrarySecretRevealed";
+    public const string LibrarySecretDoorOpen = "LibrarySecretDoorOpen";
     public const string BasementDoorVisible = "BasementDoorVisible";
     public const string BasementUnlocked = "BasementUnlocked";
     public const string BasementCodeAcquired = "BasementCodeAcquired";
@@ -29,6 +30,10 @@ public class GameManager : MonoBehaviour
     public const string HallwayRoomId = "hallway";
     public const string BedroomRoomId = "bedroom";
     public const string LibraryRoomId = "library";
+
+    [Header("Development")]
+    [SerializeField] private bool useDebugStartRoom = true;
+    [SerializeField] private string debugStartRoomId = LibraryRoomId;
 
     public static GameManager Instance { get; private set; }
 
@@ -85,6 +90,7 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.LibraryMemoriesObserved, false);
         SetFlag(GameFlagNames.LibraryShelfActivated, false);
         SetFlag(GameFlagNames.LibrarySecretRevealed, false);
+        SetFlag(GameFlagNames.LibrarySecretDoorOpen, false);
         SetFlag(GameFlagNames.BasementDoorVisible, false);
         SetFlag(GameFlagNames.BasementUnlocked, false);
         SetFlag(GameFlagNames.BasementCodeAcquired, false);
@@ -96,7 +102,14 @@ public class GameManager : MonoBehaviour
         if (RoomManager.Instance != null)
         {
             RoomManager.Instance.SetRooms(DefaultRoomCatalog.BuildMvpRooms());
-            RoomManager.Instance.LoadRoom(LobbyRoomId);
+
+            var targetRoomId = LobbyRoomId;
+            if (Application.isEditor && useDebugStartRoom && !string.IsNullOrWhiteSpace(debugStartRoomId))
+            {
+                targetRoomId = debugStartRoomId;
+            }
+
+            RoomManager.Instance.LoadRoom(targetRoomId);
         }
 
         if (RealityManager.Instance != null)

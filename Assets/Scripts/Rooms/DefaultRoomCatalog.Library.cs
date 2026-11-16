@@ -53,14 +53,14 @@ public static partial class DefaultRoomCatalog
             descriptionInNormalReality = "Nothing is here; only a shelf and the stillness of the room.",
             descriptionInOtherReality = "Behind the shelf, a hidden panel shifts as if it is trying to remember its own shape.",
             interactionType = InteractionType.Examine,
-            visibleInNormalReality = false,
+            visibleInNormalReality = true,
             visibleInOtherReality = true,
             resultFlag = GameFlagNames.LibrarySecretRevealed
         });
 
         library.interactables.Add(new InteractableData
         {
-            id = "right_shelf",
+            id = "shelf_right",
             displayName = "Right Shelf",
             description = "A shelf lined with records and old memories, each one placed carefully by hand.",
             descriptionInNormalReality = "The books are neat, dated, and almost too organized.",
@@ -94,6 +94,18 @@ public static partial class DefaultRoomCatalog
             visibleInNormalReality = true,
             visibleInOtherReality = true,
             linkedRoomId = GameManager.HallwayRoomId
+        });
+
+        library.interactables.Add(new InteractableData
+        {
+            id = "code_panel",
+            displayName = "Code Panel",
+            description = "A small panel with a numeric keypad, likely controlling access to the basement.",
+            interactionType = InteractionType.Use,
+            visibleInNormalReality = false,
+            visibleInOtherReality = true,
+            requiredItemId = "basement_code",
+            resultFlag = GameFlagNames.BasementUnlocked
         });
     }
 }

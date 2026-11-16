@@ -70,20 +70,21 @@ public partial class RoomManager
             return false;
         }
 
-        if (interactable.id.Equals("shelf_secret_door", StringComparison.OrdinalIgnoreCase)
-            && GameManager.Instance != null
-            && !GameManager.Instance.HasFlag(GameFlagNames.LibraryShelfActivated))
+        if (interactable.id.Equals("shelf_secret_door", StringComparison.OrdinalIgnoreCase))
         {
-            return false;
+            return true;
         }
 
-        if (interactable.id.Equals("basement_door", StringComparison.OrdinalIgnoreCase)
-            && GameManager.Instance != null
-            && (!GameManager.Instance.HasFlag(GameFlagNames.BasementDoorVisible)
-                || !GameManager.Instance.HasFlag(GameFlagNames.LibraryShelfActivated)
-                || !GameManager.Instance.HasFlag(GameFlagNames.BasementCodeAcquired)))
+        if ((interactable.id.Equals("basement_door", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("code_panel", StringComparison.OrdinalIgnoreCase))
+            && GameManager.Instance != null)
         {
-            return false;
+            var secretDoorOpen = GameManager.Instance.HasFlag(GameFlagNames.LibrarySecretDoorOpen);
+            var shelfActivated = GameManager.Instance.HasFlag(GameFlagNames.LibraryShelfActivated);
+            if (!secretDoorOpen || !shelfActivated)
+            {
+                return false;
+            }
         }
 
         if (interactable.id == "wardrobe_monster" && !IsBedroomMonsterConditionMet())

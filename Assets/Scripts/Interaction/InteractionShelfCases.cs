@@ -47,6 +47,9 @@ internal static class InteractionShelfCases
                 if (gameManager != null)
                 {
                     gameManager.SetFlag(GameFlagNames.LibraryShelfActivated, false);
+                    gameManager.SetFlag(GameFlagNames.LibrarySecretDoorOpen, false);
+                    gameManager.SetFlag(GameFlagNames.BasementDoorVisible, false);
+                    gameManager.SetFlag(GameFlagNames.LibrarySecretRevealed, false);
                 }
 
                 ShowFeedback("You take the Worn Book back from the shelf.", 1.8f);
@@ -73,6 +76,9 @@ internal static class InteractionShelfCases
         if (gameManager != null)
         {
             gameManager.SetFlag(GameFlagNames.LibraryShelfActivated, true);
+            gameManager.SetFlag(GameFlagNames.LibrarySecretDoorOpen, true);
+            gameManager.SetFlag(GameFlagNames.LibrarySecretRevealed, true);
+            gameManager.SetFlag(GameFlagNames.BasementDoorVisible, true);
         }
 
         ShowFeedback("The shelf accepts the Worn Book and the hidden space settles back into place.", 1.8f);

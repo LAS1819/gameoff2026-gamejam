@@ -39,10 +39,10 @@ internal static class InteractionExamineTransitionProcessor
             if (gameManager != null)
             {
                 gameManager.SetFlag(GameFlagNames.LibrarySecretRevealed, true);
-                gameManager.SetFlag(GameFlagNames.BasementDoorVisible, true);
             }
         }
-        else if (interactable.id.Equals("right_shelf", StringComparison.OrdinalIgnoreCase)
+        else if ((interactable.id.Equals("shelf_right", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("right_shelf", StringComparison.OrdinalIgnoreCase))
             && !string.IsNullOrEmpty(interactable.resultFlag))
         {
             var gameManager = GameManager.Instance;

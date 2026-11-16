@@ -23,7 +23,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public bool AddItem(InventoryItemData item)

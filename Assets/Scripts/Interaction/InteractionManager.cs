@@ -19,7 +19,6 @@ public class InteractionManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public bool TryInteract(string interactableId)
