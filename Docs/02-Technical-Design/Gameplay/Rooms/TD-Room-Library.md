@@ -106,13 +106,13 @@ requiresItem: "worn_book"
 resultFlag: SpecialShelfActivated
 ```
 
-#### Propósito
+#### **Propósito:**
 
 - convertir la estantería en el punto de resolución del secreto de la `Room`;
 - relacionar el libro, el espacio y la revelación del acceso oculto;
 - preparar la lógica del `SHIFT` y la manipulación de la realidad sin convertirlo en un puzle pesado.
 
-#### Reglas técnicas
+#### **Reglas técnicas:**
 
 - En `Normal`, la estantería debe verse como una estantería normal, sin indicios de hueco oculto.
 - En `Other Side`, la estantería debe mostrar una zona vacía o una ausencia visual donde se activa la interacción.
@@ -135,13 +135,13 @@ visibleInOtherReality: true
 resultFlag: BasementSecretRevealed
 ```
 
-#### Propósito
+#### **Propósito**
 
 - ser la pieza visual que materializa el secreto de la Room;
 - ocultar la existencia del `Basement` detrás de la composición de la estantería;
 - dar una sensación de arquitectura “cambiada” por la realidad.
 
-#### Reglas técnicas
+#### **Reglas técnicas**
 
 - Debe permanecer invisible en `Normal` y aparente de forma neutral, como parte del mueble.
 - En `Other Side` debe mover su panel o pared no mostrada, revelando un acceso o un hueco que apunta al siguiente bloque.
@@ -162,13 +162,13 @@ requiresItem: "basement_code"
 resultFlag: BasementUnlocked
 ```
 
-#### Propósito
+**Propósito:**
 
 - funcionar como teaser del siguiente bloque del juego;
 - prometer una zona distinta sin abrirla todavía del todo;
 - cerrar la estructura de progresión de la Room con una sugerencia clara.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - No debe ser una resolución completa del Sótano.
 - Debe aparecer únicamente cuando la lógica de la estantería y la realidad dejan claro que algo “se abre”.
@@ -188,13 +188,13 @@ visibleInNormalReality: true
 visibleInOtherReality: true
 ```
 
-#### Propósito
+**Propósito:**
 
 - permitir volver al pasillo principal;
 - mantener la continuidad del edificio;
 - ofrecer una salida clara sin añadir complejidad.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - Debe permanecer visible siempre.
 - No debe depender de flags de Room.
@@ -214,13 +214,13 @@ requiresItem: "basement_code"
 resultFlag: BasementDoorUnlocked
 ```
 
-#### Propósito
+**Propósito:**
 
 - permitir al jugador introducir un código o interactuar con un panel de manera narrativa;
 - conectar la `Library` con la resolución del siguiente bloque;
 - reforzar la mecánica de items que desbloquean progresión.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - Sólo visible cuando la `Shelf Secret Door` se ha movido o activado.
 - Solo debe permitir la interacción si el jugador posee el item requerido.
@@ -239,14 +239,14 @@ visibleInOtherReality: true
 resultFlag: LibraryMemoriesObserved
 ```
 
-#### Propósito
+**Propósito:**
 
 - ser el elemento visual y narrativo central de la Room;
 - reforzar la idea de que el ambiente está “clasificado” por memoria;
 - sugerir la relación con el padre o con el pasado sin explicar demasiado.
 - actuar como capa superior visual para que la `Shelf Secret Door` pase por detrás.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - Debe existir como bloque visual principal, no como una colección de libros aislados.
 - Sus textos y descripciones deben cambiar ligeramente entre realidades, pero siempre con un tono parecido.
@@ -281,13 +281,13 @@ ItemData
 - descriptionChangesByReality: true
 ```
 
-#### Propósito
+**Propósito:**
 
 - ser el item principal de la `Room`;
 - introducir la mecánica de “item con significado cambiante entre realidades”;
 - ocultar la pista del siguiente paso.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - Debe poder entrar en el inventario del jugador.
 - Su descripción cambia según la realidad actual.
@@ -306,13 +306,13 @@ ItemData
 - unlocks: "bedroom_computer"
 ```
 
-#### Propósito
+**Propósito:**
 
 - conectar la `Library` con la `Bedroom` y con la resolución del siguiente bloque;
 - completar la lógica de “memoria archivada” y “pista útil”;
 - ser la base para obtener un `Código` que pueda usarse más adelante.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - No debe recogerse sin más: debe estar oculto dentro del `Worn Book` o revelarse mediante `Examine`.
 - Debe aportar progresión, no solo contenido decorativo.
@@ -331,12 +331,12 @@ ItemData
 - unlocks: "basement_door"
 ```
 
-#### Propósito
+**Propósito:**
 
 - dejar clara la relación entre la `Bedroom` y la `Library`;
 - dar al jugador una pieza de progresión que prepara el próximo bloque.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - El código se obtiene a partir de la interacción con el `Floppy Disk` en la `Bedroom`.
 - Debe ser un objetivo claro, no un detalle adicional.
