@@ -3,7 +3,7 @@ using UnityEngine;
 public class ShelfSecretDoorController : MonoBehaviour
 {
     [SerializeField] private Transform doorTransform;
-    [SerializeField] private Vector3 openLocalOffset = new(2.25f, 0f, 0f);
+    [SerializeField] private Vector3 openLocalOffset = new(10.25f, 0f, 0f);
     [SerializeField] private float moveSpeed = 1.4f;
     [SerializeField] private float arrivedThreshold = 0.02f;
     [SerializeField] private GameObject basementDoorObject;
@@ -82,8 +82,9 @@ public class ShelfSecretDoorController : MonoBehaviour
             return;
         }
 
+        var targetOpenPosition = closedLocalPosition + openLocalOffset;
         var shouldReveal = desiredOpenState
-            && Vector3.Distance(doorTransform.localPosition, closedLocalPosition + openLocalOffset) <= arrivedThreshold;
+            && Vector3.Distance(doorTransform.localPosition, targetOpenPosition) <= arrivedThreshold;
 
         if (revealObjectsVisible == shouldReveal)
         {
@@ -107,16 +108,78 @@ public class ShelfSecretDoorController : MonoBehaviour
     {
         if (basementDoorObject == null)
         {
-            basementDoorObject = FindNamedObject("Basement Door", "basement_door", "BasementDoor");
+            basementDoorObject = FindNamedObjectInLibrary("BasementDoor", "Basement Door", "basement_door");
         }
 
         if (codePanelObject == null)
         {
-            codePanelObject = FindNamedObject("Code Panel", "code_panel", "CodePanel");
+            codePanelObject = FindNamedObjectInLibrary("CodePanel", "Code Panel", "code_panel");
         }
     }
 
-    private static GameObject FindNamedObject(params string[] names)
+    private GameObject FindNamedObjectInLibrary(params string[] names)
+    {
+        var libraryRoot = FindLibraryRoot();
+        if (libraryRoot == null)
+        {
+            return null;
+        }
+
+        var children = libraryRoot.GetComponentsInChildren<Transform>(true);
+        foreach (var child in children)
+        {
+            if (child == null || child.gameObject == null)
+            {
+                continue;
+            }
+
+            if (MatchesAnyName(child.gameObject.name, names))
+            {
+                return child.gameObject;
+            }
+        }
+
+        return null;
+    }
+
+    private GameObject FindLibraryRoot()
+    {
+        if (transform.parent != null)
+        {
+            var parent = transform.parent;
+            while (parent != null)
+            {
+                if (parent.name.Equals("Library", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    return parent.gameObject;
+                }
+
+                parent = parent.parent;
+            }
+        }
+
+        var libraryRoot = GameObject.Find("Library");
+        if (libraryRoot != null)
+        {
+            return libraryRoot;
+        }
+
+        var roomsParent = GameObject.Find("Rooms");
+        if (roomsParent != null)
+        {
+            foreach (Transform child in roomsParent.transform)
+            {
+                if (child.name.Equals("Library", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    return child.gameObject;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private static bool MatchesAnyName(string candidate, params string[] names)
     {
         foreach (var name in names)
         {
@@ -125,20 +188,19 @@ public class ShelfSecretDoorController : MonoBehaviour
                 continue;
             }
 
-            var found = GameObject.Find(name);
-            if (found != null)
+            if (candidate.Equals(name, System.StringComparison.OrdinalIgnoreCase))
             {
-                return found;
+                return true;
             }
 
+            var compactCandidate = candidate.Replace(" ", string.Empty).Replace("_", string.Empty);
             var compactName = name.Replace(" ", string.Empty).Replace("_", string.Empty);
-            found = GameObject.Find(compactName);
-            if (found != null)
+            if (compactCandidate.Equals(compactName, System.StringComparison.OrdinalIgnoreCase))
             {
-                return found;
+                return true;
             }
         }
 
-        return null;
+        return false;
     }
 }
