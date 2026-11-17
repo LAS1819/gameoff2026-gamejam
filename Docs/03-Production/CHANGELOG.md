@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.10-proto] - 2026-11-17
+
+### Added
+
+- Bedroom computer interaction flow with a split Tower + Monitor setup, support for powering the device, and a dedicated `Floppy Disk` insertion route
+- Basement progression item logic that grants a `basement_code` after the monitor interaction is resolved correctly with the inserted disk
+- Library shelf and Worn Book interaction flow with the secret-door reveal logic and the hidden room activation path behind the shelf
+- Room catalog split into dedicated lobby, hallway, bedroom, and library files to keep the runtime data model easier to read and extend
+- Visual and scene assets for the Bedroom computer and the Library shelf / Worn Book progression path needed by the current MVP loop
+- Documentation updates for the Bedroom, Library, Hallway, story beats, and sprint planning so the current room flow is internally consistent
+
+### Changed
+
+- Refactored the interaction resolution pipeline around a clearer contract between item use, state mutation, and required-item validation
+- Tightened the separation between “required item consumed for use” and “interactable itself consumed after successful use” so doors remain persistent while the key item still resolves correctly
+- Simplified the room setup structure to keep the prototype gameplay-first and avoid introducing heavy abstraction before the content demand justifies it
+- Updated runtime lifecycle and room visibility behavior so hallway and library doors respond to the current reality and room state without disappearing or reappearing unpredictably
+- Kept the project architecture intentionally lightweight while moving toward a clearer, more maintainable room + interactable + inventory model
+
+### Fixed
+
+- Resolved the Bedroom monitor bug where the power state was not updating correctly when the player used the screen without the expected item flow
+- Fixed the issue where the Library door could disappear unexpectedly after leaving/re-entering the room because the consume logic was tied to the wrong object state
+- Corrected stale inventory selection behavior so an invalid item-use attempt no longer leaves the selected item in a misleading state
+- Repaired the tower/monitor interaction logic so the monitor properly returns description feedback when powered off and triggers the correct progression once the disk is in place
+- Stabilized the shelf reveal flow and the hidden room activation so the secret-door state is consistent across room transitions and reality changes
+
+### Notes
+
+- This release closes the current Library + Bedroom progression pass and leaves the project in a strong MVP state for the main room loop before the next room expansion
+- The prototype remains intentionally focused on playable loop clarity, narrative progression, and maintainability rather than broad feature expansion
+- The next major milestone is the Basement room, which should be designed as a compact evidence-focused room that resolves the current hidden truth without over-expanding the MVP scope
+
+---
+
 ## [0.0.9-proto] - 2026-11-14
 
 ### Added
