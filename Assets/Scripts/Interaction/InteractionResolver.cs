@@ -5,6 +5,16 @@ internal static class InteractionResolver
 {
     public static bool ResolveExamineOnly(InteractableData interactable)
     {
+        if (interactable == null)
+        {
+            return false;
+        }
+
+        if (interactable.id.Equals("bedroom_computer_monitor", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolveBedroomComputerMonitor(interactable, null);
+        }
+
         return InteractionExamineTransitionProcessor.ResolveExamine(interactable);
     }
 
@@ -22,6 +32,11 @@ internal static class InteractionResolver
             case InteractionType.Use:
                 return ResolveUse(interactable, sourceObject, onConsumed);
             case InteractionType.Examine:
+                if (interactable.id.Equals("bedroom_computer_monitor", StringComparison.OrdinalIgnoreCase))
+                {
+                    return InteractionSpecialCases.ResolveBedroomComputerMonitor(interactable, sourceObject);
+                }
+
                 return InteractionExamineTransitionProcessor.ResolveExamine(interactable);
             case InteractionType.Toggle:
                 return ResolveToggle(interactable);
@@ -126,6 +141,16 @@ internal static class InteractionResolver
         if (interactable.id.Equals("wardrobe", StringComparison.OrdinalIgnoreCase))
         {
             return InteractionSpecialCases.ResolveWardrobe(interactable, sourceObject);
+        }
+
+        if (interactable.id.Equals("bedroom_computer_tower", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolveBedroomComputerTower(interactable, sourceObject);
+        }
+
+        if (interactable.id.Equals("bedroom_computer_monitor", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolveBedroomComputerMonitor(interactable, sourceObject);
         }
 
         if (interactable.id.Equals("shelf_interactive", StringComparison.OrdinalIgnoreCase))

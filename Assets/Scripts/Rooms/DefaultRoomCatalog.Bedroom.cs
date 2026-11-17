@@ -87,6 +87,28 @@ public static partial class DefaultRoomCatalog
 
         bedroom.interactables.Add(new InteractableData
         {
+            id = "bedroom_computer_tower",
+            displayName = "Computer Tower",
+            description = "An old computer tower sits beneath the desk. It feels like it should still be alive.",
+            interactionType = InteractionType.Use,
+            visibleInNormalReality = true,
+            visibleInOtherReality = true
+        });
+
+        bedroom.interactables.Add(new InteractableData
+        {
+            id = "bedroom_computer_monitor",
+            displayName = "Computer Monitor",
+            description = "The monitor is dark, but it still looks faintly watchful.",
+            descriptionInNormalReality = "The monitor is dark, waiting to be powered on.",
+            descriptionInOtherReality = "The monitor feels like it's watching you, even when powered off.",
+            interactionType = InteractionType.Use,
+            visibleInNormalReality = true,
+            visibleInOtherReality = true
+        });
+
+        bedroom.interactables.Add(new InteractableData
+        {
             id = "flashlight_tool",
             displayName = "Flashlight",
             description = "A practical flashlight. It feels like it should always be ready.",

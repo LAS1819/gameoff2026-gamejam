@@ -81,7 +81,7 @@ VisualElement {}
     opacity: 1;
     z-index: 2;
     pointer-events: none;
-    background-image: url("project://database/Assets/Art/UI/spritesheet-ui-icon-lantern-v1.png#spritesheet-ui-icon-lantern-v1_0");
+    background-image: url("project://database/Assets/Visuals/UI/spritesheet-ui-icon-lantern-v1.png#spritesheet-ui-icon-lantern-v1_0");
 }
 
 .shift-button {
@@ -107,11 +107,11 @@ VisualElement {}
 }
 
 .shift-button.normal {
-    background-image: url("project://database/Assets/Art/UI/shift-icon-hooded-figure-normal-world.png");
+    background-image: url("project://database/Assets/Visuals/UI/shift-icon-hooded-figure-normal-world.png");
 }
 
 .shift-button.other-side {
-    background-image: url("project://database/Assets/Art/UI/shift-icon-hooded-figure-other-world.png");
+    background-image: url("project://database/Assets/Visuals/UI/shift-icon-hooded-figure-other-world.png");
 }
 
 #transition-overlay {

@@ -23,6 +23,16 @@ internal static class InteractionSpecialCases
         return InteractionShelfCases.ResolveWornBookUse(interactable, onConsumed);
     }
 
+    public static bool ResolveBedroomComputerTower(InteractableData interactable, GameObject sourceObject)
+    {
+        return InteractionBedroomComputerCases.ResolveTower(interactable, sourceObject);
+    }
+
+    public static bool ResolveBedroomComputerMonitor(InteractableData interactable, GameObject sourceObject)
+    {
+        return InteractionBedroomComputerCases.ResolveMonitor(interactable, sourceObject);
+    }
+
     public static bool IsLightInteractable(InteractableData interactable)
     {
         return InteractionLightCases.IsLightInteractable(interactable);
