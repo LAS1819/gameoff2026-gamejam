@@ -24,7 +24,7 @@ Es la Room más personal del juego, y en ella debe sentirse que el edificio no e
 
 ## 2. Qué ocurre en esta Room
 
-El jugador entra en una habitación reconocible, íntima y casi demasiado normal. La cama, la mesita de noche, la lámpara, el armario, la ventana y los objetos cotidianos generan sensación de hogar. Pero ahí empieza a notarse algo extraño: la distorsión no es únicamente ambiental, sino emocional.
+El jugador entra en una habitación reconocible, íntima y casi demasiado normal. La cama, la mesita de noche, la lámpara, el armario, el escritorio con el ordenador, la ventana y los objetos cotidianos generan sensación de hogar. Pero ahí empieza a notarse algo extraño: la distorsión no es únicamente ambiental, sino emocional.
 
 La habitación parece ser la misma que la de la infancia o la adolescencia del protagonista, pero hay algo que no encaja. La ventana, la disposición de los objetos o la sensación de presencia parecen estar “vivos” en una forma que no corresponde al espacio real.
 
@@ -38,7 +38,8 @@ La Bedroom tiene tres funciones muy claras dentro de la progresión del juego:
 
 1. Introducir la idea de la memoria como espacio activo.
 2. Presentar la mecánica de luz como herramienta narrativa y de supervivencia.
-3. Proporcionar un objeto esencial para la siguiente parte del juego: la Llave de la Librería.
+3. Proporcionar un objeto esencial para la siguiente parte del juego: la Llave de la Biblioteca.
+4. Usar el Ordenador con un ítem específico que se localiza en la Biblioteca.
 
 Es también la primera Room en la que el jugador entiende que el concepto de “lugar” no es inocente. La habitación no es solo un sitio del edificio; es una zona donde el personaje ha construido una realidad alternativa para sostener su dolor.
 
@@ -95,10 +96,10 @@ La habitación debe sentirse como un lugar que ha sido “re-escrito” por la m
 - La habitación se puede iluminar para reducir la amenaza o para permitir reconocer ciertos detalles narrativos.
 - El interruptor debe parecer algo sutil pero muy importante dentro del espacio.
 
-### El armario (Closet)
+### El armario (Wardrobe)
 
 - Es el elemento más peligroso y más cargado de tensión.
-- Aquí se guarda la llave que abre la puerta de la Librería.
+- Aquí se guarda la llave que abre la puerta de la Biblioteca.
 - En la realidad normal, puede ser un mueble común, casi banal.
 - En el Otro Lado, el contenido del armario deja de ser inocuo: la clave aparece de forma más extraña, y la amenaza del monstruo puede estar ligada a abrirlo sin las condiciones adecuadas.
 
@@ -115,6 +116,14 @@ La habitación debe sentirse como un lugar que ha sido “re-escrito” por la m
 - También puede ser una marca de transición emocional: al salir de la habitación, el protagonista abandona la sensación de infancia para entrar en una fase más difícil de la verdad.
 - Sólo se puede volver atrás en el Mundo Normal.
 
+### Ordenador (Monitor, Teclado, Ratón y Torre)
+
+- Es un objeto clave para la interacción con el `Disquete` que se encuentra dentro del `Worn Book` de la Biblioteca.
+- Debe ser reconocible y evocador como un espacio de trabajo personal del protagonista, pero sin restar importancia a los elementos narrativos de la habitación.
+- El `Monitor` sólo puede examinarse si la `Torre` está encendida y conectada correctamente.
+- El `Disquete` sólo puede usarse en el `Ordenador` cuando la `Torre` está encendida y conectada correctamente.
+- Tendrá dos partes interactuables: `Monitor` y `Torre`
+
 ---
 
 ## 6. Ítems y objetos clave
@@ -128,8 +137,8 @@ La idea base es que la linterna no forme parte del inventario como un objeto tra
 #### Recomendación de diseño
 
 - La linterna debe aparecer en la UI como un interactuable permanente.
-- El jugador la activa cuando quiera.
-- Debe tener pilas o carga, no necesariamente un sistema complejo en MVP.
+- El jugador sólo puede activarla en Rooms específicas (como el futuro Basement).
+- (Descartado de momento) Debe tener pilas o carga, no necesariamente un sistema complejo en MVP.
 - Su uso es esencial para la exploración y para la seguridad en el Otro Lado.
 - No debe sentirse como un objeto “recogido” y luego olvidado; debe ser una herramienta que acompaña al personaje de forma constante.
 - Podemos obligar a usar la Linterna en momentos específicos, donde la sala lo requiera. Usando la técnica de Luz Global (Global Light) y los efectos de Luz con sprites (Light 2D)
@@ -219,6 +228,7 @@ Estas son las decisiones que recomiendo mantener para un primer prototipo sin so
 - El armario como localización de la Llave.
 - La luz como elemento central del peligro.
 - El monstruo como amenaza reactiva, no como combate.
+- El Ordenador como objeto clave para la interacción con el Disquete de la Biblioteca.
 - [Descartado en esta iteración] La barra de salud / cordura visible.
 
 ### Simplificar
