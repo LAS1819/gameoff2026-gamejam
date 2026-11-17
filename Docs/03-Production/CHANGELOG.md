@@ -2,9 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.0.10-proto] - 2026-11-17
+## [0.0.10-proto] - 2026-11-17 - Bedroom and Library progression pass completion
 
-### Added
+**Added:**
 
 - Bedroom computer interaction flow with a split Tower + Monitor setup, support for powering the device, and a dedicated `Floppy Disk` insertion route
 - Basement progression item logic that grants a `basement_code` after the monitor interaction is resolved correctly with the inserted disk
@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
 - Visual and scene assets for the Bedroom computer and the Library shelf / Worn Book progression path needed by the current MVP loop
 - Documentation updates for the Bedroom, Library, Hallway, story beats, and sprint planning so the current room flow is internally consistent
 
-### Changed
+**Changed:**
 
 - Refactored the interaction resolution pipeline around a clearer contract between item use, state mutation, and required-item validation
 - Tightened the separation between “required item consumed for use” and “interactable itself consumed after successful use” so doors remain persistent while the key item still resolves correctly
@@ -21,7 +21,7 @@ All notable changes to this project will be documented in this file.
 - Updated runtime lifecycle and room visibility behavior so hallway and library doors respond to the current reality and room state without disappearing or reappearing unpredictably
 - Kept the project architecture intentionally lightweight while moving toward a clearer, more maintainable room + interactable + inventory model
 
-### Fixed
+**Fixed:**
 
 - Resolved the Bedroom monitor bug where the power state was not updating correctly when the player used the screen without the expected item flow
 - Fixed the issue where the Library door could disappear unexpectedly after leaving/re-entering the room because the consume logic was tied to the wrong object state
@@ -29,7 +29,7 @@ All notable changes to this project will be documented in this file.
 - Repaired the tower/monitor interaction logic so the monitor properly returns description feedback when powered off and triggers the correct progression once the disk is in place
 - Stabilized the shelf reveal flow and the hidden room activation so the secret-door state is consistent across room transitions and reality changes
 
-### Notes
+**Notes:**
 
 - This release closes the current Library + Bedroom progression pass and leaves the project in a strong MVP state for the main room loop before the next room expansion
 - The prototype remains intentionally focused on playable loop clarity, narrative progression, and maintainability rather than broad feature expansion
@@ -37,30 +37,30 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [0.0.9-proto] - 2026-11-14
+## [0.0.9-proto] - 2026-11-14 - Mouse interaction and input system integration
 
-### Added
+**Added:**
 
 - Mouse interaction contract for the MVP: left click resolves `Interactable` actions and item use / pickup flows, while right click is reserved for `Examine` only
 - Input System-based click handling using polling and raycast validation so the runtime responds only to the intended button and collider
 - Reality-aware description support for interactables and items with normal / other-side fallback logic aligned to the current data model
 - Documentation of the final Sprint 2 technical decision: the current system stays lightweight, and ScriptableObjects remain optional unless content scale forces a migration
 
-### Changed
+**Changed:**
 
 - Refactored the interaction flow around explicit left/right click resolution so examine behavior is separated from active game-state resolution
 - Simplified the interaction architecture by keeping the room, interactable, and inventory data contracts clear and easy to extend without adding unnecessary abstraction layers
 - Kept the gameplay loop aligned with the MVP scope: fast iteration, no premature frameworking, and no extra systems before the content demand is proven
 - Kept the runtime docs consistent with the final technical decisions for the Sprint 2 closeout and the Library/Basement preparation path
 
-### Fixed
+**Fixed:**
 
 - Resolved the critical bug where right-clicking an interactable could still trigger the underlying `resultFlag` logic and mutate state during `Examine`
 - Fixed the Input System incompatibility caused by legacy `UnityEngine.Input.mousePosition` reads while the project had active Input System Package enabled in Player Settings
 - Prevented false-positive interaction resolution by validating the hit target with a 2D raycast before processing the click event
 - Corrected the mismatch between “read-only examine” and “state-changing interaction” so only actual interactions mutate room or progression flags
 
-### Notes
+**Notes:**
 
 - This release closes the core interaction contract for the current MVP and stabilizes the final click-resolution model before the Library pass begins
 - The project keeps the current data-first architecture as the default while leaving ScriptableObjects as a clear future migration option only if content scale requires it
@@ -68,9 +68,9 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [0.0.8-proto] - 2026-11-12
+## [0.0.8-proto] - 2026-11-12 - Complete Bedroom flow and interaction stabilization
 
-### Added
+**Added:**
 
 - Complete Bedroom flow in the main runtime loop, including the wardrobe, light switch, monster visibility, library key, hallway exit, and window interactables
 - Lantern HUD state and persistent icon behavior aligned with the existing shift-button UI patterns
@@ -79,7 +79,7 @@ All notable changes to this project will be documented in this file.
 - Runtime room bootstrap adjustments that keep the Lobby visible at startup and prevent the scene from starting in the wrong room
 - Audio output routing through the `MainAudioMixer` `Music` group so generated AudioSources respect the intended project mixer structure
 
-### Changed
+**Changed:**
 
 - Refined the interaction model to handle room-specific visibility, reality-aware descriptions, and conditional object activation more consistently across scenes
 - Updated `GameManager` and `RoomManager` runtime setup to ensure the active Room and Room catalog are initialized in the correct order on startup
@@ -87,7 +87,7 @@ All notable changes to this project will be documented in this file.
 - Kept the Lantern and HUD logic aligned with the broader MVP requirement: the item is a persistent world state indicator rather than a regular inventory slot item
 - Continued the project’s minimal, gameplay-first architecture without adding unnecessary abstraction layers or broad framework systems
 
-### Fixed
+**Fixed:**
 
 - Resolved the startup room issue where the Lobby could fail to appear when entering Play because the room loader was relying on a stale CurrentRoom condition
 - Fixed the Shift input failure caused by mixing legacy `UnityEngine.Input` calls with the active Input System package setup
@@ -95,7 +95,7 @@ All notable changes to this project will be documented in this file.
 - Prevented the bedroom door and related scene state from being shown under the wrong room or reality conditions
 - Ensured runtime AudioSource generation follows the configured mixer hierarchy instead of bypassing the mixer output path
 
-### Notes
+**Notes:**
 
 - This release completes the Bedroom-focused MVP work on the current branch and consolidates the room, UI, interaction, and runtime stability changes behind a single versioned milestone
 - The project remains intentionally scoped to a minimal, playable loop for the game-jam MVP rather than expanding into full inventory or backend systems
@@ -103,9 +103,9 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [0.0.7-proto] - 2026-11-10
+## [0.0.7-proto] - 2026-11-10 - Initial audio system foundation
 
-### Added
+**Added:**
 
 - Initial runtime audio foundation with a dedicated `AudioManager` and `MusicManager` under the main runtime hierarchy
 - Looping Theme Father soundtrack playback tied to the game's runtime lifecycle
@@ -113,18 +113,18 @@ All notable changes to this project will be documented in this file.
 - Unity import and workflow guidance for music/ambient vs SFX handling in the technical design document
 - Audio system design notes capturing the runtime architecture, mixer guidance, and migration path for future content
 
-### Changed
+**Changed:**
 
 - Wired `GameManager` to initialize the audio system alongside the rest of the runtime managers
 - Kept the music system aligned with the current project pattern so the audio layer responds to runtime state instead of bypassing the game's existing architecture
 - Reworked the technical design doc to keep the audio specification compact, practical, and consistent with the current sprint scope
 
-### Fixed
+**Fixed:**
 
 - Ensured the music source is explicitly assigned to the `Music` bus so it reaches the mixer output instead of being left un-routed
 - Reduced the risk of unmaintainable audio design by avoiding a `Resources`-based dependency in the first runtime pass
 
-### Notes
+**Notes:**
 
 - This pass establishes the initial audio runtime foundation without over-expanding the feature set beyond the current MVP scope
 - The project is still intentionally scoped to a single global theme while the actual Library and other rooms remain deferred for future content passes
@@ -132,9 +132,9 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [0.0.6-proto] - 2026-11-07
+## [0.0.6-proto] - 2026-11-07 - Central HUD and inventory interaction improvements
 
-### Added
+**Added:**
 
 - Central runtime HUD built around a single `HUDRoot` with Panel Renderer, UXML, and USS for the MVP demo layer
 - Inventory slot state and selected-item highlighting so the player can clearly see what has been picked up and what is currently prepared for use
@@ -142,57 +142,57 @@ All notable changes to this project will be documented in this file.
 - `TryToggleReality()` and `IsShiftAllowedInCurrentRoom()` helpers to centralize the reality-toggle rules without duplicating logic
 - Runtime feedback and overlay states in `HUDController` for room transitions and reality changes
 
-### Changed
+**Changed:**
 
 - Consolidated the HUD and SHIFT interaction into one runtime source of truth to avoid duplicate UI surfaces and conflicting click handlers
 - Updated `InteractionManager` to require an explicit item selection before a required item can be used on a target interactable, aligning with the Staff Key + Front Door flow
 - Refined the HUD lifecycle so `UIManager` delegates to `HUDController` instead of leaving the UI layer half-wired or disconnected from gameplay events
 - Cleaned the stylesheet to remove unsupported UI Toolkit patterns and keep the HUD compatible with the current runtime UI stack
 
-### Fixed
+**Fixed:**
 
 - Prevented LEFT SHIFT from toggling reality outside the allowed room, matching the same restriction already applied to the HUD button
 - Removed the duplicate/legacy ShiftPanel conflict risk by keeping the control path centralized in the HUD root
 - Ensured inventory slots visibly reflect item presence and selection after pickup instead of only toggling a generic empty/full style
 - Stopped UI Toolkit warnings by replacing unsupported `inset`, `gap`, and pseudo-selector patterns with compatible layout rules
 
-### Notes
+**Notes:**
 
 - This pass stabilizes the demo-ready HUD layer and the core MVP interaction flow without expanding scope into extra rooms or content systems
 - The prototype remains focused on the Lobby → Hallway loop, while the actual Library and Bedroom rooms are still intentionally deferred for the next iteration
 
 ---
 
-## [0.0.5-proto] - 2026-11-06
+## [0.0.5-proto] - 2026-11-06 - Hallway side-room placeholder flow and gating logic
 
-### Added
+**Added:**
 
 - Hallway placeholder doors for the Library and Bedroom, registered as valid interactables in the hallway room data
 - `AddHallwayInteractables()` helper in `GameManager` to keep the room setup structured and easier to read
 - Debug console feedback for `library_door` and `bedroom_door` when examined in the correct reality
 
-### Changed
+**Changed:**
 
 - Hallway room setup was refactored out of the inline room factory flow to keep the prototype cleaner and reduce `GameManager` sprawl
 - `InteractionManager.ResolveExamine()` now emits the interactable description in logs and blocks interaction when the player is not in the Other Side
 - The two hallway doors were defined as visible only in the Other Side, matching the intended gameplay gate around the hallway obstacle
 
-### Fixed
+**Fixed:**
 
 - Prevented the placeholder doors from being interactable in the normal reality before the obstacle is cleared
 - Corrected the hidden toggle behavior by making the hallway room data include the doors as real interactables instead of relying only on Scene objects
 - Avoided false-positive clickability for library/bedroom triggers before the reality shift is active
 
-### Notes
+**Notes:**
 
 - This is the prototype pass that stabilizes the hallway side-room placeholder flow and validates the intended gating logic before the next content iteration
 - The actual Library and Bedroom rooms are still placeholders; the interaction is now correctly tied to the Other Side and ready for the next content pass
 
 ---
 
-## [0.0.4-proto] - 2026-11-06
+## [0.0.4-proto] - 2026-11-06 - Runtime SHIFT UI and visual state improvements
 
-### Added
+**Added:**
 
 - Runtime SHIFT UI implemented with UI Toolkit + Panel Renderer
 - Clean icon-only interaction using a `VisualElement` instead of the native Unity Button
@@ -200,28 +200,28 @@ All notable changes to this project will be documented in this file.
 - Visual state switching between normal and Other Side via CSS classes
 - Hover, pressed, disabled feedback handled in USS
 
-### Changed
+**Changed:**
 
 - Shift logic separated from visual styling to keep the UI layer clean and avoid default button background artifacts
 - Updated the technical setup docs to reflect the actual Panel Renderer implementation and the final icon workflow
 - Adjusted the runtime UI so styling lives in `ShiftUI.uxml` + `shift-button-style-sheet.uss` instead of in C# code
 
-### Fixed
+**Fixed:**
 
 - Removed the default button background that was appearing behind the SHIFT icon
 - Repaired the runtime binding flow for the UI Toolkit clean icon implementation
 - Prevented SHIFT from being triggered in rooms where it is not allowed
 
-### Notes
+**Notes:**
 
 - MVP loop remains focused on Hallway reality shifting as the technical core of the prototype
 - This release stabilizes the runtime UI layer and brings the SHIFT interaction closer to the final intended presentation
 
 ---
 
-## [0.0.3-proto] - 2026-11-05
+## [0.0.3-proto] - 2026-11-05 - Input System integration and SHIFT mechanic design
 
-### Added
+**Added:**
 
 - Input System upgrade for LEFT SHIFT handling
 - Hallway configuration guide (HALLWAY-SETUP.md)
@@ -229,12 +229,12 @@ All notable changes to this project will be documented in this file.
 - InputHandler script with Input System Package support
 - Amuleto icon design and progression documentation
 
-### Changed
+**Changed:**
 
 - Migrated from legacy Input.GetKeyDown() to Input System Package APIs
 - Updated technical documentation with Input System requirements and implementation details
 
-### Notes
+**Notes:**
 
 - Player Settings requires "Active Input Handling" = "Input System Package"
 - Hallway ready for scene configuration
@@ -242,9 +242,9 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [0.0.2-proto] - 2026-11-04
+## [0.0.2-proto] - 2026-11-04 - First playable prototype loop
 
-### Added
+**Added:**
 
 - First playable prototype loop for the MVP:
   - StaffKey pickup flow
@@ -255,20 +255,20 @@ All notable changes to this project will be documented in this file.
 - Room visibility and interaction state logic for the playable lobby loop
 - Updated MVP technical documentation reflecting the progress of the sprint
 
-### Changed
+**Changed:**
 
 - Removed the Bootstrap scene complexity from the active MVP workflow to reduce cross-scene debugging
 - Consolidated room loading and visibility handling around the Main scene structure
 - Refined GameManager, RoomManager, and InteractionManager flow to favor clarity and faster validation
 - Updated sprint notes to reflect the actual state of development: Lobby complete, Hallway in progress
 
-### Fixed
+**Fixed:**
 
 - Redundant room loading calls that were generating noisy logs and confusing the flow
 - Scene hierarchy assumptions that caused room lookup issues in early testing
 - Transition logic friction by standardizing room IDs and visibility handling
 
-### Notes
+**Notes:**
 
 - This is the first prototype release candidate for the playable loop.
 - The lobby flow is validated and the room transition foundation is working.
@@ -276,9 +276,9 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [0.0.1-proto] - 2026-11-03
+## [0.0.1-proto] - 2026-11-03 - Initial release
 
-### Added
+**Added:**
 
 - Initial project foundation: documentation, concept notes, and technical scaffolding
 - Core design direction for the point-and-click psychological horror prototype
@@ -286,12 +286,12 @@ All notable changes to this project will be documented in this file.
 - Early notes on room progression, interactables, and flags
 - First version of the technical architecture and implementation roadmap
 
-### Changed
+**Changed:**
 
 - Established the initial project documentation structure in Docs/01-Game-Design and Docs/02-Technical-Design
 - Defined the MVP goal, room flow, and technical scope for the first prototype iteration
 
-### Notes
+**Notes:**
 
 - This release is a conceptual and planning baseline rather than a playable build.
 - It captures the initial idea storm, scope framing, and technical direction for the prototype.
