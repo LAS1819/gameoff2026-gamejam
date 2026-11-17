@@ -45,6 +45,7 @@ Read [Technical-Design.md](./Technical-Design.md) for the overall philosophy beh
 | [Gameplay/Rooms/Room-Hallway.md](./Gameplay/Rooms/Room-Hallway.md) | Hallway room setup |
 | [Gameplay/Rooms/Room-Bedroom.md](./Gameplay/Rooms/Room-Bedroom.md) | Bedroom technical setup |
 | [Gameplay/Rooms/Room-Library.md](./Gameplay/Rooms/Room-Library.md) | Library technical setup and progression plan |
+| [Gameplay/Rooms/TD-Room-Basement.md](./Gameplay/Rooms/TD-Room-Basement.md) | Basement technical setup (lantern and low-light flow) |
 | [Gameplay/Rooms/Room-Bedroom-Setup.md](./Gameplay/Rooms/Room-Bedroom-Setup.md) | Unity scene setup reference |
 | [UI/TD-HUD.md](./UI/TD-HUD.md) | HUD design and runtime references |
 | [TD-Interactables.md](./TD-Interactables.md) | Generic interactable model |

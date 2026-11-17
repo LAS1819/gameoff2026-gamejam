@@ -94,7 +94,8 @@ La `lantern-icon` se coloca encima del `shift-button` para mantener la misma ló
 - Este sprite representa la silueta de la `Linterna` sin obtener.
 - Cuando el jugador recoge la `Linterna` en `Bedroom`, el `HUD` cambia al Sprite 1 del mismo atlas.
 - El Sprite 1 representa la `Linterna` obtenida, pero apagada.
-- La `Linterna` no se usa todavía fuera del `Sótano`; su uso quedará bloqueado por gating de room cuando se implemente la futura mecánica.
+- En `Basement`, el jugador puede alternar la `Linterna` y pasar al Sprite 2 (obtenida-encendida).
+- Fuera de rooms permitidas, el toggle se bloquea por gating de room (mismo patrón conceptual que SHIFT).
 - El icono se sitúa por encima del `shift-button`, sin romper la compactación visual del `HUD`.
 
 ### Transiciones visuales
@@ -157,7 +158,8 @@ En el GO de `UIManager`:
 5. SHIFT fuera de `Hallway` → botón deshabilitado (gris) + no reacciona
 6. `Linterna` en estado inicial → Sprite 0 visible en `HUD`
 7. obtener la `Linterna` en `Bedroom` → Sprite 1 visible en `HUD`
-8. sin `Sótano` activo → la `Linterna` no usable, solo estado de posesión
+8. entrar en `Basement` → toggle habilitado de `Linterna` y paso a Sprite 2 al encender
+9. salir de room permitida → `Linterna` vuelve a estado apagado (Sprite 1) o se bloquea el toggle según regla de room
 
 **El `shift-button` ahora es pequeño, pulsable y parte del `HUD` central.**
 
@@ -169,6 +171,7 @@ En el `HUD` centralizado, confirmar:
 - se usa el `spritesheet-ui-icon-lantern-v1`
 - el Sprite 0 se asigna al inicio del juego
 - al recoger la `Linterna` en `Bedroom` se cambia a Sprite 1
+- al activar la `Linterna` en room permitida se usa Sprite 2
 - el icono se deja visible aunque no esté disponible para usar en la `sala` actual
 - el botón SHIFT permanece debajo para preservar la jerarquía visual
 
