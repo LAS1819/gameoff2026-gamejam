@@ -235,20 +235,44 @@ public class HUDController : MonoBehaviour
 
     private void OnInventorySlotContextClicked(ContextClickEvent evt)
     {
-        var target = evt.target as VisualElement;
-        var slot = target;
-
-        while (slot != null && !slot.ClassListContains("inventory-slot"))
-        {
-            slot = slot.parent;
-        }
-
+        var slot = ResolveInventorySlot(evt.target as VisualElement);
         if (slot == null || string.IsNullOrEmpty(slot.userData as string))
         {
             return;
         }
 
-        var itemId = slot.userData as string;
+        InspectInventoryItem(slot.userData as string, evt);
+    }
+
+    private void OnInventorySlotMouseDown(MouseDownEvent evt)
+    {
+        if (evt.button != (int)MouseButton.RightMouse)
+        {
+            return;
+        }
+
+        var slot = ResolveInventorySlot(evt.target as VisualElement);
+        if (slot == null || string.IsNullOrEmpty(slot.userData as string))
+        {
+            return;
+        }
+
+        InspectInventoryItem(slot.userData as string, evt);
+    }
+
+    private VisualElement ResolveInventorySlot(VisualElement target)
+    {
+        var slot = target;
+        while (slot != null && !slot.ClassListContains("inventory-slot"))
+        {
+            slot = slot.parent;
+        }
+
+        return slot;
+    }
+
+    private void InspectInventoryItem(string itemId, EventBase evt)
+    {
         var item = InventoryManager.Instance?.GetItemById(itemId);
         if (item == null)
         {
@@ -257,12 +281,36 @@ public class HUDController : MonoBehaviour
 
         var currentReality = RealityManager.Instance != null ? RealityManager.Instance.CurrentReality : RealityType.Normal;
         var description = item.GetDescriptionForReality(currentReality);
+
+        if (item.id.Equals("worn_book", StringComparison.OrdinalIgnoreCase)
+            && GameManager.Instance != null
+            && !GameManager.Instance.HasFlag(GameFlagNames.FloppyDiskRecovered))
+        {
+            var floppyDisk = new InventoryItemData
+            {
+                id = "floppy_disk",
+                displayName = "Floppy Disk",
+                description = "A small disk hidden inside the book.",
+                descriptionInNormalReality = "A small, faded floppy disk has been tucked inside the back pages of the Worn Book.",
+                descriptionInOtherReality = "The disk is not just hidden: it looks like it was placed there to be found later by someone from this reality.",
+                isKeyItem = true
+            };
+
+            if (!InventoryManager.Instance.HasItem(floppyDisk.id))
+            {
+                InventoryManager.Instance.AddItem(floppyDisk);
+                GameManager.Instance.SetFlag(GameFlagNames.FloppyDiskRecovered, true);
+                description = "You inspect the Worn Book and discover a hidden floppy disk tucked into the back pages.";
+            }
+        }
+
         if (string.IsNullOrWhiteSpace(description))
         {
             description = $"You inspect {item.displayName}.";
         }
 
         ShowFeedback(description, 2f);
+        RefreshInventory();
         evt.StopPropagation();
     }
 
@@ -323,6 +371,8 @@ public class HUDController : MonoBehaviour
                 slot.RegisterCallback<ClickEvent>(OnInventorySlotClicked);
                 slot.UnregisterCallback<ContextClickEvent>(OnInventorySlotContextClicked);
                 slot.RegisterCallback<ContextClickEvent>(OnInventorySlotContextClicked);
+                slot.UnregisterCallback<MouseDownEvent>(OnInventorySlotMouseDown);
+                slot.RegisterCallback<MouseDownEvent>(OnInventorySlotMouseDown);
             }
         }
 

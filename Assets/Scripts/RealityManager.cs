@@ -22,7 +22,6 @@ public class RealityManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     private void OnEnable()
@@ -80,7 +79,8 @@ public class RealityManager : MonoBehaviour
         }
 
         return roomId.Equals(GameManager.HallwayRoomId, StringComparison.OrdinalIgnoreCase)
-            || roomId.Equals(GameManager.BedroomRoomId, StringComparison.OrdinalIgnoreCase);
+            || roomId.Equals(GameManager.BedroomRoomId, StringComparison.OrdinalIgnoreCase)
+            || roomId.Equals(GameManager.LibraryRoomId, StringComparison.OrdinalIgnoreCase);
     }
 
     public bool TryToggleReality()
@@ -129,16 +129,18 @@ public class RealityManager : MonoBehaviour
 
             backgroundNormal.SetActive(normalActive);
             backgroundOtherSide.SetActive(otherActive);
+            return;
+        }
 
-            Debug.Log($"[RealityManager] Updated backgrounds - Normal: {normalActive}, OtherSide: {otherActive}");
-        }
-        else if (backgroundNormal != null)
+        if (backgroundNormal != null)
         {
-            Debug.LogWarning("[RealityManager] BackgroundNormal found, but BackgroundOtherSide NOT found - current room may not have OtherSide variant");
+            backgroundNormal.SetActive(CurrentReality == RealityType.Normal);
+            return;
         }
-        else
+
+        if (backgroundOtherSide != null)
         {
-            Debug.LogWarning("[RealityManager] No backgrounds found in current room");
+            backgroundOtherSide.SetActive(CurrentReality == RealityType.OtherSide);
         }
     }
 
@@ -173,7 +175,6 @@ public class RealityManager : MonoBehaviour
         var roomsRoot = GameObject.Find("Main/Rooms") ?? GameObject.Find("Rooms");
         if (roomsRoot == null)
         {
-            Debug.LogWarning("[RealityManager] 'Rooms' root not found.");
             return;
         }
 
@@ -189,7 +190,6 @@ public class RealityManager : MonoBehaviour
 
         if (roomRoot == null)
         {
-            Debug.LogWarning($"[RealityManager] Active room root not found for '{currentRoomId}'.");
             return;
         }
 
@@ -205,13 +205,11 @@ public class RealityManager : MonoBehaviour
         if (normal != null)
         {
             backgroundNormal = normal.gameObject;
-            Debug.Log($"[RealityManager] Found BackgroundNormal at {GetFullPath(normal)}");
         }
 
         if (other != null)
         {
             backgroundOtherSide = other.gameObject;
-            Debug.Log($"[RealityManager] Found BackgroundOtherSide at {GetFullPath(other)}");
         }
     }
 

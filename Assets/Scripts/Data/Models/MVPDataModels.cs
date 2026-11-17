@@ -81,6 +81,9 @@ public class InteractableData
     
     // For Use interactions: what item is required to use this?
     public string requiredItemId;
+
+    // Should the required item be consumed when interaction succeeds?
+    public bool consumeRequiredItemOnUse;
     
     // What flag to set when this interaction succeeds?
     public string resultFlag;

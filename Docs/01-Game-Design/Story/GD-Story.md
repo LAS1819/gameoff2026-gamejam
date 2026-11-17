@@ -1,8 +1,8 @@
 # Story Design
 
-- **Versión del documento*** 0.5
+- **Versión del documento*** 0.6
 - **Creado:** 2026-11-07
-- **Última actualización:** 2026-11-07
+- **Última actualización:** 2026-11-17
 
 ---
 
@@ -102,6 +102,8 @@ Para el jugador representa una realidad alternativa donde las cosas no son exact
 A nivel temático simboliza la distancia entre lo que ocurrió realmente y aquello que el protagonista desea creer.
 
 El objetivo de la historia consiste en reducir poco a poco esa distancia.
+
+En la `Bedroom`, el ordenado personal funciona como una de las primeras pruebas materiales de esa mentira. No es solo un objeto cualquiera: es el archivo que el protagonista usó para sostener la versión más llevadera de la desaparición de su padre. El `Floppy Disk` se convierte en la copia física de ese recuerdo manipulado, y el `Basement Code` es el primer momento en el que la historia deja de ser una ficción confortante y se vuelve evidencia.
 
 ---
 

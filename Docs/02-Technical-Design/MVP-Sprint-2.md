@@ -193,7 +193,7 @@ Una vez funcionando la Bedroom, hay que cerrar que la progresión tiene sentido 
 
 ## Bloque F - Refactor Final de Sprint (COMPLETO ✅)
 
-**Estado: ✅ IMPLEMENTADO Y VALIDADO EN COMPILACIÓN**
+### Estado: ✅ IMPLEMENTADO Y VALIDADO EN COMPILACIÓN
 
 ### Resumen de cambios
 
@@ -233,7 +233,7 @@ El Bloque F se completó exitosamente implementando:
 ### Cambios de archivo
 
 | Archivo | Cambios |
-|---------|---------|
+| --------- | --------- |
 | `InteractableBehaviour.cs` | Reemplazado callbacks legacy → polling Update + raycast + Input System |
 | `InteractionManager.cs` | Separación de `TryInteract()` y `TryExamine()` |
 | `InteractionResolver.cs` | Removido `resultFlag` de `ResolveExamine()` |
@@ -243,7 +243,7 @@ El Bloque F se completó exitosamente implementando:
 
 ### Estado de compilación
 
-```
+```plaintext
 ✅ 0 Errores
 ✅ 0 Advertencias (solo legacy API warnings preexistentes)
 ✅ Build time: ~2 segundos
@@ -264,7 +264,7 @@ El Bloque F se completó exitosamente implementando:
 
 ## ScriptableObject Evaluation (Sprint 3 Decision)
 
-**Estado: EVALUACIÓN COMPLETA - RECOMENDACIÓN HÍBRIDA**
+- **Estado: EVALUACIÓN COMPLETA - RECOMENDACIÓN HÍBRIDA**
 
 ### Recomendación para Sprint 3+
 
@@ -306,7 +306,7 @@ El Bloque F se completó exitosamente implementando:
 
 ### Costo inicial vs Beneficio
 
-```pt
+```plaintext
 Setup: ~1 hora (después de Library validada)
 Ahorro repetitivo: ~5-10 horas (Basement + Ritual + futuras rooms)
 ROI: +400-1000%

@@ -11,7 +11,19 @@ public static class GameFlagNames
     public const string BedroomLightOn = "BedroomLightOn";
     public const string BedroomWardrobeOpened = "BedroomWardrobeOpened";
     public const string BedroomMonsterVisible = "BedroomMonsterVisible";
+    public const string BedroomComputerPowered = "BedroomComputerPowered";
+    public const string BedroomComputerDiskInserted = "BedroomComputerDiskInserted";
     public const string HasLibraryKey = "HasLibraryKey";
+    public const string LibraryDoorUnlocked = "LibraryDoorUnlocked";
+    public const string WornBookFound = "WornBookFound";
+    public const string FloppyDiskRecovered = "FloppyDiskRecovered";
+    public const string LibraryMemoriesObserved = "LibraryMemoriesObserved";
+    public const string LibraryShelfActivated = "LibraryShelfActivated";
+    public const string LibrarySecretRevealed = "LibrarySecretRevealed";
+    public const string LibrarySecretDoorOpen = "LibrarySecretDoorOpen";
+    public const string BasementDoorVisible = "BasementDoorVisible";
+    public const string BasementUnlocked = "BasementUnlocked";
+    public const string BasementCodeAcquired = "BasementCodeAcquired";
 }
 
 public class GameManager : MonoBehaviour
@@ -20,6 +32,11 @@ public class GameManager : MonoBehaviour
     public const string LobbyRoomId = "lobby";
     public const string HallwayRoomId = "hallway";
     public const string BedroomRoomId = "bedroom";
+    public const string LibraryRoomId = "library";
+
+    [Header("Development")]
+    [SerializeField] private bool useDebugStartRoom = true;
+    [SerializeField] private string debugStartRoomId = LibraryRoomId;
 
     public static GameManager Instance { get; private set; }
 
@@ -70,7 +87,19 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.BedroomLightOn, false);
         SetFlag(GameFlagNames.BedroomWardrobeOpened, false);
         SetFlag(GameFlagNames.BedroomMonsterVisible, false);
+        SetFlag(GameFlagNames.BedroomComputerPowered, false);
+        SetFlag(GameFlagNames.BedroomComputerDiskInserted, false);
         SetFlag(GameFlagNames.HasLibraryKey, false);
+        SetFlag(GameFlagNames.LibraryDoorUnlocked, false);
+        SetFlag(GameFlagNames.WornBookFound, false);
+        SetFlag(GameFlagNames.FloppyDiskRecovered, false);
+        SetFlag(GameFlagNames.LibraryMemoriesObserved, false);
+        SetFlag(GameFlagNames.LibraryShelfActivated, false);
+        SetFlag(GameFlagNames.LibrarySecretRevealed, false);
+        SetFlag(GameFlagNames.LibrarySecretDoorOpen, false);
+        SetFlag(GameFlagNames.BasementDoorVisible, false);
+        SetFlag(GameFlagNames.BasementUnlocked, false);
+        SetFlag(GameFlagNames.BasementCodeAcquired, false);
 
         EnsureRuntimeSystems();
         InventoryManager.Instance?.ResetInventory();
@@ -79,7 +108,14 @@ public class GameManager : MonoBehaviour
         if (RoomManager.Instance != null)
         {
             RoomManager.Instance.SetRooms(DefaultRoomCatalog.BuildMvpRooms());
-            RoomManager.Instance.LoadRoom(LobbyRoomId);
+
+            var targetRoomId = LobbyRoomId;
+            if (Application.isEditor && useDebugStartRoom && !string.IsNullOrWhiteSpace(debugStartRoomId))
+            {
+                targetRoomId = debugStartRoomId;
+            }
+
+            RoomManager.Instance.LoadRoom(targetRoomId);
         }
 
         if (RealityManager.Instance != null)
@@ -103,14 +139,44 @@ public class GameManager : MonoBehaviour
 
     private void EnsureRuntimeSystem<T>(string objectName) where T : MonoBehaviour
     {
-        if (FindAnyObjectByType<T>() != null)
+        var systems = FindObjectsByType<T>(FindObjectsInactive.Include);
+
+        T primarySystem = null;
+        for (var index = 0; index < systems.Length; index++)
         {
-            return;
+            var system = systems[index];
+            if (system == null)
+            {
+                continue;
+            }
+
+            if (primarySystem == null)
+            {
+                primarySystem = system;
+                continue;
+            }
+
+            Destroy(system.gameObject);
         }
 
-        var systemObject = new GameObject(objectName);
-        systemObject.transform.SetParent(transform);
-        systemObject.AddComponent<T>();
+        if (primarySystem == null)
+        {
+            var systemObject = new GameObject(objectName);
+            systemObject.transform.SetParent(transform);
+            primarySystem = systemObject.AddComponent<T>();
+        }
+        else
+        {
+            if (primarySystem.transform.parent != transform)
+            {
+                primarySystem.transform.SetParent(transform);
+            }
+
+            if (!primarySystem.gameObject.name.Equals(objectName, System.StringComparison.Ordinal))
+            {
+                primarySystem.gameObject.name = objectName;
+            }
+        }
     }
 
     public static List<RoomData> BuildDefaultRooms()

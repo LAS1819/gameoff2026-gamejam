@@ -23,7 +23,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public bool AddItem(InventoryItemData item)
@@ -57,6 +56,12 @@ public class InventoryManager : MonoBehaviour
         }
 
         items.Remove(item);
+
+        if (SelectedItemId == item.id)
+        {
+            SelectedItemId = null;
+            SelectedItemChanged?.Invoke(null);
+        }
 
         ItemRemoved?.Invoke(item);
         return true;
@@ -95,6 +100,11 @@ public class InventoryManager : MonoBehaviour
     }
 
     public void ClearSelection()
+    {
+        DeselectSelectedItem();
+    }
+
+    public void DeselectSelectedItem()
     {
         if (string.IsNullOrEmpty(SelectedItemId))
         {

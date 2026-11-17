@@ -17,7 +17,6 @@ public class AudioManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         musicManager = GetComponent<MusicManager>();
         if (musicManager == null)

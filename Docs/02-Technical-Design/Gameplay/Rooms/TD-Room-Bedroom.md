@@ -1,8 +1,8 @@
 # Room Bedroom — Technical Spec
 
-- Versión 0.2
+- Versión 0.3
 - Creado: 10/11/2026
-- Actualizado: 10/11/2026
+- Actualizado: 17/11/2026
 
 ---
 
@@ -15,10 +15,12 @@ Su función técnica es:
 - presentar una Room personal y específica del protagonista;
 - introducir la luz como solución de seguridad y lectura psicológica;
 - activar la recolección de un item clave para una futura puerta de biblioteca;
+- cerrar la progresión del Library MVP con un objeto físico importante: el `Disquete` oculto en el `Worn Book`;
 - definir un patrón de amenaza reactiva basado en el armario y en el Otro Lado;
-- sentar la base para la mecánica de luz sin introducir salud en el MVP.
+- sentar la base para la mecánica de luz sin introducir salud en el MVP;
+- ofrecer la primera recompensa de código o información útil con el `Ordenador Personal`.
 
-Es la primera Room que mezcla progresión narrativa y bloqueo de juego.
+Es la primera Room que mezcla progresión narrativa, bloqueo emocional y resolución de la historia a través de un objeto de interacción simple.
 
 ---
 
@@ -34,6 +36,7 @@ RoomData
   - flashlight_pickup
   - wardrobe
   - wardrobe_key
+  - bedroom_computer
   - bedroom_exit
   - window
   - wardrobe_monster (visual blocker)
@@ -47,6 +50,7 @@ RoomData
 - La linterna no está desbloqueada todavía.
 - El armario no ofrece nada en la Realidad Normal.
 - El monstruo sólo aparece como bloqueo contextual al abrir el armario en el Otro Lado si la luz no está encendida.
+- El ordenador está apagado y sin disco insertado.
 - No se incluye sistema de salud en este MVP.
 
 ---
@@ -245,6 +249,64 @@ resultFlag: MonsterVisible
 
 ---
 
+### 3.8 BedroomComputer
+
+```text
+id: "bedroom_computer"
+displayName: "Computer"
+interactionType: MultiPart
+children:
+  - "computer_monitor"
+  - "computer_tower"
+stateFlags:
+  - BedroomComputerPowered
+  - FloppyInserted
+  - BasementCodeUnlocked
+```
+
+**Propósito:**
+
+- cerrar la progresión de la Library con un sistema de acceso simple y narrativo;
+- convertir el `Disquete` en una recompensa tangible del misterio de la biblioteca;
+- dar un primer “código” útil para el Basement sin convertirlo en un puzzle complejo.
+
+**Reglas técnicas:**
+
+- El objeto se compone de dos zonas claramente separadas: `computer_tower` y `computer_monitor`.
+- La `computer_tower` es la parte que enciende la máquina y acepta el `Floppy Disk`.
+- La `computer_monitor` sólo muestra información si la máquina está encendida y el disco está insertado.
+- La pantalla puede enciende/apagarse sin disco como feedback de vida del equipo.
+- El disco no puede insertarse si la torre está apagada.
+- El código del `Basement` se entrega solo cuando la torre está encendida y el floppy está insertado.
+
+**Regla de flujo MVP:**
+
+```text
+If tower clicked and computer is off
+    computer turns on
+    monitor becomes active
+
+If tower clicked while on and no disk inserted
+    monitor toggles power state ON/OFF
+
+If disk inserted while tower is on
+    FloppyInserted = true
+    BasementCodeUnlocked = true
+    monitor displays code or clue
+
+If disk removed
+    FloppyInserted = false
+    monitor returns to neutral state
+```
+
+**Recomendación técnica:**
+
+- Mantener el ordenado como un `Interactable` de dos partes, no como un sistema completo de ordenador.
+- No hacer UI compleja ni minijuego real. Un texto simple sobre la pantalla o un panel de feedback es suficiente.
+- El importante es la lógica de “encender -> insertar -> recibir código”, no la simulación de PC realista.
+
+---
+
 ## 4. Items del Room
 
 ### 4.1 Flashlight
@@ -275,7 +337,7 @@ ItemData
 - useContext: "library_door"
 ```
 
-#### Reglas
+**Reglas:**
 
 - Recolección secundaria, pero importante para continuidad.
 - Debe relacionarse con la futura biblioteca y con la lógica del armario.
@@ -291,8 +353,11 @@ ItemData
 | WardrobeOpened | El jugador ha abierto el armario | `wardrobe` |
 | MonsterVisible | El monstruo está bloqueando la interacción | `wardrobe_monster` |
 | LibraryKeyFound | Se ha recogido la llave de la librería | `wardrobe_key` |
+| BedroomComputerPowered | La torre del ordenador está encendida | `bedroom_computer.tower` |
+| FloppyInserted | El disquete está insertado en el ordenador | `bedroom_computer` |
+| BasementCodeUnlocked | Se ha mostrado el código del Basement | `bedroom_computer.monitor` |
 
-### Regla técnica sugerida
+**Regla técnica sugerida:**
 
 ```text
 If currentReality == OtherSide
@@ -314,12 +379,12 @@ La lógica debe ser simple y legible. El monstruo no es un enemigo general; es u
 
 ## 6. Sistema de bloqueo y resolución (sin salud)
 
-### Regla de MVP
+**Regla de MVP:**
 
 - No se incluye salud ni cordura por ahora.
 - El monstruo no daña; simplemente bloquea la interacción y obliga al jugador a resolver la luz.
 
-#### Flujo exacto
+**Flujo exacto:**
 
 ```text
 Player opens Wardrobe in Normal
@@ -387,6 +452,13 @@ Load Room bedroom
 → monster disappears
 → key becomes collectible
 → player picks up Library Key
+→ player keeps exploring the Library and finds Worn Book
+→ player recovers Floppy Disk from inside the Worn Book
+→ player returns to Bedroom
+→ powers on computer tower
+→ inserts floppy
+→ monitor displays Basement Code / clue
+→ progression loop closes with the hidden secret door / cellar reveal
 ```
 
 ---
@@ -400,14 +472,17 @@ Load Room bedroom
 - lamp as main safety trigger
 - wardrobe as central interactable
 - monster blocking only via wardrobe in OtherSide
+- computer as a two-part reveal object with tower + monitor
+- floppy disk as progression reward coming from the Library mystery
 - no health system in this iteration
 
 ### Simplificar
 
-- sin batería compleja
+- sin batería
 - sin varias fases del monstruo
 - sin amenaza persistente fuera del armario
 - sin muerte instantánea o sistemas de daño
+- sin “simulación real” completa del ordenador
 
 ### Dejar fuera del MVP
 
@@ -415,6 +490,7 @@ Load Room bedroom
 - puzzles adicionales dentro de la habitación
 - más de una ruta de salida
 - animaciones complejas de amenaza
+- sistema complejo de archivos / interfaces / teclado / ratón
 
 ---
 
@@ -430,11 +506,15 @@ Bedroom
 │   ├── FlashlightPickup
 │   ├── Wardrobe
 │   ├── WardrobeKey
+│   ├── BedroomComputer
+│   │   ├── ComputerTower
+│   │   └── ComputerMonitor
 │   ├── Window
 │   ├── BedroomExit
 │   └── WardrobeMonster
 ├── UI
-│   └── FlashlightButton
+│   ├── FlashlightButton
+│   └── ComputerFeedbackText
 ``` 
 
 Esta estructura deja la room muy clara: visual + interactable principal + bloqueo + herramienta permanente.

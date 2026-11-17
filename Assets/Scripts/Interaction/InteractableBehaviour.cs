@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,10 @@ using UnityEngine.InputSystem;
 public class InteractableBehaviour : MonoBehaviour
 {
     [SerializeField] private InteractableData data;
+    [SerializeField] private Sprite normalSprite;
+    [SerializeField] private Sprite otherSideSprite;
+    [SerializeField] private bool useRealitySprites;
+
     private SpriteRenderer spriteRenderer;
     private Collider2D hitCollider;
     private bool warnedMissingData;
@@ -120,6 +125,8 @@ public class InteractableBehaviour : MonoBehaviour
             return;
         }
 
+        ApplyRealitySprite();
+
         var visible = true;
         if (RoomManager.Instance != null)
         {
@@ -127,6 +134,38 @@ public class InteractableBehaviour : MonoBehaviour
         }
 
         SetVisible(visible);
+    }
+
+    private void ApplyRealitySprite()
+    {
+        if (!useRealitySprites || spriteRenderer == null || data == null)
+        {
+            return;
+        }
+
+        if (!data.id.Equals("shelf_interactive", StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        if (GameManager.Instance != null && GameManager.Instance.HasFlag(GameFlagNames.LibraryShelfActivated))
+        {
+            if (normalSprite != null)
+            {
+                spriteRenderer.sprite = normalSprite;
+            }
+
+            return;
+        }
+
+        var targetSprite = RealityManager.Instance != null && RealityManager.Instance.CurrentReality == RealityType.OtherSide
+            ? otherSideSprite
+            : normalSprite;
+
+        if (targetSprite != null)
+        {
+            spriteRenderer.sprite = targetSprite;
+        }
     }
 
     private void SetVisible(bool visible)
