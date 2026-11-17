@@ -43,7 +43,12 @@ internal static class InteractionOutcomeProcessor
 
     public static void ConsumeRequiredItemIfNeeded(InteractableData interactable)
     {
-        if (interactable == null || !interactable.consumeAfterUse || string.IsNullOrEmpty(interactable.requiredItemId))
+        if (interactable == null || string.IsNullOrEmpty(interactable.requiredItemId))
+        {
+            return;
+        }
+
+        if (!interactable.consumeAfterUse && !interactable.consumeRequiredItemOnUse)
         {
             return;
         }
@@ -74,6 +79,9 @@ internal static class InteractionOutcomeProcessor
                 return GameFlagNames.HasStaffKey;
             case "library_key":
                 return GameFlagNames.HasLibraryKey;
+            case "basement_code":
+            case "code_basement":
+                return GameFlagNames.BasementCodeAcquired;
             default:
                 return null;
         }

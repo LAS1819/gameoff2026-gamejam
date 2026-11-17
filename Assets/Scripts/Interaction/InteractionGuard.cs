@@ -21,6 +21,13 @@ internal static class InteractionGuard
             return true;
         }
 
+        if (GameManager.Instance != null
+            && !string.IsNullOrEmpty(interactable.resultFlag)
+            && GameManager.Instance.HasFlag(interactable.resultFlag))
+        {
+            return true;
+        }
+
         if (InventoryManager.Instance == null || !InventoryManager.Instance.HasItem(interactable.requiredItemId))
         {
             Debug.LogWarning($"Missing required item for {interactable.id}: {interactable.requiredItemId}");

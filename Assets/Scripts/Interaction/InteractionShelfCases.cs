@@ -37,6 +37,7 @@ internal static class InteractionShelfCases
         {
             if (IsDifferentItemSelected(inventory))
             {
+                inventory.DeselectSelectedItem();
                 ShowFeedback("That item does not belong here.", 1.5f);
                 return true;
             }
@@ -68,6 +69,11 @@ internal static class InteractionShelfCases
 
         if (!IsWornBookSelected(inventory))
         {
+            if (!string.IsNullOrEmpty(inventory.SelectedItemId))
+            {
+                inventory.DeselectSelectedItem();
+            }
+
             ShowFeedback("Select the Worn Book first.", 1.6f);
             return true;
         }

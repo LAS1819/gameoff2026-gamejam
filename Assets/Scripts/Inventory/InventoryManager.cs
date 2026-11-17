@@ -101,6 +101,11 @@ public class InventoryManager : MonoBehaviour
 
     public void ClearSelection()
     {
+        DeselectSelectedItem();
+    }
+
+    public void DeselectSelectedItem()
+    {
         if (string.IsNullOrEmpty(SelectedItemId))
         {
             return;

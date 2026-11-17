@@ -47,6 +47,15 @@ internal static class InteractionResolver
         }
     }
 
+    private static void ClearSelectedItemIfNeeded()
+    {
+        var inventory = InventoryManager.Instance;
+        if (inventory != null && !string.IsNullOrEmpty(inventory.SelectedItemId))
+        {
+            inventory.DeselectSelectedItem();
+        }
+    }
+
     private static bool ResolvePickup(InteractableData interactable, Action<string> onConsumed)
     {
         var itemId = string.IsNullOrEmpty(interactable.itemId) ? interactable.id : interactable.itemId;
@@ -163,6 +172,7 @@ internal static class InteractionResolver
             return InteractionSpecialCases.ResolveWornBookUse(interactable, onConsumed);
         }
 
+        ClearSelectedItemIfNeeded();
         InteractionOutcomeProcessor.ApplyUseOutcome(interactable, onConsumed);
 
         var uiManager = UIManager.Instance;

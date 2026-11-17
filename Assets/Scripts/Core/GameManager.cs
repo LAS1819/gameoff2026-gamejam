@@ -14,6 +14,7 @@ public static class GameFlagNames
     public const string BedroomComputerPowered = "BedroomComputerPowered";
     public const string BedroomComputerDiskInserted = "BedroomComputerDiskInserted";
     public const string HasLibraryKey = "HasLibraryKey";
+    public const string LibraryDoorUnlocked = "LibraryDoorUnlocked";
     public const string WornBookFound = "WornBookFound";
     public const string FloppyDiskRecovered = "FloppyDiskRecovered";
     public const string LibraryMemoriesObserved = "LibraryMemoriesObserved";
@@ -89,6 +90,7 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.BedroomComputerPowered, false);
         SetFlag(GameFlagNames.BedroomComputerDiskInserted, false);
         SetFlag(GameFlagNames.HasLibraryKey, false);
+        SetFlag(GameFlagNames.LibraryDoorUnlocked, false);
         SetFlag(GameFlagNames.WornBookFound, false);
         SetFlag(GameFlagNames.FloppyDiskRecovered, false);
         SetFlag(GameFlagNames.LibraryMemoriesObserved, false);

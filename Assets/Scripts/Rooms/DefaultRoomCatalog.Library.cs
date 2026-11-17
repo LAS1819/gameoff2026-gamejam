@@ -82,7 +82,9 @@ public static partial class DefaultRoomCatalog
             visibleInNormalReality = false,
             visibleInOtherReality = true,
             requiredItemId = "basement_code",
-            resultFlag = GameFlagNames.BasementUnlocked
+            resultFlag = GameFlagNames.BasementUnlocked,
+            consumeRequiredItemOnUse = true,
+            consumeAfterUse = false
         });
 
         library.interactables.Add(new InteractableData
@@ -105,7 +107,9 @@ public static partial class DefaultRoomCatalog
             visibleInNormalReality = false,
             visibleInOtherReality = true,
             requiredItemId = "basement_code",
-            resultFlag = GameFlagNames.BasementUnlocked
+            resultFlag = GameFlagNames.BasementUnlocked,
+            consumeRequiredItemOnUse = true,
+            consumeAfterUse = false
         });
     }
 }

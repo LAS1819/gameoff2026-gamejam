@@ -1,0 +1,53 @@
+using System.Collections.Generic;
+
+public static partial class DefaultRoomCatalog
+{
+    private static RoomData CreateLobby()
+    {
+        var lobby = new RoomData
+        {
+            id = GameManager.LobbyRoomId,
+            displayName = "Lobby",
+            connectedRoomIds = new List<string> { GameManager.HallwayRoomId }
+        };
+
+        lobby.interactables.Add(new InteractableData
+        {
+            id = "staff_key",
+            itemId = "staff_key",
+            displayName = "Staff Key",
+            description = "A brass key marked with the staff insignia.",
+            interactionType = InteractionType.Pickup,
+            visibleInNormalReality = true,
+            visibleInOtherReality = false,
+            resultFlag = GameFlagNames.HasStaffKey,
+            consumeAfterUse = true
+        });
+
+        lobby.interactables.Add(new InteractableData
+        {
+            id = "front_door",
+            displayName = "Front Door",
+            description = "A heavy door with an old brass keyhole.",
+            interactionType = InteractionType.Use,
+            visibleInNormalReality = true,
+            visibleInOtherReality = true,
+            requiredItemId = "staff_key",
+            consumeRequiredItemOnUse = true,
+            resultFlag = GameFlagNames.DoorOpened
+        });
+
+        lobby.interactables.Add(new InteractableData
+        {
+            id = "hallway_entrance",
+            displayName = "Main Hallway Entrance",
+            description = "You can continue into the darkness.",
+            interactionType = InteractionType.Transition,
+            visibleInNormalReality = true,
+            visibleInOtherReality = true,
+            linkedRoomId = GameManager.HallwayRoomId
+        });
+
+        return lobby;
+    }
+}

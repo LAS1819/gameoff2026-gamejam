@@ -12,4 +12,17 @@ internal static class InteractionItemFactory
             isKeyItem = true
         };
     }
+
+    public static InventoryItemData CreateBasementCode()
+    {
+        return new InventoryItemData
+        {
+            id = "basement_code",
+            displayName = "Basement Code",
+            description = "A notebook page with a basement access code written in a careful hand.",
+            descriptionInNormalReality = "The code is precise and deliberate, like it was written for someone who would not forget it.",
+            descriptionInOtherReality = "The same numbers feel older than the room, like a memory the house kept hidden until it was needed.",
+            isKeyItem = true
+        };
+    }
 }

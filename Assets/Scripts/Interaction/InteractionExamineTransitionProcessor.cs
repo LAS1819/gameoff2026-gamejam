@@ -83,9 +83,13 @@ internal static class InteractionExamineTransitionProcessor
             return false;
         }
 
-        if (interactable.consumeAfterUse)
+        if (interactable.consumeAfterUse || interactable.consumeRequiredItemOnUse)
         {
             InteractionOutcomeProcessor.ConsumeRequiredItemIfNeeded(interactable);
+        }
+
+        if (interactable.consumeAfterUse)
+        {
             InteractionOutcomeProcessor.MarkConsumedIfNeeded(interactable, onConsumed);
         }
 
@@ -99,6 +103,12 @@ internal static class InteractionExamineTransitionProcessor
 
         var success = RoomManager.Instance.LoadRoom(interactable.linkedRoomId);
         Debug.Log($"[InteractionManager] LoadRoom('{interactable.linkedRoomId}') returned: {success}");
+
+        if (success && !string.IsNullOrEmpty(interactable.resultFlag) && GameManager.Instance != null)
+        {
+            GameManager.Instance.SetFlag(interactable.resultFlag, true);
+        }
+
         return success;
     }
 }

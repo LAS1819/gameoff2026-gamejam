@@ -70,6 +70,15 @@ public partial class RoomManager
             return false;
         }
 
+        if (interactable.id.Equals("library_door", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("bedroom_door", StringComparison.OrdinalIgnoreCase))
+        {
+            if (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide)
+            {
+                return false;
+            }
+        }
+
         if (interactable.id.Equals("shelf_secret_door", StringComparison.OrdinalIgnoreCase))
         {
             return true;

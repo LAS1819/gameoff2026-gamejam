@@ -3,6 +3,8 @@ using UnityEngine;
 
 internal static class InteractionBedroomComputerCases
 {
+    private const string FloppyDiskItemId = "floppy_disk";
+
     public static bool ResolveTower(InteractableData interactable, GameObject sourceObject)
     {
         var controller = ResolveComputerController(sourceObject);
@@ -15,9 +17,20 @@ internal static class InteractionBedroomComputerCases
         var selectedItemId = inventory != null ? inventory.SelectedItemId : null;
 
         if (!string.IsNullOrWhiteSpace(selectedItemId)
-            && selectedItemId.Equals("floppy_disk", StringComparison.OrdinalIgnoreCase))
+            && selectedItemId.Equals(FloppyDiskItemId, StringComparison.OrdinalIgnoreCase))
         {
-            return controller.TryInsertFloppyDisk();
+            var insertionSucceeded = controller.TryInsertFloppyDisk();
+            if (!insertionSucceeded && inventory != null)
+            {
+                inventory.DeselectSelectedItem();
+            }
+
+            return insertionSucceeded;
+        }
+
+        if (inventory != null && !string.IsNullOrEmpty(inventory.SelectedItemId))
+        {
+            inventory.DeselectSelectedItem();
         }
 
         controller.TogglePower();
@@ -30,6 +43,12 @@ internal static class InteractionBedroomComputerCases
         if (controller == null)
         {
             return false;
+        }
+
+        var inventory = InventoryManager.Instance;
+        if (inventory != null && !string.IsNullOrEmpty(inventory.SelectedItemId))
+        {
+            inventory.DeselectSelectedItem();
         }
 
         return controller.TryReadMonitor();
