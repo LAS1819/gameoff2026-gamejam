@@ -116,13 +116,35 @@ La habitación debe sentirse como un lugar que ha sido “re-escrito” por la m
 - También puede ser una marca de transición emocional: al salir de la habitación, el protagonista abandona la sensación de infancia para entrar en una fase más difícil de la verdad.
 - Sólo se puede volver atrás en el Mundo Normal.
 
-### Ordenador (Monitor, Teclado, Ratón y Torre)
+### Ordenador Personal (Monitor + Torre)
 
 - Es un objeto clave para la interacción con el `Disquete` que se encuentra dentro del `Worn Book` de la Biblioteca.
 - Debe ser reconocible y evocador como un espacio de trabajo personal del protagonista, pero sin restar importancia a los elementos narrativos de la habitación.
-- El `Monitor` sólo puede examinarse si la `Torre` está encendida y conectada correctamente.
-- El `Disquete` sólo puede usarse en el `Ordenador` cuando la `Torre` está encendida y conectada correctamente.
-- Tendrá dos partes interactuables: `Monitor` y `Torre`
+- El ordenado no debe sentirse como una máquina “normal” del futuro; debe sentirse como una pieza íntima, antigua y un poco rota, como un archivo que el protagonista usó para sostener la mentira.
+- Tiene dos zonas de interacción claramente diferenciadas: `Monitor` y `Torre`.
+- La `Torre` es la parte que enciende la máquina y acepta el `Disquete`.
+- El `Monitor` es la parte que muestra el código o recompensa cuando el sistema ha aceptado la lectura del disco.
+- El `Disquete` sólo puede usarse cuando la Torre está encendida.
+- La pantalla puede encenderse y apagarse sin el disco, como una pequeña prueba de vida de la máquina.
+
+#### Uso del Shift y la historia
+
+Este objeto es importante porque también funciona como síntesis de la historia:
+
+- El PC no es un objeto neutral: es el primer “archivo” físico de la mentira del protagonista.
+- En la `Realidad Normal` parece un equipo viejo y cotidiano, casi un recuerdo cotidiano.
+- En el `Otro Lado`, la máquina se vuelve un poco más agresiva o extraña: la pantalla parpadea, la información está desordenada y el código aparece como si la memoria misma estuviera intentando corregir la historia.
+- La idea del `SHIFT` aquí no es solo cambiar el aspecto del objeto, sino que la misma máquina “recuerda” la versión falsa de la historia antes de permitir mostrar la verdad.
+
+#### Flujo recomendado para MVP
+
+1. El jugador pulsa la `Torre` y la enciende.
+2. La `Torre` activa la `Pantalla`/`Monitor`.
+3. El jugador puede pulsar la pantalla para ver el sistema, pero no hay código todavía.
+4. Si inserta el `Disquete`, la pantalla muestra una secuencia o código del `Basement`.
+5. El código aparece como una prueba final: la máquina acepta la versión correcta de la memoria y revela lo que el protagonista intentó ocultar.
+
+Esto conecta muy bien con la idea de que la verdad no llega “como un dato limpio”, sino como un resultado que la mente del personaje aún debe aceptar.
 
 ---
 
