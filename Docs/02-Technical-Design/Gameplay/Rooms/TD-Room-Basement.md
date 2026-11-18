@@ -127,6 +127,8 @@ resultFlag: BasementShelfLeftExplored
 - sin linterna activa, la descripción del espacio es confusa;
 - con linterna, la caja y la pieza comienzan a ser legibles.
 
+**Visual:** `sprite-basement-storage-shelf-left.png` ✅ <- de momento, usamos el mismo sprite que para `StorageShelfRight`.
+
 ---
 
 ### 5.2 StorageShelfRight
@@ -149,6 +151,8 @@ resultFlag: BasementShelfRightExplored
 
 - sin linterna activa, la descripción del espacio es confusa;
 - con linterna, los elementos cobran claridad y se vuelven legibles.
+
+**Visual:** `sprite-basement-storage-shelf-right.png` ✅ <- de momento, usamos el mismo sprite que para `StorageShelfLeft`.
 
 ---
 
@@ -175,6 +179,8 @@ requiresLantern: true
 - `LanternActive == false` → descripción incompleta o ambigua.
 - `LanternActive == true` → información concreta, emocionalmente dolorosa, útil para la progresión narrativa.
 
+**Visual:** `sprite-basement-personal-effects-box.png`
+
 ---
 
 ### 5.4 Pipelines
@@ -199,6 +205,8 @@ resultFlag: BasementPipelinesExplored
 - sin linterna activa, los contornos son borrosos y la información es parcial;
 - con linterna, los detalles de las tuberías y su estado se vuelven legibles.
 
+**Visual:** `sprite-basement-pipelines.png`
+
 ---
 
 ### 5.5 ValveHandle
@@ -222,6 +230,8 @@ consumeAfterUse: true
 - cerrar la relación entre espacio físico y trauma emocional.
 
 **Regla técnica:**
+
+**Visual:** `sprite-basement-valve-handle.png`
 
 - no puede recogerse si la linterna está apagada;
 - un `Examine` previo debe sugerir que falta una pieza para “restaurar” la presión.
@@ -280,16 +290,16 @@ resultFlag: AmbulanceMemoryTriggered
 
 ---
 
-### 5.8 BasementExit
+### 5.8 ForestExitDoor
 
 ```text
-id: "basement_exit"
-displayName: "Basement Exit"
+id: "forest_exit_door"
+displayName: "Forest Exit Door"
 interactionType: Transition
-linkedRoomId: "library"
+linkedRoomId: "?? Forest??"
 visibleInNormalReality: true
 visibleInOtherReality: true
-resultFlag: BasementExitUnlocked
+resultFlag: ForestExitUnlocked
 ```
 
 **Propósito:**
@@ -326,6 +336,27 @@ resultFlag: DenialManifestationVisible
 - sólo aparece en `Other Side`;
 - bloquea la salida mientras `PressureValveRepaired == false` o mientras el jugador intenta avanzar sin cumplir la condición;
 - desaparece cuando la válvula se activa correctamente y el sistema de presión se equilibra.
+
+**Visual:** `spritesheet-basement-denial-manifestation.png` ✅ <- Dos sprites para la animación loop
+
+---
+
+### 5.10 LobbyExitDoor
+
+```text
+id: "lobby_exit_door"
+displayName: "Lobby Exit Door"
+interactionType: Transition
+linkedRoomId: "Lobby"
+visibleInNormalReality: true
+visibleInOtherReality: true
+```
+
+**Propósito:**
+
+- permitir la transición desde el sótano al lobby
+
+**Visual:** `sprite-basement-lobby-exit-door.png` ✅ <- Es un sprite de un mensaje con el texto "Back".
 
 ---
 
