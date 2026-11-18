@@ -1,22 +1,22 @@
 # Room Basement — Technical Spec
 
-- Versión 0.1
+- Versión 0.2
 - Creado: 17/11/2026
-- Actualizado: 17/11/2026
+- Actualizado: 18/11/2026
 
 ---
 
 ## 1. Objetivo de la Room
 
-El `Basement` es la primera Room donde la `Linterna` deja de ser un estado de posesión y pasa a ser una condición de jugabilidad.
+El `Basement` es la primera `Room` donde la linterna deja de ser meramente un icono y se convierte en una condición de juego real.
 
 Su función técnica es:
 
-- introducir luz global por room con intensidad muy baja;
-- habilitar uso de linterna sólo en rooms autorizadas (MVP: `basement`);
-- aplicar gating de interacción según estado de linterna;
-- mantener el patrón de amenaza bloqueante sin IA compleja;
-- entregar una evidencia narrativa fuerte con solo 1-2 interacciones críticas.
+- aplicar una intensidad global muy baja para reforzar la sensación de oscuridad;
+- habilitar la linterna solo en rooms permitidas (MVP: `basement`);
+- bloquear `Use` crítico si el jugador no tiene la linterna encendida;
+- ofrecer una evidencia narrativa clara, sin convertir la room en un bloque de contenido pesado;
+- mantener una amenaza bloqueante, pero sin IA ni combate complejo.
 
 ---
 
@@ -29,41 +29,41 @@ RoomData
 - connectedRoomIds: ["library"]
 - interactables:
   - basement_entry_door
-  - pressure_console
-  - release_valve
-  - basement_blocker
+  - storage_shelves
+  - personal_effects_box
+  - valve_handle
+  - pressure_release_valve
+  - ambulance_lights
   - basement_exit
+  - denial_manifestation
 - lightingProfile:
   - globalLightIntensity: 0.10
   - lanternAllowed: true
+- narrativeGoal: "Break denial through evidence and pressure release"
 ```
 
 ### Estado inicial
 
 - Reality: Normal
-- Luz global mínima (usable para orientación básica, no para lectura fina).
+- Luz global muy baja, suficiente para orientación, no para lectura detallada.
 - `LanternAllowed = true` en esta room.
-- `LanternActive = false` por defecto al entrar.
-- Consola visible, pero su lectura útil depende de linterna activa.
-- La válvula no permite `Use` sin linterna.
+- `LanternActive = false` al entrar.
+- El jugador puede explorar, pero la verdad solo se entiende con la linterna encendida.
+- La `Manifestación de Negación` sólo aparece cuando la presión no se ha resuelto y el jugador intenta avanzar sin condiciones correctas.
 
 ---
 
 ## 3. Contrato técnico de luz por Room
 
-### 3.1 Decisión para MVP
+### 3.1 Regla general
 
-No usar lógica automática compleja basada solo en umbral.
+No usar lógica automática basada solo en un umbral de intensidad. El sistema debe seguir un patrón explícito por room, igual que SHIFT:
 
-Usar contrato explícito por room, equivalente al patrón del botón `SHIFT`:
+- el `RoomManager` informa si la room actual permite linterna;
+- el `LanternController` valida la room antes de activar un `Light2D`;
+- si la room no permite linterna, se fuerza a `false` y no hay efecto visual.
 
-- `LanternAllowedRooms = { "basement" }`
-- si la room actual no está en esa lista, no se permite toggle de linterna;
-- feedback en HUD cuando el jugador intenta activarla fuera de sala permitida.
-
-### 3.2 Global Light 2D por room
-
-Cada room puede declarar una intensidad global objetivo:
+### 3.2 Estructura sugerida
 
 ```text
 RoomLightingProfile
@@ -72,107 +72,168 @@ RoomLightingProfile
 - lanternAllowed (bool)
 ```
 
-Para el `Basement`, valor recomendado MVP:
+### 3.3 Valor recomendado
 
-- `globalLightIntensity = 0.10` (ajustable en playtest entre 0.08 y 0.18).
+Para el `Basement`:
 
-Esto no reemplaza el gating de room; lo refuerza visualmente.
+- `globalLightIntensity = 0.10`
+- rango de ajuste para playtest: 0.08 a 0.18
+
+Esto refuerza la oscuridad visual, pero sigue siendo un complemento del gating por room y no la única regla.
 
 ---
 
-## 4. Linterna con Sprite Light 2D acoplada a cursor
+## 4. Linterna con sprite light 2D acoplada al cursor
 
 ```text
 LanternController (runtime)
-- input: toggle (HUD + tecla)
+- input: toggle (HUD + teclado)
 - checks: LanternUnlocked && LanternAllowed(currentRoom)
 - state: LanternActive
-- light source: Light2D (Point o Freeform)
+- light source: Light2D (Point or Freeform)
 - position source: cursor world position
 ```
 
-### Reglas MVP
+### Reglas del MVP
 
-- La linterna solo se puede activar si fue obtenida en `Bedroom`.
-- Si la room no permite linterna, `LanternActive` se fuerza a `false`.
-- Al cambiar de room, reevaluar permiso y apagar si corresponde.
-- No hay batería en esta iteración.
+- sólo puede encenderse si el jugador ya obtuvo la `Linterna` en `Bedroom`;
+- si cambia a una room sin permiso, la linterna se desactiva automáticamente;
+- no incluye batería ni desgaste durante esta iteración;
+- la intensidad del haz puede hacerse sutil en `Global Light` y más fuerte con `Sprite Light 2D` local.
 
 ---
 
 ## 5. Interactables principales
 
-### 5.1 BasementEntryDoor
+### 5.1 StorageShelves
 
 ```text
-id: "basement_entry_door"
-displayName: "Basement Entry"
-interactionType: Transition
-linkedRoomId: "basement"
-requiredItemId: "basement_code"
-resultFlag: BasementEntered
+id: "storage_shelves"
+displayName: "Storage Shelves"
+interactionType: Examine
+visibleInNormalReality: true
+visibleInOtherReality: true
+resultFlag: BasementShelvesExplored
 ```
+
+**Propósito:**
+
+- introducir la sensación de almacenamiento caótico y emocional;
+- ocultar la evidencia y la pieza de progreso;
+- reforzar que el espacio está lleno de recuerdos rechazados.
+
+**Regla técnica:**
+
+- sin linterna activa, la descripción del espacio es confusa;
+- con linterna, la caja y la pieza comienzan a ser legibles.
 
 ---
 
-### 5.2 PressureConsole (evidencia central)
+### 5.2 PersonalEffectsBox
 
 ```text
-id: "pressure_console"
-displayName: "Pressure Console"
+id: "personal_effects_box"
+displayName: "Personal Effects Box"
 interactionType: Examine
 visibleInNormalReality: true
 visibleInOtherReality: true
 resultFlag: BasementEvidenceFound
+requiresLantern: true
 ```
 
-#### Regla de lectura
+**Propósito:**
 
-- `LanternActive == false` -> devuelve descripción ambigua (sin detalle útil).
-- `LanternActive == true` -> devuelve descripción completa y activa evidencia real.
+- ser la evidencia principal de la room;
+- materializar la incoherencia de la historia del protagonista;
+- ofrecer la primera “prueba” clara de que la mentira ya no es una teoría.
+
+**Regla técnica:**
+
+- `LanternActive == false` → descripción incompleta o ambigua.
+- `LanternActive == true` → información concreta, emocionalmente dolorosa, útil para la progresión narrativa.
 
 ---
 
-### 5.3 ReleaseValve (activación)
+### 5.3 ValveHandle
 
 ```text
-id: "release_valve"
-displayName: "Release Valve"
+id: "valve_handle"
+displayName: "Valve Handle"
+interactionType: Pickup
+itemId: "valve_handle"
+visibleInNormalReality: true
+visibleInOtherReality: true
+resultFlag: ValveHandleFound
+requiresLantern: true
+consumeAfterUse: true
+```
+
+**Propósito:**
+
+- introducir la “pieza de reparación” del sistema;
+- obligar a la exploración activa del almacén;
+- cerrar la relación entre espacio físico y trauma emocional.
+
+**Regla técnica:**
+
+- no puede recogerse si la linterna está apagada;
+- un `Examine` previo debe sugerir que falta una pieza para “restaurar” la presión.
+
+---
+
+### 5.4 PressureReleaseValve
+
+```text
+id: "pressure_release_valve"
+displayName: "Pressure Release Valve"
 interactionType: Use
 visibleInNormalReality: true
 visibleInOtherReality: true
-resultFlag: BasementPressureReleased
+requiredItemId: "valve_handle"
+resultFlag: PressureValveRepaired
+requiresLantern: true
 ```
 
-#### Regla de uso
+**Propósito:**
 
-- `LanternActive == false` -> uso denegado con feedback explícito.
-- `LanternActive == true` -> uso permitido, activa flag y desbloquea salida narrativa.
+- es el centro de la resolución de la room;
+- simboliza la liberación de una culpa o presión que ya no puede contenerse;
+- activa la desaparición o retroceso de la `Manifestación de Negación`.
+
+**Reglas técnicas:**
+
+- sin `LanternActive == true`, el uso se bloquea con feedback textual;
+- si falta la `valve_handle`, la interacción ofrece una pista pero no se resuelve;
+- cuando se usa correctamente, se activa una reacción visual y sonora de alivio/descarga.
 
 ---
 
-### 5.4 BasementBlocker (amenaza bloqueante)
+### 5.5 AmbulanceLights
 
 ```text
-id: "basement_blocker"
-displayName: "Manifestation"
-interactionType: StateTrigger
+id: "ambulance_lights"
+displayName: "Ambulance Lights"
+interactionType: Examine
 visibleInNormalReality: false
 visibleInOtherReality: true
-resultFlag: BasementBlockerVisible
+resultFlag: AmbulanceMemoryTriggered
 ```
 
-#### Regla MVP
+**Propósito:**
 
-- Se activa cuando el jugador insiste en `Use` crítico sin linterna.
-- Bloquea temporalmente interacción de la válvula.
-- Se desactiva al cumplir condición de linterna activa y reintento válido.
+- activar recuerdos fragmentados del día del fallecimiento del padre;
+- reforzar el vínculo emocional sin explicar completamente la tragedia;
+- apoyar la sensación de que la historia del protagonista está haciendo crisis.
 
-Sin daño ni persecución compleja en esta iteración.
+**Regla técnica:**
+
+- solo aparecen en `Other Side`;
+- no afectarán a la progresión principal;
+- su texto debe ser evocativo, no expositivo.
 
 ---
 
-### 5.5 BasementExit
+### 5.6 BasementExit
 
 ```text
 id: "basement_exit"
@@ -181,121 +242,144 @@ interactionType: Transition
 linkedRoomId: "library"
 visibleInNormalReality: true
 visibleInOtherReality: true
+resultFlag: BasementExitUnlocked
 ```
+
+**Propósito:**
+
+- cerrar la room con un avance narrativo y funcional;
+- no introducir más puzles ni rutas paralelas.
+
+**Condición:**
+
+- `PressureValveRepaired == true`;
+- `DenialManifestationBlocked == true` o equivalente.
 
 ---
 
-## 6. Reglas de interacción con oscuridad
+### 5.7 DenialManifestation
 
-Contrato requerido para `InteractionManager`:
+```text
+id: "denial_manifestation"
+displayName: "Denial Manifestation"
+interactionType: StateTrigger
+visibleInNormalReality: false
+visibleInOtherReality: true
+resultFlag: DenialManifestationVisible
+```
+
+**Propósito:**
+
+- actuar como bloqueo emocional de la room;
+- adaptar el patrón del `wardrobe-monster` al `Basement` sin convertirlo en combate;
+- reforzar la idea de que la negación del protagonista es una fuerza activa.
+
+**Regla técnica:**
+
+- sólo aparece en `Other Side`;
+- bloquea la salida mientras `PressureValveRepaired == false` o mientras el jugador intenta avanzar sin cumplir la condición;
+- desaparece cuando la válvula se activa correctamente y el sistema de presión se equilibra.
+
+---
+
+## 6. Regla de interacción con oscuridad
+
+Para mantener el sistema sin crear scripts ad hoc, el `InteractionManager` debe aceptar dos condiciones generales:
 
 ```text
 If interactionType == Examine
-    If interactable is dark-sensitive and LanternActive == false
+    If interactable.requiresLantern == true and LanternActive == false
         show obscured description
     Else
         show full description
 
 If interactionType == Use
-    If interactable requires lantern and LanternActive == false
-        deny interaction + feedback
-        optionally trigger blocker flag
+    If interactable.requiresLantern == true and LanternActive == false
+        deny interaction
+        show feedback: "No puedes hacer esto a ciegas"
+        trigger blocker if relevant
     Else
         resolve use normally
 ```
 
-Esto evita crear scripts únicos por interactuable y mantiene el sistema data-driven.
+Esto permite que la room tenga lógica clara sin duplicar un comportamiento especial para cada objeto.
 
 ---
 
-## 7. Flags de estado
+## 7. Flags y progreso
 
 | Flag | Descripción | Origen |
 | --- | --- | --- |
-| BasementEntered | Entrada al Basement completada | `basement_entry_door` |
-| LanternAllowedInRoom | La room actual permite linterna | `RoomLightingProfile` |
-| LanternActive | Linterna encendida | `LanternController` |
-| BasementEvidenceFound | Evidencia real obtenida | `pressure_console` |
-| BasementPressureReleased | Válvula usada correctamente | `release_valve` |
-| BasementBlockerVisible | Bloqueo activo | `basement_blocker` |
-| BasementResolved | Objetivo MVP del room completado | set al combinar evidencia + válvula |
+| BasementEntered | El jugador entra en el Basement | `basement_entry_door` |
+| BasementShelvesExplored | El almacén ha sido revisado | `storage_shelves` |
+| BasementEvidenceFound | La evidencia principal fue identificada | `personal_effects_box` |
+| ValveHandleFound | La pieza de reparación fue localizada | `valve_handle` |
+| PressureValveRepaired | La válvula se usa correctamente | `pressure_release_valve` |
+| DenialManifestationVisible | La manifestación bloquea la salida | `denial_manifestation` |
+| BasementExitUnlocked | La salida queda accesible | `basement_exit` |
+| BasementResolved | Room completada | al cruzar los estados de evidencia + válvula |
 
-Regla de cierre:
+### Regla de cierre
 
 ```text
 If BasementEvidenceFound == true
-   and BasementPressureReleased == true
+   and PressureValveRepaired == true
 then BasementResolved = true
 ```
 
 ---
 
-## 8. VFX/SFX narrativos (controlados)
+## 8. Reglas narrativas de la room
 
-Eventos ambientales recomendados, sin afectar arquitectura principal:
-
-- `AmbulanceSirenFlash` (one-shot o pulso corto por trigger narrativo).
-- `SteamBurst` en tuberías.
-- `DripEvent` en beat emocional.
-
-Deben implementarse como eventos de room (flags + timeline simple), no como subsistema nuevo.
+- La room debe dar una sensación clara de “esto ya no es decoración”.
+- El jugador debe entender que el sótano guarda lo que el protagonista intenta no aceptar.
+- `Examine` sin linterna debe ser ambiguo, confuso y emocionalmente defensivo.
+- `Examine` con linterna debe ser directo, concreto y doloroso.
+- La salida no debe sentirse como una recompensa superficial: debe ser la consecuencia de que el personaje acepta una verdad que le duele.
 
 ---
 
-## 9. Flujo técnico del MVP
+## 9. VFX y SFX recomendados
 
-```text
-Player enters Basement with basement_code
-→ Room applies low GlobalLight2D intensity
-→ Lantern is allowed in this room
-→ player examines pressure_console
-    - without lantern: ambiguous text
-    - with lantern: full evidence
-→ player tries release_valve
-    - without lantern: blocked + feedback (+ blocker optional)
-    - with lantern: success
-→ BasementResolved flag set when evidence + valve are both complete
-→ player exits room
-```
+Estos eventos son narrativos, no sistemas nuevos:
+
+- `SteamBurst` en las tuberías;
+- `DripEvent` puntual para dramatizar la humedad;
+- `AmbulanceSirenFlash` en `Other Side`;
+- ruido de presión y liberación en la válvula cuando se activa.
+
+No conviene crear una “máquina de efectos” para todo. Una línea temporal minimalista y unos pocos triggers son suficientes.
 
 ---
 
-## 10. Scope guard del MVP
+## 10. Scope del MVP
 
 ### Mantener
 
-- una sola room oscura real;
-- linterna con gating por room;
-- 1 evidencia + 1 activación;
-- feedback claro en interacciones bloqueadas;
-- blocker psicológico simple.
+- 1 evidencia central;
+- 1 pieza de reparación;
+- 1 activación principal (`PressureReleaseValve`);
+- 1 bloqueo emocional (`DenialManifestation`);
+- reglas de luz por room;
+- 2-3 interacciones/importantes entre el inicio y la salida.
 
 ### Simplificar
 
 - sin batería;
-- sin IA avanzada;
-- sin múltiples objetivos paralelos;
-- sin puzles secundarios en cadena.
+- sin persecución;
+- sin IA compleja;
+- sin más de una estructura de presión visible;
+- sin añadir nuevas rutas o mini-bosses.
 
 ### Dejar fuera
 
-- sistema de drenado de batería;
-- persecución completa;
-- expansión jugable del `Huerto`.
+- sistema de batería;
+- combate o chase sequence;
+- extensión del `Huerto`;
+- lógica de varias cuerdas de progreso simultáneas.
 
 ---
 
-## 11. Extensión futura (no MVP): Huerto
+## 11. Resumen técnico
 
-Cuando el loop base funcione, el `Huerto` puede entrar como:
-
-- room nueva conectada al `Basement`, o
-- extensión narrativa puntual del mismo room.
-
-Condición para abrir ese scope: `BasementResolved` validado en playtest sin fricción.
-
----
-
-## 12. Resumen técnico
-
-El `Basement` se implementa como room de baja luz con linterna habilitada por gating explícito de room. La interacción sigue el sistema existente (`InteractableData` + `InteractionManager`) y añade una regla clara: `Examine` puede ser ambiguo sin luz, pero `Use` crítico queda bloqueado hasta activar linterna. Con una evidencia central, una válvula y un blocker simple, la room queda jugable, coherente y terminable dentro del MVP.
+El `Basement` debe implementarse como una `Room` de baja luz, de pocas interacciones y alto impacto emocional. La `Linterna` se vuelve una herramienta real en esta room, la `Caja de Efectos Personales` actúa como evidencia material, la `Manivela` ofrece la pieza de resolución y la `Válvula` cierra la arcada principal. La `Manifestación de Negación` funciona como bloqueo simbólico y psicológico, no como enemigo. Con esto, la room queda potente, compacta y alineada con la intención narrativa del proyecto.
