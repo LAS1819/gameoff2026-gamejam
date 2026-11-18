@@ -179,7 +179,10 @@ requiresLantern: true
 - `LanternActive == false` → descripción incompleta o ambigua.
 - `LanternActive == true` → información concreta, emocionalmente dolorosa, útil para la progresión narrativa.
 
-**Visual:** `sprite-basement-personal-effects-box.png`
+**Visual:**
+
+- **Mundo Normal:** `sprite-basement-personal-effects-box-normal.png`
+- **Otra Realidad:** `sprite-basement-personal-effects-box-other.png`
 
 ---
 
@@ -205,7 +208,10 @@ resultFlag: BasementPipelinesExplored
 - sin linterna activa, los contornos son borrosos y la información es parcial;
 - con linterna, los detalles de las tuberías y su estado se vuelven legibles.
 
-**Visual:** `sprite-basement-pipelines.png`
+**Visual:**
+
+- **Mundo Normal:** `sprite-basement-pipelines-normal.png`
+- **Otra Realidad:** `sprite-basement-pipelines-other.png`
 
 ---
 
@@ -231,10 +237,13 @@ consumeAfterUse: true
 
 **Regla técnica:**
 
-**Visual:** `sprite-basement-valve-handle.png`
-
 - no puede recogerse si la linterna está apagada;
 - un `Examine` previo debe sugerir que falta una pieza para “restaurar” la presión.
+
+**Visual:**
+
+- **Mundo Normal:** `sprite-basement-valve-handle-normal.png`
+- **Otra Realidad:** `sprite-basement-valve-handle-other.png`
 
 ---
 
@@ -262,6 +271,11 @@ requiresLantern: true
 - sin `LanternActive == true`, el uso se bloquea con feedback textual;
 - si falta la `valve_handle`, la interacción ofrece una pista pero no se resuelve;
 - cuando se usa correctamente, se activa una reacción visual y sonora de alivio/descarga.
+
+**Visual:**
+
+- **Mundo Normal:** `sprite-basement-pressure-release-valve-normal.png`
+- **Otra Realidad:** `sprite-basement-pressure-release-valve-other.png`
 
 ---
 
