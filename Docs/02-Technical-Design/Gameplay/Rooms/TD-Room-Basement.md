@@ -16,7 +16,7 @@ Su función técnica es:
 - habilitar la linterna solo en rooms permitidas (MVP: `basement`);
 - bloquear `Use` crítico si el jugador no tiene la linterna encendida;
 - ofrecer una evidencia narrativa clara, sin convertir la room en un bloque de contenido pesado;
-- mantener una amenaza bloqueante, pero sin IA ni combate complejo.
+- mantener una amenaza bloqueadora, pero sin IA ni combate complejo.
 
 ---
 
@@ -286,7 +286,7 @@ resultFlag: AmbulanceMemoryTriggered
 
 - solo aparecen en `Other Side`;
 - no afectarán a la progresión principal;
-- su texto debe ser evocativo, no expositivo.
+- su texto debe ser evocador, no expositivo.
 
 ---
 
