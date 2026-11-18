@@ -105,21 +105,21 @@ LanternController (runtime)
 
 ## 5. Interactables principales
 
-### 5.1 StorageShelves
+### 5.1 StorageShelfLeft
 
 ```text
-id: "storage_shelves"
+id: "storage_shelf_left"
 displayName: "Storage Shelves"
 interactionType: Examine
 visibleInNormalReality: true
 visibleInOtherReality: true
-resultFlag: BasementShelvesExplored
+resultFlag: BasementShelfLeftExplored
 ```
 
 **Propósito:**
 
 - introducir la sensación de almacenamiento caótico y emocional;
-- ocultar la evidencia y la pieza de progreso;
+- ocultar la evidencia y la pieza de progreso (`valve_handle` en `personal_effects_box`);
 - reforzar que el espacio está lleno de recuerdos rechazados.
 
 **Regla técnica:**
@@ -129,7 +129,30 @@ resultFlag: BasementShelvesExplored
 
 ---
 
-### 5.2 PersonalEffectsBox
+### 5.2 StorageShelfRight
+
+```text
+id: "storage_shelf_right"
+displayName: "Storage Shelves"
+interactionType: Examine
+visibleInNormalReality: true
+visibleInOtherReality: true
+resultFlag: BasementShelfRightExplored
+```
+
+**Propósito:**
+
+- introducir la sensación de almacenamiento caótico y emocional;
+- reforzar que el espacio está lleno de recuerdos rechazados.
+
+**Regla técnica:**
+
+- sin linterna activa, la descripción del espacio es confusa;
+- con linterna, los elementos cobran claridad y se vuelven legibles.
+
+---
+
+### 5.3 PersonalEffectsBox
 
 ```text
 id: "personal_effects_box"
@@ -143,7 +166,7 @@ requiresLantern: true
 
 **Propósito:**
 
-- ser la evidencia principal de la room;
+- ser la evidencia principal de la `Room`. Contiene la `Valve Handle` en su interior;
 - materializar la incoherencia de la historia del protagonista;
 - ofrecer la primera “prueba” clara de que la mentira ya no es una teoría.
 
@@ -154,7 +177,31 @@ requiresLantern: true
 
 ---
 
-### 5.3 ValveHandle
+### 5.4 Pipelines
+
+```text
+id: "pipelines"
+displayName: "Pipelines"
+interactionType: Examine
+visibleInNormalReality: true
+visibleInOtherReality: true
+resultFlag: BasementPipelinesExplored
+```
+
+**Propósito:**
+
+- mostrar la infraestructura que contiene la presión emocional y narrativa;
+- reforzar la sensación de espacio mecánico y claustrofóbico;
+- guiar al jugador hacia la necesidad de reparar el sistema.
+
+**Regla técnica:**
+
+- sin linterna activa, los contornos son borrosos y la información es parcial;
+- con linterna, los detalles de las tuberías y su estado se vuelven legibles.
+
+---
+
+### 5.5 ValveHandle
 
 ```text
 id: "valve_handle"
@@ -181,7 +228,7 @@ consumeAfterUse: true
 
 ---
 
-### 5.4 PressureReleaseValve
+### 5.6 PressureReleaseValve
 
 ```text
 id: "pressure_release_valve"
@@ -208,7 +255,7 @@ requiresLantern: true
 
 ---
 
-### 5.5 AmbulanceLights
+### 5.7 AmbulanceLights
 
 ```text
 id: "ambulance_lights"
@@ -233,7 +280,7 @@ resultFlag: AmbulanceMemoryTriggered
 
 ---
 
-### 5.6 BasementExit
+### 5.8 BasementExit
 
 ```text
 id: "basement_exit"
@@ -257,7 +304,7 @@ resultFlag: BasementExitUnlocked
 
 ---
 
-### 5.7 DenialManifestation
+### 5.9 DenialManifestation
 
 ```text
 id: "denial_manifestation"
@@ -311,7 +358,8 @@ Esto permite que la room tenga lógica clara sin duplicar un comportamiento espe
 | Flag | Descripción | Origen |
 | --- | --- | --- |
 | BasementEntered | El jugador entra en el Basement | `basement_entry_door` |
-| BasementShelvesExplored | El almacén ha sido revisado | `storage_shelves` |
+| BasementShelfLeftExplored | El almacén izquierdo ha sido revisado | `storage_shelf_left` |
+| BasementShelfRightExplored | El almacén derecho ha sido revisado | `storage_shelf_right` |
 | BasementEvidenceFound | La evidencia principal fue identificada | `personal_effects_box` |
 | ValveHandleFound | La pieza de reparación fue localizada | `valve_handle` |
 | PressureValveRepaired | La válvula se usa correctamente | `pressure_release_valve` |
