@@ -18,6 +18,16 @@ Su función técnica es:
 - ofrecer una evidencia narrativa clara, sin convertir la room en un bloque de contenido pesado;
 - mantener una amenaza bloqueadora, pero sin IA ni combate complejo.
 
+### Nota de implementación (fase base MVP)
+
+La implementación inicial de código del Basement se ejecuta sin:
+
+- gating por linterna,
+- control de luz global,
+- estados avanzados por realidad en interactuables.
+
+Esta fase construye primero una `Room` funcional estándar con flujo de progreso, transición y flags base.
+
 ---
 
 ## 2. Definición de RoomData (MVP)
@@ -287,7 +297,7 @@ Cuando la válvula se activa correctamente:
 **Visual:**
 
 - **Mundo Normal:** `sprite-basement-pressure-release-valve-normal.png` ✅ <- Sólo visible en `Normal Reality`
-- **Steam Pipes:** `spritesheet-basement-steam-pipes.png` ✅
+- **SteamPipes:** `spritesheet-basement-steam-pipes.png` ✅
   - **Animación Otro Lado:** 4 sprites en el `spritesheet-basement-steam-pipes.png`
 
 ---
@@ -370,22 +380,22 @@ resultFlag: DenialManifestationVisible
 
 ---
 
-### 5.10 LobbyExitDoor
+### 5.10 LibraryExitDoor
 
 ```text
-id: "lobby_exit_door"
-displayName: "Lobby Exit Door"
+id: "library_exit_door"
+displayName: "Library Exit Door"
 interactionType: Transition
-linkedRoomId: "Lobby"
+linkedRoomId: "Library"
 visibleInNormalReality: true
 visibleInOtherReality: true
 ```
 
 **Propósito:**
 
-- permitir la transición desde el sótano al lobby
+- permitir la transición desde el sótano a la biblioteca
 
-**Visual:** `sprite-basement-lobby-exit-door.png` ✅ <- Es un sprite de un mensaje con el texto "Back".
+**Visual:** `sprite-basement-library-exit-door.png` ✅ <- Es un sprite de un mensaje con el texto "Back".
 
 ---
 

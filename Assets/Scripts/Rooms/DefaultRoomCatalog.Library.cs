@@ -78,13 +78,14 @@ public static partial class DefaultRoomCatalog
             description = "A heavy door hidden behind the shelf, leading somewhere underneath the building.",
             descriptionInNormalReality = "The wall is flat and empty. Nothing should be here.",
             descriptionInOtherReality = "The door is there now, as if the room has finally decided to remember it.",
-            interactionType = InteractionType.Use,
-            visibleInNormalReality = false,
+            interactionType = InteractionType.Transition,
+            visibleInNormalReality = true,
             visibleInOtherReality = true,
             requiredItemId = "basement_code",
             resultFlag = GameFlagNames.BasementUnlocked,
-            consumeRequiredItemOnUse = true,
-            consumeAfterUse = false
+            consumeRequiredItemOnUse = false,
+            consumeAfterUse = false,
+            linkedRoomId = GameManager.BasementRoomId
         });
 
         library.interactables.Add(new InteractableData
@@ -103,13 +104,10 @@ public static partial class DefaultRoomCatalog
             id = "code_panel",
             displayName = "Code Panel",
             description = "A small panel with a numeric keypad, likely controlling access to the basement.",
-            interactionType = InteractionType.Use,
+            descriptionInOtherReality = "The keypad is already unlocked. The real barrier is the door itself.",
+            interactionType = InteractionType.Examine,
             visibleInNormalReality = false,
-            visibleInOtherReality = true,
-            requiredItemId = "basement_code",
-            resultFlag = GameFlagNames.BasementUnlocked,
-            consumeRequiredItemOnUse = true,
-            consumeAfterUse = false
+            visibleInOtherReality = true
         });
     }
 }

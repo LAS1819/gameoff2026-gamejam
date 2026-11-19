@@ -39,6 +39,7 @@ internal static class InteractionOutcomeProcessor
 
         ConsumeRequiredItemIfNeeded(interactable);
         MarkConsumedIfNeeded(interactable, onConsumed);
+        TryResolveBasementProgress(interactable);
     }
 
     public static void ConsumeRequiredItemIfNeeded(InteractableData interactable)
@@ -95,5 +96,22 @@ internal static class InteractionOutcomeProcessor
         }
 
         onConsumed?.Invoke(interactable.id);
+    }
+
+    private static void TryResolveBasementProgress(InteractableData interactable)
+    {
+        if (interactable == null || GameManager.Instance == null)
+        {
+            return;
+        }
+
+        if (interactable.id == "pressure_release_valve")
+        {
+            GameManager.Instance.SetFlag(GameFlagNames.SteamEnabled, true);
+        }
+
+        var hasEvidence = GameManager.Instance.HasFlag(GameFlagNames.BasementEvidenceFound);
+        var valveRepaired = GameManager.Instance.HasFlag(GameFlagNames.PressureValveRepaired);
+        GameManager.Instance.SetFlag(GameFlagNames.BasementResolved, hasEvidence && valveRepaired);
     }
 }
