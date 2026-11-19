@@ -1,8 +1,8 @@
 # Room Basement — Technical Spec
 
-- Versión 0.2
+- Versión 0.3
 - Creado: 17/11/2026
-- Actualizado: 18/11/2026
+- Actualizado: 19/11/2026
 
 ---
 
@@ -181,8 +181,9 @@ requiresLantern: true
 
 **Visual:**
 
-- **Mundo Normal:** `sprite-basement-personal-effects-box-normal.png`
-- **Otra Realidad:** `sprite-basement-personal-effects-box-other.png`
+- **Mundo Normal:** `sprite-basement-personal-effects-box-normal`
+- **Otra Realidad:** `sprite-basement-personal-effects-box-other`
+- **Sprite Sheet:** `spritesheet-basement-personal-effects-box.png` ✅
 
 ---
 
@@ -256,7 +257,9 @@ interactionType: Use
 visibleInNormalReality: true
 visibleInOtherReality: true
 requiredItemId: "valve_handle"
-resultFlag: PressureValveRepaired
+resultFlags: 
+  - PressureValveRepaired
+  - SteamEnabled
 requiresLantern: true
 ```
 
@@ -272,10 +275,22 @@ requiresLantern: true
 - si falta la `valve_handle`, la interacción ofrece una pista pero no se resuelve;
 - cuando se usa correctamente, se activa una reacción visual y sonora de alivio/descarga.
 
+**Estado del Vapor:**
+
+Cuando la válvula se activa correctamente:
+
+- `SteamEnabled` = `true`
+- Varias tuberías del `Otro Lado` comienzan a expulsar vapor a presión.
+- El vapor se mantiene activo mientras las presión permanezca liberada.
+- La `Manifestación de Negación` entra en estado de retirada o dispersión.
+
 **Visual:**
 
-- **Mundo Normal:** `sprite-basement-pressure-release-valve-normal.png`
-- **Otra Realidad:** `sprite-basement-pressure-release-valve-other.png`
+- **Pressure Release Valve:** `spritesheet-basement-pressure-release-valve.png`
+  - **Mundo Normal:** `sprite-basement-pressure-release-valve-normal`
+  - **Otra Realidad:** `sprite-basement-pressure-release-valve-other`
+- **Steam Pipes:** `spritesheet-basement-steam-pipes.png`
+  - **Animación:** 4 sprites en el `spritesheet-basement-steam-pipes.png`
 
 ---
 
@@ -408,6 +423,7 @@ Esto permite que la room tenga lógica clara sin duplicar un comportamiento espe
 | BasementEvidenceFound | La evidencia principal fue identificada | `personal_effects_box` |
 | ValveHandleFound | La pieza de reparación fue localizada | `valve_handle` |
 | PressureValveRepaired | La válvula se usa correctamente | `pressure_release_valve` |
+| SteamEnabled | El sistema libera vapor en el `Otro Lado` | `pressure_release_valve` |
 | DenialManifestationVisible | La manifestación bloquea la salida | `denial_manifestation` |
 | BasementExitUnlocked | La salida queda accesible | `basement_exit` |
 | BasementResolved | Room completada | al cruzar los estados de evidencia + válvula |
@@ -417,6 +433,7 @@ Esto permite que la room tenga lógica clara sin duplicar un comportamiento espe
 ```text
 If BasementEvidenceFound == true
    and PressureValveRepaired == true
+   and SteamEnabled == true
 then BasementResolved = true
 ```
 
@@ -442,6 +459,30 @@ Estos eventos son narrativos, no sistemas nuevos:
 - ruido de presión y liberación en la válvula cuando se activa.
 
 No conviene crear una “máquina de efectos” para todo. Una línea temporal minimalista y unos pocos triggers son suficientes.
+
+### SteamBurst
+
+Elemento visual principal del Basement.
+
+**Implementación MVP:**
+
+- 4 sprites reutilizables
+- Animación en bucle
+- Transparencia parcial
+- Desplazamiento vertical lento
+- Color blanco grisáceo
+- Sin sistema de Partículas complejo (sin generar partículas individuales)
+
+**Activación:**
+
+- `PressureValveRepaired` == `true`
+- `Reality` == `OtherSide`
+
+**Objetivo:**
+
+- Comunicar liberación de presión
+- Reforzar la transformación del espacio
+- Dirigir la atención hacia la desaparición de la `Manifestación de Negación`
 
 ---
 
