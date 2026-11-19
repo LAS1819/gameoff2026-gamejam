@@ -30,14 +30,15 @@ Las Memorias representan momentos de verdad que el protagonista es capaz de reco
 - Memory_02
 - Memory_03
 - Memory_04
+- Memory_05
 
 ---
 
 ## Relación con los finales
 
-- **0-1 Memorias:** Final Malo.
-- **2-3 Memorias:** Final Neutral.
-- **4 Memorias:** Final Verdadero.
+- **0-2 Memorias:** Final Malo.
+- **3-4 Memorias:** Final Neutral.
+- **5 Memorias:** Final Verdadero.
 
 ---
 
@@ -45,6 +46,6 @@ Las Memorias representan momentos de verdad que el protagonista es capaz de reco
 
 **Tras los créditos se muestra:**
 
-- Memorias recuperadas: X/4
+- Memorias recuperadas: X/5
 
 Con ello se comunica al jugador que existen elementos opcionales sin convertir la partida en una colección obligatoria.
