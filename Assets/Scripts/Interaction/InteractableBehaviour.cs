@@ -143,12 +143,9 @@ public class InteractableBehaviour : MonoBehaviour
             return;
         }
 
-        if (!data.id.Equals("shelf_interactive", StringComparison.OrdinalIgnoreCase))
-        {
-            return;
-        }
-
-        if (GameManager.Instance != null && GameManager.Instance.HasFlag(GameFlagNames.LibraryShelfActivated))
+        if (data.id.Equals("shelf_interactive", StringComparison.OrdinalIgnoreCase)
+            && GameManager.Instance != null
+            && GameManager.Instance.HasFlag(GameFlagNames.LibraryShelfActivated))
         {
             if (normalSprite != null)
             {

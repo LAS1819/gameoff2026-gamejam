@@ -50,7 +50,7 @@ public static partial class DefaultRoomCatalog
             description = "A cardboard box marked as personal effects.",
             descriptionInNormalReality = "The label says PERSONAL. Photos and papers are tucked inside.",
             descriptionInOtherReality = "The same label now reads MIND. The contents no longer agree with each other.",
-            interactionType = InteractionType.Examine,
+            interactionType = InteractionType.Use,
             visibleInNormalReality = true,
             visibleInOtherReality = true,
             resultFlag = GameFlagNames.BasementEvidenceFound
@@ -71,19 +71,6 @@ public static partial class DefaultRoomCatalog
 
         basement.interactables.Add(new InteractableData
         {
-            id = "valve_handle",
-            itemId = "valve_handle",
-            displayName = "Valve Handle",
-            description = "A heavy metal handle detached from a pressure valve.",
-            interactionType = InteractionType.Pickup,
-            visibleInNormalReality = true,
-            visibleInOtherReality = true,
-            resultFlag = GameFlagNames.ValveHandleFound,
-            consumeAfterUse = true
-        });
-
-        basement.interactables.Add(new InteractableData
-        {
             id = "pressure_release_valve",
             displayName = "Pressure Release Valve",
             description = "A release valve missing its handle.",
@@ -91,7 +78,7 @@ public static partial class DefaultRoomCatalog
             descriptionInOtherReality = "In this reality the mechanism is warped and unstable.",
             interactionType = InteractionType.Use,
             visibleInNormalReality = true,
-            visibleInOtherReality = true,
+            visibleInOtherReality = false,
             requiredItemId = "valve_handle",
             consumeRequiredItemOnUse = true,
             resultFlag = GameFlagNames.PressureValveRepaired
@@ -123,6 +110,19 @@ public static partial class DefaultRoomCatalog
 
         basement.interactables.Add(new InteractableData
         {
+            id = "forest_exit_door",
+            displayName = "Forest Exit Door",
+            description = "A hidden path becomes accessible once the denial manifestation is rejected.",
+            descriptionInNormalReality = "The path is clear now. A door to the forest waits beyond.",
+            descriptionInOtherReality = "The steam burns here. I cannot pass through it.",
+            interactionType = InteractionType.Examine,
+            visibleInNormalReality = true,
+            visibleInOtherReality = true,
+            resultFlag = GameFlagNames.ForestExitUnlocked
+        });
+
+        basement.interactables.Add(new InteractableData
+        {
             id = "library_exit_door",
             displayName = "Library Exit Door",
             description = "Return to the Library.",
@@ -131,17 +131,6 @@ public static partial class DefaultRoomCatalog
             visibleInOtherReality = true,
             linkedRoomId = GameManager.LibraryRoomId,
             resultFlag = GameFlagNames.BasementExitUnlocked
-        });
-
-        basement.interactables.Add(new InteractableData
-        {
-            id = "forest_exit_door",
-            displayName = "Forest Exit Door",
-            description = "Return to the Forest.",
-            interactionType = InteractionType.Transition,
-            visibleInNormalReality = true,
-            visibleInOtherReality = true,
-            //linkedRoomId = GameManager.ForestRoomId
         });
     }
 }

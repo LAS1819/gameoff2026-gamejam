@@ -3430,7 +3430,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: f5f7e4085c1809341b48be56185ded18, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4268,8 +4268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8811e9d3a2d09498adb4d6adb72208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  useDebugStartRoom: 0
-  debugStartRoomId: library
+  useDebugStartRoom: 1
+  debugStartRoomId: basement
 --- !u!4 &1253440029
 Transform:
   m_ObjectHideFlags: 0
@@ -5850,8 +5850,8 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
-  normalSprite: {fileID: 21300000, guid: d19e94c8ff628f5418368b6c2fb81c09, type: 3}
-  otherSideSprite: {fileID: 21300000, guid: f4aa08b80a6b7614aaa73234f93649f4, type: 3}
+  normalSprite: {fileID: 21300000, guid: 6cfaa4996b3967c4db0c2ce9ec9c4024, type: 3}
+  otherSideSprite: {fileID: 21300000, guid: 6cfaa4996b3967c4db0c2ce9ec9c4024, type: 3}
   useRealitySprites: 1
 --- !u!61 &1540287810
 BoxCollider2D:
@@ -6016,6 +6016,7 @@ GameObject:
   - component: {fileID: 1585372572}
   - component: {fileID: 1585372571}
   - component: {fileID: 1585372570}
+  - component: {fileID: 1585372574}
   m_Layer: 0
   m_Name: DenialManifestation
   m_TagString: Untagged
@@ -6083,9 +6084,24 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
-  normalSprite: {fileID: 242422704, guid: 4a7876964d2c33344b39c9afb47d895d, type: 3}
-  otherSideSprite: {fileID: 907087973, guid: 4a7876964d2c33344b39c9afb47d895d, type: 3}
-  useRealitySprites: 1
+  normalSprite: {fileID: 0}
+  otherSideSprite: {fileID: 569997706, guid: c8355024bfb3bfa4fa4ed959e373eb62, type: 3}
+  useRealitySprites: 0
+--- !u!114 &1585372574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1585372568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f3f0d2d5d2a45a2a1a4c1c7b6e3d901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DenialManifestationController
+  fadeDuration: 0.58
+  shrinkScale: 0.72
+  distortionScale: 1.18
 --- !u!61 &1585372572
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7261,8 +7277,8 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
-  normalSprite: {fileID: 21300000, guid: d19e94c8ff628f5418368b6c2fb81c09, type: 3}
-  otherSideSprite: {fileID: 21300000, guid: f4aa08b80a6b7614aaa73234f93649f4, type: 3}
+  normalSprite: {fileID: 21300000, guid: 6cfaa4996b3967c4db0c2ce9ec9c4024, type: 3}
+  otherSideSprite: {fileID: 21300000, guid: 6cfaa4996b3967c4db0c2ce9ec9c4024, type: 3}
   useRealitySprites: 1
 --- !u!61 &1889221579
 BoxCollider2D:

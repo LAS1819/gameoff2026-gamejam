@@ -171,11 +171,10 @@ resultFlag: BasementShelfRightExplored
 ```text
 id: "personal_effects_box"
 displayName: "Personal Effects Box"
-interactionType: Examine
-visibleInNormalReality: true
+interactionType: Use
+visibleInNormalReality: false
 visibleInOtherReality: true
 resultFlag: BasementEvidenceFound
-requiresLantern: true
 ```
 
 **Propósito:**
@@ -186,8 +185,9 @@ requiresLantern: true
 
 **Regla técnica:**
 
-- `LanternActive == false` → descripción incompleta o ambigua.
-- `LanternActive == true` → información concreta, emocionalmente dolorosa, útil para la progresión narrativa.
+- sólo puede usarse en `Other Side`;
+- al usarla, añade `ValveHandle` al inventario y activa `ValveHandleFound`;
+- la caja sigue visible como evidencia; no se consume.
 
 **Visual:**
 
@@ -229,32 +229,18 @@ resultFlag: BasementPipelinesExplored
 
 ### 5.5 ValveHandle
 
-```text
-id: "valve_handle"
-displayName: "Valve Handle"
-interactionType: Pickup
-itemId: "valve_handle"
-visibleInNormalReality: true
-visibleInOtherReality: true
-resultFlag: ValveHandleFound
-requiresLantern: true
-consumeAfterUse: true
-```
-
-**Propósito:**
-
-- introducir la “pieza de reparación” del sistema;
-- obligar a la exploración activa del almacén;
-- cerrar la relación entre espacio físico y trauma emocional.
+`ValveHandle` es un item de inventario obtenido al usar `PersonalEffectsBox` en `Other Side`.
 
 **Regla técnica:**
 
-- no puede recogerse si la linterna está apagada;
-- un `Examine` previo debe sugerir que falta una pieza para “restaurar” la presión.
+- no existe como pickup separado en la room;
+- al usarlo sobre `PressureReleaseValve`, se consume del inventario;
+- el GameObject visual `ValveHandle` se activa junto a la válvula sólo tras el uso correcto;
+- el interactable activo sigue siendo `PressureReleaseValve`.
 
 **Visual:**
 
-- **Mundo Normal:** `sprite-basement-valve-handle-normal.png` ✅ <- Sólo visible en `Normal Reality`
+- **Mundo Normal:** `sprite-basement-valve-handle-normal.png` ✅
 
 ---
 
@@ -265,8 +251,9 @@ id: "pressure_release_valve"
 displayName: "Pressure Release Valve"
 interactionType: Use
 visibleInNormalReality: true
-visibleInOtherReality: true
+visibleInOtherReality: false
 requiredItemId: "valve_handle"
+consumeRequiredItemOnUse: true
 resultFlags: 
   - PressureValveRepaired
   - SteamEnabled
@@ -332,8 +319,7 @@ resultFlag: AmbulanceMemoryTriggered
 ```text
 id: "forest_exit_door"
 displayName: "Forest Exit Door"
-interactionType: Transition
-linkedRoomId: "?? Forest??"
+interactionType: Examine
 visibleInNormalReality: true
 visibleInOtherReality: true
 resultFlag: ForestExitUnlocked
@@ -347,7 +333,9 @@ resultFlag: ForestExitUnlocked
 **Condición:**
 
 - `PressureValveRepaired == true`;
-- `DenialManifestationBlocked == true` o equivalente.
+- `PressureValveRepaired == true`;
+- `SteamEnabled == true`;
+- `DenialManifestationRejected == true`.
 
 **Visual:** No tiene visual, sólo es un colisionador que se activa tras cumplir las condiciones.
 
@@ -435,6 +423,8 @@ Esto permite que la room tenga lógica clara sin duplicar un comportamiento espe
 | PressureValveRepaired | La válvula se usa correctamente | `pressure_release_valve` |
 | SteamEnabled | El sistema libera vapor en el `Otro Lado` | `pressure_release_valve` |
 | DenialManifestationVisible | La manifestación bloquea la salida | `denial_manifestation` |
+| DenialManifestationRejected | El vapor ha rechazado a la manifestación | `pressure_release_valve` |
+| BasementCodeUsed | El código fue usado en el panel | `code_panel` |
 | BasementExitUnlocked | La salida queda accesible | `basement_exit` |
 | BasementResolved | Room completada | al cruzar los estados de evidencia + válvula |
 

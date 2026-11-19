@@ -81,9 +81,7 @@ public static partial class DefaultRoomCatalog
             interactionType = InteractionType.Transition,
             visibleInNormalReality = true,
             visibleInOtherReality = true,
-            requiredItemId = "basement_code",
             resultFlag = GameFlagNames.BasementUnlocked,
-            consumeRequiredItemOnUse = false,
             consumeAfterUse = false,
             linkedRoomId = GameManager.BasementRoomId
         });
@@ -105,9 +103,12 @@ public static partial class DefaultRoomCatalog
             displayName = "Code Panel",
             description = "A small panel with a numeric keypad, likely controlling access to the basement.",
             descriptionInOtherReality = "The keypad is already unlocked. The real barrier is the door itself.",
-            interactionType = InteractionType.Examine,
+            interactionType = InteractionType.Use,
             visibleInNormalReality = false,
-            visibleInOtherReality = true
+            visibleInOtherReality = true,
+            requiredItemId = "basement_code",
+            consumeRequiredItemOnUse = true,
+            resultFlag = GameFlagNames.BasementCodeUsed
         });
     }
 }

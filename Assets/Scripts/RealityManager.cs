@@ -60,6 +60,7 @@ public class RealityManager : MonoBehaviour
         }
 
         CurrentReality = reality;
+        ReconcileBasementRealityTransition();
 
         // Update background visibility - ALWAYS search fresh since rooms activate/deactivate
         UpdateBackgrounds();
@@ -68,6 +69,81 @@ public class RealityManager : MonoBehaviour
         RealityChanged?.Invoke(CurrentReality);
 
         Debug.Log($"[RealityManager] Reality changed to: {CurrentReality}");
+    }
+
+    private void ReconcileBasementRealityTransition()
+    {
+        var room = RoomManager.Instance?.CurrentRoom;
+        var gameManager = GameManager.Instance;
+        if (room == null || gameManager == null)
+        {
+            return;
+        }
+
+        if (!room.id.Equals(GameManager.BasementRoomId, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        if (CurrentReality != RealityType.OtherSide)
+        {
+            return;
+        }
+
+        if (!gameManager.HasFlag(GameFlagNames.PressureValveRepaired)
+            || !gameManager.HasFlag(GameFlagNames.SteamEnabled))
+        {
+            return;
+        }
+
+        gameManager.SetFlag(GameFlagNames.DenialManifestationRejected, true);
+        gameManager.SetFlag(GameFlagNames.DenialManifestationVisible, false);
+        gameManager.SetFlag(GameFlagNames.ForestExitUnlocked, true);
+        gameManager.SetFlag(GameFlagNames.BasementResolved, true);
+        StartCoroutine(PlayDenialManifestationRejectionNextFrame());
+    }
+
+    private System.Collections.IEnumerator PlayDenialManifestationRejectionNextFrame()
+    {
+        yield return null;
+
+        RoomManager.Instance?.RefreshInteractables();
+        var room = RoomManager.Instance?.CurrentRoom;
+        if (room == null)
+        {
+            yield break;
+        }
+
+        var roomRoot = GameObject.Find("Main/Rooms") ?? GameObject.Find("Rooms");
+        if (roomRoot == null)
+        {
+            yield break;
+        }
+
+        Transform basementRoot = null;
+        foreach (Transform child in roomRoot.transform)
+        {
+            if (child.name.Equals(GameManager.BasementRoomId, System.StringComparison.OrdinalIgnoreCase))
+            {
+                basementRoot = child;
+                break;
+            }
+        }
+
+        if (basementRoot == null)
+        {
+            yield break;
+        }
+
+        var manifestations = basementRoot.GetComponentsInChildren<DenialManifestationController>(true);
+        foreach (var manifestation in manifestations)
+        {
+            if (manifestation != null)
+            {
+                manifestation.gameObject.SetActive(true);
+                manifestation.PlayRejection();
+            }
+        }
     }
 
     public bool IsShiftAllowedInCurrentRoom()

@@ -37,6 +37,8 @@ public static class GameFlagNames
     public const string BasementResolved = "BasementResolved";
     public const string ForestExitUnlocked = "ForestExitUnlocked";
     public const string AmbulanceMemoryTriggered = "AmbulanceMemoryTriggered";
+    public const string BasementCodeUsed = "BasementCodeUsed";
+    public const string DenialManifestationRejected = "DenialManifestationRejected";
 }
 
 public class GameManager : MonoBehaviour
@@ -127,6 +129,8 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.BasementResolved, false);
         SetFlag(GameFlagNames.ForestExitUnlocked, false);
         SetFlag(GameFlagNames.AmbulanceMemoryTriggered, false);
+        SetFlag(GameFlagNames.BasementCodeUsed, false);
+        SetFlag(GameFlagNames.DenialManifestationRejected, false);
 
         EnsureRuntimeSystems();
         InventoryManager.Instance?.ResetInventory();

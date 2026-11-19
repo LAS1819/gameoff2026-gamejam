@@ -25,4 +25,17 @@ internal static class InteractionItemFactory
             isKeyItem = true
         };
     }
+
+    public static InventoryItemData CreateValveHandle()
+    {
+        return new InventoryItemData
+        {
+            id = "valve_handle",
+            displayName = "Valve Handle",
+            description = "A heavy metal handle taken from inside the Personal Effects Box.",
+            descriptionInNormalReality = "The handle is cold and fits the pressure valve.",
+            descriptionInOtherReality = "The handle trembles as if it remembers being torn away.",
+            isKeyItem = true
+        };
+    }
 }
