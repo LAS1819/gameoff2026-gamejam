@@ -2,7 +2,7 @@
 
 - **Versión del documento*** 0.6
 - **Creado:** 2026-11-07
-- **Última actualización:** 2026-11-17
+- **Última actualización:** 2026-11-19
 
 ---
 
@@ -52,15 +52,11 @@ La mecánica SHIFT representa tanto un cambio entre realidades como un cambio en
 
 ## Historia - Prototipo
 
-Hace seis meses, el padre del protagonista desapareció repentinamente de su vida.
-
-Al menos eso es lo que él cree.
+Hace seis meses, el padre del protagonista desapareció repentinamente de su vida. Al menos eso es lo que él cree.
 
 Incapaz de aceptar su ausencia, terminó convenciéndose de que algún día regresaría y le explicaría lo sucedido. Desde entonces se aferró a una versión más soportable de la realidad, una historia donde su padre no había muerto, sino que simplemente se había marchado.
 
-Sin embargo, un día recibe un mensaje inesperado.
-
-La letra le resulta inconfundible. Es de su padre. En el mensaje le pide que acuda a un lugar para hablar. Un lugar conocido como "El Horizonte".
+Sin embargo, un día recibe un mensaje inesperado. La letra le resulta inconfundible. Es de su padre. En el mensaje le pide que acuda a un lugar para hablar. Un lugar conocido como **"El Horizonte"**.
 
 Impulsado por la necesidad de obtener respuestas, el protagonista llega a un extraño edificio que parece cambiar constantemente ante sus ojos. Un lugar que recuerda vagamente a un hotel, un hospital, un complejo de apartamentos o un motel abandonado. Familiar y desconocido al mismo tiempo.
 
@@ -93,17 +89,27 @@ Su arquitectura cambia sutilmente entre realidades y contradice constantemente l
 
 ## El Otro Lado
 
-El Otro Lado posee múltiples significados.
+A pesar de cómo lo percibe el protagonista, El Otro Lado no es simplemente una realidad alternativa. Es una distorsión de su propia percepción del mundo.
 
-Para el protagonista representa la mentira construida para evitar el dolor.
+Durante seis meses, el protagonista ha construido una mentira para evitar aceptar la muerte de su padre. Esa mentira se ha convertido en la Realidad Normal que experimenta durante el juego. El Otro Lado representa la verdad intentando atravesar esa construcción mental. Cada vez que el jugador utiliza SHIFT, no está viajando únicamente entre dos mundos. Está atravesando dos interpretaciones distintas de los mismos acontecimientos:
 
-Para el jugador representa una realidad alternativa donde las cosas no son exactamente lo que parecen.
+- La versión que el protagonista desea creer.
+- La versión que realmente ocurrió.
 
-A nivel temático simboliza la distancia entre lo que ocurrió realmente y aquello que el protagonista desea creer.
+Por ese motivo, los objetos, las habitaciones y los recuerdos cambian entre ambas realidades. Lo que en la Realidad Normal parece coherente, familiar o reconfortante, en El Otro Lado puede revelar contradicciones, ausencias o detalles imposibles de ignorar. El Otro Lado no intenta engañar al protagonista. Intenta despertarlo.
 
-El objetivo de la historia consiste en reducir poco a poco esa distancia.
+A medida que avanza la historia, la distancia entre ambas realidades se reduce. La mentira pierde consistencia y la verdad se vuelve cada vez más difícil de ocultar. El objetivo narrativo del juego no consiste en escapar del Otro Lado. Consiste en comprender por qué existe.
 
-En la `Bedroom`, el ordenado personal funciona como una de las primeras pruebas materiales de esa mentira. No es solo un objeto cualquiera: es el archivo que el protagonista usó para sostener la versión más llevadera de la desaparición de su padre. El `Floppy Disk` se convierte en la copia física de ese recuerdo manipulado, y el `Basement Code` es el primer momento en el que la historia deja de ser una ficción confortante y se vuelve evidencia.
+### Significado Narrativo de las Rooms
+
+Cada Room representa una parte diferente del proceso de negación del protagonista. Aunque cada una posee una función jugable específica, todas comparten un propósito narrativo común: acercar al protagonista a una verdad que ha intentado evitar durante meses.
+
+- Lobby: Negación.
+- Hallway: Primera grieta en la mentira.
+- Bedroom: Origen emocional del recuerdo.
+- Library: Memoria reinterpretada.
+- Basement: La verdad emergiendo a la superficie.
+- Bosque: Aceptación.
 
 ---
 
@@ -157,9 +163,7 @@ Existe una despedida incompleta. Ambos quedan separados por aquello que nunca ll
 
 ### Final Verdadero - Reencuentro
 
-El protagonista reúne todas las piezas del misterio.
-
-Acepta la muerte de su padre. Acepta también su propia muerte.
+El protagonista reúne todas las piezas del misterio. Acepta la muerte de su padre. Acepta también su propia muerte.
 
 Por primera vez deja de buscar respuestas y simplemente escucha.
 
@@ -169,8 +173,4 @@ El encuentro final se convierte en una despedida pendiente desde hace seis meses
 
 ## Objetivo Emocional
 
-El jugador debe comenzar la aventura buscando una respuesta.
-
-Debe terminar comprendiendo que la historia nunca trató sobre una desaparición.
-
-Trataba sobre una despedida.
+El jugador debe comenzar la aventura buscando una respuesta. Debe terminar comprendiendo que la historia nunca trató sobre una desaparición. Trataba sobre una despedida.
