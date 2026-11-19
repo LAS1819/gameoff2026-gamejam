@@ -213,6 +213,7 @@ resultFlag: BasementPipelinesExplored
 
 - **Mundo Normal:** `sprite-basement-pipelines-normal.png`
 - **Otra Realidad:** `sprite-basement-pipelines-other.png`
+- **Sprite Sheet:** `spritesheet-basement-pipelines.png` ✅
 
 ---
 
@@ -243,8 +244,7 @@ consumeAfterUse: true
 
 **Visual:**
 
-- **Mundo Normal:** `sprite-basement-valve-handle-normal.png`
-- **Otra Realidad:** `sprite-basement-valve-handle-other.png`
+- **Mundo Normal:** `sprite-basement-valve-handle-normal.png` ✅ <- Sólo visible en `Normal Reality`
 
 ---
 
@@ -286,11 +286,9 @@ Cuando la válvula se activa correctamente:
 
 **Visual:**
 
-- **Pressure Release Valve:** `spritesheet-basement-pressure-release-valve.png`
-  - **Mundo Normal:** `sprite-basement-pressure-release-valve-normal`
-  - **Otra Realidad:** `sprite-basement-pressure-release-valve-other`
-- **Steam Pipes:** `spritesheet-basement-steam-pipes.png`
-  - **Animación:** 4 sprites en el `spritesheet-basement-steam-pipes.png`
+- **Mundo Normal:** `sprite-basement-pressure-release-valve-normal.png` ✅ <- Sólo visible en `Normal Reality`
+- **Steam Pipes:** `spritesheet-basement-steam-pipes.png` ✅
+  - **Animación Otro Lado:** 4 sprites en el `spritesheet-basement-steam-pipes.png`
 
 ---
 
@@ -340,6 +338,8 @@ resultFlag: ForestExitUnlocked
 
 - `PressureValveRepaired == true`;
 - `DenialManifestationBlocked == true` o equivalente.
+
+**Visual:** No tiene visual, sólo es un colisionador que se activa tras cumplir las condiciones.
 
 ---
 
