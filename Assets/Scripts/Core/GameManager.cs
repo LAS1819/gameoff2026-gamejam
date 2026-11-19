@@ -24,6 +24,21 @@ public static class GameFlagNames
     public const string BasementDoorVisible = "BasementDoorVisible";
     public const string BasementUnlocked = "BasementUnlocked";
     public const string BasementCodeAcquired = "BasementCodeAcquired";
+    public const string BasementEntered = "BasementEntered";
+    public const string BasementShelfLeftExplored = "BasementShelfLeftExplored";
+    public const string BasementShelfRightExplored = "BasementShelfRightExplored";
+    public const string BasementPipelinesExplored = "BasementPipelinesExplored";
+    public const string BasementEvidenceFound = "BasementEvidenceFound";
+    public const string ValveHandleFound = "ValveHandleFound";
+    public const string PressureValveRepaired = "PressureValveRepaired";
+    public const string SteamEnabled = "SteamEnabled";
+    public const string DenialManifestationVisible = "DenialManifestationVisible";
+    public const string BasementExitUnlocked = "BasementExitUnlocked";
+    public const string BasementResolved = "BasementResolved";
+    public const string ForestExitUnlocked = "ForestExitUnlocked";
+    public const string AmbulanceMemoryTriggered = "AmbulanceMemoryTriggered";
+    public const string BasementCodeUsed = "BasementCodeUsed";
+    public const string DenialManifestationRejected = "DenialManifestationRejected";
 }
 
 public class GameManager : MonoBehaviour
@@ -33,6 +48,7 @@ public class GameManager : MonoBehaviour
     public const string HallwayRoomId = "hallway";
     public const string BedroomRoomId = "bedroom";
     public const string LibraryRoomId = "library";
+    public const string BasementRoomId = "basement";
 
     [Header("Development")]
     [SerializeField] private bool useDebugStartRoom = true;
@@ -100,6 +116,21 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.BasementDoorVisible, false);
         SetFlag(GameFlagNames.BasementUnlocked, false);
         SetFlag(GameFlagNames.BasementCodeAcquired, false);
+        SetFlag(GameFlagNames.BasementEntered, false);
+        SetFlag(GameFlagNames.BasementShelfLeftExplored, false);
+        SetFlag(GameFlagNames.BasementShelfRightExplored, false);
+        SetFlag(GameFlagNames.BasementPipelinesExplored, false);
+        SetFlag(GameFlagNames.BasementEvidenceFound, false);
+        SetFlag(GameFlagNames.ValveHandleFound, false);
+        SetFlag(GameFlagNames.PressureValveRepaired, false);
+        SetFlag(GameFlagNames.SteamEnabled, false);
+        SetFlag(GameFlagNames.DenialManifestationVisible, false);
+        SetFlag(GameFlagNames.BasementExitUnlocked, false);
+        SetFlag(GameFlagNames.BasementResolved, false);
+        SetFlag(GameFlagNames.ForestExitUnlocked, false);
+        SetFlag(GameFlagNames.AmbulanceMemoryTriggered, false);
+        SetFlag(GameFlagNames.BasementCodeUsed, false);
+        SetFlag(GameFlagNames.DenialManifestationRejected, false);
 
         EnsureRuntimeSystems();
         InventoryManager.Instance?.ResetInventory();

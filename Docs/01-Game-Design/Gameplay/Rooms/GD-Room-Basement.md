@@ -1,8 +1,8 @@
 # GD Room - Basement Design
 
-- Versión 0.3
+- Versión 0.4
 - Creado: 17/11/2026
-- Actualizado: 18/11/2026
+- Actualizado: 19/11/2026
 
 ---
 
@@ -102,30 +102,52 @@ Las estanterías son el primer elemento que obliga al jugador a moverse con la `
 
 ---
 
-### 5.2 Caja de efectos personales
+### 5.2 Caja de efectos personales / Personal Effects Box
 
 Es la `Evidencia Principal` del `Basement`.
 
-Se oculta entre cajas y objetos almacenados, y solo puede identificarse con claridad si el jugador usa la `Linterna`.
+Se encuentra entre cajas y objetos almacenados. En ella se localiza la `Manivela de la válvula`.
 
-**Contenido sugerido:**
+En el MVP actual se usa desde el `Otro Lado`; la lógica visual y los requisitos de linterna se integrarán en una iteración posterior.
 
-- fotografías;
-- documentos personales;
-- objetos con valor emocional y simbólico;
-- piezas relacionadas con la muerte del padre o con el día de la desaparición.
+**Contenido:**
+
+- `Manivela de la válvula`
+- Fotografías
+- Documentos personales
+- Objetos con valor emocional y simbólico
+- Piezas relacionadas con la muerte del padre o con el día de la desaparición
 
 **Objetivo narrativo:**
 
-- no explicar la verdad de golpe;
-- mostrar que la historia del protagonista está rota;
-- introducir dudas imposibles de ignorar.
+- No explicar la verdad de golpe
+- Mostrar que la historia del protagonista está rota
+- Introducir dudas imposibles de ignorar
 
-La caja no debe “contar todo”, sino materializar la incoherencia de la historia que el protagonista se ha inventado.
+**Realidades:**
+
+**Realidad Normal:**
+
+- Caja de cartón abierta y relativamente ordenada.
+- Etiqueta visible con la palabra `PERSONAL`.
+- Fotografías y documentos sobresalen ligeramente.
+- Se percibe como una caja corriente almacenada entre otros objetos olvidados.
+
+**Otro Lado:**
+
+- La misma caja aparece deteriorada.
+- La etiqueta ha cambiado y ahora muestra la palabra `MIND`.
+- Los documentos aparecen desplazados.
+- Algunas fotografías muestran detalles imposibles o contradictorios.
+- La caja transmite la sensación de que el recuerdo ha sido manipulado o reescrito.
+
+La transición visual entre `PERSONAL` y `MIND` simboliza el paso desde un recuerdo aparentemente normal hacia una construcción mental basada en la negación.
+
+La caja no debe revelar toda la verdad, sino materializar la incoherencia de la historia que el protagonista se ha contado durante meses.
 
 ---
 
-### 5.3 Manivela de la válvula
+### 5.3 Manivela de la válvula / Valve Handle
 
 La `Manivela` es la pieza de progreso necesaria para poner en marcha la resolución de la room.
 
@@ -152,6 +174,27 @@ Es el interactuable clave del `Basement`, el punto de resolución central.
 **Función narrativa:**
 
 La válvula representa la liberación de la presión emocional acumulada. No es una máquina “realista” para ser entendida; es el símbolo de la verdad que deja de ser contenida.
+
+**Representación visual de la presión:**
+
+Cuando la `Válvula de Descarga` es activada en la `Realidad Normal`, varias tuberías del `Otro Lado` comienzan a expulsar vapor a presión.
+
+**Implementación MVP:**
+
+- efecto visual simple;
+- 2-4 sprites animados reutilizables;
+- animación en bucle;
+- transparencia parcial;
+- movimiento vertical lento y turbulento;
+- puede reutilizarse en múltiples tuberías de la room.
+
+**Objetivo narrativo:**
+
+El vapor no representa únicamente una reacción mecánica.
+
+Representa la presión emocional acumulada durante meses que finalmente encuentra una vía de escape.
+
+Su aparición debe comunicar de forma inmediata que algo ha cambiado en la relación entre ambas realidades.
 
 **Resultado:**
 
@@ -222,6 +265,13 @@ No es un enemigo de combate. Es un bloqueo psicológico y narrativo.
 6. la `Manifestación de Negación` se distorsiona y retrocede;
 7. la salida queda accesible.
 
+La desaparición debe verse como un desvanecimiento breve pero perceptible:
+
+- mantiene el sprite visible al comenzar;
+- encoge y distorsiona ligeramente la silueta;
+- reduce su opacidad durante aproximadamente 1.35 segundos;
+- termina ocultando el objeto.
+
 Es importante que no sea “derrotada” como un monstruo. Pierde su capacidad de bloquear al jugador, pero su presencia sigue funcionando como símbolo de la negación del protagonista.
 
 ---
@@ -250,7 +300,19 @@ Es importante que no sea “derrotada” como un monstruo. Pierde su capacidad d
 - gotas = lágrimas;
 - luces de sirena = recuerdo del día de la muerte del padre.
 
-Todo esto debe ser breve, legible y narrativamente útil; no un espectáculo visual sin función.
+### Vapor
+
+El vapor es uno de los elementos visuales más importantes del Basement.
+
+- aparece únicamente después de activar la `Válvula de Descarga`;
+- surge por grietas y tuberías rotas del `Otro Lado`;
+- utiliza pocos sprites reutilizables;
+- debe ser claramente visible incluso en zonas oscuras;
+- ayuda a dirigir la atención del jugador hacia la resolución de la room.
+
+De forma narrativa, simboliza emociones reprimidas que ya no pueden permanecer contenidas.
+
+Todo esto debe ser breve, legible y útil de forma narrativa; no un espectáculo visual sin función.
 
 ---
 

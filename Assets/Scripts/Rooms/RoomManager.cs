@@ -129,6 +129,12 @@ public partial class RoomManager : MonoBehaviour
             return null;
         }
 
+        var exactSceneMatch = FindExactSceneCatalogMatch(start.name);
+        if (exactSceneMatch != null)
+        {
+            return exactSceneMatch;
+        }
+
         var current = start;
         while (current != null)
         {
@@ -166,6 +172,41 @@ public partial class RoomManager : MonoBehaviour
             || objectName.Equals(data.displayName, StringComparison.OrdinalIgnoreCase)
             || normalizedObjectName.Equals(normalizedId, StringComparison.OrdinalIgnoreCase)
             || normalizedObjectName.Equals(normalizedDisplayName, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private InteractableData FindExactSceneCatalogMatch(string objectName)
+    {
+        if (CurrentRoom == null || string.IsNullOrWhiteSpace(objectName))
+        {
+            return null;
+        }
+
+        var normalizedName = NormalizeIdentifier(objectName);
+        InteractableData match = null;
+
+        foreach (var interactable in CurrentRoom.interactables)
+        {
+            if (interactable == null)
+            {
+                continue;
+            }
+
+            var normalizedId = NormalizeIdentifier(interactable.id);
+            if (!normalizedName.Equals(normalizedId, StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            match = interactable;
+            break;
+        }
+
+        if (match == null)
+        {
+            return null;
+        }
+
+        return match;
     }
 
     private static string NormalizeIdentifier(string value)

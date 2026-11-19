@@ -8,13 +8,15 @@ public static partial class DefaultRoomCatalog
         var hallway = CreateHallway();
         var bedroom = CreateBedroom();
         var library = CreateLibrary();
+        var basement = CreateBasement();
 
         return new List<RoomData>
         {
             lobby,
             hallway,
             bedroom,
-            library
+            library,
+            basement
         };
     }
 }

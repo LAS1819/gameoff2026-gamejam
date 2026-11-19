@@ -51,6 +51,20 @@ internal static class InteractionExamineTransitionProcessor
                 gameManager.SetFlag(interactable.resultFlag, true);
             }
         }
+        else if ((interactable.id.Equals("storage_shelf_left", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("storage_shelf_right", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("personal_effects_box", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("pipelines", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("ambulance_lights", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("denial_manifestation", StringComparison.OrdinalIgnoreCase))
+            && !string.IsNullOrEmpty(interactable.resultFlag))
+        {
+            var gameManager = GameManager.Instance;
+            if (gameManager != null)
+            {
+                gameManager.SetFlag(interactable.resultFlag, true);
+            }
+        }
 
         var currentReality = RealityManager.Instance != null ? RealityManager.Instance.CurrentReality : RealityType.Normal;
         var descriptionText = interactable.GetDescriptionForReality(currentReality);
@@ -66,6 +80,8 @@ internal static class InteractionExamineTransitionProcessor
         {
             ui.ShowFeedback(descriptionText, 2f);
         }
+
+        TryResolveBasementProgress();
 
         return true;
     }
@@ -109,6 +125,25 @@ internal static class InteractionExamineTransitionProcessor
             GameManager.Instance.SetFlag(interactable.resultFlag, true);
         }
 
+        if (success)
+        {
+            TryResolveBasementProgress();
+        }
+
         return success;
+    }
+
+    private static void TryResolveBasementProgress()
+    {
+        var gameManager = GameManager.Instance;
+        if (gameManager == null)
+        {
+            return;
+        }
+
+        var hasEvidence = gameManager.HasFlag(GameFlagNames.BasementEvidenceFound);
+        var valveRepaired = gameManager.HasFlag(GameFlagNames.PressureValveRepaired);
+        var resolved = hasEvidence && valveRepaired;
+        gameManager.SetFlag(GameFlagNames.BasementResolved, resolved);
     }
 }

@@ -155,10 +155,10 @@ resultFlag: BasementSecretRevealed
 ```text
 id: "basement_door"
 displayName: "Basement Door"
-interactionType: Use
-visibleInNormalReality: false
+interactionType: Transition
+linkedRoomId: "basement"
+visibleInNormalReality: true
 visibleInOtherReality: true
-requiresItem: "basement_code"
 resultFlag: BasementUnlocked
 ```
 
@@ -172,7 +172,9 @@ resultFlag: BasementUnlocked
 
 - No debe ser una resolución completa del Sótano.
 - Debe aparecer únicamente cuando la lógica de la estantería y la realidad dejan claro que algo “se abre”.
-- La contraseña o item requerido puede llegar más tarde; con el MVP basta con presentar la promesa del siguiente espacio.
+- El `basement_code` se usa exclusivamente en el `code_panel`.
+- Tras aceptar el código, la puerta queda accesible permanentemente y el código se consume.
+- La puerta ya no vuelve a requerir el item.
 - Su función es narrativa y narrativa-funcional, no un puzzle de tamaño completo.
 
 ---
@@ -208,10 +210,11 @@ visibleInOtherReality: true
 id: "code_panel"
 displayName: "Code Panel"
 interactionType: Use
-visibleInNormalReality: true
+visibleInNormalReality: false
 visibleInOtherReality: true
 requiresItem: "basement_code"
-resultFlag: BasementDoorUnlocked
+consumeRequiredItemOnUse: true
+resultFlag: BasementCodeUsed
 ```
 
 **Propósito:**

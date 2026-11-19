@@ -172,6 +172,26 @@ internal static class InteractionResolver
             return InteractionSpecialCases.ResolveWornBookUse(interactable, onConsumed);
         }
 
+        if (interactable.id.Equals("personal_effects_box", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolvePersonalEffectsBox(interactable);
+        }
+
+        if (interactable.id.Equals("pressure_release_valve", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolvePressureReleaseValve(interactable, onConsumed);
+        }
+
+        if (interactable.id.Equals("code_panel", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolveCodePanel(interactable, onConsumed);
+        }
+
+        if (interactable.id.Equals("forest_exit_door", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolveForestExit(interactable);
+        }
+
         ClearSelectedItemIfNeeded();
         InteractionOutcomeProcessor.ApplyUseOutcome(interactable, onConsumed);
 

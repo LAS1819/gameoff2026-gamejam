@@ -60,6 +60,7 @@ public class RealityManager : MonoBehaviour
         }
 
         CurrentReality = reality;
+        ReconcileBasementRealityTransition();
 
         // Update background visibility - ALWAYS search fresh since rooms activate/deactivate
         UpdateBackgrounds();
@@ -68,6 +69,116 @@ public class RealityManager : MonoBehaviour
         RealityChanged?.Invoke(CurrentReality);
 
         Debug.Log($"[RealityManager] Reality changed to: {CurrentReality}");
+    }
+
+    private void ReconcileBasementRealityTransition()
+    {
+        var room = RoomManager.Instance?.CurrentRoom;
+        var gameManager = GameManager.Instance;
+        if (room == null || gameManager == null)
+        {
+            return;
+        }
+
+        if (!room.id.Equals(GameManager.BasementRoomId, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        if (CurrentReality != RealityType.OtherSide)
+        {
+            return;
+        }
+
+        if (!gameManager.HasFlag(GameFlagNames.PressureValveRepaired)
+            || !gameManager.HasFlag(GameFlagNames.SteamEnabled))
+        {
+            return;
+        }
+
+        gameManager.SetFlag(GameFlagNames.DenialManifestationRejected, true);
+        gameManager.SetFlag(GameFlagNames.DenialManifestationVisible, false);
+        gameManager.SetFlag(GameFlagNames.ForestExitUnlocked, true);
+        gameManager.SetFlag(GameFlagNames.BasementResolved, true);
+        PlayDenialManifestationRejection();
+    }
+
+    private void PlayDenialManifestationRejection()
+    {
+        var room = RoomManager.Instance?.CurrentRoom;
+        if (room == null)
+        {
+            return;
+        }
+
+        var roomRoot = GameObject.Find("Main/Rooms") ?? GameObject.Find("Rooms");
+        if (roomRoot == null)
+        {
+            return;
+        }
+
+        Transform basementRoot = null;
+        foreach (Transform child in roomRoot.transform)
+        {
+            if (child.name.Equals(GameManager.BasementRoomId, System.StringComparison.OrdinalIgnoreCase))
+            {
+                basementRoot = child;
+                break;
+            }
+        }
+
+        if (basementRoot == null)
+        {
+            return;
+        }
+
+        var manifestationTransform = basementRoot.Find("DenialManifestation");
+        if (manifestationTransform == null)
+        {
+            manifestationTransform = FindNamedTransform(basementRoot, "DenialManifestation");
+        }
+
+        if (manifestationTransform == null)
+        {
+            return;
+        }
+
+        manifestationTransform.gameObject.SetActive(true);
+
+        var controller = manifestationTransform.GetComponent<DenialManifestationController>();
+        if (controller == null)
+        {
+            controller = manifestationTransform.gameObject.AddComponent<DenialManifestationController>();
+        }
+
+        var renderer = manifestationTransform.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.enabled = true;
+        }
+
+        controller.ResetForReplay();
+        controller.PlayRejection();
+    }
+
+    private static Transform FindNamedTransform(Transform root, string objectName)
+    {
+        if (root == null || string.IsNullOrEmpty(objectName))
+        {
+            return null;
+        }
+
+        var transforms = root.GetComponentsInChildren<Transform>(true);
+        foreach (var transform in transforms)
+        {
+            if (transform != null
+                && transform.name.Equals(objectName, StringComparison.OrdinalIgnoreCase))
+            {
+                return transform;
+            }
+        }
+
+        return null;
     }
 
     public bool IsShiftAllowedInCurrentRoom()
@@ -80,7 +191,8 @@ public class RealityManager : MonoBehaviour
 
         return roomId.Equals(GameManager.HallwayRoomId, StringComparison.OrdinalIgnoreCase)
             || roomId.Equals(GameManager.BedroomRoomId, StringComparison.OrdinalIgnoreCase)
-            || roomId.Equals(GameManager.LibraryRoomId, StringComparison.OrdinalIgnoreCase);
+            || roomId.Equals(GameManager.LibraryRoomId, StringComparison.OrdinalIgnoreCase)
+            || roomId.Equals(GameManager.BasementRoomId, StringComparison.OrdinalIgnoreCase);
     }
 
     public bool TryToggleReality()
