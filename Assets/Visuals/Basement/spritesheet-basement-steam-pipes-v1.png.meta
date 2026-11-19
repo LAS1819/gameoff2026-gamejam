@@ -1,0 +1,298 @@
+fileFormatVersion: 2
+guid: ecaccc4ddcb138f489242218535433c3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6494706539378244427
+    second: spritesheet-basement-steam-pipes-v1_0
+  - first:
+      213: 6514443526366909944
+    second: spritesheet-basement-steam-pipes-v1_1
+  - first:
+      213: -5544283671258975302
+    second: spritesheet-basement-steam-pipes-v1_2
+  - first:
+      213: -2043063472466132499
+    second: spritesheet-basement-steam-pipes-v1_3
+  - first:
+      213: -5277197636992630766
+    second: spritesheet-basement-steam-pipes-v1_4
+  - first:
+      213: -4650215374612350439
+    second: spritesheet-basement-steam-pipes-v1_5
+  - first:
+      213: -2181791742905699860
+    second: spritesheet-basement-steam-pipes-v1_6
+  - first:
+      213: -1468769264463287094
+    second: spritesheet-basement-steam-pipes-v1_7
+  - first:
+      213: 9039852360142785492
+    second: spritesheet-basement-steam-pipes-v1_8
+  - first:
+      213: -7345363373355390821
+    second: spritesheet-basement-steam-pipes-v1_9
+  - first:
+      213: -807494289180995715
+    second: spritesheet-basement-steam-pipes-v1_10
+  - first:
+      213: 6160868400792374166
+    second: spritesheet-basement-steam-pipes-v1_11
+  - first:
+      213: 4278614370902328110
+    second: spritesheet-basement-steam-pipes-v1_12
+  - first:
+      213: -7198981215570183052
+    second: spritesheet-basement-steam-pipes-v1_13
+  - first:
+      213: -7033201761235676112
+    second: spritesheet-basement-steam-pipes-v1_14
+  - first:
+      213: 3149302055956126891
+    second: spritesheet-basement-steam-pipes-v1_15
+  - first:
+      213: 1139467984090878965
+    second: spritesheet-basement-steam-pipes-v1_16
+  - first:
+      213: 6650205092841850718
+    second: spritesheet-basement-steam-pipes-v1_17
+  - first:
+      213: 2368697274933339640
+    second: spritesheet-basement-steam-pipes-v1_18
+  - first:
+      213: -3901027892873970296
+    second: spritesheet-basement-steam-pipes-v1_19
+  - first:
+      213: -7357128975211553320
+    second: spritesheet-basement-steam-pipes-v1_20
+  - first:
+      213: -1496276218282079353
+    second: spritesheet-basement-steam-pipes-v1_21
+  - first:
+      213: 3712705768130589085
+    second: spritesheet-basement-steam-pipes-v1_22
+  - first:
+      213: 7965719303665132706
+    second: spritesheet-basement-steam-pipes-v1_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spritesheet-basement-steam-pipes-v1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 176
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ed03cb35cf00cf4f8672d991754c6d3
+      internalID: -1790341999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet-basement-steam-pipes-v1_1
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 176
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4b7c0bfe062b97468d659bd5d034730
+      internalID: 509633735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet-basement-steam-pipes-v1_2
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 176
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 010ed2d49429051418622784b6720765
+      internalID: 74687391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet-basement-steam-pipes-v1_3
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 0
+        width: 176
+        height: 96
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 137610a3b94408b4d9279f22dea31577
+      internalID: 140782970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":176.0,"y":96.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      spritesheet-basement-steam-pipes-v1_0: -1790341999
+      spritesheet-basement-steam-pipes-v1_1: 509633735
+      spritesheet-basement-steam-pipes-v1_2: 74687391
+      spritesheet-basement-steam-pipes-v1_3: 140782970
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
