@@ -2,6 +2,59 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.0.11-proto] - 2026-11-19 - Basement room MVP and narrative pressure resolution
+
+**Added:**
+
+- Basement room integrated into the main room catalog and Library-to-Basement progression flow
+- Personal Effects Box evidence interaction for the Basement, including the Valve Handle obtained while exploring the Other Side
+- Valve Handle inventory item and visual installed-handle state on the Pressure Release Valve
+- Pressure Release Valve functional in Normal Reality and hidden in the Other Side
+- Animated Steam Pipes that activate after repairing the pressure valve
+- Denial Manifestation loop and a short 1.35-second unreal disappearance animation
+- Storage Shelves and Basement Pipeline interactables
+- Invisible Forest Exit Door interactable unlocked after resolving the pressure and manifestation sequence
+- Library and Lobby return transitions for the Basement
+- Complete Basement sprite, spritesheet and scene asset set
+- Expanded Basement game-design and technical-design documentation
+
+**Changed:**
+
+- The Basement Code is now used only on the Library Code Panel and is consumed upon successful use
+- The Basement Door remains permanently accessible after the Code Panel is resolved
+- Personal Effects Box now acts as the hidden Valve Handle source rather than exposing a separate pickup
+- Pipelines and Storage Shelf visuals switch correctly between Normal and Other Side states
+- Denial Manifestation now disappears only after changing to the Other Side with the valve repaired and steam enabled
+- Forest Exit Door feedback now changes by reality: clear in Normal, blocked by burning steam in Other Side
+- Basement conditional visibility and scene-to-catalog binding are synchronized across reality and room transitions
+- The MVP scope remains separate from the future Lantern, Global Light and battery mechanics
+
+**Fixed:**
+
+- Restored repeatable Basement access from the Library
+- Prevented the Basement Code from being consumed or required by the wrong interactable
+- Removed incorrect Library shelf sprites from Basement storage shelves
+- Prevented Denial Manifestation from binding or rendering as a Pipeline
+- Fixed Pipelines remaining on the wrong reality sprite
+- Fixed Pressure Release Valve visibility and use rules across realities
+- Fixed Forest Exit Door unlocking before the puzzle was resolved
+- Fixed Steam Pipes and installed Valve Handle visual synchronization
+- Fixed stale manifestation visibility during reality refresh
+- Fixed the manifestación `SpriteRenderer` being disabled during its rejection fade
+- Fixed room refresh logic hiding the rejection animation before it finished
+- Strengthened exact scene-object names against mismatched room catalog data
+- Removed runtime placeholder Basement generation so the room is entirely scene-wired for manual construction
+
+**Notes:**
+
+- This release completes the Base MVP implementation of the Basement room
+- The room now covers evidence discovery, item-based repair, reality pressure release and psychological manifestation rejection
+- Global Light 2D, Lantern gating, battery state and other light mechanics remain intentionally deferred
+- The Forest, future room expansion and advanced combat or movement systems remain outside the current MVP scope
+- The next milestone can focus on the final Lantern and lighting implementation without changing the resolved Basement puzzle flow
+
+---
+
 ## [0.0.10-proto] - 2026-11-17 - Bedroom and Library progression pass completion
 
 **Added:**
