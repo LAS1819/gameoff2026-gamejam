@@ -38,13 +38,13 @@ RoomData
 - displayName: "Basement"
 - connectedRoomIds: ["library"]
 - interactables:
-  - basement_entry_door
-  - storage_shelves
+  - storage_shelf_left
+  - storage_shelf_right
   - personal_effects_box
-  - valve_handle
   - pressure_release_valve
   - ambulance_lights
-  - basement_exit
+  - library_exit_door
+  - forest_exit_door
   - denial_manifestation
 - lightingProfile:
   - globalLightIntensity: 0.10
@@ -333,7 +333,6 @@ resultFlag: ForestExitUnlocked
 **Condición:**
 
 - `PressureValveRepaired == true`;
-- `PressureValveRepaired == true`;
 - `SteamEnabled == true`;
 - `DenialManifestationRejected == true`.
 
@@ -362,7 +361,9 @@ resultFlag: DenialManifestationVisible
 
 - sólo aparece en `Other Side`;
 - bloquea la salida mientras `PressureValveRepaired == false` o mientras el jugador intenta avanzar sin cumplir la condición;
-- desaparece cuando la válvula se activa correctamente y el sistema de presión se equilibra.
+- desaparece sólo al cambiar al `Other Side` después de reparar la válvula y activar `SteamEnabled`;
+- la animación usa `DenialManifestationController` con 1.35 segundos de desvanecimiento, encogimiento y distorsión;
+- el `SpriteRenderer` permanece activo durante toda la animación y el GO se desactiva al finalizar.
 
 **Visual:** `spritesheet-basement-denial-manifestation.png` ✅ <- Dos sprites para la animación loop
 
@@ -415,7 +416,6 @@ Esto permite que la room tenga lógica clara sin duplicar un comportamiento espe
 
 | Flag | Descripción | Origen |
 | --- | --- | --- |
-| BasementEntered | El jugador entra en el Basement | `basement_entry_door` |
 | BasementShelfLeftExplored | El almacén izquierdo ha sido revisado | `storage_shelf_left` |
 | BasementShelfRightExplored | El almacén derecho ha sido revisado | `storage_shelf_right` |
 | BasementEvidenceFound | La evidencia principal fue identificada | `personal_effects_box` |

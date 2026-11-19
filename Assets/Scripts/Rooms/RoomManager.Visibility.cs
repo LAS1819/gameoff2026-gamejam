@@ -325,16 +325,20 @@ public partial class RoomManager
                 rejectionController = denial.GetComponentInChildren<DenialManifestationController>(true);
             }
 
+            if (rejectionController == null)
+            {
+                rejectionController = denial.gameObject.AddComponent<DenialManifestationController>();
+            }
+
             if (!shouldBeVisible
-                && rejectionController != null
                 && GameManager.Instance != null
                 && GameManager.Instance.HasFlag(GameFlagNames.DenialManifestationRejected)
-                && !rejectionController.HasPlayed
-                && denial.gameObject.activeInHierarchy)
+                && !rejectionController.HasPlayed)
             {
+                denial.gameObject.SetActive(true);
                 rejectionController.PlayRejection();
             }
-            else
+            else if (!rejectionController.IsPlaying)
             {
                 denial.gameObject.SetActive(shouldBeVisible);
             }

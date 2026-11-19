@@ -106,7 +106,9 @@ Las estanterías son el primer elemento que obliga al jugador a moverse con la `
 
 Es la `Evidencia Principal` del `Basement`.
 
-Se oculta entre cajas y objetos almacenados, y solo puede identificarse con claridad si el jugador usa la `Linterna`. En ella se localiza la `Manivela de la válvula`.
+Se encuentra entre cajas y objetos almacenados. En ella se localiza la `Manivela de la válvula`.
+
+En el MVP actual se usa desde el `Otro Lado`; la lógica visual y los requisitos de linterna se integrarán en una iteración posterior.
 
 **Contenido:**
 
@@ -129,7 +131,6 @@ Se oculta entre cajas y objetos almacenados, y solo puede identificarse con clar
 - Caja de cartón abierta y relativamente ordenada.
 - Etiqueta visible con la palabra `PERSONAL`.
 - Fotografías y documentos sobresalen ligeramente.
-- La `Manivela de la válvula` puede verse parcialmente si se ilumina correctamente con la `Linterna`.
 - Se percibe como una caja corriente almacenada entre otros objetos olvidados.
 
 **Otro Lado:**
@@ -263,6 +264,13 @@ No es un enemigo de combate. Es un bloqueo psicológico y narrativo.
 5. observa cómo el vapor, las roturas y la presión se liberan;
 6. la `Manifestación de Negación` se distorsiona y retrocede;
 7. la salida queda accesible.
+
+La desaparición debe verse como un desvanecimiento breve pero perceptible:
+
+- mantiene el sprite visible al comenzar;
+- encoge y distorsiona ligeramente la silueta;
+- reduce su opacidad durante aproximadamente 1.35 segundos;
+- termina ocultando el objeto.
 
 Es importante que no sea “derrotada” como un monstruo. Pierde su capacidad de bloquear al jugador, pero su presencia sigue funcionando como símbolo de la negación del protagonista.
 

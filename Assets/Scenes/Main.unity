@@ -6016,7 +6016,6 @@ GameObject:
   - component: {fileID: 1585372572}
   - component: {fileID: 1585372571}
   - component: {fileID: 1585372570}
-  - component: {fileID: 1585372574}
   m_Layer: 0
   m_Name: DenialManifestation
   m_TagString: Untagged
@@ -6087,21 +6086,6 @@ MonoBehaviour:
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 569997706, guid: c8355024bfb3bfa4fa4ed959e373eb62, type: 3}
   useRealitySprites: 0
---- !u!114 &1585372574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1585372568}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f3f0d2d5d2a45a2a1a4c1c7b6e3d901, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DenialManifestationController
-  fadeDuration: 0.58
-  shrinkScale: 0.72
-  distortionScale: 1.18
 --- !u!61 &1585372572
 BoxCollider2D:
   m_ObjectHideFlags: 0

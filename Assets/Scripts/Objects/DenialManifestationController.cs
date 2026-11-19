@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class DenialManifestationController : MonoBehaviour
 {
-    [SerializeField] private float fadeDuration = 0.58f;
+    [SerializeField] private float fadeDuration = 1.35f;
     [SerializeField] private float shrinkScale = 0.72f;
     [SerializeField] private float distortionScale = 1.18f;
 
@@ -29,6 +29,9 @@ public class DenialManifestationController : MonoBehaviour
         if (spriteRenderer != null)
         {
             originalColor = spriteRenderer.color;
+            originalColor.a = Mathf.Clamp01(originalColor.a);
+            spriteRenderer.enabled = true;
+            spriteRenderer.color = originalColor;
         }
     }
 

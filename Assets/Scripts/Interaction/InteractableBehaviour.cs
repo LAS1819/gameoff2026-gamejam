@@ -167,6 +167,31 @@ public class InteractableBehaviour : MonoBehaviour
 
     private void SetVisible(bool visible)
     {
+        if (data != null
+            && data.id.Equals("denial_manifestation", StringComparison.OrdinalIgnoreCase))
+        {
+            var rejectionController = GetComponent<DenialManifestationController>();
+            if (rejectionController == null)
+            {
+                rejectionController = GetComponentInChildren<DenialManifestationController>(true);
+            }
+
+            if (rejectionController != null && rejectionController.IsPlaying)
+            {
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.enabled = true;
+                }
+
+                if (hitCollider != null)
+                {
+                    hitCollider.enabled = false;
+                }
+
+                return;
+            }
+        }
+
         if (spriteRenderer != null)
         {
             spriteRenderer.enabled = visible;

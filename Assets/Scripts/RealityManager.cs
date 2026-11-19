@@ -100,24 +100,21 @@ public class RealityManager : MonoBehaviour
         gameManager.SetFlag(GameFlagNames.DenialManifestationVisible, false);
         gameManager.SetFlag(GameFlagNames.ForestExitUnlocked, true);
         gameManager.SetFlag(GameFlagNames.BasementResolved, true);
-        StartCoroutine(PlayDenialManifestationRejectionNextFrame());
+        PlayDenialManifestationRejection();
     }
 
-    private System.Collections.IEnumerator PlayDenialManifestationRejectionNextFrame()
+    private void PlayDenialManifestationRejection()
     {
-        yield return null;
-
-        RoomManager.Instance?.RefreshInteractables();
         var room = RoomManager.Instance?.CurrentRoom;
         if (room == null)
         {
-            yield break;
+            return;
         }
 
         var roomRoot = GameObject.Find("Main/Rooms") ?? GameObject.Find("Rooms");
         if (roomRoot == null)
         {
-            yield break;
+            return;
         }
 
         Transform basementRoot = null;
@@ -132,18 +129,56 @@ public class RealityManager : MonoBehaviour
 
         if (basementRoot == null)
         {
-            yield break;
+            return;
         }
 
-        var manifestations = basementRoot.GetComponentsInChildren<DenialManifestationController>(true);
-        foreach (var manifestation in manifestations)
+        var manifestationTransform = basementRoot.Find("DenialManifestation");
+        if (manifestationTransform == null)
         {
-            if (manifestation != null)
+            manifestationTransform = FindNamedTransform(basementRoot, "DenialManifestation");
+        }
+
+        if (manifestationTransform == null)
+        {
+            return;
+        }
+
+        manifestationTransform.gameObject.SetActive(true);
+
+        var controller = manifestationTransform.GetComponent<DenialManifestationController>();
+        if (controller == null)
+        {
+            controller = manifestationTransform.gameObject.AddComponent<DenialManifestationController>();
+        }
+
+        var renderer = manifestationTransform.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.enabled = true;
+        }
+
+        controller.ResetForReplay();
+        controller.PlayRejection();
+    }
+
+    private static Transform FindNamedTransform(Transform root, string objectName)
+    {
+        if (root == null || string.IsNullOrEmpty(objectName))
+        {
+            return null;
+        }
+
+        var transforms = root.GetComponentsInChildren<Transform>(true);
+        foreach (var transform in transforms)
+        {
+            if (transform != null
+                && transform.name.Equals(objectName, StringComparison.OrdinalIgnoreCase))
             {
-                manifestation.gameObject.SetActive(true);
-                manifestation.PlayRejection();
+                return transform;
             }
         }
+
+        return null;
     }
 
     public bool IsShiftAllowedInCurrentRoom()
