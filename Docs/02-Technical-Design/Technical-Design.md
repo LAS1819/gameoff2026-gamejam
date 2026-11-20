@@ -114,7 +114,7 @@ Pasillo
 Biblioteca
 Dormitorio
 Sotano
-SalaRitual
+Bosque
 ```
 
 [GameOff26-...zleFlow-v1 | Word], [GameOff26-GameIdea-1 | Word]
@@ -205,7 +205,7 @@ DoorOpened
 FoundCode
 HasFuse
 GeneratorEnabled
-RitualCompleted
+ForestResolved
 ```
 
 Los puzles nunca consultan objetos directamente.

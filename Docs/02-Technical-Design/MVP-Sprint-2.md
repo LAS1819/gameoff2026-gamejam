@@ -282,7 +282,7 @@ El Bloque F se completó exitosamente implementando:
   - Crear `Assets/Data/Interactables/EventData.cs` → EventData como SO
   - Refactorizar RoomData para usar referencias SO
 
-**Basement + Ritual Room**:
+**Basement + Forest**:
 
 - ✅ Usa ScriptableObjects desde el design (escalable, mantenible)
 
@@ -308,7 +308,7 @@ El Bloque F se completó exitosamente implementando:
 
 ```plaintext
 Setup: ~1 hora (después de Library validada)
-Ahorro repetitivo: ~5-10 horas (Basement + Ritual + futuras rooms)
+Ahorro repetitivo: ~5-10 horas (Basement + Forest + futuras rooms)
 ROI: +400-1000%
 ```
 

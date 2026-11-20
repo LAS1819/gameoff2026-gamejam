@@ -89,18 +89,18 @@ Centro mecánico del edificio.
   - Uso de la `Linterna`
 - Conexiones:
   - `Biblioteca` - `Library`.
-  - `Sala Ritual` - `Ritual Room`.
+  - `Bosque` - `Forest`.
 
-### 6. Sala Ritual - Ritual Room
+### 6. Bosque - Forest
 
 Zona final.
 
 - Estado general:
-  - Convergencia de ambas realidades.
-  - Resolución del misterio principal.
+  - Avance hacia las luces.
+  - Convergencia narrativa y resolución del misterio principal.
 - Conexiones:
   - `Sótano` - `Basement`.
-  - `Final` - `Ending`.
+  - `Habitación Final` - `Ending`.
 
 ---
 
@@ -112,8 +112,8 @@ Zona final.
   3. Fotografía Antigua
   4. Código de Seguridad
   5. Fusible
-  6. Símbolo Ritual
-  7. Medallón
+  6. Llave del Sótano
+  7. Código del Bosque
   8. Diario Fragmentado
 - Objetos opcionales:
   9. Nota Médica
@@ -178,7 +178,7 @@ Zona final.
 
 ### PUZLE 5 - Activación del Generador
 
-- Recompensa: Acceso a la `Sala Ritual`.
+- Recompensa: Acceso al `Bosque`.
 - Problema: El edificio no tiene energía.
 - Solución: Instalar el Fusible y activar el generador.
 - Consecuencia:
@@ -188,21 +188,18 @@ Zona final.
 - Enseña:
   - Sistema temporal.
   - Estados Activo / Inactivo.
-- Recompensa: Acceso a la Sala Ritual.
+- Recompensa: Acceso al Bosque.
 
 ### PUZLE 6 - Convergencia
-
-- Escenario: `Sala Ritual`.
-- Problema: El ritual permanece incompleto.
+- Escenario: `Bosque`.
+- Problema: El protagonista necesita aceptar el recuerdo que ha evitado.
 - Requiere:
-  - Fotografía Antigua.
-  - Medallón.
-  - Símbolo Ritual.
-  - Información obtenida durante la exploración.
-- Solución: Alternar entre ambas realidades para reconstruir los acontecimientos.
+- Las Memorias obtenidas durante la partida.
+- Solución: Avanzar a través de los cinco niveles del bosque y entrar en la Habitación Final.
 - Enseña:
-  - Uso combinado de todos los sistemas.
-- Recompensa: Acceso al `final`.
+- Lectura emocional del resultado.
+- Evaluación narrativa de las Memorias.
+- Recompensa: Encuentro final y desenlace.
 
 ---
 
@@ -245,7 +242,7 @@ El jugador reconstruye completamente los acontecimientos.
 - Condición:
   - Completar todos los eventos opcionales.
   - Encontrar todos los objetos clave.
-  - Resolver el ritual final completo.
+  - Completar el recorrido del Bosque y aceptar la verdad.
 
 ## 7. Resumen de progresión
 
@@ -255,8 +252,8 @@ graph TD
     `Pasillo_Principal` --> `Biblioteca`
     `Biblioteca` --> `Dormitorio`
     `Dormitorio` --> `Sótano`
-    `Sótano` --> `Sala_Ritual`
-    `Sala_Ritual` --> `final`
+    `Sótano` --> `Bosque`
+    `Bosque` --> `Habitación_Final`
 ```
 
 Este flujo aprovecha directamente los sistemas definidos en el GDD: exploración, SHIFT, estados de objetos, eventos temporales y terror psicológico, manteniendo un alcance razonable para un desarrollo individual durante la Game Off 2026.

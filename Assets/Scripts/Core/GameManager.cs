@@ -39,6 +39,8 @@ public static class GameFlagNames
     public const string AmbulanceMemoryTriggered = "AmbulanceMemoryTriggered";
     public const string BasementCodeUsed = "BasementCodeUsed";
     public const string DenialManifestationRejected = "DenialManifestationRejected";
+    public const string ForestEntered = "ForestEntered";
+    public const string ForestProgressAdvanced = "ForestProgressAdvanced";
 }
 
 public class GameManager : MonoBehaviour
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
     public const string BedroomRoomId = "bedroom";
     public const string LibraryRoomId = "library";
     public const string BasementRoomId = "basement";
+    public const string ForestRoomId = "forest";
 
     [Header("Development")]
     [SerializeField] private bool useDebugStartRoom = true;
@@ -59,8 +62,10 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, bool> Flags { get; } = new Dictionary<string, bool>();
 
     public string CurrentRoomId { get; private set; } = LobbyRoomId;
+    public int ForestDepthLevel { get; private set; }
 
     public event System.Action<string> FlagChanged;
+    public event System.Action<int> ForestDepthChanged;
 
     private bool isInitialized;
 
@@ -131,6 +136,8 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.AmbulanceMemoryTriggered, false);
         SetFlag(GameFlagNames.BasementCodeUsed, false);
         SetFlag(GameFlagNames.DenialManifestationRejected, false);
+        SetFlag(GameFlagNames.ForestEntered, false);
+        ForestDepthLevel = 0;
 
         EnsureRuntimeSystems();
         InventoryManager.Instance?.ResetInventory();
@@ -235,5 +242,29 @@ public class GameManager : MonoBehaviour
     public void SetCurrentRoom(string roomId)
     {
         CurrentRoomId = roomId;
+        if (roomId.Equals(ForestRoomId, System.StringComparison.OrdinalIgnoreCase))
+        {
+            SetFlag(GameFlagNames.ForestEntered, true);
+        }
+    }
+
+    public bool AdvanceForestDepth()
+    {
+        if (ForestDepthLevel >= 5)
+        {
+            return false;
+        }
+
+        ForestDepthLevel++;
+        SetFlag(GameFlagNames.ForestProgressAdvanced, true);
+        ForestDepthChanged?.Invoke(ForestDepthLevel);
+        return true;
+    }
+
+    public void ResetForestDepth()
+    {
+        ForestDepthLevel = 0;
+        SetFlag(GameFlagNames.ForestProgressAdvanced, false);
+        ForestDepthChanged?.Invoke(ForestDepthLevel);
     }
 }

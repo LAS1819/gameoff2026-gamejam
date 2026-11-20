@@ -111,6 +111,26 @@ internal static class InteractionSpecialCases
             GameManager.Instance.SetFlag(GameFlagNames.ForestExitUnlocked, true);
         }
 
+        return RoomManager.Instance != null
+            && RoomManager.Instance.LoadRoom(GameManager.ForestRoomId);
+    }
+
+    public static bool ResolveForestAdvance()
+    {
+        var gameManager = GameManager.Instance;
+        if (gameManager == null)
+        {
+            return false;
+        }
+
+        if (gameManager.ForestDepthLevel >= 5)
+        {
+            UIManager.Instance?.ShowFeedback("The path ends here. The final room waits.", 2f);
+            return true;
+        }
+
+        gameManager.AdvanceForestDepth();
+        UIManager.Instance?.ShowFeedback("The trees move closer.", 1f);
         return true;
     }
 

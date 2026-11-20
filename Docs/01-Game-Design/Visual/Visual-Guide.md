@@ -74,7 +74,7 @@ Tomando una resolución interna de:
   - **Ejemplos**: Libros, Fotografías, Teléfonos, Fusibles
   - **Tamaño recomendado**: 24 x 24 o 32 x 32
 - **Objetos importantes**
-  - **Ejemplos**: Medallón, Símbolo Ritual, Objetos clave de puzle
+  - **Ejemplos**: Llave, Disquete, Manivela, Objetos clave de puzle
   - **Tamaño recomendado**: 32 x 32 o superior.
 
 ---

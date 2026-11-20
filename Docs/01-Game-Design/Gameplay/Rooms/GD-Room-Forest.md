@@ -173,44 +173,32 @@ El juego evita mostrar explícitamente al padre. La conversación se produce med
 
 ## Diseño Técnico
 
-### Sistema de profundidad
+### Sistema de profundidad MVP
 
-La Room utiliza cinco niveles de profundidad. Cada nivel contiene sus propios GameObjects. La finalidad es simular avance sin necesidad de mover la cámara.
+La Room utiliza cinco niveles de profundidad controlados por un único contador.
 
-#### Implementación MVP
+La escena tiene cuatro elementos visuales principales:
 
-La implementación principal utiliza backgrounds predefinidos.
+- Capa -3 - `Sky`;
+- Capa -2 - `Outer Forest`;
+- Capa -1 - `Border Trees`;
+- Capa 0 - `Central Path`.
+
+Cada nivel sustituye simultáneamente el frame correspondiente de las cuatro capas. El cielo comienza azul y se oscurece progresivamente hasta el nivel 5.
+
+Los cinco frames disponibles son:
 
 - Forest_01
 - Forest_02
 - Forest_03
 - Forest_04
 - Forest_05
-- Forest_Final
 
-Cada avance sustituye el fondo actual por el siguiente.
+La `Habitación Final` se activa al completar el quinto nivel.
 
-La progresión visual se produce mediante:
-
-- escalado manual de elementos en Aseprite;
-- modificación de luces;
-- cambios en la composición.
-
-#### Sistema de profundidad (Iteración futura)
-
-Si el proyecto continúa tras la Game Jam, podrá sustituirse por un sistema dinámico mediante niveles de profundidad y Game Objects.
-
-### Principio (Descartado de momento)
-
-Cuando el jugador avanza:
-
-- Los sprites de los objetos del Nivel 5 pasan al Nivel 4. Los objetos del Nivel 5 se eliminan;
-- los sprites de los objetos del Nivel 4 pasan al Nivel 3. Obtienen los sprites del nivel anterior;
-- los sprites de los objetos del Nivel 3 pasan al Nivel 2; Obtienen los sprites del nivel anterior;
-- los sprites de los objetos del Nivel 2 pasan al Nivel 1; Obtienen los sprites del nivel anterior;
-- se generan nuevos elementos lejanos.
-
-El resultado produce la sensación de caminar hacia adelante aunque la cámara permanezca fija, algo que además encaja con vuestra filosofía visual de escenarios estáticos y cámara fija.
+La mesa y la carta forman un sexto estado de profundidad que no requiere una
+nueva sustitución de los cuatro spritesheets. Al completar el nivel 5, el
+siguiente avance revela un GameObject de mesa y activa la carta interactuable.
 
 ### Elementos persistentes
 
@@ -225,23 +213,15 @@ Simplemente:
 
 ---
 
-## Implementación Alternativa (MVP)
+## Interacción de avance
 
-Si el sistema de profundidad resulta demasiado costoso:
+La Room contiene un único interactuable invisible llamado `Forest Path`.
 
-- Crear 5 backgrounds completos.
-- Un background por fase.
-- Sustituir el fondo tras cada avance.
-
-Ventajas:
-
-- Menor riesgo técnico
-- Menor complejidad
-- Mismo resultado narrativo
-
-Regla recomendada:
-
-Intentar primero el sistema de profundidad. Si consume demasiado tiempo de Game Jam, migrar inmediatamente a backgrounds predefinidos.
+- El jugador hace click sobre la zona interactiva central.
+- Cada clic incrementa el nivel de profundidad.
+- Las cuatro capas cambian al mismo frame.
+- Al alcanzar el nivel 5, el siguiente paso abre la transición hacia la Habitación Final.
+- El interactuable no consume objetos ni requiere puzles adicionales.
 
 ---
 
