@@ -157,11 +157,12 @@ VisualElement {}
 }
 
 #story-overlay-panel {
-    position: relative;
+    position: absolute;
     width: 58%;
     max-width: 620px;
     min-width: 420px;
-    min-height: 360px;
+    min-height: 220px;
+    max-height: 300px;
     padding: 36px 44px 28px;
     justify-content: space-between;
     background-color: rgba(171, 137, 93, 0.96);

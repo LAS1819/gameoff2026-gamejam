@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public enum StoryOverlayMode
@@ -93,6 +94,69 @@ public class HUDController : MonoBehaviour
         TrySubscribeRuntimeEvents();
     }
 
+    private void Update()
+    {
+        if (storyOverlay == null || !storyOverlay.ClassListContains("visible"))
+        {
+            return;
+        }
+
+        var keyboard = Keyboard.current;
+        if (keyboard != null
+            && (keyboard.escapeKey.wasPressedThisFrame
+                || keyboard.enterKey.wasPressedThisFrame
+                || keyboard.spaceKey.wasPressedThisFrame))
+        {
+            if (storyOverlayMode == StoryOverlayMode.Letter)
+            {
+                CloseStoryOverlay();
+            }
+            else
+            {
+                RestartGame();
+            }
+
+            return;
+        }
+
+        var mouse = Mouse.current;
+        if (mouse != null && mouse.leftButton.wasPressedThisFrame)
+        {
+            var panelPoint = GetHudMousePoint(mouse.position.ReadValue());
+            if (storyOverlayMode == StoryOverlayMode.Letter
+                && storyOverlayClose != null
+                && storyOverlayClose.worldBound.Contains(panelPoint))
+            {
+                CloseStoryOverlay();
+            }
+            else if (storyOverlayMode == StoryOverlayMode.Ending
+                && storyOverlayRestart != null
+                && storyOverlayRestart.worldBound.Contains(panelPoint))
+            {
+                RestartGame();
+            }
+        }
+    }
+
+    private Vector2 GetHudMousePoint(Vector2 screenPoint)
+    {
+        var hudWidth = hudRoot != null ? hudRoot.worldBound.width : 640f;
+        var hudHeight = hudRoot != null ? hudRoot.worldBound.height : 360f;
+        if (hudWidth <= 0f)
+        {
+            hudWidth = 640f;
+        }
+
+        if (hudHeight <= 0f)
+        {
+            hudHeight = 360f;
+        }
+
+        var x = screenPoint.x * hudWidth / Mathf.Max(Screen.width, 1);
+        var y = (Screen.height - screenPoint.y) * hudHeight / Mathf.Max(Screen.height, 1);
+        return new Vector2(x, y);
+    }
+
     private void OnDisable()
     {
         CancelInvoke(nameof(TrySubscribeRuntimeEvents));
@@ -174,6 +238,8 @@ public class HUDController : MonoBehaviour
             storyOverlayClose.text = hint;
             storyOverlayClose.style.display = DisplayStyle.Flex;
             storyOverlayClose.pickingMode = PickingMode.Position;
+            storyOverlayClose.SetEnabled(true);
+            storyOverlayClose.focusable = true;
         }
 
         if (storyOverlayRestart != null)
@@ -181,6 +247,8 @@ public class HUDController : MonoBehaviour
             storyOverlayRestart.style.display = mode == StoryOverlayMode.Ending
                 ? DisplayStyle.Flex
                 : DisplayStyle.None;
+            storyOverlayRestart.SetEnabled(mode == StoryOverlayMode.Ending);
+            storyOverlayRestart.focusable = mode == StoryOverlayMode.Ending;
         }
 
         if (storyOverlayMemoryCount != null)
@@ -245,6 +313,8 @@ public class HUDController : MonoBehaviour
         if (storyOverlayClose != null)
         {
             storyOverlayClose.style.display = DisplayStyle.None;
+            storyOverlayClose.SetEnabled(false);
+            storyOverlayClose.focusable = false;
         }
 
         if (storyOverlayRestart != null)
@@ -252,6 +322,8 @@ public class HUDController : MonoBehaviour
             storyOverlayRestart.style.display = DisplayStyle.Flex;
             storyOverlayRestart.text = "Restart game";
             storyOverlayRestart.pickingMode = PickingMode.Position;
+            storyOverlayRestart.SetEnabled(true);
+            storyOverlayRestart.focusable = true;
         }
 
         SetGameplayControlsVisible(false);
@@ -300,6 +372,19 @@ public class HUDController : MonoBehaviour
         storyOverlay.style.justifyContent = Justify.Center;
         storyOverlay.style.width = width;
         storyOverlay.style.height = height;
+
+        if (storyOverlayPanel != null)
+        {
+            var panelWidth = Mathf.Clamp(width * 0.58f, 420f, 620f);
+            var panelHeight = Mathf.Min(300f, Mathf.Max(220f, height - 40f));
+            storyOverlayPanel.style.position = Position.Absolute;
+            storyOverlayPanel.style.left = (width - panelWidth) * 0.5f;
+            storyOverlayPanel.style.top = (height - panelHeight) * 0.5f;
+            storyOverlayPanel.style.width = panelWidth;
+            storyOverlayPanel.style.height = panelHeight;
+            storyOverlayPanel.style.minHeight = 0f;
+            storyOverlayPanel.style.maxHeight = panelHeight;
+        }
     }
 
     public void SetGameplayControlsVisible(bool visible)
@@ -664,15 +749,30 @@ public class HUDController : MonoBehaviour
 
         var actions = new VisualElement { name = "story-overlay-actions" };
         actions.AddToClassList("story-overlay-actions");
+        actions.style.position = Position.Absolute;
+        actions.style.left = 0f;
+        actions.style.right = 0f;
+        actions.style.bottom = 18f;
+        actions.style.height = 42f;
 
         storyOverlayClose = new Button { name = "story-overlay-close", text = "Continue" };
         storyOverlayClose.AddToClassList("story-overlay-close");
         storyOverlayClose.pickingMode = PickingMode.Position;
+        storyOverlayClose.style.position = Position.Absolute;
+        storyOverlayClose.style.bottom = 0f;
+        storyOverlayClose.style.left = 122f;
+        storyOverlayClose.style.width = 176f;
+        storyOverlayClose.style.height = 42f;
 
         storyOverlayRestart = new Button { name = "story-overlay-restart", text = "Restart game" };
         storyOverlayRestart.AddToClassList("story-overlay-restart");
         storyOverlayRestart.pickingMode = PickingMode.Position;
         storyOverlayRestart.style.display = DisplayStyle.None;
+        storyOverlayRestart.style.position = Position.Absolute;
+        storyOverlayRestart.style.bottom = 0f;
+        storyOverlayRestart.style.left = 122f;
+        storyOverlayRestart.style.width = 176f;
+        storyOverlayRestart.style.height = 42f;
 
         actions.Add(storyOverlayClose);
         actions.Add(storyOverlayRestart);
@@ -704,12 +804,12 @@ public class HUDController : MonoBehaviour
 
         if (storyOverlayClose != null)
         {
-            storyOverlayClose.RegisterCallback<ClickEvent>(OnStoryOverlayCloseClicked);
+            storyOverlayClose.RegisterCallback<PointerDownEvent>(OnStoryOverlayClosePointerDown);
         }
 
         if (storyOverlayRestart != null)
         {
-            storyOverlayRestart.RegisterCallback<ClickEvent>(OnStoryOverlayRestartClicked);
+            storyOverlayRestart.RegisterCallback<PointerDownEvent>(OnStoryOverlayRestartPointerDown);
         }
 
         if (hudRoot != null)
@@ -724,12 +824,12 @@ public class HUDController : MonoBehaviour
     {
         if (storyOverlayClose != null)
         {
-            storyOverlayClose.UnregisterCallback<ClickEvent>(OnStoryOverlayCloseClicked);
+            storyOverlayClose.UnregisterCallback<PointerDownEvent>(OnStoryOverlayClosePointerDown);
         }
 
         if (storyOverlayRestart != null)
         {
-            storyOverlayRestart.UnregisterCallback<ClickEvent>(OnStoryOverlayRestartClicked);
+            storyOverlayRestart.UnregisterCallback<PointerDownEvent>(OnStoryOverlayRestartPointerDown);
         }
 
         if (hudRoot != null)
@@ -745,7 +845,17 @@ public class HUDController : MonoBehaviour
         CloseStoryOverlay();
     }
 
+    private void OnStoryOverlayClosePointerDown(PointerDownEvent _)
+    {
+        CloseStoryOverlay();
+    }
+
     private void OnStoryOverlayRestartClicked(ClickEvent _)
+    {
+        RestartGame();
+    }
+
+    private void OnStoryOverlayRestartPointerDown(PointerDownEvent _)
     {
         RestartGame();
     }
