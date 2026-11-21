@@ -2,6 +2,56 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.0-proto] - 2026-11-21 - Forest room and complete ending game loop
+
+**Added:**
+
+- Forest room integrated after the resolved Basement sequence
+- Five synchronized depth states using separate Sky, Outer Forest, Border Trees, and Central Path layers
+- Sixth depth state that removes the forest background and reveals the final Table, Ceiling Light, and Revelation Letter
+- Functional Forest Revelation Letter interactable
+- Reusable HUD Story Overlay for Letter and Ending presentation
+- Three provisional letter and ending variants based on recovered Memories
+- Ending summary with recovered Memories and provisional credits
+- Restart flow that resets runtime state, closes the overlay, and returns to the Lobby
+- Visible Continue and Restart buttons with mouse, keyboard, and direct pointer support
+- Forest gameplay, visual, technical-design, and ending-flow documentation
+- Sprint 4 planning for a dedicated Credits scene and English/Spanish localization
+
+**Changed:**
+
+- The Forest replaces the old Ritual Room as the final playable location
+- Forest progression is terminal and no longer offers a return transition to the Basement
+- Forest depth now supports levels 0-6
+- Forest UI and ending copy now use English runtime text
+- Forest spritesheets use 4096px maximum size to avoid downscaling the 3200px-wide atlases
+- Story Overlay presentation is reusable and ready for future final letter artwork
+- Removed null-propagation and deprecated Unity API usage from runtime scripts
+- Updated Memory ending conditions to 0-2, 3-4, and 5 recovered Memories
+- Updated the documented game flow to include the final room, credits, and restart loop
+
+**Fixed:**
+
+- Correct Basement-to-Forest transition and room catalog registration
+- Correct initial disabled state for the level 6 Table, Ceiling Light, and Letter
+- Correct Forest background disabling when the final room appears
+- Correct Story Overlay interaction blocking while Letter or Ending is open
+- Fixed overlay controls being outside the 640x360 viewport
+- Prevented the letter body from overlapping Continue
+- Separated Ending title, farewell text, Memory count, credits, and Restart into non-overlapping regions
+- Fixed Restart leaving a stale overlay or incorrect Forest depth after returning to the Lobby
+- Corrected obsolete object lookup usage that produced Unity compilation warnings
+
+**Notes:**
+
+- `0.1.0-proto` is the first complete playable loop: Basement → Forest → Letter → Ending → Lobby
+- Letter copy, credits content, and parchment artwork remain provisional
+- A dedicated Credits scene and Unity Localization setup are planned for Sprint 4
+- Forest parallax, additional manifestations, and advanced visual events remain outside this prototype scope
+- Unity validation completed with 0 compilation errors and 0 warnings
+
+---
+
 ## [0.0.11-proto] - 2026-11-19 - Basement room MVP and narrative pressure resolution
 
 **Added:**
