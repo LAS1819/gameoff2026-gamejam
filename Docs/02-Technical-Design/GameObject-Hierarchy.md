@@ -1,4 +1,4 @@
-# GameObject Hierarchy
+# GameObject Hierarchy - 0.1.0-proto
 
 This document defines the expected hierarchy of objects in each scene. It reflects the actual MVP architecture: **point-and-click horror, no player movement, data-driven design.**
 
@@ -10,9 +10,11 @@ This document defines the expected hierarchy of objects in each scene. It reflec
 
 ---
 
-## Bootstrap Scene Hierarchy
+## Runtime ownership
 
-This scene loads once at startup and persists forever (`DontDestroyOnLoad`).
+The current prototype uses the single `Main` gameplay scene and persistent
+manager components. `Bootstrap` remains compatible with project setup, but is
+not required for the documented `0.1.0-proto` route.
 
 ```text
 Bootstrap
@@ -27,7 +29,7 @@ Bootstrap
     └── UIManager
 ```
 
-### Bootstrap Managers
+### Managers
 
 | Manager | Responsibility |
 | --------- | ----------------- |
@@ -36,9 +38,9 @@ Bootstrap
 | **InventoryManager** | Item tracking, possession validation, item ownership sync with flags |
 | **InteractionManager** | Interaction resolution, click handling, progression logic |
 | **RealityManager** | Current reality state (Normal/OtherSide), visibility toggle, propagation |
-| **EventManager** | (Stub for MVP) Reserved for events, music triggers, narrative |
-| **SaveManager** | (Stub for MVP) Reserved for save/load logic |
-| **UIManager** | (Stub for MVP) Reserved for text feedback, inventory UI |
+| **EventManager** | Reserved extension point for events and narrative triggers |
+| **SaveManager** | Reserved extension point; persistent saves are not in current scope |
+| **UIManager** | HUD bridge, feedback, Story Overlay, ending, and restart |
 
 ---
 
@@ -48,13 +50,14 @@ This scene contains all gameplay. Rooms persist in this scene; room transitions 
 
 ```text
 Main
-├── Camera
-│   └── (orthographic, static position, centered on Lobby at start)
+├── Main Camera
+│   ├── Camera
+│   ├── UniversalAdditionalCameraData
+│   └── PixelPerfectCamera
 │
-├── UI
-│   └── ShiftPanel
-│       ├── PanelRenderer (PanelSettings + ShiftUI.uxml)
-│       └── UIShiftButton (binds "shift-button" to RealityManager.ToggleReality)
+├── HUDRoot
+│   ├── PanelRenderer (HUD.uxml + HUD-style-sheet.uss)
+│   └── HUDController
 │
 └── Rooms
     ├── Lobby
@@ -67,16 +70,46 @@ Main
     │       ├── FrontDoor
     │       └── MainHallwayEntrance
     │
-    └── MainHallway
+    ├── Hallway
         ├── Visuals
-        │   └── Background (SpriteRenderer, Sorting Order 0)
+        │   ├── BackgroundNormal
+        │   └── BackgroundOtherSide
         ├── Props
-        │   └── Walls (SpriteRenderer, Sorting Order 1, optional)
         └── Interactables
-            ├── HallwayObstacle
-            ├── ShiftTrigger
-            └── MainHallwayExit
+    ├── Bedroom
+    │   ├── Visuals
+    │   ├── Props
+    │   └── Interactables
+    ├── Library
+    │   ├── Visuals
+    │   ├── Props
+    │   └── Interactables
+    ├── Basement
+    │   ├── Visuals
+    │   ├── Props
+    │   └── Interactables
+    └── Forest
+        ├── Visuals
+        │   └── BackgroundNormal
+        │       ├── Sky
+        │       ├── OuterForest
+        │       ├── BorderTrees
+        │       └── CentralPath
+        ├── Props
+        │   ├── Table
+        │   └── CeilingLight
+        └── Interactables
+            ├── ForestAdvance
+            └── ForestRevelationLetter
 ```
+
+Room children are consistently organized as `Visuals`, `Props`, and
+`Interactables`. Conditional GameObjects may start inactive and are enabled by
+room state or depth flags.
+
+The Story Overlay is built at runtime inside the HUD root. This avoids coupling
+the modal to an individual room and keeps it reusable for the Letter, Ending,
+and future Credits presentation.
 
 ### Runtime UI (UI Toolkit + Panel Renderer)
 

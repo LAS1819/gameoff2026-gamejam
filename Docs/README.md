@@ -1,76 +1,80 @@
-# Documentation structure
+# Documentation index
 
-This folder is organized by document type so the project stays easy to navigate during the sprint.
+The documentation is organized by purpose. Public-facing status always takes priority over older planning text when two documents appear to disagree.
 
-## Recommended structure
+## Current project state
+
+- Prototype version: `0.1.0-proto`
+- Unity: `6000.6.9f1`
+- Status: complete playable MVP loop
+- Current sprint: Sprint 3 closed; Sprint 4 polish and delivery preparation
+
+## Structure
 
 ```text
 Docs/
   README.md
-  00-Project-Overview/
-    Project-Overview.md
-    Team-Notes.md
   01-Game-Design/
     Game-GDD.md
     MVP-Overview.md
-    Puzzle-Flow.md
-    Visual-Guide.md
+    Story/
+    Gameplay/
+    Visual/
+    Audio/
   02-Technical-Design/
-    README.md (← MVP documentation index)
-    Technical-Design.md
+    README.md
+    MVP-SPECIFICATION.md
     MVP-Sprint-1.md
-    MVP-Quick-Reference.md (← print this!)
-    MVP-Implementation-Quickstart.md (← start here)
-    MVP-Data-Specification.md
-    MVP-Concrete-Hierarchy.md
-    MVP-Flag-Sequence.md
+    MVP-Sprint-2.md
+    MVP-Sprint-3.md
+    Technical-Design.md
     GameObject-Hierarchy.md
+    Gameplay/
+    UI/
+    Audio/
   03-Production/
-    Backlog.md
-    Sprint-Board.md
-    Risk-Log.md
-  04-Research/
-    Reference-Links.md
-    User-Testing-Notes.md
+    CHANGELOG.md
 ```
 
-### MVP Documentation Set (in `02-Technical-Design/`)
+## Recommended reading
 
-**For building the MVP, follow this reading order:**
+1. [01-Game-Design/MVP-Overview.md](./01-Game-Design/MVP-Overview.md) - current playable scope
+2. [01-Game-Design/Gameplay/Puzzle-Flow.md](./01-Game-Design/Gameplay/Puzzle-Flow.md) - complete room progression
+3. [02-Technical-Design/MVP-SPECIFICATION.md](./02-Technical-Design/MVP-SPECIFICATION.md) - current technical MVP
+4. [02-Technical-Design/MVP-Sprint-3.md](./02-Technical-Design/MVP-Sprint-3.md) - Sprint 3 closeout
+5. [03-Production/CHANGELOG.md](./03-Production/CHANGELOG.md) - released prototype milestones
 
-1. **[MVP-Quick-Reference.md](./02-Technical-Design/MVP-Quick-Reference.md)** — 5-minute overview (print this)
-2. **[MVP-Implementation-Quickstart.md](./02-Technical-Design/MVP-Implementation-Quickstart.md)** — phase-by-phase checklist
-3. **[MVP-Concrete-Hierarchy.md](./02-Technical-Design/MVP-Concrete-Hierarchy.md)** — exact GameObject structure
-4. **[MVP-Data-Specification.md](./02-Technical-Design/MVP-Data-Specification.md)** — exact data values
-5. **[MVP-Flag-Sequence.md](./02-Technical-Design/MVP-Flag-Sequence.md)** — execution flow and validation
+## Design
 
-**Central index:** [02-Technical-Design/README.md](./02-Technical-Design/README.md)
+Use `01-Game-Design/` for:
 
-## Naming conventions
+- narrative intent and lore
+- room design
+- visual and audio direction
+- gameplay flow
+- Memory and ending rules
 
-- Use English folder names and file names.
-- Keep categories by content type, not by scene or author.
-- Prefer consistent, descriptive names such as `Game-GDD.md`, `MVP-Sprint-1.md`, `GameObject-Hierarchy.md`.
-- Avoid mixing game design, production and technical notes in the same document.
+## Technical design
 
-## Purpose of each folder
+Use `02-Technical-Design/` for:
 
-### `01-Game-Design/`
+- runtime systems and room contracts
+- scene hierarchy and interactables
+- HUD and input behavior
+- sprint implementation records
+- validation and implementation constraints
 
-Contains the game vision, rules, progression, visual references and design intent.
+## Production
 
-### `02-Technical-Design/`
+Use `03-Production/` for:
 
-Contains technical architecture, sprint planning, runtime systems and scene/object responsibilities.
+- release notes and changelog entries
+- delivery milestones
+- future production summaries
 
-### `03-Production/`
+## Document status policy
 
-Contains planning, progress tracking, risks and iteration notes.
-
-### `04-Research/`
-
-Contains references, inspiration, technical validation notes and test observations.
-
-## Working rule
-
-If a document affects gameplay behaviour, it should live under `01-Game-Design` or `02-Technical-Design` depending on whether it is design or technical logic. If it is a project workflow document, it belongs under production or research.
+- Current documents describe the behavior of `0.1.0-proto`.
+- Sprint documents are implementation records and may contain historical decisions.
+- Deferred items are explicit; they must not be mistaken for unfinished blockers.
+- New design should update the existing relevant document before creating another one.

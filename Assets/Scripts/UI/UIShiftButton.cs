@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class UIShiftButton : MonoBehaviour
 {
     [Header("Room gating")]
-    [SerializeField] private List<string> shiftEnabledRoomIds = new() { GameManager.HallwayRoomId };
+    [SerializeField] private List<string> shiftEnabledRoomIds = new() { GameManager.HallwayRoomId, GameManager.BedroomRoomId };
 
     private PanelRenderer m_PanelRenderer;
     private VisualElement m_ShiftButton;
@@ -134,7 +134,11 @@ public class UIShiftButton : MonoBehaviour
         }
         else
         {
-            var roomId = RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>";
+            var roomId = "<unknown>";
+            if (RoomManager.Instance != null && RoomManager.Instance.CurrentRoom != null)
+            {
+                roomId = RoomManager.Instance.CurrentRoom.id;
+            }
             Debug.LogWarning($"[UIShiftButton] SHIFT unavailable in room '{roomId}'.");
         }
     }
@@ -209,7 +213,16 @@ public class UIShiftButton : MonoBehaviour
 
     private bool IsShiftAllowedInCurrentRoom()
     {
-        var roomId = RoomManager.Instance?.CurrentRoom?.id;
+        if (RealityManager.Instance != null)
+        {
+            return RealityManager.Instance.IsShiftAllowedInCurrentRoom();
+        }
+
+        var roomId = string.Empty;
+        if (RoomManager.Instance != null && RoomManager.Instance.CurrentRoom != null)
+        {
+            roomId = RoomManager.Instance.CurrentRoom.id;
+        }
         if (string.IsNullOrEmpty(roomId))
         {
             return false;

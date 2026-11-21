@@ -1,44 +1,47 @@
-# Technical Design - MVP
+# Technical design
 
-**Quick Links:**
+This folder contains the active technical reference for the `0.1.0-proto` vertical slice and the implementation history behind it.
 
-- **[MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md)** ← START HERE (contains everything)
-- [Technical-Design.md](./Technical-Design.md) (high-level design reference only)
-- [MVP-Sprint-1.md](./MVP-Sprint-1.md) (sprint goals)
-- [GameObject-Hierarchy.md](./GameObject-Hierarchy.md) (general patterns reference)
+## Start here
 
----
+- [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md) - current end-to-end technical contract
+- [Technical-Design.md](./Technical-Design.md) - architecture principles
+- [MVP-Sprint-3.md](./MVP-Sprint-3.md) - Sprint 3 closeout and Sprint 4 handoff
+- [GameObject-Hierarchy.md](./GameObject-Hierarchy.md) - scene hierarchy conventions
 
-## 📖 How to Use This Folder
+## Implemented room documents
 
-### For Building the MVP
+| Room | Game design | Technical design |
+| --- | --- | --- |
+| Lobby | [GD-Room-Lobby.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Lobby.md) | [TD-Room-Lobby.md](./Gameplay/Rooms/TD-Room-Lobby.md) |
+| Hallway | [GD-Room-Hallway.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Hallway.md) | [TD-Room-Hallway.md](./Gameplay/Rooms/TD-Room-Hallway.md) |
+| Bedroom | [GD-Room-Bedroom.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Bedroom.md) | [TD-Room-Bedroom.md](./Gameplay/Rooms/TD-Room-Bedroom.md) |
+| Library | [GD-Room-Library.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Library.md) | [TD-Room-Library.md](./Gameplay/Rooms/TD-Room-Library.md) |
+| Basement | [GD-Room-Basement.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Basement.md) | [TD-Room-Basement.md](./Gameplay/Rooms/TD-Room-Basement.md) |
+| Forest | [GD-Room-Forest.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Forest.md) | [TD-Room-Forest.md](./Gameplay/Rooms/TD-Room-Forest.md) |
 
-**Open [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md) and follow the 5 phases:**
+## Systems
 
-1. **Phase 1:** Create scenes & hierarchy (30 min)
-2. **Phase 2:** Add interactables with data (45 min)
-3. **Phase 3:** Attach scripts (30 min)
-4. **Phase 4:** Initialize data in GameManager (20 min)
-5. **Phase 5:** Validate in Play Mode (30 min)
+- [Interaction model](./Gameplay/TD-Interactables.md)
+- [Room architecture](./Gameplay/Rooms/TD-Room-Architecture.md)
+- [HUD](./UI/TD-HUD.md)
+- [Audio](./Audio/TD-Audio-System.md)
 
-**Total: 2.5-3 hours to working MVP**
+## Sprint history
 
----
+1. [MVP-Sprint-1.md](./MVP-Sprint-1.md) - Lobby and SHIFT foundation
+2. [MVP-Sprint-2.md](./MVP-Sprint-2.md) - Bedroom, Library, interaction, and HUD stabilization
+3. [MVP-Sprint-3.md](./MVP-Sprint-3.md) - complete Basement, Forest, and ending loop
 
-### For Understanding Architecture
+## Current architecture rules
 
-Read [Technical-Design.md](./Technical-Design.md) for high-level philosophy.
+- single gameplay scene in the prototype
+- data-driven Room catalog
+- flag-based progression
+- explicit scene-object references preferred at runtime
+- left click changes state; right click examines
+- Unity Input System only
+- no null-propagation operators in runtime scripts
+- UI Toolkit through `PanelRenderer`
 
----
-
-## 📋 Files
-
-| File | Purpose |
-| ------ | --------- |
-| **MVP-SPECIFICATION.md** | Complete MVP spec with 5 phases, data tables, validation checklist |
-| Technical-Design.md | High-level architecture philosophy |
-| MVP-Sprint-1.md | Sprint goals and acceptance criteria |
-| TD-HUD.md | Runtime HUD structure using Panel Renderer for the MVP polish pass |
-| GameObject-Hierarchy.md | General hierarchy patterns |
-
-**That's it. No more.**
+Older sprint documents remain as historical records. They should not override the current `0.1.0-proto` specification.

@@ -1,57 +1,123 @@
-# Game Off 2026 - Game Jam Project
+# Game Off 2026 - Psychological Horror Prototype
 
-This repository contains the prototype for the Game Off 2026 game jam entry.
+`0.1.0-proto` is a complete playable point-and-click horror prototype created for Game Off 2026.
 
-## Project goal
+The player explores a liminal building by switching between the Normal reality and the Other Side, recovering memories, and following the truth behind a father's disappearance. The current prototype includes the full route from the Lobby to the Forest, revelation letter, ending evaluation, and restart loop.
 
-The MVP focuses on validating the core loop of the game:
+## Playable loop
 
-- enter the lobby
-- collect the staff key
-- unlock the door
-- enter the hallway
-- activate SHIFT
-- change reality
-- remove the obstacle and continue the route
+```text
+Lobby
+  -> Hallway
+  -> Bedroom / Library
+  -> Basement
+  -> Forest
+  -> Revelation Letter
+  -> Ending
+  -> Restart to Lobby
+```
 
-The implementation prioritizes a strong technical foundation and a playable vertical slice over art polish or full content scope.
+The ending depends on the number of optional Memories recovered:
+
+- 0-2 Memories: Bad Ending
+- 3-4 Memories: Neutral Ending
+- 5 Memories: True Ending
+
+## Prototype highlights
+
+- Fixed-camera point-and-click exploration
+- Left click to interact, use, collect, or transition
+- Right click to examine without changing game state
+- Input System support for mouse and keyboard
+- Reality switching between Normal and the Other Side
+- Persistent Room and interaction Flags
+- Bedroom computer and Floppy Disk progression
+- Library secret-shelf and Basement access flow
+- Basement pressure, steam, and denial manifestation sequence
+- Four-layer Forest depth progression
+- Revelation letter and reusable Story Overlay
+- Ending summary, Memory count, and restart loop
+- Runtime music and centralized HUD
+
+## Controls
+
+| Input | Action |
+| --- | --- |
+| Left click | Interact, use an item, collect, or transition |
+| Right click | Examine |
+| SHIFT / HUD button | Switch reality in supported rooms |
+| Escape / Enter / Space | Advance or close the current story overlay |
+| Restart game | Reset runtime progress and return to the Lobby |
+
+## Unity setup
+
+- Unity `6000.6.9f1`
+- Universal Render Pipeline
+- Unity Input System
+- UI Toolkit through `PanelRenderer`
+
+### Open the project
+
+1. Open this repository root with Unity Hub.
+2. Use Unity `6000.6.9f1`.
+3. Open `Assets/Scenes/Main.unity`.
+4. Enter Play Mode.
+
+The prototype is contained in a single gameplay scene for the current vertical slice.
 
 ## Repository structure
 
 ```text
-Assets/             Unity project assets and scripts
-Docs/               project documentation, split by type
-ProjectSettings/     Unity project settings
-Packages/            Unity package configuration
-UserSettings/        local editor settings
+Assets/             Runtime scripts, scenes, visuals, audio, UI, and project content
+Docs/               Game design, technical design, sprint records, and changelog
+Packages/           Unity package configuration
+ProjectSettings/    Unity project settings
 ```
 
 ## Documentation
 
-The project documentation is organized by type to keep it readable and maintainable.
+Start with:
 
-- `Docs/README.md` — recommended structure and naming convention
-- `Docs/01-Game-Design/` — GDD, puzzle flow, visual references and MVP summary
-- `Docs/02-Technical-Design/` — technical architecture, sprint plan and scene/object hierarchy
+- [Documentation index](Docs/README.md)
+- [Game Design Document](Docs/01-Game-Design/Game-GDD.md)
+- [Current MVP overview](Docs/01-Game-Design/MVP-Overview.md)
+- [Puzzle flow](Docs/01-Game-Design/Gameplay/Puzzle-Flow.md)
+- [MVP specification](Docs/02-Technical-Design/MVP-SPECIFICATION.md)
+- [Sprint 3 closeout](Docs/02-Technical-Design/MVP-Sprint-3.md)
+- [Changelog](Docs/03-Production/CHANGELOG.md)
 
-## MVP status
+Room-specific references:
 
-The current implementation is a technical foundation for the first sprint:
+- [Forest game design](Docs/01-Game-Design/Gameplay/Rooms/GD-Room-Forest.md)
+- [Forest technical design](Docs/02-Technical-Design/Gameplay/Rooms/TD-Room-Forest.md)
 
-- shared data models
-- global game state with flags
-- room management
-- inventory and interaction flow
-- reality switching support for normal / alternate reality
-- runtime HUD pass based on Panel Renderer for the MVP polish layer
+## Current scope
 
-## Unity setup
+This is a game jam prototype, not a final release.
 
-1. Open the project in Unity.
-2. Load the main gameplay scene.
-3. Validate the progression in Play Mode.
-4. Keep the scope limited to the MVP loop before expanding content.
+The current goal is a stable complete loop before the delivery polish pass. Planned work for the final iteration includes:
+
+- final letter and ending copy
+- final Story Overlay / antique-letter artwork
+- dedicated Credits scene
+- English and Spanish localization through Unity Localization
+- additional SFX, visual polish, and accessibility validation
+- final WebGL / Windows builds
+
+## Code health
+
+Runtime scripts currently follow the project Unity C# guidelines:
+
+- Input System only
+- explicit null handling
+- no null-propagation operators
+- no deprecated `FindObjectOfType` / `FindObjectsOfType` usage
+- configuration/data reuse preferred over room-specific duplication
 
 ## Public repository note
 
-This project is public because it is required by the game jam, so documentation and setup instructions should remain clear and reusable for external reviewers.
+This repository is public for the Game Off 2026 jam. It may contain work-in-progress assets, prototype copy, design notes, and historical sprint documents. Those artifacts are intentional and help document the development of the vertical slice.
+
+## License
+
+No project-wide source or asset license has been declared yet. Third-party packages and assets retain their original licenses.
