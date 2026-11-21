@@ -1,6 +1,6 @@
 # Room Forest - Technical Spec
 
-- Version 0.4
+- Version 0.5
 - Created: 20/11/2026
 - Updated: 21/11/2026
 
@@ -10,10 +10,13 @@
 id: "forest"
 displayName: "Forest"
 connectedRoomIds:
-  - "basement"
+  - none
 ```
 
-The Forest is added to the runtime room catalog and is reachable from the resolved Basement.
+The Forest is added to the runtime room catalog and is reachable from the
+resolved Basement. It is a terminal room: its only gameplay exit is forward
+to the final letter and ending state. It must not expose a transition back to
+the Basement.
 
 ## 2. Scene hierarchy
 
@@ -99,7 +102,7 @@ Behaviour:
 
 The advance must not consume an inventory item.
 
-## 5. Basement transition
+## 5. Entry and terminal transition
 
 The existing `forest_exit_door` in the Basement becomes a transition interactable:
 
@@ -116,6 +119,9 @@ The transition is available only when:
 - `DenialManifestationRejected == true`.
 
 The existing special resolver blocks the transition in `OtherSide` and loads Forest in `Normal`.
+
+Once the Forest is loaded, it has no return transition. `BasementExitDoor`
+must not be present in the Forest scene hierarchy or room catalog.
 
 ## 6. Flags
 
@@ -160,9 +166,7 @@ Maintain:
 - five synchronized forest depth frames;
 - four visible background layers;
 - one final table and letter GameObject;
-- one letter text overlay;
-- one terminal ending screen;
-- a return transition to the Basement;
+- one reusable story overlay for the future letter and ending states;
 - no inventory or puzzle requirement for the letter.
 
 Defer:
@@ -172,6 +176,8 @@ Defer:
 - SHIFT-specific Forest variants;
 - item or puzzle dependencies;
 - dynamic object migration between depth layers.
+- terminal ending screen implementation;
+- final letter copy and tier texts.
 
 ## 8. Final depth transition
 
@@ -204,7 +210,7 @@ systems:
 ```text
 id: "forest_revelation_letter"
 displayName: "Letter"
-interactionType: Examine
+interactionType: Use
 visibleInNormalReality: true
 visibleInOtherReality: true
 resultFlag: ForestLetterRead
@@ -214,10 +220,11 @@ Visibility requirements:
 
 - `ForestFinalTableVisible == true`;
 - `GameManager.ForestDepthLevel == 6`;
-- `ForestLetterRead == false`.
 
-Primary and secondary clicks may open the letter. The interaction must not
-consume an item or permanently hide the letter before the reading is complete.
+Primary and secondary clicks may open or examine the letter. The interaction
+must not consume an item or permanently hide the letter. Reading the letter
+sets `ForestLetterRead`, but the scene object remains available if the player
+closes and opens the panel again.
 
 For the playable MVP:
 
@@ -232,32 +239,89 @@ the interaction path. It is not the final narrative letter panel.
 
 ## 10. Letter presentation
 
-The first MVP keeps the existing `feedback-text` HUD for this interaction.
-This avoids adding a full letter panel before the complete letter copy and
-ending screen are defined.
+The letter is presented as a modal narrative panel inside the existing HUD
+UI Toolkit instead of by the temporary `feedback-text` label.
 
-The primary click:
+This is the recommended structure:
 
-- sets `ForestLetterRead`;
-- shows a temporary debug-style feedback message.
+```text
+HUD.uxml
+  hud-root
+    existing gameplay controls
+    StoryOverlay
+      StoryOverlayBackdrop
+      StoryOverlayPanel
+        StoryOverlayEyebrow
+        StoryOverlayTitle
+        StoryOverlayBody
+        StoryOverlayHint
+```
 
-The right-click examine:
+`StoryOverlay` is a reusable HUD mode rather than a Forest-only GameObject.
+It can later show letters, diary pages, terminal messages, or final farewells.
+The Forest supplies the title and body text; the overlay provides the shared
+presentation and close behaviour.
 
-- does not set `ForestLetterRead`;
-- shows: "A letter rests on the table, written in my father's handwriting.";
-- keeps the interaction readable and repeatable.
+State and behaviour:
 
-A full `LetterPanel` remains a planned presentation step after the MVP text
-and ending copy are approved.
+- primary click opens `StoryOverlay`;
+- right click keeps the current short examination text;
+- opening the panel sets `ForestLetterRead`;
+- the overlay pauses all gameplay interaction;
+- SHIFT, inventory, lantern, and feedback controls are hidden;
+- the Forest letter stays visible in the scene behind the overlay;
+- clicking `Continue` or pressing Escape closes the overlay;
+- closing the letter does not automatically close the game;
+- closing the letter opens the terminal ending state.
 
-No per-memory letter text should create a separate scene or room. The text is
-selected once from the total Memory count:
+The MVP should not add a separate LetterPanel and EndingPanel as independent
+systems. A generic `StoryOverlay` with a configurable type is simpler:
+
+```text
+StoryOverlayMode
+  Letter
+  Ending
+```
+
+The `Letter` mode uses the close text "Continue"; the `Ending` mode uses the
+ending content and may replace `StoryOverlayHint` with "Restart".
+
+Planned HUD API:
+
+```text
+ShowStoryOverlay(title, body, hint, mode)
+HideStoryOverlay()
+ShowEndingOverlay(title, farewell, credits, memoryCount)
+SetGameplayControlsVisible(bool)
+HandleStoryOverlayEscape()
+```
+
+This keeps narrative content in callers and presentation in `HUDController`.
+`UIManager` may expose the same operations as a lightweight facade.
+
+Opening the overlay:
+
+1. hides normal gameplay controls;
+2. stores no scene or Room dependency inside the HUD;
+3. accepts plain title and body strings;
+4. registers close and Escape actions;
+5. blocks interaction with the scene through HUD state.
+
+Closing the letter:
+
+1. hides `StoryOverlay`;
+2. keeps gameplay controls hidden;
+3. sets `ForestEndingReached`;
+4. switches to the `Ending` mode directly.
+
+No per-memory letter text should create a separate scene or room. The letter
+body is selected once from the total Memory count:
 
 | Memory count | Ending tier | Text behaviour |
 | --- | --- | --- |
-| 0-2 | Final Malo | The letter preserves the protagonist's denial and remains incomplete. |
-| 3-4 | Final Neutral | The letter admits part of the truth but leaves the farewell unresolved. |
-| 5 | Final Verdadero | The letter accepts the father's death and the protagonist's own death. |
+| 0-2 | Bad Final | The letter preserves the protagonist's denial and remains incomplete. |
+| 3-4 | Neutral Final | The letter admits part of the truth but leaves the farewell unresolved. |
+| 5 | True Final | The letter accepts the father's death and the protagonist's own death. |
 
 The first implementation should use one `LetterText` value per tier.
 Alternate objects or partial room illumination are deferred until the game
@@ -268,6 +332,14 @@ has one complete and testable ending loop.
 The letter should not explain the whole plot as exposition. It should be
 written as a short message that confirms only what the protagonist is ready
 to accept.
+
+Use a short reading format:
+
+- 1 title;
+- 1-3 short paragraphs;
+- approximately 40-70 words;
+- no item or inventory references;
+- one clear farewell sentence.
 
 Suggested structure:
 
@@ -281,33 +353,50 @@ Body:
   [One final farewell]
 
 Tier-specific final line:
-  Bad: "I am not ready to leave."
-  Neutral: "I understood too little, too late."
-  True: "It is time to go together."
+  Bad Final: "I am not ready to leave."
+  Neutral Final: "I understood too little, too late."
+  True Final: "It is time to go together."
 ```
 
 The exact final Spanish copy belongs to the narrative pass, but the technical
 system only needs to receive a prepared string. It must not assemble the
 letter paragraph by paragraph from items or object flags.
 
+Tier meaning:
+
+| Tier | Meaning | Emotional result |
+| --- | --- | --- |
+| Bad | The protagonist still rejects the evidence and farewell. | Denial and unfinished loss. |
+| Neutral | The protagonist understands the death but not the full implications. | Partial acceptance and unresolved guilt. |
+| True | The protagonist accepts the father's death and his own. | Farewell, mourning, and quiet hope. |
+
 ## 12. Encounter and ending
 
-The final letter panel and terminal ending screen remain outside this
-implementation pass. They will be added after the debug interaction is
-confirmed in Play Mode.
+After closing the letter panel, the game enters a terminal Ending state:
 
-When implemented, the ending should still reuse the existing HUD instead of
-creating another room:
+1. set `ForestEndingReached`;
+2. hide gameplay scene interactables;
+3. hide SHIFT, inventory, lantern, and feedback;
+4. keep the final table scene visible behind the overlay;
+5. show the `Ending` mode of `StoryOverlay`;
+6. display the tier title and farewell line;
+7. display `Recovered Memories: X/5`;
+8. display closing credits;
+9. offer `Restart`.
 
-1. hide gameplay scene interactables;
-2. hide the SHIFT and inventory HUD;
-3. show the letter or ending panel;
-4. display one farewell line appropriate to the tier;
-5. display `Recovered Memories: X/5`;
-6. display closing credits;
-7. offer `Restart`.
+The ending should use two content phases inside the same reusable overlay:
 
-No new room is required after the letter.
+- **Farewell:** title and tier-specific line;
+- **Credits:** short closing credits followed by the Memory count and replay
+  action.
+
+The Memory count is a factual closing summary, not a collectible score.
+`Restart` resets runtime flags and inventory, resets
+`ForestDepthLevel` to 0, and loads the Lobby. The browser build should not
+rely on a forced browser tab close.
+
+No new room is required after the letter. The overlay completes the game
+loop.
 
 ## 13. Recommended implementation sequence
 
@@ -316,11 +405,14 @@ No new room is required after the letter.
 3. ✅ Reveal `Table`, `CeilingLight`, and `ForestRevelationLetter` at depth 6.
 4. ✅ Add `forest_revelation_letter` to the Forest catalog.
 5. ✅ Add primary debug feedback and right-click examination text.
-6. Implement the letter panel.
-7. Add the three Memory-tier strings.
-8. Add the terminal ending panel.
-9. Resolve the ending tier from `Memory_01` through `Memory_05`.
-10. Implement replay reset and verify the complete loop.
+6. Replace the primary debug feedback with `StoryOverlay`.
+7. Add `StoryOverlayMode.Letter` to the existing HUD.
+8. Add the three Memory-tier letter strings.
+9. Add `StoryOverlayMode.Ending`.
+10. Resolve the ending tier from `Memory_01` through `Memory_05`.
+11. Add credits and `Recovered Memories: X/5`.
+12. Implement replay reset.
+13. Verify the complete Basement -> Forest -> Letter -> Ending loop.
 
 ## 14. MVP acceptance criteria
 
@@ -328,8 +420,11 @@ No new room is required after the letter.
 - five clicks reach the first final table transition state;
 - the sixth depth step reveals the table and letter;
 - the same table/letter state cannot advance the forest beyond depth 6;
-- primary click shows temporary debug text and sets `ForestLetterRead`;
+- primary click opens or replaces the debug interaction with `StoryOverlay`;
 - right click shows the revelation letter examination text;
+- Escape or the close hint closes the overlay;
+- closing the letter opens the ending state;
+- the ending state shows its Memory tier and recovered Memory count;
+- `Restart` restores the Lobby and runtime defaults;
 - the final state does not expose the five forest background layers;
-- a final terminal screen and replay remain planned follow-up work;
 - no ritual room, inventory item, or additional puzzle is required.
