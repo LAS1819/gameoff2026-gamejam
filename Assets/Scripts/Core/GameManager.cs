@@ -157,8 +157,15 @@ public class GameManager : MonoBehaviour
         ForestDepthLevel = 0;
 
         EnsureRuntimeSystems();
-        InventoryManager.Instance?.ResetInventory();
-        InteractionManager.Instance?.ResetRuntimeState();
+        if (InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.ResetInventory();
+        }
+
+        if (InteractionManager.Instance != null)
+        {
+            InteractionManager.Instance.ResetRuntimeState();
+        }
 
         if (RoomManager.Instance != null)
         {
@@ -249,7 +256,10 @@ public class GameManager : MonoBehaviour
         if (!Flags.TryGetValue(flagName, out var existingValue) || existingValue != value)
         {
             Flags[flagName] = value;
-            FlagChanged?.Invoke(flagName);
+            if (FlagChanged != null)
+            {
+                FlagChanged.Invoke(flagName);
+            }
             return true;
         }
 
@@ -278,7 +288,10 @@ public class GameManager : MonoBehaviour
         {
             SetFlag(GameFlagNames.ForestFinalTableVisible, true);
         }
-        ForestDepthChanged?.Invoke(ForestDepthLevel);
+        if (ForestDepthChanged != null)
+        {
+            ForestDepthChanged.Invoke(ForestDepthLevel);
+        }
         return true;
     }
 
@@ -289,6 +302,9 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.ForestFinalTableVisible, false);
         SetFlag(GameFlagNames.ForestLetterRead, false);
         SetFlag(GameFlagNames.ForestEndingReached, false);
-        ForestDepthChanged?.Invoke(ForestDepthLevel);
+        if (ForestDepthChanged != null)
+        {
+            ForestDepthChanged.Invoke(ForestDepthLevel);
+        }
     }
 }

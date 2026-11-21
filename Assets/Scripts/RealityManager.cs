@@ -65,15 +65,26 @@ public class RealityManager : MonoBehaviour
         // Update background visibility - ALWAYS search fresh since rooms activate/deactivate
         UpdateBackgrounds();
 
-        RoomManager.Instance?.RefreshInteractables();
-        RealityChanged?.Invoke(CurrentReality);
+        if (RoomManager.Instance != null)
+        {
+            RoomManager.Instance.RefreshInteractables();
+        }
+
+        if (RealityChanged != null)
+        {
+            RealityChanged.Invoke(CurrentReality);
+        }
 
         Debug.Log($"[RealityManager] Reality changed to: {CurrentReality}");
     }
 
     private void ReconcileBasementRealityTransition()
     {
-        var room = RoomManager.Instance?.CurrentRoom;
+        RoomData room = null;
+        if (RoomManager.Instance != null)
+        {
+            room = RoomManager.Instance.CurrentRoom;
+        }
         var gameManager = GameManager.Instance;
         if (room == null || gameManager == null)
         {
@@ -105,7 +116,11 @@ public class RealityManager : MonoBehaviour
 
     private void PlayDenialManifestationRejection()
     {
-        var room = RoomManager.Instance?.CurrentRoom;
+        RoomData room = null;
+        if (RoomManager.Instance != null)
+        {
+            room = RoomManager.Instance.CurrentRoom;
+        }
         if (room == null)
         {
             return;
@@ -183,7 +198,11 @@ public class RealityManager : MonoBehaviour
 
     public bool IsShiftAllowedInCurrentRoom()
     {
-        var roomId = RoomManager.Instance?.CurrentRoom?.id;
+        var roomId = string.Empty;
+        if (RoomManager.Instance != null && RoomManager.Instance.CurrentRoom != null)
+        {
+            roomId = RoomManager.Instance.CurrentRoom.id;
+        }
         if (string.IsNullOrWhiteSpace(roomId))
         {
             return false;
@@ -199,13 +218,26 @@ public class RealityManager : MonoBehaviour
     {
         if (!IsShiftAllowedInCurrentRoom())
         {
-            UIManager.Instance?.ShowFeedback("Shift unavailable here.", 1.25f);
-            Debug.LogWarning($"[RealityManager] SHIFT blocked in room '{RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>"}'");
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.ShowFeedback("Shift unavailable here.", 1.25f);
+            }
+
+            var roomId = "<unknown>";
+            if (RoomManager.Instance != null && RoomManager.Instance.CurrentRoom != null)
+            {
+                roomId = RoomManager.Instance.CurrentRoom.id;
+            }
+
+            Debug.LogWarning($"[RealityManager] SHIFT blocked in room '{roomId}'");
             return false;
         }
 
         ToggleReality();
-        GameManager.Instance?.SetFlag(GameFlagNames.ShiftPerformed, true);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetFlag(GameFlagNames.ShiftPerformed, true);
+        }
         return true;
     }
 
@@ -278,7 +310,11 @@ public class RealityManager : MonoBehaviour
         backgroundNormal = null;
         backgroundOtherSide = null;
 
-        var currentRoomId = RoomManager.Instance?.CurrentRoom?.id;
+        var currentRoomId = string.Empty;
+        if (RoomManager.Instance != null && RoomManager.Instance.CurrentRoom != null)
+        {
+            currentRoomId = RoomManager.Instance.CurrentRoom.id;
+        }
         if (string.IsNullOrEmpty(currentRoomId))
         {
             return;

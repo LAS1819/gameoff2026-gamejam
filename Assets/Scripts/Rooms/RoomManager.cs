@@ -79,7 +79,10 @@ public partial class RoomManager : MonoBehaviour
         BindCurrentRoomInteractables();
 
         RefreshInteractables();
-        RoomChanged?.Invoke(CurrentRoom);
+        if (RoomChanged != null)
+        {
+            RoomChanged.Invoke(CurrentRoom);
+        }
         
         Debug.Log($"[RoomManager] Loaded room: {roomId}");
         return true;
@@ -236,7 +239,10 @@ public partial class RoomManager : MonoBehaviour
     public void RefreshInteractables()
     {
         RefreshConditionalInteractableObjects();
-        InteractablesRefreshed?.Invoke();
+        if (InteractablesRefreshed != null)
+        {
+            InteractablesRefreshed.Invoke();
+        }
     }
 
 }

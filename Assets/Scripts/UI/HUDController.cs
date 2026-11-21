@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+public enum StoryOverlayMode
+{
+    Letter,
+    Ending
+}
+
 [RequireComponent(typeof(PanelRenderer))]
 public class HUDController : MonoBehaviour
 {
@@ -31,6 +37,18 @@ public class HUDController : MonoBehaviour
     private VisualElement lanternIcon;
     private VisualElement transitionOverlay;
     private VisualElement realityPulse;
+    private VisualElement inventoryPanel;
+    private VisualElement storyOverlay;
+    private VisualElement storyOverlayBackdrop;
+    private VisualElement storyOverlayPanel;
+    private Label storyOverlayEyebrow;
+    private Label storyOverlayTitle;
+    private Label storyOverlayBody;
+    private Label storyOverlayMemoryCount;
+    private Label storyOverlayCredits;
+    private Button storyOverlayClose;
+    private Button storyOverlayRestart;
+    private VisualElement hudRoot;
 
     private Coroutine feedbackRoutine;
     private Coroutine transitionRoutine;
@@ -40,6 +58,8 @@ public class HUDController : MonoBehaviour
     private bool roomEventsSubscribed;
     private bool realityEventsSubscribed;
     private bool shiftClickBound;
+    private bool storyEventsBound;
+    private StoryOverlayMode storyOverlayMode = StoryOverlayMode.Letter;
 
     private void OnEnable()
     {
@@ -76,6 +96,8 @@ public class HUDController : MonoBehaviour
     private void OnDisable()
     {
         CancelInvoke(nameof(TrySubscribeRuntimeEvents));
+
+        UnbindStoryOverlayEvents();
 
         if (panelRenderer != null && reloadCallback != null)
         {
@@ -118,6 +140,191 @@ public class HUDController : MonoBehaviour
         feedbackRoutine = StartCoroutine(HideFeedbackAfterDelay(targetDuration));
     }
 
+    public void ShowStoryOverlay(string title, string body, string hint = "Continue", StoryOverlayMode mode = StoryOverlayMode.Letter)
+    {
+        ResolvePanelRenderer();
+        BuildStoryOverlay(true);
+        BindStoryOverlayEvents();
+        if (storyOverlay == null)
+        {
+            Debug.LogWarning("[HUDController] Story overlay is not present in the active visual tree.");
+            return;
+        }
+
+        storyOverlayMode = mode;
+        if (storyOverlayEyebrow != null)
+        {
+            storyOverlayEyebrow.text = mode == StoryOverlayMode.Letter
+                ? "A LETTER"
+                : "ENDING";
+        }
+
+        if (storyOverlayTitle != null)
+        {
+            storyOverlayTitle.text = title;
+        }
+
+        if (storyOverlayBody != null)
+        {
+            storyOverlayBody.text = body;
+        }
+
+        if (storyOverlayClose != null)
+        {
+            storyOverlayClose.text = hint;
+            storyOverlayClose.style.display = DisplayStyle.Flex;
+            storyOverlayClose.pickingMode = PickingMode.Position;
+        }
+
+        if (storyOverlayRestart != null)
+        {
+            storyOverlayRestart.style.display = mode == StoryOverlayMode.Ending
+                ? DisplayStyle.Flex
+                : DisplayStyle.None;
+        }
+
+        if (storyOverlayMemoryCount != null)
+        {
+            storyOverlayMemoryCount.text = mode == StoryOverlayMode.Ending
+                ? storyOverlayMemoryCount.text
+                : string.Empty;
+        }
+
+        if (storyOverlayCredits != null)
+        {
+            storyOverlayCredits.text = string.Empty;
+        }
+
+        SetGameplayControlsVisible(false);
+        ExpandStoryOverlayToHud();
+        storyOverlay.style.display = DisplayStyle.Flex;
+        storyOverlay.AddToClassList("visible");
+        if (storyOverlayClose != null && storyOverlayClose.resolvedStyle.display == DisplayStyle.Flex)
+        {
+            storyOverlayClose.Focus();
+        }
+    }
+
+    public void ShowEndingOverlay(string title, string farewell, string credits, int memoryCount)
+    {
+        ResolvePanelRenderer();
+        BuildStoryOverlay(true);
+        BindStoryOverlayEvents();
+        if (storyOverlay == null)
+        {
+            Debug.LogWarning("[HUDController] Story overlay is not present in the active visual tree.");
+            return;
+        }
+
+        storyOverlayMode = StoryOverlayMode.Ending;
+        if (storyOverlayEyebrow != null)
+        {
+            storyOverlayEyebrow.text = "ENDING";
+        }
+
+        if (storyOverlayTitle != null)
+        {
+            storyOverlayTitle.text = title;
+        }
+
+        if (storyOverlayBody != null)
+        {
+            storyOverlayBody.text = farewell;
+        }
+
+        if (storyOverlayMemoryCount != null)
+        {
+            storyOverlayMemoryCount.text = $"Recovered Memories: {Mathf.Clamp(memoryCount, 0, 5)} / 5";
+        }
+
+        if (storyOverlayCredits != null)
+        {
+            storyOverlayCredits.text = credits;
+        }
+
+        if (storyOverlayClose != null)
+        {
+            storyOverlayClose.style.display = DisplayStyle.None;
+        }
+
+        if (storyOverlayRestart != null)
+        {
+            storyOverlayRestart.style.display = DisplayStyle.Flex;
+            storyOverlayRestart.text = "Restart game";
+            storyOverlayRestart.pickingMode = PickingMode.Position;
+        }
+
+        SetGameplayControlsVisible(false);
+        ExpandStoryOverlayToHud();
+        storyOverlay.style.display = DisplayStyle.Flex;
+        storyOverlay.AddToClassList("visible");
+        if (storyOverlayRestart != null)
+        {
+            storyOverlayRestart.Focus();
+        }
+    }
+
+    public void HideStoryOverlay()
+    {
+        if (storyOverlay != null)
+        {
+            storyOverlay.RemoveFromClassList("visible");
+            storyOverlay.style.display = DisplayStyle.None;
+        }
+    }
+
+    public bool IsStoryOverlayVisible()
+    {
+        return storyOverlay != null && storyOverlay.ClassListContains("visible");
+    }
+
+    private void ExpandStoryOverlayToHud()
+    {
+        if (storyOverlay == null)
+        {
+            return;
+        }
+
+        var width = hudRoot != null ? hudRoot.worldBound.width : 0f;
+        var height = hudRoot != null ? hudRoot.worldBound.height : 0f;
+        if (width <= 0f || height <= 0f)
+        {
+            width = 640f;
+            height = 360f;
+        }
+
+        storyOverlay.style.left = 0f;
+        storyOverlay.style.top = 0f;
+        storyOverlay.style.position = Position.Absolute;
+        storyOverlay.style.alignItems = Align.Center;
+        storyOverlay.style.justifyContent = Justify.Center;
+        storyOverlay.style.width = width;
+        storyOverlay.style.height = height;
+    }
+
+    public void SetGameplayControlsVisible(bool visible)
+    {
+        if (inventoryPanel != null)
+        {
+            inventoryPanel.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        if (feedbackText != null)
+        {
+            feedbackText.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        if (shiftButton != null)
+        {
+            shiftButton.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        if (lanternIcon != null)
+        {
+            lanternIcon.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+    }
+
     public void RefreshInventory()
     {
         if (inventorySlots.Count == 0)
@@ -125,7 +332,11 @@ public class HUDController : MonoBehaviour
             return;
         }
 
-        var itemList = InventoryManager.Instance?.GetItems() ?? Array.Empty<InventoryItemData>();
+        IReadOnlyList<InventoryItemData> itemList = Array.Empty<InventoryItemData>();
+        if (InventoryManager.Instance != null)
+        {
+            itemList = InventoryManager.Instance.GetItems();
+        }
         for (var index = 0; index < inventorySlots.Count; index++)
         {
             var slot = inventorySlots[index];
@@ -151,7 +362,8 @@ public class HUDController : MonoBehaviour
             }
 
             var isSelected = item != null &&
-                !string.IsNullOrEmpty(InventoryManager.Instance?.SelectedItemId) &&
+                InventoryManager.Instance != null &&
+                !string.IsNullOrEmpty(InventoryManager.Instance.SelectedItemId) &&
                 item.id == InventoryManager.Instance.SelectedItemId;
             slot.EnableInClassList("selected", isSelected);
             label.text = item == null ? string.Empty : GetSlotLabel(item);
@@ -222,7 +434,11 @@ public class HUDController : MonoBehaviour
         }
 
         var itemId = slot.userData as string;
-        var item = InventoryManager.Instance?.GetItemById(itemId);
+        InventoryItemData item = null;
+        if (InventoryManager.Instance != null)
+        {
+            item = InventoryManager.Instance.GetItemById(itemId);
+        }
         if (item == null)
         {
             return;
@@ -273,7 +489,11 @@ public class HUDController : MonoBehaviour
 
     private void InspectInventoryItem(string itemId, EventBase evt)
     {
-        var item = InventoryManager.Instance?.GetItemById(itemId);
+        InventoryItemData item = null;
+        if (InventoryManager.Instance != null)
+        {
+            item = InventoryManager.Instance.GetItemById(itemId);
+        }
         if (item == null)
         {
             return;
@@ -330,14 +550,18 @@ public class HUDController : MonoBehaviour
             return;
         }
 
+        hudRoot = root.Q<VisualElement>("hud-root");
         inventorySlots.Clear();
         inventorySlots.Add(root.Q<VisualElement>("slot-0"));
         inventorySlots.Add(root.Q<VisualElement>("slot-1"));
         inventorySlots.Add(root.Q<VisualElement>("slot-2"));
 
+        inventoryPanel = root.Q<VisualElement>("inventory-panel");
         feedbackText = root.Q<Label>("feedback-text");
         transitionOverlay = root.Q<VisualElement>("transition-overlay");
         realityPulse = root.Q<VisualElement>("reality-pulse");
+        BuildStoryOverlay(false);
+        BindStoryOverlayEvents();
 
         if (shiftButton != null && shiftClickBound)
         {
@@ -394,6 +618,231 @@ public class HUDController : MonoBehaviour
         RefreshInventory();
         RefreshShiftButtonState();
         RefreshLanternState();
+    }
+
+    private void BuildStoryOverlay(bool visible)
+    {
+        if (hudRoot == null)
+        {
+            return;
+        }
+
+        if (storyEventsBound)
+        {
+            UnbindStoryOverlayEvents();
+        }
+
+        if (storyOverlay != null)
+        {
+            storyOverlay.RemoveFromHierarchy();
+        }
+
+        storyOverlay = new VisualElement { name = "hud-modal-layer" };
+
+        storyOverlayBackdrop = new VisualElement { name = "story-overlay-backdrop" };
+        storyOverlayBackdrop.AddToClassList("story-overlay-backdrop");
+        storyOverlayBackdrop.pickingMode = PickingMode.Ignore;
+
+        storyOverlayPanel = new VisualElement { name = "story-overlay-panel" };
+        storyOverlayPanel.AddToClassList("story-overlay-panel");
+
+        storyOverlayEyebrow = CreateStoryLabel(
+            "story-overlay-eyebrow",
+            "story-overlay-eyebrow");
+        storyOverlayTitle = CreateStoryLabel(
+            "story-overlay-title",
+            "story-overlay-title");
+        storyOverlayBody = CreateStoryLabel(
+            "story-overlay-body",
+            "story-overlay-body");
+        storyOverlayMemoryCount = CreateStoryLabel(
+            "story-overlay-memory-count",
+            "story-overlay-memory-count");
+        storyOverlayCredits = CreateStoryLabel(
+            "story-overlay-credits",
+            "story-overlay-credits");
+
+        var actions = new VisualElement { name = "story-overlay-actions" };
+        actions.AddToClassList("story-overlay-actions");
+
+        storyOverlayClose = new Button { name = "story-overlay-close", text = "Continue" };
+        storyOverlayClose.AddToClassList("story-overlay-close");
+        storyOverlayClose.pickingMode = PickingMode.Position;
+
+        storyOverlayRestart = new Button { name = "story-overlay-restart", text = "Restart game" };
+        storyOverlayRestart.AddToClassList("story-overlay-restart");
+        storyOverlayRestart.pickingMode = PickingMode.Position;
+        storyOverlayRestart.style.display = DisplayStyle.None;
+
+        actions.Add(storyOverlayClose);
+        actions.Add(storyOverlayRestart);
+        storyOverlayPanel.Add(storyOverlayEyebrow);
+        storyOverlayPanel.Add(storyOverlayTitle);
+        storyOverlayPanel.Add(storyOverlayBody);
+        storyOverlayPanel.Add(storyOverlayMemoryCount);
+        storyOverlayPanel.Add(storyOverlayCredits);
+        storyOverlayPanel.Add(actions);
+        storyOverlay.Add(storyOverlayBackdrop);
+        storyOverlay.Add(storyOverlayPanel);
+        storyOverlay.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+        hudRoot.Add(storyOverlay);
+    }
+
+    private static Label CreateStoryLabel(string name, string className)
+    {
+        var label = new Label { name = name };
+        label.AddToClassList(className);
+        return label;
+    }
+
+    private void BindStoryOverlayEvents()
+    {
+        if (storyEventsBound)
+        {
+            UnbindStoryOverlayEvents();
+        }
+
+        if (storyOverlayClose != null)
+        {
+            storyOverlayClose.RegisterCallback<ClickEvent>(OnStoryOverlayCloseClicked);
+        }
+
+        if (storyOverlayRestart != null)
+        {
+            storyOverlayRestart.RegisterCallback<ClickEvent>(OnStoryOverlayRestartClicked);
+        }
+
+        if (hudRoot != null)
+        {
+            hudRoot.RegisterCallback<KeyDownEvent>(OnStoryOverlayKeyDown);
+        }
+
+        storyEventsBound = true;
+    }
+
+    private void UnbindStoryOverlayEvents()
+    {
+        if (storyOverlayClose != null)
+        {
+            storyOverlayClose.UnregisterCallback<ClickEvent>(OnStoryOverlayCloseClicked);
+        }
+
+        if (storyOverlayRestart != null)
+        {
+            storyOverlayRestart.UnregisterCallback<ClickEvent>(OnStoryOverlayRestartClicked);
+        }
+
+        if (hudRoot != null)
+        {
+            hudRoot.UnregisterCallback<KeyDownEvent>(OnStoryOverlayKeyDown);
+        }
+
+        storyEventsBound = false;
+    }
+
+    private void OnStoryOverlayCloseClicked(ClickEvent _)
+    {
+        CloseStoryOverlay();
+    }
+
+    private void OnStoryOverlayRestartClicked(ClickEvent _)
+    {
+        RestartGame();
+    }
+
+    private void OnStoryOverlayKeyDown(KeyDownEvent evt)
+    {
+        if (evt.keyCode == KeyCode.Escape
+            && storyOverlay != null
+            && storyOverlay.ClassListContains("visible"))
+        {
+            if (storyOverlayMode == StoryOverlayMode.Letter)
+            {
+                CloseStoryOverlay();
+            }
+
+            evt.StopPropagation();
+        }
+    }
+
+    private void CloseStoryOverlay()
+    {
+        if (storyOverlayMode == StoryOverlayMode.Letter)
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.SetFlag(GameFlagNames.ForestEndingReached, true);
+            }
+
+            var memoryCount = CountRecoveredMemories();
+            var ending = ResolveForestEnding(memoryCount);
+            ShowEndingOverlay(
+                ending.title,
+                ending.farewell,
+                "Game design and development",
+                memoryCount);
+            return;
+        }
+
+        HideStoryOverlay();
+    }
+
+    private static int CountRecoveredMemories()
+    {
+        if (GameManager.Instance == null)
+        {
+            return 0;
+        }
+
+        var count = 0;
+        if (GameManager.Instance.HasFlag(GameFlagNames.Memory_01)) count++;
+        if (GameManager.Instance.HasFlag(GameFlagNames.Memory_02)) count++;
+        if (GameManager.Instance.HasFlag(GameFlagNames.Memory_03)) count++;
+        if (GameManager.Instance.HasFlag(GameFlagNames.Memory_04)) count++;
+        if (GameManager.Instance.HasFlag(GameFlagNames.Memory_05)) count++;
+        return count;
+    }
+
+    private static (string title, string farewell) ResolveForestEnding(int memoryCount)
+    {
+        if (memoryCount <= 2)
+        {
+            return (
+                "Bad Ending - Denial",
+                "You are still not ready to leave the lie behind. The farewell remains unfinished.");
+        }
+
+        if (memoryCount <= 4)
+        {
+            return (
+                "Neutral Ending - Escape",
+                "You understood part of the truth, but there is still one word that could not be spoken.");
+        }
+
+        return (
+            "True Ending - Reunion",
+            "You accept his death and your own. At last, you can stop searching for answers and say goodbye.");
+    }
+
+    private void RestartGame()
+    {
+        if (GameManager.Instance == null)
+        {
+            return;
+        }
+
+        HideStoryOverlay();
+        SetGameplayControlsVisible(true);
+        GameManager.Instance.InitializeMVP();
+        if (RoomManager.Instance != null)
+        {
+            RoomManager.Instance.LoadRoom(GameManager.LobbyRoomId);
+        }
+
+        if (RealityManager.Instance != null)
+        {
+            RealityManager.Instance.SetReality(RealityType.Normal);
+        }
     }
 
     private void TrySubscribeRuntimeEvents()
@@ -486,7 +935,11 @@ public class HUDController : MonoBehaviour
         var allowed = RealityManager.Instance.TryToggleReality();
         if (!allowed)
         {
-            var roomId = RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>";
+            var roomId = "<unknown>";
+            if (RoomManager.Instance != null && RoomManager.Instance.CurrentRoom != null)
+            {
+                roomId = RoomManager.Instance.CurrentRoom.id;
+            }
             Debug.LogWarning($"[HUDController] SHIFT unavailable in room '{roomId}'.");
         }
     }
@@ -515,7 +968,11 @@ public class HUDController : MonoBehaviour
             return RealityManager.Instance.IsShiftAllowedInCurrentRoom();
         }
 
-        var roomId = RoomManager.Instance?.CurrentRoom?.id;
+        var roomId = string.Empty;
+        if (RoomManager.Instance != null && RoomManager.Instance.CurrentRoom != null)
+        {
+            roomId = RoomManager.Instance.CurrentRoom.id;
+        }
         if (string.IsNullOrWhiteSpace(roomId))
         {
             return false;

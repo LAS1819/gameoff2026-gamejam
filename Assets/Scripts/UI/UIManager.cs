@@ -73,6 +73,39 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ShowStoryOverlay(string title, string body, string hint = "Continue", StoryOverlayMode mode = StoryOverlayMode.Letter)
+    {
+        TryResolveHudController();
+        if (hudController != null)
+        {
+            hudController.ShowStoryOverlay(title, body, hint, mode);
+        }
+    }
+
+    public void ShowEndingOverlay(string title, string farewell, string credits, int memoryCount)
+    {
+        TryResolveHudController();
+        if (hudController != null)
+        {
+            hudController.ShowEndingOverlay(title, farewell, credits, memoryCount);
+        }
+    }
+
+    public void HideStoryOverlay()
+    {
+        TryResolveHudController();
+        if (hudController != null)
+        {
+            hudController.HideStoryOverlay();
+        }
+    }
+
+    public bool IsStoryOverlayVisible()
+    {
+        TryResolveHudController();
+        return hudController != null && hudController.IsStoryOverlayVisible();
+    }
+
     private void TryResolveHudController()
     {
         if (hudController == null)

@@ -28,7 +28,11 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
-        var room = RoomManager.Instance?.CurrentRoom;
+        RoomData room = null;
+        if (RoomManager.Instance != null)
+        {
+            room = RoomManager.Instance.CurrentRoom;
+        }
         if (room == null)
         {
             return false;
@@ -51,9 +55,14 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
+        if (UIManager.Instance != null && UIManager.Instance.IsStoryOverlayVisible())
+        {
+            return true;
+        }
+
         if (IsAlreadyCollected(interactable))
         {
-            UIManager.Instance?.ShowFeedback("There is nothing interesting here.", 1.5f);
+            ShowFeedback("There is nothing interesting here.", 1.5f);
             return true;
         }
 
@@ -75,8 +84,15 @@ public class InteractionManager : MonoBehaviour
         var wasResolved = InteractionResolver.Resolve(interactable, sourceObject, MarkConsumed);
         if (wasResolved)
         {
-            RoomManager.Instance?.RefreshInteractables();
-            InteractionResolved?.Invoke(interactable.id, interactable);
+            if (RoomManager.Instance != null)
+            {
+                RoomManager.Instance.RefreshInteractables();
+            }
+
+            if (InteractionResolved != null)
+            {
+                InteractionResolved.Invoke(interactable.id, interactable);
+            }
         }
 
         return wasResolved;
@@ -87,6 +103,11 @@ public class InteractionManager : MonoBehaviour
         if (interactable == null || string.IsNullOrEmpty(interactable.id))
         {
             return false;
+        }
+
+        if (UIManager.Instance != null && UIManager.Instance.IsStoryOverlayVisible())
+        {
+            return true;
         }
 
         if (IsConsumed(interactable.id))
@@ -102,8 +123,15 @@ public class InteractionManager : MonoBehaviour
         var wasResolved = InteractionResolver.ResolveExamineOnly(interactable);
         if (wasResolved)
         {
-            RoomManager.Instance?.RefreshInteractables();
-            InteractionResolved?.Invoke(interactable.id, interactable);
+            if (RoomManager.Instance != null)
+            {
+                RoomManager.Instance.RefreshInteractables();
+            }
+
+            if (InteractionResolved != null)
+            {
+                InteractionResolved.Invoke(interactable.id, interactable);
+            }
         }
 
         return wasResolved;
@@ -146,5 +174,15 @@ public class InteractionManager : MonoBehaviour
         {
             consumedInteractables.Add(interactableId);
         }
+    }
+
+    private static void ShowFeedback(string message, float duration)
+    {
+        if (UIManager.Instance == null)
+        {
+            return;
+        }
+
+        UIManager.Instance.ShowFeedback(message, duration);
     }
 }

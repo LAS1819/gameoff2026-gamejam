@@ -38,7 +38,10 @@ public class InventoryManager : MonoBehaviour
         }
 
         items.Add(item);
-        ItemAdded?.Invoke(item);
+        if (ItemAdded != null)
+        {
+            ItemAdded.Invoke(item);
+        }
         return true;
     }
 
@@ -60,10 +63,16 @@ public class InventoryManager : MonoBehaviour
         if (SelectedItemId == item.id)
         {
             SelectedItemId = null;
-            SelectedItemChanged?.Invoke(null);
+            if (SelectedItemChanged != null)
+            {
+                SelectedItemChanged.Invoke(null);
+            }
         }
 
-        ItemRemoved?.Invoke(item);
+        if (ItemRemoved != null)
+        {
+            ItemRemoved.Invoke(item);
+        }
         return true;
     }
 
@@ -95,7 +104,10 @@ public class InventoryManager : MonoBehaviour
         }
 
         SelectedItemId = itemId;
-        SelectedItemChanged?.Invoke(itemId);
+        if (SelectedItemChanged != null)
+        {
+            SelectedItemChanged.Invoke(itemId);
+        }
         return true;
     }
 
@@ -112,7 +124,10 @@ public class InventoryManager : MonoBehaviour
         }
 
         SelectedItemId = null;
-        SelectedItemChanged?.Invoke(null);
+        if (SelectedItemChanged != null)
+        {
+            SelectedItemChanged.Invoke(null);
+        }
     }
 
     public bool TryUseItem(string itemId)

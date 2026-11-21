@@ -1,6 +1,6 @@
 # Room Forest - Technical Spec
 
-- Version 0.5
+- Version 0.7
 - Created: 20/11/2026
 - Updated: 21/11/2026
 
@@ -160,13 +160,15 @@ to 6:
 
 ## 7. MVP scope
 
-Maintain:
+Current implemented MVP:
 
 - one invisible click target;
 - five synchronized forest depth frames;
 - four visible background layers;
 - one final table and letter GameObject;
-- one reusable story overlay for the future letter and ending states;
+- one reusable Story Overlay for letter and ending states;
+- visible Continue and Restart buttons;
+- a placeholder parchment-style panel ready for a final art background;
 - no inventory or puzzle requirement for the letter.
 
 Defer:
@@ -176,8 +178,8 @@ Defer:
 - SHIFT-specific Forest variants;
 - item or puzzle dependencies;
 - dynamic object migration between depth layers.
-- terminal ending screen implementation;
 - final letter copy and tier texts.
+- a dedicated Credits scene.
 
 ## 8. Final depth transition
 
@@ -242,10 +244,10 @@ the interaction path. It is not the final narrative letter panel.
 The letter is presented as a modal narrative panel inside the existing HUD
 UI Toolkit instead of by the temporary `feedback-text` label.
 
-This is the recommended structure:
+The conceptual structure is:
 
 ```text
-HUD.uxml
+HUD runtime tree
   hud-root
     existing gameplay controls
     StoryOverlay
@@ -260,7 +262,10 @@ HUD.uxml
 `StoryOverlay` is a reusable HUD mode rather than a Forest-only GameObject.
 It can later show letters, diary pages, terminal messages, or final farewells.
 The Forest supplies the title and body text; the overlay provides the shared
-presentation and close behaviour.
+presentation and close behaviour. The runtime tree is constructed by
+`HUDController` because the current `PanelRenderer` does not recalculate a
+hidden modal subtree reliably. The authored USS classes remain the styling
+surface for the final antique-letter art.
 
 State and behaviour:
 
@@ -358,9 +363,18 @@ Tier-specific final line:
   True Final: "It is time to go together."
 ```
 
-The exact final Spanish copy belongs to the narrative pass, but the technical
-system only needs to receive a prepared string. It must not assemble the
-letter paragraph by paragraph from items or object flags.
+### Runtime implementation status
+
+The MVP Story Overlay is implemented for testing:
+
+- the primary letter click opens `StoryOverlayMode.Letter`;
+- a three-tier Spanish letter is selected from `Memory_01` to `Memory_05`;
+- the overlay hides gameplay controls while visible;
+- Escape or the close button changes Letter mode to Ending mode;
+- Ending mode shows the tier title, farewell, credits, and Memory count;
+- the restart button calls the clean runtime reset and loads the Lobby;
+- the letter and right-click examination remain repeatable;
+- the overlay uses parchment-style placeholder colors until final art is added.
 
 Tier meaning:
 
@@ -384,11 +398,11 @@ After closing the letter panel, the game enters a terminal Ending state:
 8. display closing credits;
 9. offer `Restart`.
 
-The ending should use two content phases inside the same reusable overlay:
+For the current MVP, the ending uses the same reusable overlay as the letter:
 
 - **Farewell:** title and tier-specific line;
-- **Credits:** short closing credits followed by the Memory count and replay
-  action.
+- **Credits placeholder:** a short credit line followed by the Memory count and
+  replay action.
 
 The Memory count is a factual closing summary, not a collectible score.
 `Restart` resets runtime flags and inventory, resets
@@ -398,6 +412,68 @@ rely on a forced browser tab close.
 No new room is required after the letter. The overlay completes the game
 loop.
 
+## 12.1 Credits scene plan - Sprint 4
+
+The in-overlay credits are valid for the current Game Loop, but the target
+structure for Sprint 4 is a separate `Credits` scene.
+
+Recommended flow:
+
+```text
+Main
+  Forest Letter
+    -> StoryOverlay Letter
+      -> StoryOverlay Ending
+        -> Credits scene
+          -> return to Main / Lobby
+```
+
+Load `Credits` additively instead of replacing `Main` in the MVP. This keeps:
+
+- the persistent `GameManager`;
+- the resolved ending data;
+- the inventory/reset logic;
+- the existing Room catalog;
+- the return path without recreating runtime Singletons.
+
+Suggested scene hierarchy:
+
+```text
+Credits
+  Camera
+  CreditsCanvas
+    CreditsTitle
+    CreditsScroll
+    EndingSummary
+    MemoryCount
+    RestartButton
+```
+
+When entering Credits:
+
+1. preserve `ForestEndingReached`;
+2. hide the gameplay HUD in Main;
+3. disable interaction input in Main;
+4. display the selected ending title and Memory count;
+5. play or scroll the credits.
+
+When `Restart game` is pressed:
+
+1. reset flags and inventory;
+2. reset `ForestDepthLevel` to 0;
+3. load or return to the Lobby in Main;
+4. restore normal gameplay controls;
+5. unload the Credits scene.
+
+Credits should remain a small presentation scene, not a new gameplay manager.
+The existing `GameManager` owns progress, while a single `CreditsController`
+owns presentation and the restart command.
+
+The alternative of replacing `Main` with `Credits` is possible, but would
+require a deterministic post-load bootstrap to rebuild `RoomManager` and load
+the Lobby. Additive loading is the recommended first implementation for
+Sprint 4 because it avoids extra scene lifecycle state.
+
 ## 13. Recommended implementation sequence
 
 1. ✅ Change `ForestDepthLevel` to support values 0-6.
@@ -405,14 +481,40 @@ loop.
 3. ✅ Reveal `Table`, `CeilingLight`, and `ForestRevelationLetter` at depth 6.
 4. ✅ Add `forest_revelation_letter` to the Forest catalog.
 5. ✅ Add primary debug feedback and right-click examination text.
-6. Replace the primary debug feedback with `StoryOverlay`.
-7. Add `StoryOverlayMode.Letter` to the existing HUD.
-8. Add the three Memory-tier letter strings.
-9. Add `StoryOverlayMode.Ending`.
-10. Resolve the ending tier from `Memory_01` through `Memory_05`.
-11. Add credits and `Recovered Memories: X/5`.
-12. Implement replay reset.
+6. ✅ Replace the primary debug feedback with `StoryOverlay`.
+7. ✅ Add `StoryOverlayMode.Letter` to the existing HUD.
+8. ✅ Add the three Memory-tier letter strings.
+9. ✅ Add `StoryOverlayMode.Ending`.
+10. ✅ Resolve the ending tier from `Memory_01` through `Memory_05`.
+11. ✅ Add credits and `Recovered Memories: X/5`.
+12. ✅ Implement replay reset.
 13. Verify the complete Basement -> Forest -> Letter -> Ending loop.
+
+### Future localization - Sprint 4
+
+All runtime copy should remain in English until a real localization pipeline
+is introduced. A future English/Spanish language selector should use Unity
+Localization rather than branches or parallel text files in `HUDController`.
+
+Recommended keys:
+
+```text
+forest.letter.bad.title
+forest.letter.bad.body
+forest.letter.neutral.title
+forest.letter.neutral.body
+forest.letter.true.title
+forest.letter.true.body
+ui.story_overlay.continue
+ui.story_overlay.restart
+ui.ending.memory_count
+```
+
+Current package status: `com.unity.localization` is not installed. For Sprint
+4, install the package only when localization is started, create English and
+Spanish locales, and migrate display strings without hand-rolled language
+state. The UI Toolkit labels should receive values from localization services
+rather than storing separate Spanish and English variables.
 
 ## 14. MVP acceptance criteria
 
@@ -426,5 +528,5 @@ loop.
 - closing the letter opens the ending state;
 - the ending state shows its Memory tier and recovered Memory count;
 - `Restart` restores the Lobby and runtime defaults;
-- the final state does not expose the five forest background layers;
+- the final state does not expose the four forest background layers;
 - no ritual room, inventory item, or additional puzzle is required.

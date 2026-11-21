@@ -15,6 +15,11 @@ public class InputHandler : MonoBehaviour
             return;
         }
 
+        if (UIManager.Instance != null && UIManager.Instance.IsStoryOverlayVisible())
+        {
+            return;
+        }
+
         if (RealityManager.Instance == null)
         {
             return;
@@ -22,7 +27,13 @@ public class InputHandler : MonoBehaviour
 
         if (!RealityManager.Instance.IsShiftAllowedInCurrentRoom())
         {
-            Debug.LogWarning($"[InputHandler] SHIFT blocked in room '{RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>"}'");
+            var roomId = "<unknown>";
+            if (RoomManager.Instance != null && RoomManager.Instance.CurrentRoom != null)
+            {
+                roomId = RoomManager.Instance.CurrentRoom.id;
+            }
+
+            Debug.LogWarning($"[InputHandler] SHIFT blocked in room '{roomId}'");
             return;
         }
 

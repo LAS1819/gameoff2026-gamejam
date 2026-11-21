@@ -42,7 +42,7 @@ internal static class InteractionSpecialCases
 
         if (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide)
         {
-            UIManager.Instance?.ShowFeedback("The box is ordinary here. There is no handle to reach.", 1.8f);
+            ShowFeedback("The box is ordinary here. There is no handle to reach.", 1.8f);
             return true;
         }
 
@@ -59,7 +59,7 @@ internal static class InteractionSpecialCases
             gameManager.SetFlag(GameFlagNames.ValveHandleFound, true);
         }
 
-        UIManager.Instance?.ShowFeedback("Inside the box, I find the Valve Handle.", 2f);
+        ShowFeedback("Inside the box, I find the Valve Handle.", 2f);
         return true;
     }
 
@@ -72,12 +72,12 @@ internal static class InteractionSpecialCases
 
         if (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.Normal)
         {
-            UIManager.Instance?.ShowFeedback("The valve does not exist in this reality.", 1.5f);
+            ShowFeedback("The valve does not exist in this reality.", 1.5f);
             return true;
         }
 
         InteractionOutcomeProcessor.ApplyUseOutcome(interactable, onConsumed);
-        UIManager.Instance?.ShowFeedback("The Valve Handle locks into place. Pressure begins to escape.", 2f);
+        ShowFeedback("The Valve Handle locks into place. Pressure begins to escape.", 2f);
 
         if (GameManager.Instance != null)
         {
@@ -101,11 +101,11 @@ internal static class InteractionSpecialCases
 
         if (reality == RealityType.OtherSide)
         {
-            UIManager.Instance?.ShowFeedback("The steam burns here. I cannot pass through it.", 2f);
+            ShowFeedback("The steam burns here. I cannot pass through it.", 2f);
             return true;
         }
 
-        UIManager.Instance?.ShowFeedback("The path is clear now. A door to the forest waits beyond.", 2f);
+        ShowFeedback("The path is clear now. A door to the forest waits beyond.", 2f);
         if (GameManager.Instance != null)
         {
             GameManager.Instance.SetFlag(GameFlagNames.ForestExitUnlocked, true);
@@ -125,19 +125,19 @@ internal static class InteractionSpecialCases
 
         if (gameManager.ForestDepthLevel >= 6)
         {
-            UIManager.Instance?.ShowFeedback("The path ends here. The final room waits.", 2f);
+            ShowFeedback("The path ends here. The final room waits.", 2f);
             return true;
         }
 
         if (gameManager.ForestDepthLevel == 5)
         {
             gameManager.AdvanceForestDepth();
-            UIManager.Instance?.ShowFeedback("The forest disappears. A table waits in the darkness.", 2f);
+            ShowFeedback("The forest disappears. A table waits in the darkness.", 2f);
             return true;
         }
 
         gameManager.AdvanceForestDepth();
-        UIManager.Instance?.ShowFeedback("The trees move closer.", 1f);
+        ShowFeedback("The trees move closer.", 1f);
         return true;
     }
 
@@ -148,15 +148,63 @@ internal static class InteractionSpecialCases
             return false;
         }
 
-        if (GameManager.Instance != null)
+        var gameManager = GameManager.Instance;
+        if (gameManager != null)
         {
-            GameManager.Instance.SetFlag(GameFlagNames.ForestLetterRead, true);
+            gameManager.SetFlag(GameFlagNames.ForestLetterRead, true);
         }
 
-        UIManager.Instance?.ShowFeedback(
-            "[DEBUG] Forest Revelation Letter: \"My son, if you are reading this, I am asking you to come home.\"",
-            4f);
+        var memoryCount = CountRecoveredMemories(gameManager);
+        var letter = ResolveForestLetter(memoryCount);
+        if (UIManager.Instance == null)
+        {
+            Debug.LogWarning("[InteractionSpecialCases] UIManager instance not found while opening the Forest letter.");
+            return true;
+        }
+
+        UIManager.Instance.ShowStoryOverlay(
+            letter.title,
+            letter.body,
+            "Continue",
+            StoryOverlayMode.Letter);
         return true;
+    }
+
+    private static int CountRecoveredMemories(GameManager gameManager)
+    {
+        if (gameManager == null)
+        {
+            return 0;
+        }
+
+        var count = 0;
+        if (gameManager.HasFlag(GameFlagNames.Memory_01)) count++;
+        if (gameManager.HasFlag(GameFlagNames.Memory_02)) count++;
+        if (gameManager.HasFlag(GameFlagNames.Memory_03)) count++;
+        if (gameManager.HasFlag(GameFlagNames.Memory_04)) count++;
+        if (gameManager.HasFlag(GameFlagNames.Memory_05)) count++;
+        return count;
+    }
+
+    private static (string title, string body) ResolveForestLetter(int memoryCount)
+    {
+        if (memoryCount <= 2)
+        {
+            return (
+                "A letter unfinished",
+                "My son, if you are reading this it is because you kept searching for an answer I could not give you. I still cannot ask you to accept what happened. Allow me to stay a little longer in the lie.\n\nI am not ready to say goodbye.");
+        }
+
+        if (memoryCount <= 4)
+        {
+            return (
+                "A letter incomplete",
+                "My son, I know you found part of the truth. You understood that something terrible happened, but there is still a pain that no one knew how to name.\n\nYou do not know how much I regret leaving you with a farewell half-done. You understood too late that staying together does not always mean continuing to search.");
+        }
+
+        return (
+            "To my son",
+            "My son, if you have come this far, you have gathered the pieces I was not able to deliver. There is no need to look for me on the path or among the lights anymore.\n\nAccept what happened, also accept what you are now, and let this letter be the farewell we have been waiting for six months. It is time to go together.");
     }
 
     public static bool ResolveCodePanel(InteractableData interactable, Action<string> onConsumed)
@@ -175,7 +223,7 @@ internal static class InteractionSpecialCases
             GameManager.Instance.SetFlag(GameFlagNames.BasementDoorVisible, true);
         }
 
-        UIManager.Instance?.ShowFeedback("The code is accepted. The Basement Door is now accessible.", 2f);
+        ShowFeedback("The code is accepted. The Basement Door is now accessible.", 2f);
         return true;
     }
 
@@ -199,5 +247,15 @@ internal static class InteractionSpecialCases
     public static bool IsLightInteractable(InteractableData interactable)
     {
         return InteractionLightCases.IsLightInteractable(interactable);
+    }
+
+    private static void ShowFeedback(string message, float duration)
+    {
+        if (UIManager.Instance == null)
+        {
+            return;
+        }
+
+        UIManager.Instance.ShowFeedback(message, duration);
     }
 }

@@ -226,22 +226,21 @@ El jugador puede ignorar o investigar una presencia observada anteriormente.
 El jugador escapa sin descubrir la verdad.
 
 - Condición:
-  - Resolver únicamente los puzles obligatorios.
+  - Obtener 0-2 Memorias.
 
 ### Final Neutral - Escapatoria
 
 El jugador comprende parcialmente lo ocurrido.
 
 - Condición:
-  - Descubrir parte de los eventos opcionales.
+  - Obtener 3-4 Memorias.
 
 ### Final Verdadero - La Verdad
 
 El jugador reconstruye completamente los acontecimientos.
 
 - Condición:
-  - Completar todos los eventos opcionales.
-  - Encontrar todos los objetos clave.
+  - Obtener las 5 Memorias.
   - Completar el recorrido del Bosque y aceptar la verdad.
 
 ## 7. Resumen de progresión
@@ -254,6 +253,7 @@ graph TD
     `Dormitorio` --> `Sótano`
     `Sótano` --> `Bosque`
     `Bosque` --> `Habitación_Final`
+    `Habitación_Final` --> `Créditos`
 ```
 
 Este flujo aprovecha directamente los sistemas definidos en el GDD: exploración, SHIFT, estados de objetos, eventos temporales y terror psicológico, manteniendo un alcance razonable para un desarrollo individual durante la Game Off 2026.

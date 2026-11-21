@@ -132,22 +132,45 @@ public class ForestDepthController : MonoBehaviour
         }
 
         var forestRoot = transform;
-        backgroundNormal = backgroundNormal != null
-            ? backgroundNormal
-            : forestRoot.Find("Visuals/BackgroundNormal")?.gameObject;
-        forestAdvance = forestAdvance != null
-            ? forestAdvance
-            : forestRoot.Find("Interactables/ForestAdvance")?.gameObject;
-        table = table != null
-            ? table
-            : forestRoot.Find("Props/Table")?.gameObject;
-        ceilingLight = ceilingLight != null
-            ? ceilingLight
-            : forestRoot.Find("Props/CeilingLamp")?.gameObject
-                ?? forestRoot.Find("Props/CeilingLight")?.gameObject;
-        revelationLetter = revelationLetter != null
-            ? revelationLetter
-            : forestRoot.Find("Interactables/ForestRevelationLetter")?.gameObject;
+        if (backgroundNormal == null)
+        {
+            backgroundNormal = FindGameObject(forestRoot, "Visuals/BackgroundNormal");
+        }
+
+        if (forestAdvance == null)
+        {
+            forestAdvance = FindGameObject(forestRoot, "Interactables/ForestAdvance");
+        }
+
+        if (table == null)
+        {
+            table = FindGameObject(forestRoot, "Props/Table");
+        }
+
+        if (ceilingLight == null)
+        {
+            ceilingLight = FindGameObject(forestRoot, "Props/CeilingLight");
+            if (ceilingLight == null)
+            {
+                ceilingLight = FindGameObject(forestRoot, "Props/CeilingLamp");
+            }
+        }
+
+        if (revelationLetter == null)
+        {
+            revelationLetter = FindGameObject(forestRoot, "Interactables/ForestRevelationLetter");
+        }
+    }
+
+    private static GameObject FindGameObject(Transform root, string path)
+    {
+        var child = root.Find(path);
+        if (child == null)
+        {
+            return null;
+        }
+
+        return child.gameObject;
     }
 
     private static Sprite GetSprite(Sprite[] sprites, int depthLevel)
