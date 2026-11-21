@@ -41,6 +41,14 @@ public static class GameFlagNames
     public const string DenialManifestationRejected = "DenialManifestationRejected";
     public const string ForestEntered = "ForestEntered";
     public const string ForestProgressAdvanced = "ForestProgressAdvanced";
+    public const string ForestFinalTableVisible = "ForestFinalTableVisible";
+    public const string ForestLetterRead = "ForestLetterRead";
+    public const string ForestEndingReached = "ForestEndingReached";
+    public const string Memory_01 = "Memory_01";
+    public const string Memory_02 = "Memory_02";
+    public const string Memory_03 = "Memory_03";
+    public const string Memory_04 = "Memory_04";
+    public const string Memory_05 = "Memory_05";
 }
 
 public class GameManager : MonoBehaviour
@@ -137,6 +145,15 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.BasementCodeUsed, false);
         SetFlag(GameFlagNames.DenialManifestationRejected, false);
         SetFlag(GameFlagNames.ForestEntered, false);
+        SetFlag(GameFlagNames.ForestProgressAdvanced, false);
+        SetFlag(GameFlagNames.ForestFinalTableVisible, false);
+        SetFlag(GameFlagNames.ForestLetterRead, false);
+        SetFlag(GameFlagNames.ForestEndingReached, false);
+        SetFlag(GameFlagNames.Memory_01, false);
+        SetFlag(GameFlagNames.Memory_02, false);
+        SetFlag(GameFlagNames.Memory_03, false);
+        SetFlag(GameFlagNames.Memory_04, false);
+        SetFlag(GameFlagNames.Memory_05, false);
         ForestDepthLevel = 0;
 
         EnsureRuntimeSystems();
@@ -250,13 +267,17 @@ public class GameManager : MonoBehaviour
 
     public bool AdvanceForestDepth()
     {
-        if (ForestDepthLevel >= 5)
+        if (ForestDepthLevel >= 6)
         {
             return false;
         }
 
         ForestDepthLevel++;
         SetFlag(GameFlagNames.ForestProgressAdvanced, true);
+        if (ForestDepthLevel == 6)
+        {
+            SetFlag(GameFlagNames.ForestFinalTableVisible, true);
+        }
         ForestDepthChanged?.Invoke(ForestDepthLevel);
         return true;
     }
@@ -265,6 +286,9 @@ public class GameManager : MonoBehaviour
     {
         ForestDepthLevel = 0;
         SetFlag(GameFlagNames.ForestProgressAdvanced, false);
+        SetFlag(GameFlagNames.ForestFinalTableVisible, false);
+        SetFlag(GameFlagNames.ForestLetterRead, false);
+        SetFlag(GameFlagNames.ForestEndingReached, false);
         ForestDepthChanged?.Invoke(ForestDepthLevel);
     }
 }

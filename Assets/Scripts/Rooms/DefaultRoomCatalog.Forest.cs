@@ -36,6 +36,19 @@ public static partial class DefaultRoomCatalog
             resultFlag = GameFlagNames.BasementExitUnlocked
         });
 
+        forest.interactables.Add(new InteractableData
+        {
+            id = "forest_revelation_letter",
+            displayName = "Forest Revelation Letter",
+            description = "A letter rests on the table, written in my father's handwriting.",
+            descriptionInNormalReality = "A letter rests on the table, written in my father's handwriting.",
+            descriptionInOtherReality = "The letter is waiting for me to stop denying what it says.",
+            interactionType = InteractionType.Use,
+            visibleInNormalReality = true,
+            visibleInOtherReality = true,
+            resultFlag = GameFlagNames.ForestLetterRead
+        });
+
         return forest;
     }
 }

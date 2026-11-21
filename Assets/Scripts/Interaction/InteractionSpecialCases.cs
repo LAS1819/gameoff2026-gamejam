@@ -123,14 +123,39 @@ internal static class InteractionSpecialCases
             return false;
         }
 
-        if (gameManager.ForestDepthLevel >= 5)
+        if (gameManager.ForestDepthLevel >= 6)
         {
             UIManager.Instance?.ShowFeedback("The path ends here. The final room waits.", 2f);
             return true;
         }
 
+        if (gameManager.ForestDepthLevel == 5)
+        {
+            gameManager.AdvanceForestDepth();
+            UIManager.Instance?.ShowFeedback("The forest disappears. A table waits in the darkness.", 2f);
+            return true;
+        }
+
         gameManager.AdvanceForestDepth();
         UIManager.Instance?.ShowFeedback("The trees move closer.", 1f);
+        return true;
+    }
+
+    public static bool ResolveForestRevelationLetter(InteractableData interactable)
+    {
+        if (interactable == null)
+        {
+            return false;
+        }
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.SetFlag(GameFlagNames.ForestLetterRead, true);
+        }
+
+        UIManager.Instance?.ShowFeedback(
+            "[DEBUG] Forest Revelation Letter: \"My son, if you are reading this, I am asking you to come home.\"",
+            4f);
         return true;
     }
 

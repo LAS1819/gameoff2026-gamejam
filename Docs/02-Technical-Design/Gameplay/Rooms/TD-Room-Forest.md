@@ -1,6 +1,6 @@
 # Room Forest - Technical Spec
 
-- Version 0.3
+- Version 0.4
 - Created: 20/11/2026
 - Updated: 21/11/2026
 
@@ -32,7 +32,7 @@ Main
         ForestRevelationLetter
       Props
         Table
-        CeilingLight        
+        CeilingLight
 ```
 
 The four background visual objects represent depth-independent layers:
@@ -42,9 +42,17 @@ The four background visual objects represent depth-independent layers:
 - `BorderTrees`: Capa -1.
 - `CentralPath`: Capa 0.
 
-The scene must remain fixed. The depth is represented by swapping five sprites in all four layers.
-The `Table` and `ForestRevelationLetter` are hidden until the player completes the fifth
-depth level and requests the final transition.
+The scene must remain fixed. The depth is represented by swapping five sprites
+in all four layers.
+
+At scene load, the level 6 objects start inactive:
+
+- `ForestRevelationLetter`;
+- `Table`;
+- `CeilingLight`.
+
+The Forest background remains active for depth levels 0-5. At depth 6,
+`BackgroundNormal` is disabled and the level 6 props become active.
 
 ## 3. Depth controller
 
@@ -85,6 +93,9 @@ Behaviour:
 6. `ForestDepthChanged` updates all four visual layers.
 7. State 6 reveals `Table` and `ForestRevelationLetter`
    and disables `ForestAdvance`.
+8. State 6 also reveals `CeilingLight`.
+9. State 6 disables `BackgroundNormal`, leaving the black scene environment
+   behind the table and its props.
 
 The advance must not consume an inventory item.
 
@@ -208,40 +219,36 @@ Visibility requirements:
 Primary and secondary clicks may open the letter. The interaction must not
 consume an item or permanently hide the letter before the reading is complete.
 
+For the playable MVP:
+
+- primary click executes `Use`;
+- `Use` sets `ForestLetterRead` and shows a temporary debug-style UI message;
+- right click executes `Examine`;
+- `Examine` shows the coherent line:
+  "A letter rests on the table, written in my father's handwriting.";
+
+The debug-style primary feedback is intentionally temporary and used to verify
+the interaction path. It is not the final narrative letter panel.
+
 ## 10. Letter presentation
 
-The temporary `feedback-text` HUD is not suitable for this moment because it
-is short-lived and visually competes with the scene. The MVP should extend the
-existing HUD UI Toolkit document with one central `LetterPanel`.
+The first MVP keeps the existing `feedback-text` HUD for this interaction.
+This avoids adding a full letter panel before the complete letter copy and
+ending screen are defined.
 
-Recommended elements:
+The primary click:
 
-```text
-HUD.uxml
-  LetterPanel
-    LetterTitle
-    LetterBody
-    LetterCloseHint
+- sets `ForestLetterRead`;
+- shows a temporary debug-style feedback message.
 
-  EndingPanel
-    EndingTitle
-    EndingBody
-    MemoriesCount
-    RestartButton
-```
+The right-click examine:
 
-The letter panel should:
+- does not set `ForestLetterRead`;
+- shows: "A letter rests on the table, written in my father's handwriting.";
+- keeps the interaction readable and repeatable.
 
-- occupy a centered, fixed-size region;
-- use a solid or nearly solid panel background;
-- pause gameplay interactions while visible;
-- hide the normal feedback, inventory, SHIFT, and lantern controls;
-- close on the `LetterCloseHint` click or Escape;
-- set `ForestLetterRead` when the panel opens.
-
-For a clear and testable MVP, set `ForestLetterRead` when the panel opens.
-This prevents repeated interaction but keeps the visual letter as a readable
-object. Closing the panel is what advances to the ending screen.
+A full `LetterPanel` remains a planned presentation step after the MVP text
+and ending copy are approved.
 
 No per-memory letter text should create a separate scene or room. The text is
 selected once from the total Memory count:
@@ -285,36 +292,35 @@ letter paragraph by paragraph from items or object flags.
 
 ## 12. Encounter and ending
 
-After the letter panel closes, the MVP should show a terminal ending state:
+The final letter panel and terminal ending screen remain outside this
+implementation pass. They will be added after the debug interaction is
+confirmed in Play Mode.
+
+When implemented, the ending should still reuse the existing HUD instead of
+creating another room:
 
 1. hide gameplay scene interactables;
 2. hide the SHIFT and inventory HUD;
-3. show the `EndingPanel`;
-4. display one short farewell line appropriate to the tier;
-5. display `Memories recuperadas: X/5`;
+3. show the letter or ending panel;
+4. display one farewell line appropriate to the tier;
+5. display `Recovered Memories: X/5`;
 6. display closing credits;
-7. offer `Volver a empezar` or `Salir`.
+7. offer `Restart`.
 
-The MVP can implement `Volver a empezar` by resetting runtime flags and
-loading the Lobby. `Salir` is optional in the browser build because WebGL
-cannot reliably close its own tab. The ending screen may therefore offer only
-a replay action and a passive credits section.
-
-No new room is required after the letter. The ending panel completes the
-game loop.
+No new room is required after the letter.
 
 ## 13. Recommended implementation sequence
 
-1. Change `ForestDepthLevel` to support values 0-6.
-2. Add and initialise the Forest final flags.
-3. Reveal `FinalTable` and `Letter` at depth 6.
-4. Add `forest_revelation_letter` to the Forest catalog.
-5. Add `LetterPanel` to the existing HUD UXML/USS.
-6. Add three strings for the 0-2, 3-4, and 5 Memory tiers.
-7. Add `EndingPanel` to the existing HUD UXML/USS.
-8. Resolve the ending tier from `Memory_01` through `Memory_05`.
-9. Implement the optional replay reset.
-10. Verify the complete Basement -> Forest -> Letter -> Ending loop.
+1. ✅ Change `ForestDepthLevel` to support values 0-6.
+2. ✅ Add and initialise the Forest final flags.
+3. ✅ Reveal `Table`, `CeilingLight`, and `ForestRevelationLetter` at depth 6.
+4. ✅ Add `forest_revelation_letter` to the Forest catalog.
+5. ✅ Add primary debug feedback and right-click examination text.
+6. Implement the letter panel.
+7. Add the three Memory-tier strings.
+8. Add the terminal ending panel.
+9. Resolve the ending tier from `Memory_01` through `Memory_05`.
+10. Implement replay reset and verify the complete loop.
 
 ## 14. MVP acceptance criteria
 
@@ -322,9 +328,8 @@ game loop.
 - five clicks reach the first final table transition state;
 - the sixth depth step reveals the table and letter;
 - the same table/letter state cannot advance the forest beyond depth 6;
-- reading the letter opens a centered, readable panel;
-- closing the letter reaches a terminal screen;
-- the terminal screen shows the recovered Memory count;
-- the terminal screen does not expose gameplay controls;
-- replay restores all runtime flags and starts again in the Lobby;
+- primary click shows temporary debug text and sets `ForestLetterRead`;
+- right click shows the revelation letter examination text;
+- the final state does not expose the five forest background layers;
+- a final terminal screen and replay remain planned follow-up work;
 - no ritual room, inventory item, or additional puzzle is required.

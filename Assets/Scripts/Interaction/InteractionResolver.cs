@@ -197,6 +197,11 @@ internal static class InteractionResolver
             return InteractionSpecialCases.ResolveForestAdvance();
         }
 
+        if (interactable.id.Equals("forest_revelation_letter", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolveForestRevelationLetter(interactable);
+        }
+
         ClearSelectedItemIfNeeded();
         InteractionOutcomeProcessor.ApplyUseOutcome(interactable, onConsumed);
 
