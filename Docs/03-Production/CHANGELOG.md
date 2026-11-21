@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file.
 - Forest UI and ending copy now use English runtime text
 - Forest spritesheets use 4096px maximum size to avoid downscaling the 3200px-wide atlases
 - Story Overlay presentation is reusable and ready for future final letter artwork
+- Letter and Ending use explicit content zones so text and controls remain inside the 640x360 viewport
 - Removed null-propagation and deprecated Unity API usage from runtime scripts
 - Updated Memory ending conditions to 0-2, 3-4, and 5 recovered Memories
 - Updated the documented game flow to include the final room, credits, and restart loop
@@ -39,6 +40,7 @@ All notable changes to this project will be documented in this file.
 - Fixed overlay controls being outside the 640x360 viewport
 - Prevented the letter body from overlapping Continue
 - Separated Ending title, farewell text, Memory count, credits, and Restart into non-overlapping regions
+- Fixed the Ending title dropping into the Restart button action area
 - Fixed Restart leaving a stale overlay or incorrect Forest depth after returning to the Lobby
 - Corrected obsolete object lookup usage that produced Unity compilation warnings
 

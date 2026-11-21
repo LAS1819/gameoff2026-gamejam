@@ -1,8 +1,8 @@
 # Game Off 2026 - PUZZLE FLOW
 
-- Versión 0.2 - Estructura de Progresión
+- Versión 0.3 - Ruta completa del prototipo
 - Creado: 03/11/2026
-- Actualizado: 05/11/2026
+- Actualizado: 21/11/2026
 
 ---
 
@@ -107,19 +107,12 @@ Zona final.
 ## 3. Objetos clave
 
 - Objetos principales
-  1. Llave del Personal
-  2. Libro de Registro
-  3. Fotografía Antigua
-  4. Código de Seguridad
-  5. Fusible
-  6. Llave del Sótano
-  7. Código del Bosque
-  8. Diario Fragmentado
-- Objetos opcionales:
-  9. Nota Médica
-  10. Grabación Antigua
-  11. Llave Oxidada
-- Total estimado: 8-11 objetos.
+   1. Llave del Personal
+   2. Llave de la Biblioteca
+   3. Libro Desgastado
+   4. Disquete
+   5. Código del Sótano
+   6. Manivela de la Válvula
 
 ---
 
@@ -254,6 +247,7 @@ graph TD
     `Sótano` --> `Bosque`
     `Bosque` --> `Habitación_Final`
     `Habitación_Final` --> `Créditos`
+    `Créditos` --> `Vestíbulo`
 ```
 
 Este flujo aprovecha directamente los sistemas definidos en el GDD: exploración, SHIFT, estados de objetos, eventos temporales y terror psicológico, manteniendo un alcance razonable para un desarrollo individual durante la Game Off 2026.

@@ -1,8 +1,15 @@
-# Documentation structure
+# Documentation index
 
-This folder is organized by content type so the project stays easy to navigate across design, implementation and production work.
+The documentation is organized by purpose. Public-facing status always takes priority over older planning text when two documents appear to disagree.
 
-## Current structure
+## Current project state
+
+- Prototype version: `0.1.0-proto`
+- Unity: `6000.6.9f1`
+- Status: complete playable MVP loop
+- Current sprint: Sprint 3 closed; Sprint 4 polish and delivery preparation
+
+## Structure
 
 ```text
 Docs/
@@ -10,10 +17,10 @@ Docs/
   01-Game-Design/
     Game-GDD.md
     MVP-Overview.md
-    Puzzle-Flow.md
     Story/
     Gameplay/
     Visual/
+    Audio/
   02-Technical-Design/
     README.md
     MVP-SPECIFICATION.md
@@ -24,34 +31,50 @@ Docs/
     GameObject-Hierarchy.md
     Gameplay/
     UI/
+    Audio/
   03-Production/
     CHANGELOG.md
 ```
 
-## Recommended reading flow
+## Recommended reading
 
-For the active MVP, the practical order is:
+1. [01-Game-Design/MVP-Overview.md](./01-Game-Design/MVP-Overview.md) - current playable scope
+2. [01-Game-Design/Gameplay/Puzzle-Flow.md](./01-Game-Design/Gameplay/Puzzle-Flow.md) - complete room progression
+3. [02-Technical-Design/MVP-SPECIFICATION.md](./02-Technical-Design/MVP-SPECIFICATION.md) - current technical MVP
+4. [02-Technical-Design/MVP-Sprint-3.md](./02-Technical-Design/MVP-Sprint-3.md) - Sprint 3 closeout
+5. [03-Production/CHANGELOG.md](./03-Production/CHANGELOG.md) - released prototype milestones
 
-1. [02-Technical-Design/MVP-SPECIFICATION.md](./02-Technical-Design/MVP-SPECIFICATION.md) — core spec and execution flow
-2. [02-Technical-Design/MVP-Sprint-1.md](./02-Technical-Design/MVP-Sprint-1.md) — base playable loop
-3. [02-Technical-Design/MVP-Sprint-2.md](./02-Technical-Design/MVP-Sprint-2.md) — Bedroom and room-flow closure
-4. [02-Technical-Design/MVP-Sprint-3.md](./02-Technical-Design/MVP-Sprint-3.md) — Library and Basement preparation
-5. [01-Game-Design/Gameplay/Puzzle-Flow.md](./01-Game-Design/Gameplay/Puzzle-Flow.md) — gameplay sequencing and content intent
+## Design
 
-## Purpose of each folder
+Use `01-Game-Design/` for:
 
-### `01-Game-Design/`
+- narrative intent and lore
+- room design
+- visual and audio direction
+- gameplay flow
+- Memory and ending rules
 
-Design direction, narrative, puzzle flow, room intent and visual references.
+## Technical design
 
-### `02-Technical-Design/`
+Use `02-Technical-Design/` for:
 
-Architecture, sprint planning, room/data structure, interaction flow and implementation constraints.
+- runtime systems and room contracts
+- scene hierarchy and interactables
+- HUD and input behavior
+- sprint implementation records
+- validation and implementation constraints
 
-### `03-Production/`
+## Production
 
-Changelog, delivery notes and project progress tracking.
+Use `03-Production/` for:
 
-## Working rule
+- release notes and changelog entries
+- delivery milestones
+- future production summaries
 
-If a document describes gameplay behaviour, it belongs under `01-Game-Design` or `02-Technical-Design` depending on whether it is design or technical logic. If it is a project workflow or release note, it belongs under `03-Production`.
+## Document status policy
+
+- Current documents describe the behavior of `0.1.0-proto`.
+- Sprint documents are implementation records and may contain historical decisions.
+- Deferred items are explicit; they must not be mistaken for unfinished blockers.
+- New design should update the existing relevant document before creating another one.

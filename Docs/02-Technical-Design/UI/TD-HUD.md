@@ -1,10 +1,10 @@
 # TD-HUD - HUD mínimo runtime (Sprint 2)
 
-- **Versión:** 2.0
+- **Versión:** 3.0
 - **Creado:** 2026-11-06
-- **Actualizado:** 2026-11-12
+- **Actualizado:** 2026-11-21
 - **Autor:** @LAS1819
-- **Estado:** Implementación de código completada, pendiente wiring manual en escena
+- **Estado:** Integrado en el HUD del prototipo
 
 ## Objetivo
 
@@ -17,6 +17,7 @@ Incluye:
 - botón SHIFT integrado en el mismo panel,
 - pulse visual al cambiar de realidad,
 - fade corto al cambiar de room.
+- Story Overlay reutilizable para carta y final.
 
 ## Decisión técnica
 
@@ -26,24 +27,25 @@ Patrón:
 
 - `PanelRenderer` en un GO raíz (`HUDRoot`)
 - binding por `RegisterUIReloadCallback`
-- actualización por eventos de managers (sin `Update` para la UI)
+- actualización por eventos de managers;
+- lectura puntual de teclado y pointer para los botones modales.
 
 ## Estado de implementación real
 
 ### Archivos de UI
 
-- [HUD.uxml](E:/repos/unity/GameOff2026-GameJam/Assets/UI/HUD.uxml)
-- [HUD-style-sheet.uss](E:/repos/unity/GameOff2026-GameJam/Assets/UI/HUD-style-sheet.uss)
+- [HUD.uxml](../../../Assets/UI/HUD.uxml)
+- [HUD-style-sheet.uss](../../../Assets/UI/HUD-style-sheet.uss)
 
 ### Scripts
 
-- [HUDController.cs](E:/repos/unity/GameOff2026-GameJam/Assets/Scripts/UI/HUDController.cs) ✅ nuevo
-- [UIManager.cs](E:/repos/unity/GameOff2026-GameJam/Assets/Scripts/UIManager.cs) ✅ actualizado (bridge al HUD)
-- [InteractionManager.cs](E:/repos/unity/GameOff2026-GameJam/Assets/Scripts/InteractionManager.cs) ✅ actualizado (feedback runtime)
+- [HUDController.cs](../../../Assets/Scripts/UI/HUDController.cs)
+- [UIManager.cs](../../../Assets/Scripts/UI/UIManager.cs)
+- [InteractionManager.cs](../../../Assets/Scripts/Interaction/InteractionManager.cs)
 
 ### Compatibilidad
 
-- [UIShiftButton.cs](E:/repos/unity/GameOff2026-GameJam/Assets/Scripts/UI/UIShiftButton.cs) se mantiene como referencia histórica.
+- [UIShiftButton.cs](../../../Assets/Scripts/UI/UIShiftButton.cs) se mantiene como referencia histórica.
 - El HUD centralizado (HUDController) gestiona completamente el `shift-button` ahora.
 - El viejo `ShiftPanel` con su PanelRenderer debe ser eliminado de la escena para evitar duplicación.
 
@@ -62,10 +64,18 @@ HUDRoot (GameObject)
     │   └── sprite-state (0 = no-obtained, 1 = obtained-off, 2 = obtained-on)
     ├── shift-button
     ├── transition-overlay
-    └── reality-pulse
+    ├── reality-pulse
+    └── Story Overlay runtime subtree
+        ├── backdrop
+        ├── letter / ending content
+        ├── Continue
+        └── Restart game
 ```
 
 La `lantern-icon` se coloca encima del `shift-button` para mantener la misma lógica visual que el resto del `HUD`: compacta, permanente y legible.
+
+El Story Overlay se construye en runtime dentro del `hud-root`. Sus botones
+quedan limitados al viewport y tienen fallback por teclado y pointer.
 
 ## Comportamiento implementado
 
@@ -103,6 +113,16 @@ La `lantern-icon` se coloca encima del `shift-button` para mantener la misma ló
 - `transition-overlay`: flash corto en `RoomChanged`.
 - `reality-pulse`: flash corto en `RealityChanged`.
 
+### Story Overlay
+
+- muestra la Revelation Letter;
+- bloquea controles de gameplay;
+- ofrece un botón Continue;
+- cambia al resumen de Ending;
+- muestra contador de Memorias y créditos provisionales;
+- ofrece Restart game y devuelve al Lobby;
+- está preparado para arte final y localización.
+
 ## USS compatible con esta versión de UI Toolkit
 
 Evitar propiedades no soportadas en este proyecto:
@@ -122,11 +142,11 @@ Usar:
 - `RoomManager.RoomChanged`
 - `RealityManager.RealityChanged`
 
-## Parte manual pendiente (Unity Editor)
+## Verificación de integración
 
 ### 1) Eliminar duplicación SHIFT
 
-En [Main.unity](E:/repos/unity/GameOff2026-GameJam/Assets/Scenes/Main.unity), en `HUDRoot`:
+En [Main.unity](../../../Assets/Scenes/Main.unity), en `HUDRoot`:
 
 - **Delete el GameObject `ShiftPanel`** (hijo de HUDRoot)
   - Es el que tiene `UIShiftButton.cs` y su propio `PanelRenderer` con [ShiftUI.uxml](E:/repos/unity/GameOff2026-GameJam/Assets/UI/ShiftUI.uxml)
@@ -138,7 +158,7 @@ En `HUDRoot`:
 
 - confirmar `PanelRenderer` con:
   - `PanelSettings` asignado
-  - `Source Asset` = [HUD.uxml](E:/repos/unity/GameOff2026-GameJam/Assets/UI/HUD.uxml)
+  - `Source Asset` = [HUD.uxml](../../../Assets/UI/HUD.uxml)
 - confirmar `HUDController` adjunto
 - confirmar que el botón SHIFT es visible en pantalla (más pequeño que antes)
 

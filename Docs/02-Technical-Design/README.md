@@ -1,53 +1,47 @@
-# Technical Design - MVP
+# Technical design
 
-This folder contains the active technical blueprint for the project, including the MVP specification, sprint plan and room-level implementation notes.
+This folder contains the active technical reference for the `0.1.0-proto` vertical slice and the implementation history behind it.
 
-## Quick links
+## Start here
 
-- [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md) — core MVP spec and system rules
-- [MVP-Sprint-1.md](./MVP-Sprint-1.md) — base playable flow
-- [MVP-Sprint-2.md](./MVP-Sprint-2.md) — Bedroom, interaction contract and validation decisions
-- [MVP-Sprint-3.md](./MVP-Sprint-3.md) — Library and Basement preparation
-- [Technical-Design.md](./Technical-Design.md) — architecture principles and overall system direction
-- [GameObject-Hierarchy.md](./GameObject-Hierarchy.md) — object hierarchy patterns
+- [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md) - current end-to-end technical contract
+- [Technical-Design.md](./Technical-Design.md) - architecture principles
+- [MVP-Sprint-3.md](./MVP-Sprint-3.md) - Sprint 3 closeout and Sprint 4 handoff
+- [GameObject-Hierarchy.md](./GameObject-Hierarchy.md) - scene hierarchy conventions
 
----
+## Implemented room documents
 
-## How to use this folder
+| Room | Game design | Technical design |
+| --- | --- | --- |
+| Lobby | [GD-Room-Lobby.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Lobby.md) | [TD-Room-Lobby.md](./Gameplay/Rooms/TD-Room-Lobby.md) |
+| Hallway | [GD-Room-Hallway.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Hallway.md) | [TD-Room-Hallway.md](./Gameplay/Rooms/TD-Room-Hallway.md) |
+| Bedroom | [GD-Room-Bedroom.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Bedroom.md) | [TD-Room-Bedroom.md](./Gameplay/Rooms/TD-Room-Bedroom.md) |
+| Library | [GD-Room-Library.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Library.md) | [TD-Room-Library.md](./Gameplay/Rooms/TD-Room-Library.md) |
+| Basement | [GD-Room-Basement.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Basement.md) | [TD-Room-Basement.md](./Gameplay/Rooms/TD-Room-Basement.md) |
+| Forest | [GD-Room-Forest.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Forest.md) | [TD-Room-Forest.md](./Gameplay/Rooms/TD-Room-Forest.md) |
 
-### For the current MVP
+## Systems
 
-Start with [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md), then follow the progression:
+- [Interaction model](./Gameplay/TD-Interactables.md)
+- [Room architecture](./Gameplay/Rooms/TD-Room-Architecture.md)
+- [HUD](./UI/TD-HUD.md)
+- [Audio](./Audio/TD-Audio-System.md)
 
-1. [MVP-Sprint-1.md](./MVP-Sprint-1.md)
-2. [MVP-Sprint-2.md](./MVP-Sprint-2.md)
-3. [MVP-Sprint-3.md](./MVP-Sprint-3.md)
+## Sprint history
 
-This ensures the game stays aligned with the current architecture rather than drifting into larger feature scope too early.
+1. [MVP-Sprint-1.md](./MVP-Sprint-1.md) - Lobby and SHIFT foundation
+2. [MVP-Sprint-2.md](./MVP-Sprint-2.md) - Bedroom, Library, interaction, and HUD stabilization
+3. [MVP-Sprint-3.md](./MVP-Sprint-3.md) - complete Basement, Forest, and ending loop
 
-### For system understanding
+## Current architecture rules
 
-Read [Technical-Design.md](./Technical-Design.md) for the overall philosophy behind the room system, interactions and reality logic.
+- single gameplay scene in the prototype
+- data-driven Room catalog
+- flag-based progression
+- explicit scene-object references preferred at runtime
+- left click changes state; right click examines
+- Unity Input System only
+- no null-propagation operators in runtime scripts
+- UI Toolkit through `PanelRenderer`
 
----
-
-## Files in the folder
-
-| File | Purpose |
-| --- | --- |
-| [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md) | Core MVP spec and system boundaries |
-| [MVP-Sprint-1.md](./MVP-Sprint-1.md) | Base playable-flow sprint |
-| [MVP-Sprint-2.md](./MVP-Sprint-2.md) | Bedroom closure and interaction contract |
-| [MVP-Sprint-3.md](./MVP-Sprint-3.md) | Library build and Basement preparation |
-| [Technical-Design.md](./Technical-Design.md) | Architecture overview |
-| [GameObject-Hierarchy.md](./GameObject-Hierarchy.md) | General hierarchy patterns |
-| [Gameplay/Rooms/Room-Lobby.md](./Gameplay/Rooms/Room-Lobby.md) | Lobby room setup |
-| [Gameplay/Rooms/Room-Hallway.md](./Gameplay/Rooms/Room-Hallway.md) | Hallway room setup |
-| [Gameplay/Rooms/Room-Bedroom.md](./Gameplay/Rooms/Room-Bedroom.md) | Bedroom technical setup |
-| [Gameplay/Rooms/Room-Library.md](./Gameplay/Rooms/Room-Library.md) | Library technical setup and progression plan |
-| [Gameplay/Rooms/TD-Room-Basement.md](./Gameplay/Rooms/TD-Room-Basement.md) | Basement technical setup (lantern and low-light flow) |
-| [Gameplay/Rooms/Room-Bedroom-Setup.md](./Gameplay/Rooms/Room-Bedroom-Setup.md) | Unity scene setup reference |
-| [UI/TD-HUD.md](./UI/TD-HUD.md) | HUD design and runtime references |
-| [TD-Interactables.md](./TD-Interactables.md) | Generic interactable model |
-
-This is the active technical reference set for the MVP and the next room iteration.
+Older sprint documents remain as historical records. They should not override the current `0.1.0-proto` specification.

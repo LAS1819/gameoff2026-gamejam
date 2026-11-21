@@ -26,7 +26,7 @@ La `Library` debe sentirse importante sin volverse un sistema complejo. El foco 
 
 1. Una sola idea central debe dominar la Room: la memoria está archivada y puede cambiar de significado.
 2. El verdadero “puzzle” de la Room debe ser simple: `Worn Book` + `Interactive Shelf` + `Other Side`.
-3. El `Basement` debe ser una promesa, no un segundo bloque completo de gameplay.
+3. El `Basement` debe ser una transición legible hacia su bloque completo de gameplay.
 4. Los props y las estanterías sostienen la narrativa; no deben competir con el objetivo central.
 5. El contenido interactivo debe estar centrado en 1-2 piezas clave, no en una biblioteca de documentos.
 
@@ -378,7 +378,7 @@ BasementCodeAcquired
 6. Cuando el `Floppy Disk` se usa en la `Bedroom`, el jugador obtiene el `Basement Code` o una pista funcional.
 7. El jugador vuelve a la `Library` y coloca el `Worn Book` en la `Interactive Shelf` en `Other Side`.
 8. La estantería se abre y revela el secreto detrás.
-9. La `Basement Door` aparece como promesa narrativa y funcional.
+9. La `Basement Door` prepara la transición al Basement implementado.
 10. La Room termina con una sensación de “esto no es casualidad; el edificio está cambiando”.
 
 ---
@@ -443,4 +443,4 @@ Esto ya ofrece una base visual muy sólida para un MVP: la composición de la Ro
 
 ## 11. Resumen corto
 
-La `Library` es la Room de la memoria archivada. Aquí el jugador encuentra el `Worn Book`, descubre el `Floppy Disk` oculto, entiende que la misma información cambia según la realidad y deja preparado el acceso al `Basement` como una promesa clara y funcional. Todo el diseño debe apoyar una sensación de archivo vivo, alterado y parcialmente oculto.
+La `Library` es la Room de la memoria archivada. Aquí el jugador encuentra el `Worn Book`, descubre el `Floppy Disk` oculto, entiende que la misma información cambia según la realidad y habilita el acceso al `Basement`. Todo el diseño debe apoyar una sensación de archivo vivo, alterado y parcialmente oculto.

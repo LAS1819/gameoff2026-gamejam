@@ -1,8 +1,8 @@
 # Game Off 2026 - TECHNICAL DESIGN
 
-- **Versión:** 0.1
+- **Versión:** 0.1.0-proto
 - **Creación:** 03/11/2026
-- **Última actualización:** 03/11/2026
+- **Última actualización:** 21/11/2026
 
 ---
 
@@ -31,11 +31,12 @@ Interaction System
 Inventory System
 ```
 
-Y dos sistemas secundarios:
+Y sistemas auxiliares:
 
 ```plaintext
 Event System
 Save System
+HUD / Story Overlay
 ```
 
 ---
@@ -100,10 +101,9 @@ Cada habitación se define mediante un RoomData.
 
 ```plaintext
 string id
-Sprite normalBackground
-Sprite otherSideBackground
+string displayName
 List<InteractableData>
-List<RoomConnection>
+List<string> connectedRoomIds
 ```
 
 Ejemplo:

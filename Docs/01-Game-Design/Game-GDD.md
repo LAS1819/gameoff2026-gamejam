@@ -1,10 +1,10 @@
 # Game Off 2026 - GAME DESIGN DOCUMENT
 
 - Aventura gráfica de terror psicológico
-- Versión: 0.3 — Diseño inicial
-- Estado: Concepto y reglas fundamentales
+- Versión: 0.1.0-proto
+- Estado: Vertical slice jugable completo
 - Creado: 03/11/2026
-- Actualizado: 03/11/2026
+- Actualizado: 21/11/2026
 
 ---
 
@@ -29,7 +29,7 @@ La experiencia está diseñada específicamente para la Game Off 2026 y gira en 
 - Duración estimada: 30-60 minutos.
 - Jugabilidad: Exploración, observación, resolución de puzles y cambio entre realidades.
 - Rejugabilidad: Eventos opcionales y múltiples finales.
-- Muerte: Game Over y regreso al último guardado manual.
+- Finalización: desenlace narrativo y reinicio opcional al Lobby.
 - Alcance: Proyecto diseñado para completarse en una game jam de un mes.
 
 ________________________________________
@@ -222,17 +222,17 @@ ________________________________________
 
 ## 10. Guardado y Progreso
 
-### Guardado automático
+### Reinicio de prototipo
 
-El sistema utilizará guardado automático constante durante la partida.
+El prototipo mantiene el progreso durante la sesión y ofrece reinicio completo desde el final.
 
 ### Principios
 
-- Sin puntos de guardado manual.
-- Sin gestión de partidas compleja.
-- El jugador podrá continuar desde su último progreso registrado.
+- No hay partidas persistentes en el scope actual.
+- No hay puntos de guardado manual.
+- Reiniciar restablece flags, inventario, profundidad del Forest y room activa.
 
-El objetivo es evitar la repetición innecesaria de contenido.
+Un sistema de guardado persistente queda fuera del MVP. Puede evaluarse en una iteración posterior si el alcance final lo justifica.
 
 ________________________________________
 
