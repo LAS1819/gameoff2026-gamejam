@@ -1,6 +1,6 @@
 # Room Forest - Technical Spec
 
-- Version 0.2
+- Version 0.3
 - Created: 20/11/2026
 - Updated: 21/11/2026
 
@@ -20,17 +20,19 @@ The Forest is added to the runtime room catalog and is reachable from the resolv
 ```text
 Main
   Rooms
-    forest
+    Forest
       Visuals
         BackgroundNormal
           Sky
           CentralPath
           BorderTrees
           OuterForest
+      Interactables
         ForestAdvance
-        FinalTable
-          Letter
-        BasementExitDoor
+        ForestRevelationLetter
+      Props
+        Table
+        CeilingLight        
 ```
 
 The four background visual objects represent depth-independent layers:
@@ -41,7 +43,7 @@ The four background visual objects represent depth-independent layers:
 - `CentralPath`: Capa 0.
 
 The scene must remain fixed. The depth is represented by swapping five sprites in all four layers.
-The `FinalTable` and `Letter` are hidden until the player completes the fifth
+The `Table` and `ForestRevelationLetter` are hidden until the player completes the fifth
 depth level and requests the final transition.
 
 ## 3. Depth controller
@@ -81,7 +83,7 @@ Behaviour:
 4. At depth 5, the same click advances to state 6.
 5. State 6 is clamped and no longer changes the forest frames.
 6. `ForestDepthChanged` updates all four visual layers.
-7. State 6 reveals `FinalTable`
+7. State 6 reveals `Table` and `ForestRevelationLetter`
    and disables `ForestAdvance`.
 
 The advance must not consume an inventory item.
@@ -137,7 +139,7 @@ to 6:
 
 - `0`: Forest entry.
 - `1-5`: depth frames.
-- `6`: Habitación Final / table and letter state.
+- `6`: Habitación Final / table and ForestRevelationLetter state.
 
 ## 7. MVP scope
 
@@ -171,7 +173,7 @@ by the Forest GDD:
 Depth 5
   -> ForestFinalTableVisible = true
   -> ForestAdvance hidden
-  -> FinalTable / Letter visible
+  -> Table / ForestRevelationLetter visible
   -> Depth = 6
 ```
 
