@@ -41,7 +41,7 @@ Su único objetivo es demostrar que los sistemas fundamentales funcionan juntos 
 - Biblioteca
 - Dormitorio
 - Sótano
-- Sala Ritual
+- Bosque
 - Guardado
 - Arte definitivo
 - Audio definitivo

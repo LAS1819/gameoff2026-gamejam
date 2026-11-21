@@ -134,7 +134,11 @@ public class UIShiftButton : MonoBehaviour
         }
         else
         {
-            var roomId = RoomManager.Instance?.CurrentRoom?.id ?? "<unknown>";
+            var roomId = "<unknown>";
+            if (RoomManager.Instance != null && RoomManager.Instance.CurrentRoom != null)
+            {
+                roomId = RoomManager.Instance.CurrentRoom.id;
+            }
             Debug.LogWarning($"[UIShiftButton] SHIFT unavailable in room '{roomId}'.");
         }
     }
@@ -214,7 +218,11 @@ public class UIShiftButton : MonoBehaviour
             return RealityManager.Instance.IsShiftAllowedInCurrentRoom();
         }
 
-        var roomId = RoomManager.Instance?.CurrentRoom?.id;
+        var roomId = string.Empty;
+        if (RoomManager.Instance != null && RoomManager.Instance.CurrentRoom != null)
+        {
+            roomId = RoomManager.Instance.CurrentRoom.id;
+        }
         if (string.IsNullOrEmpty(roomId))
         {
             return false;

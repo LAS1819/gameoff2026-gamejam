@@ -44,8 +44,8 @@ Las Memorias representan momentos de verdad que el protagonista es capaz de reco
 
 ## Pantalla Final
 
-**Tras los créditos se muestra:**
+La pantalla de desenlace muestra, antes o después del bloque de créditos:
 
-- Memorias recuperadas: X/5
+- Recovered Memories: X/5
 
 Con ello se comunica al jugador que existen elementos opcionales sin convertir la partida en una colección obligatoria.

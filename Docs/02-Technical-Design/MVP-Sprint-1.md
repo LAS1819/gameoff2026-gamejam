@@ -37,7 +37,7 @@ No se busca contenido completo ni pulido artístico. El objetivo es comprobar qu
 
 ### No incluido
 
-- Biblioteca / sótano / sala ritual reales
+- Biblioteca / sótano / bosque reales
 - Save avanzado
 - Audio final
 - Arte final

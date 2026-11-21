@@ -70,11 +70,20 @@ public class AudioManager : MonoBehaviour
     {
         if (themeFatherClip != null)
         {
-            musicManager?.Configure(themeFatherClip);
+            if (musicManager != null)
+            {
+                musicManager.Configure(themeFatherClip);
+            }
         }
 
-        musicManager?.EnsureTheme();
-        musicManager?.ApplyReality(RealityManager.Instance != null ? RealityManager.Instance.CurrentReality : RealityType.Normal);
+        if (musicManager != null)
+        {
+            musicManager.EnsureTheme();
+            musicManager.ApplyReality(
+                RealityManager.Instance != null
+                    ? RealityManager.Instance.CurrentReality
+                    : RealityType.Normal);
+        }
     }
 
     public void SetThemeClip(AudioClip clip)
@@ -88,22 +97,34 @@ public class AudioManager : MonoBehaviour
 
     public void PlayTheme()
     {
-        musicManager?.EnsureTheme();
+        if (musicManager != null)
+        {
+            musicManager.EnsureTheme();
+        }
     }
 
     public void StopTheme()
     {
-        musicManager?.Stop();
+        if (musicManager != null)
+        {
+            musicManager.Stop();
+        }
     }
 
     private void HandleRoomChanged(RoomData _)
     {
-        musicManager?.EnsureTheme();
+        if (musicManager != null)
+        {
+            musicManager.EnsureTheme();
+        }
     }
 
     private void HandleRealityChanged(RealityType reality)
     {
-        musicManager?.ApplyReality(reality);
+        if (musicManager != null)
+        {
+            musicManager.ApplyReality(reality);
+        }
     }
 
     private void HandleFlagChanged(string _)

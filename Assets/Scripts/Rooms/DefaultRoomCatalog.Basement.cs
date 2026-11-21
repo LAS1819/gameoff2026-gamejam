@@ -113,11 +113,12 @@ public static partial class DefaultRoomCatalog
             id = "forest_exit_door",
             displayName = "Forest Exit Door",
             description = "A hidden path becomes accessible once the denial manifestation is rejected.",
-            descriptionInNormalReality = "The path is clear now. A door to the forest waits beyond.",
+            descriptionInNormalReality = "The path is clear now. A trail to the forest waits beyond.",
             descriptionInOtherReality = "The steam burns here. I cannot pass through it.",
-            interactionType = InteractionType.Examine,
+            interactionType = InteractionType.Transition,
             visibleInNormalReality = true,
             visibleInOtherReality = true,
+            linkedRoomId = GameManager.ForestRoomId,
             resultFlag = GameFlagNames.ForestExitUnlocked
         });
 

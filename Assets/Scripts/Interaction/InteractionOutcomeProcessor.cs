@@ -97,7 +97,10 @@ internal static class InteractionOutcomeProcessor
             return;
         }
 
-        onConsumed?.Invoke(interactable.id);
+        if (onConsumed != null)
+        {
+            onConsumed.Invoke(interactable.id);
+        }
     }
 
     private static void TryResolveBasementProgress(InteractableData interactable)

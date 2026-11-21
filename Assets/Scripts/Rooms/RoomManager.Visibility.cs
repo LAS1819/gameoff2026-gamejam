@@ -133,6 +133,23 @@ public partial class RoomManager
             }
         }
 
+        if (interactable.id.Equals("forest_advance", StringComparison.OrdinalIgnoreCase)
+            && GameManager.Instance != null
+            && GameManager.Instance.ForestDepthLevel >= 6)
+        {
+            return false;
+        }
+
+        if (interactable.id.Equals("forest_revelation_letter", StringComparison.OrdinalIgnoreCase)
+            && GameManager.Instance != null)
+        {
+            if (GameManager.Instance.ForestDepthLevel < 6
+                || !GameManager.Instance.HasFlag(GameFlagNames.ForestFinalTableVisible))
+            {
+                return false;
+            }
+        }
+
         if (interactable.id == "wardrobe_monster" && !IsBedroomMonsterConditionMet())
         {
             return false;

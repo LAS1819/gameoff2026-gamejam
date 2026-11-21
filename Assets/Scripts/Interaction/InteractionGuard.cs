@@ -31,7 +31,7 @@ internal static class InteractionGuard
         if (InventoryManager.Instance == null || !InventoryManager.Instance.HasItem(interactable.requiredItemId))
         {
             Debug.LogWarning($"Missing required item for {interactable.id}: {interactable.requiredItemId}");
-            UIManager.Instance?.ShowFeedback("Required item missing.", 1.5f);
+            ShowFeedback("Required item missing.", 1.5f);
             return false;
         }
 
@@ -43,7 +43,7 @@ internal static class InteractionGuard
                 ? requiredItem.displayName
                 : interactable.requiredItemId;
 
-            UIManager.Instance?.ShowFeedback($"Select {requiredName} first.", 1.5f);
+            ShowFeedback($"Select {requiredName} first.", 1.5f);
             return false;
         }
 
@@ -72,6 +72,16 @@ internal static class InteractionGuard
             return;
         }
 
-        UIManager.Instance?.ShowFeedback("Something blocks the way in this reality.", 1.5f);
+        ShowFeedback("Something blocks the way in this reality.", 1.5f);
+    }
+
+    private static void ShowFeedback(string message, float duration)
+    {
+        if (UIManager.Instance == null)
+        {
+            return;
+        }
+
+        UIManager.Instance.ShowFeedback(message, duration);
     }
 }

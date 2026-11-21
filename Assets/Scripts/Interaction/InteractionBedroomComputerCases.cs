@@ -71,7 +71,7 @@ internal static class InteractionBedroomComputerCases
             }
         }
 
-        var computerControllers = UnityEngine.Object.FindObjectsByType<BedroomComputerController>(FindObjectsSortMode.None);
+        var computerControllers = UnityEngine.Object.FindObjectsByType<BedroomComputerController>();
         foreach (var controller in computerControllers)
         {
             if (controller != null)

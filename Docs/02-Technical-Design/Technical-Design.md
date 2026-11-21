@@ -114,7 +114,7 @@ Pasillo
 Biblioteca
 Dormitorio
 Sotano
-SalaRitual
+Bosque
 ```
 
 [GameOff26-...zleFlow-v1 | Word], [GameOff26-GameIdea-1 | Word]
@@ -205,7 +205,9 @@ DoorOpened
 FoundCode
 HasFuse
 GeneratorEnabled
-RitualCompleted
+ForestFinalTableVisible
+ForestLetterRead
+ForestEndingReached
 ```
 
 Los puzles nunca consultan objetos directamente.
@@ -236,7 +238,10 @@ HiddenItem
 SecretEnding
 ```
 
-[GameOff26-GameIdea-1 | Word], [GameOff26-...zleFlow-v1 | Word]
+The ending loop uses the existing HUD as a reusable `StoryOverlay` for the
+letter and final tier. A separate `Credits` scene is planned for Sprint 4 and
+should be loaded additively so the persistent game state can return to the
+Lobby without rebuilding the global systems.
 
 ---
 
