@@ -265,6 +265,7 @@ public class HUDController : MonoBehaviour
 
         SetGameplayControlsVisible(false);
         ExpandStoryOverlayToHud();
+        ApplyStoryOverlayContentLayout(StoryOverlayMode.Letter);
         storyOverlay.style.display = DisplayStyle.Flex;
         storyOverlay.AddToClassList("visible");
         if (storyOverlayClose != null && storyOverlayClose.resolvedStyle.display == DisplayStyle.Flex)
@@ -328,6 +329,7 @@ public class HUDController : MonoBehaviour
 
         SetGameplayControlsVisible(false);
         ExpandStoryOverlayToHud();
+        ApplyStoryOverlayContentLayout(StoryOverlayMode.Ending);
         storyOverlay.style.display = DisplayStyle.Flex;
         storyOverlay.AddToClassList("visible");
         if (storyOverlayRestart != null)
@@ -384,7 +386,73 @@ public class HUDController : MonoBehaviour
             storyOverlayPanel.style.height = panelHeight;
             storyOverlayPanel.style.minHeight = 0f;
             storyOverlayPanel.style.maxHeight = panelHeight;
+            storyOverlayPanel.style.paddingTop = 20f;
+            storyOverlayPanel.style.paddingRight = 28f;
+            storyOverlayPanel.style.paddingBottom = 14f;
+            storyOverlayPanel.style.paddingLeft = 28f;
         }
+    }
+
+    private void ApplyStoryOverlayContentLayout(StoryOverlayMode mode)
+    {
+        if (storyOverlayMemoryCount == null
+            || storyOverlayCredits == null
+            || storyOverlayBody == null)
+        {
+            return;
+        }
+
+        if (mode == StoryOverlayMode.Letter)
+        {
+            storyOverlayTitle.style.position = Position.Relative;
+            storyOverlayTitle.style.left = StyleKeyword.Null;
+            storyOverlayTitle.style.top = StyleKeyword.Null;
+            storyOverlayTitle.style.width = StyleKeyword.Null;
+            storyOverlayTitle.style.height = StyleKeyword.Null;
+            storyOverlayTitle.style.fontSize = StyleKeyword.Null;
+            storyOverlayBody.style.position = Position.Relative;
+            storyOverlayBody.style.left = StyleKeyword.Null;
+            storyOverlayBody.style.top = StyleKeyword.Null;
+            storyOverlayBody.style.width = StyleKeyword.Null;
+            storyOverlayBody.style.height = StyleKeyword.Null;
+            storyOverlayBody.style.marginBottom = 54f;
+            storyOverlayMemoryCount.style.position = Position.Relative;
+            storyOverlayCredits.style.position = Position.Relative;
+            storyOverlayMemoryCount.style.left = StyleKeyword.Null;
+            storyOverlayMemoryCount.style.top = StyleKeyword.Null;
+            storyOverlayCredits.style.left = StyleKeyword.Null;
+            storyOverlayCredits.style.top = StyleKeyword.Null;
+            storyOverlayMemoryCount.style.width = StyleKeyword.Null;
+            storyOverlayCredits.style.width = StyleKeyword.Null;
+            return;
+        }
+
+        storyOverlayTitle.style.position = Position.Absolute;
+        storyOverlayTitle.style.left = 28f;
+        storyOverlayTitle.style.top = 35f;
+        storyOverlayTitle.style.width = 364f;
+        storyOverlayTitle.style.height = 34f;
+        storyOverlayTitle.style.fontSize = 20f;
+
+        storyOverlayBody.style.position = Position.Absolute;
+        storyOverlayBody.style.left = 28f;
+        storyOverlayBody.style.top = 92f;
+        storyOverlayBody.style.width = 364f;
+        storyOverlayBody.style.height = 52f;
+        storyOverlayBody.style.marginBottom = 0f;
+
+        storyOverlayMemoryCount.style.position = Position.Absolute;
+        storyOverlayMemoryCount.style.left = 28f;
+        storyOverlayMemoryCount.style.top = 150f;
+        storyOverlayMemoryCount.style.width = 364f;
+        storyOverlayMemoryCount.style.height = 24f;
+
+        storyOverlayCredits.style.position = Position.Absolute;
+        storyOverlayCredits.style.left = 28f;
+        storyOverlayCredits.style.top = 182f;
+        storyOverlayCredits.style.width = 364f;
+        storyOverlayCredits.style.height = 24f;
+        storyOverlayCredits.style.marginBottom = 0f;
     }
 
     public void SetGameplayControlsVisible(bool visible)

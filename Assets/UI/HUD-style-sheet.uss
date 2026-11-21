@@ -163,7 +163,7 @@ VisualElement {}
     min-width: 420px;
     min-height: 220px;
     max-height: 300px;
-    padding: 36px 44px 28px;
+    padding: 20px 28px 14px;
     justify-content: space-between;
     background-color: rgba(171, 137, 93, 0.96);
     border-width: 3px;
@@ -182,20 +182,21 @@ VisualElement {}
 
 .story-overlay-title {
     color: rgba(48, 35, 25, 0.98);
-    font-size: 28px;
+    font-size: 22px;
     -unity-font-style: bold;
     -unity-text-align: middle-center;
-    margin-top: 12px;
+    margin-top: 6px;
 }
 
 .story-overlay-body {
     flex-grow: 1;
     color: rgba(48, 35, 25, 0.98);
-    font-size: 18px;
+    font-size: 15px;
     white-space: normal;
     -unity-text-align: middle-center;
-    margin-top: 22px;
-    margin-bottom: 18px;
+    margin-top: 10px;
+    margin-bottom: 54px;
+    padding-bottom: 4px;
 }
 
 .story-overlay-memory-count {
@@ -203,6 +204,7 @@ VisualElement {}
     font-size: 14px;
     -unity-font-style: bold;
     -unity-text-align: middle-center;
+    margin-bottom: 4px;
 }
 
 .story-overlay-credits {
@@ -210,13 +212,14 @@ VisualElement {}
     font-size: 13px;
     white-space: normal;
     -unity-text-align: middle-center;
-    margin-top: 8px;
+    margin-top: 2px;
+    margin-bottom: 54px;
 }
 
 .story-overlay-actions {
     flex-direction: row;
     justify-content: center;
-    margin-top: 18px;
+    margin-top: 0;
     min-height: 42px;
 }
 
