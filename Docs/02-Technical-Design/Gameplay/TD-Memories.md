@@ -52,10 +52,10 @@ MemoryDiscoveryOverlay
 └── texto breve
 ```
 
-La presentación dura aproximadamente 3.5 segundos:
+La presentación dura aproximadamente 5.5 segundos:
 
 - 0.3 segundos de entrada;
-- 2.6 segundos de contenido;
+- 4.6 segundos de contenido;
 - 0.6 segundos de salida.
 
 El jugador puede seguir viendo la `Room` actual detrás del overlay. No recibe el contador de `Memorias` y no necesita pulsar un botón.
@@ -241,6 +241,13 @@ En la implementación actual existe el primer recurso preparado:
 - asignado al campo `memory01Concept` de `HUDController`;
 - importado como sprite único con filtrado de punto;
 - mostrado dentro de `HUDMemoryDiscoveryView`.
+
+También existe el recurso preparado para Hallway:
+
+- `Assets/Visuals/Memories/sprite-memory-02-fossil-v1.png`
+- asignado al campo `memory02Concept` de `HUDController`;
+- disponible únicamente para `Memory_02`;
+- mostrado tras examinar la mancha de amonita en El Otro Lado.
 
 Si se crean variaciones de normalidad o distorsión, deben compartir:
 

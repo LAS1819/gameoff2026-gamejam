@@ -136,7 +136,7 @@ public class MemoryDefinition
     public string body;
     public float duration;
 
-    public MemoryDefinition(string id, string title, string body, float duration = 3.5f)
+    public MemoryDefinition(string id, string title, string body, float duration = 5.5f)
     {
         this.id = id;
         this.title = title;
