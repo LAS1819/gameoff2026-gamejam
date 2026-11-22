@@ -84,8 +84,11 @@ internal static class InteractionExamineTransitionProcessor
             return false;
         }
 
-        if (RealityManager.Instance == null
-            || RealityManager.Instance.CurrentReality != RealityType.OtherSide)
+        var isLobbyFirstMemory = interactable.id.Equals("memory_01_family_picture", StringComparison.OrdinalIgnoreCase)
+            && interactable.memoryId == GameFlagNames.Memory_01;
+        if (!isLobbyFirstMemory
+            && (RealityManager.Instance == null
+                || RealityManager.Instance.CurrentReality != RealityType.OtherSide))
         {
             return false;
         }

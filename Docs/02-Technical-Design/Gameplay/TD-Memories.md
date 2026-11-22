@@ -12,7 +12,7 @@ Las `Memorias` son eventos narrativos opcionales activados por el `Examine` de i
 El sistema debe cumplir estas reglas:
 
 - Una única `Memoria` por `Room` principal
-- Disponibilidad exclusiva en `El Otro Lado` (`Other Side`)
+- Disponibilidad exclusiva en `El Otro Lado` (`Other Side`), salvo `Memory_01`, disponible en el Lobby en Realidad Normal
 - Activación persistente durante la sesión mediante una Flag
 - Presentación visual breve en el momento del descubrimiento
 - Ausencia de contador visible durante el juego
@@ -155,6 +155,7 @@ Los `interactuables` deben tener:
 - `visibleInOtherReality = true`.
 
 Además, el resolver puede validar explícitamente que la realidad actual es `OtherSide` antes de activar la Flag.
+`Memory_01` es la excepción: puede resolverse en Realidad Normal dentro del Lobby.
 
 Esto evita obtener Memorias mediante datos obsoletos o estados del HUD fuera de sincronía.
 
@@ -233,6 +234,13 @@ memory-03-closed-window.png
 memory-04-eleven-thirty.png
 memory-05-orchard.png
 ```
+
+En la implementación actual existe el primer recurso preparado:
+
+- `Assets/Visuals/Memories/sprite-memory-01-first-steps-v1.png`
+- asignado al campo `memory01Concept` de `HUDController`;
+- importado como sprite único con filtrado de punto;
+- mostrado dentro de `HUDMemoryDiscoveryView`.
 
 Si se crean variaciones de normalidad o distorsión, deben compartir:
 

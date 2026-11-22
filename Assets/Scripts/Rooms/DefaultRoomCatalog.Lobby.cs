@@ -16,10 +16,11 @@ public static partial class DefaultRoomCatalog
             id = "memory_01_family_picture",
             displayName = "Family Picture",
             description = "An old picture remains in the frame.",
+            descriptionInNormalReality = "In the picture, my father and I stand together beneath the first steps of a memory.",
             descriptionInOtherReality = "The picture feels like the beginning of a memory I have kept safe.",
             memoryId = GameFlagNames.Memory_01,
             interactionType = InteractionType.Examine,
-            visibleInNormalReality = false,
+            visibleInNormalReality = true,
             visibleInOtherReality = true,
             resultFlag = GameFlagNames.Memory_01
         });

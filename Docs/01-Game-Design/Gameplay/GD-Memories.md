@@ -21,7 +21,8 @@ Las Memorias no explican por sí mismas la muerte del padre. Actúan como recons
 
 - Son completamente opcionales.
 - Existe una Memoria asociada a cada Room principal.
-- Sólo pueden descubrirse en El Otro Lado.
+- `Memory_01 - Primeros Pasos` puede descubrirse en la Realidad Normal del Lobby.
+- Las demás Memorias sólo pueden descubrirse en El Otro Lado.
 - Se descubren mediante la acción `Examinar` sobre un interactuable concreto.
 - La primera vez que se descubren activan una Flag persistente durante la partida.
 - Después de descubrirse, repetir el examen no debe reactivar ni mostrar el mismo recuerdo otra vez.
@@ -44,6 +45,7 @@ La ubicación de las Memorias sigue el significado narrativo de las Rooms:
 
 - **Room:** Lobby
 - **Interactuable:** Cuadro familiar
+- **Realidad:** Realidad Normal
 - **Etapa:** Infancia
 - **Contenido:** El protagonista recuerda una tarde de su infancia junto a su padre. No ocurre nada extraordinario: caminan juntos mientras él le señala cosas del mundo que parecen enormes y misteriosas. La memoria conserva una sensación simple de seguridad y de admiración hacia alguien que entonces sabía cómo hacer que todo tuviera sentido.
 - **Tema:**

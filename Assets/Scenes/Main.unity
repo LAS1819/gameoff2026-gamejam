@@ -4339,7 +4339,7 @@ Transform:
   m_GameObject: {fileID: 1099507577}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 1.5, z: -1}
+  m_LocalPosition: {x: 12.75, y: 6, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4365,7 +4365,7 @@ MonoBehaviour:
     descriptionInOtherReality: The picture feels like the beginning of a memory I have kept safe.
     memoryId: Memory_01
     interactionType: 0
-    visibleInNormalReality: 0
+    visibleInNormalReality: 1
     visibleInOtherReality: 1
     itemId: 
     requiredItemId: 
@@ -4410,7 +4410,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.3, y: 0.4}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -4420,7 +4420,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 5, y: 2}
   m_EdgeRadius: 0
 --- !u!212 &1099507581
 SpriteRenderer:
@@ -4471,7 +4471,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: aa5cae508d76f4b4ba04a9770b7bfd95, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4479,7 +4479,7 @@ SpriteRenderer:
   m_Size: {x: 4, y: 4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
 --- !u!1 &1122294532
@@ -4902,7 +4902,7 @@ MonoBehaviour:
   lanternNotObtainedSprite: {fileID: 1426271938, guid: 6d30d81ac4b34b14ba80fcd6910dcdd5, type: 3}
   lanternObtainedSprite: {fileID: -371352943, guid: 6d30d81ac4b34b14ba80fcd6910dcdd5, type: 3}
   lanternItemId: flashlight_tool
-  memory01Concept: {fileID: 0}
+  memory01Concept: {fileID: 21300000, guid: 6d221f6725931d441924ea53beba8c09, type: 3}
   memory02Concept: {fileID: 0}
   memory03Concept: {fileID: 0}
   memory04Concept: {fileID: 0}
@@ -6393,7 +6393,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1429042742
 Transform:
   m_ObjectHideFlags: 0
@@ -7273,7 +7273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1675550462
 Transform:
   m_ObjectHideFlags: 0
