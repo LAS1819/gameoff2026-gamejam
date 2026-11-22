@@ -34,6 +34,14 @@ public partial class RoomManager
             {
                 child.gameObject.SetActive(true);
                 Debug.Log($"[RoomManager] Activated room: {roomId}");
+                if (roomId.Equals(GameManager.ForestRoomId, StringComparison.OrdinalIgnoreCase))
+                {
+                    var depthController = child.GetComponentInChildren<ForestDepthController>(true);
+                    if (depthController != null)
+                    {
+                        depthController.RefreshDepth();
+                    }
+                }
                 return;
             }
         }

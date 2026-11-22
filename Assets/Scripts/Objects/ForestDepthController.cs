@@ -37,6 +37,11 @@ public class ForestDepthController : MonoBehaviour
         ApplyDepth(GameManager.Instance != null ? GameManager.Instance.ForestDepthLevel : 0);
     }
 
+    public void RefreshDepth()
+    {
+        ApplyDepth(GameManager.Instance != null ? GameManager.Instance.ForestDepthLevel : 0);
+    }
+
     private void OnEnable()
     {
         if (GameManager.Instance != null)
@@ -44,6 +49,11 @@ public class ForestDepthController : MonoBehaviour
             GameManager.Instance.ForestDepthChanged += HandleDepthChanged;
             ApplyDepth(GameManager.Instance.ForestDepthLevel);
         }
+    }
+
+    private void Start()
+    {
+        RefreshDepth();
     }
 
     private void OnDisable()
@@ -62,6 +72,8 @@ public class ForestDepthController : MonoBehaviour
     private void ApplyDepth(int depthLevel)
     {
         ResolveFinalObjects();
+        ResolveDepthRenderers();
+        Debug.Log($"[ForestDepth] Applying depth {depthLevel}.");
 
         var isFinalRoom = depthLevel >= 6;
         if (backgroundNormal != null)
@@ -160,6 +172,45 @@ public class ForestDepthController : MonoBehaviour
         {
             revelationLetter = FindGameObject(forestRoot, "Interactables/ForestRevelationLetter");
         }
+    }
+
+    private void ResolveDepthRenderers()
+    {
+        if (sky == null)
+        {
+            sky = FindSpriteRenderer(transform, "Sky");
+        }
+        if (centralPath == null)
+        {
+            centralPath = FindSpriteRenderer(transform, "CentralPath");
+        }
+        if (borderTrees == null)
+        {
+            borderTrees = FindSpriteRenderer(transform, "BorderTrees");
+        }
+        if (outerForest == null)
+        {
+            outerForest = FindSpriteRenderer(transform, "OuterForest");
+        }
+    }
+
+    private static SpriteRenderer FindSpriteRenderer(Transform root, string objectName)
+    {
+        if (root == null || string.IsNullOrEmpty(objectName))
+        {
+            return null;
+        }
+
+        foreach (var renderer in root.GetComponentsInChildren<SpriteRenderer>(true))
+        {
+            if (renderer != null
+                && renderer.gameObject.name.Equals(objectName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return renderer;
+            }
+        }
+
+        return null;
     }
 
     private static GameObject FindGameObject(Transform root, string path)
