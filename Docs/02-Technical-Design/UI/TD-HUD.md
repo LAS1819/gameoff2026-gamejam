@@ -18,6 +18,10 @@ Incluye:
 - pulse visual al cambiar de realidad,
 - fade corto al cambiar de room.
 - Story Overlay reutilizable para carta y final.
+- componentes visuales separados por responsabilidad:
+  - `HUDInventoryView`;
+  - `HUDStoryOverlayView`;
+  - `HUDMemoryDiscoveryView`.
 
 ## Decisión técnica
 
@@ -122,6 +126,22 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 - muestra contador de Memorias y créditos provisionales;
 - ofrece Restart game y devuelve al Lobby;
 - está preparado para arte final y localización.
+
+### Separación de responsabilidades
+
+`HUDController` actúa como fachada y coordinador de:
+
+- configuración de `PanelRenderer`;
+- suscripciones a eventos globales;
+- estado SHIFT;
+- feedback temporal;
+- transiciones visuales.
+
+Las vistas específicas mantienen su propio estado:
+
+- `HUDInventoryView`: slots, selección e inspección de objetos.
+- `HUDStoryOverlayView`: carta, final, reinicio y navegación modal.
+- `HUDMemoryDiscoveryView`: construcción, fade y presentación temporal de una Memoria.
 
 ## USS compatible con esta versión de UI Toolkit
 

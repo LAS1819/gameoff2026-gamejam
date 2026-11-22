@@ -3,7 +3,7 @@
 - **Versión:** 0.1
 - **Creado:** 2026-11-22
 - **Última actualización:** 2026-11-22
-- **Estado:** diseño técnico para implementación en el MVP
+- **Estado:** implementación lógica iniciada; arte de los conceptos pendiente de asignación
 
 ## 1. Objetivo
 

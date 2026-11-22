@@ -251,6 +251,17 @@ public class GameManager : MonoBehaviour
         return Flags.TryGetValue(flagName, out var value) && value;
     }
 
+    public int CountRecoveredMemories()
+    {
+        var count = 0;
+        if (HasFlag(GameFlagNames.Memory_01)) count++;
+        if (HasFlag(GameFlagNames.Memory_02)) count++;
+        if (HasFlag(GameFlagNames.Memory_03)) count++;
+        if (HasFlag(GameFlagNames.Memory_04)) count++;
+        if (HasFlag(GameFlagNames.Memory_05)) count++;
+        return count;
+    }
+
     public bool SetFlag(string flagName, bool value)
     {
         if (!Flags.TryGetValue(flagName, out var existingValue) || existingValue != value)

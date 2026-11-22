@@ -13,6 +13,19 @@ public static partial class DefaultRoomCatalog
 
         lobby.interactables.Add(new InteractableData
         {
+            id = "memory_01_family_picture",
+            displayName = "Family Picture",
+            description = "An old picture remains in the frame.",
+            descriptionInOtherReality = "The picture feels like the beginning of a memory I have kept safe.",
+            memoryId = GameFlagNames.Memory_01,
+            interactionType = InteractionType.Examine,
+            visibleInNormalReality = false,
+            visibleInOtherReality = true,
+            resultFlag = GameFlagNames.Memory_01
+        });
+
+        lobby.interactables.Add(new InteractableData
+        {
             id = "staff_key",
             itemId = "staff_key",
             displayName = "Staff Key",

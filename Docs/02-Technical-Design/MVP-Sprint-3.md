@@ -51,6 +51,12 @@ The goal was no longer limited to opening the Basement. The sprint delivered the
 
 ### Memory discovery polish - in progress
 
+- [x] Memory data model and catalog implemented
+- [x] five room interactables configured
+- [x] first-discovery flags and repeat protection implemented
+- [x] non-modal discovery overlay implemented in the HUD
+- [ ] assign final concept-art sprites
+- [ ] complete playtest coverage for the five discoveries
 - define the five optional Memory interactables in the Other Side
 - activate one persistent Memory flag on the first examination
 - prevent repeated presentation of an already discovered Memory

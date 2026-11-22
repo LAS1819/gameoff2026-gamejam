@@ -277,6 +277,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -386,6 +387,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -449,6 +451,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -651,6 +654,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -952,6 +956,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -1228,6 +1233,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -1292,6 +1298,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -1462,6 +1469,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -1700,6 +1708,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -2043,6 +2052,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -2402,6 +2412,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -2697,6 +2708,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -2919,6 +2931,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -3089,6 +3102,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -3502,6 +3516,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -4310,6 +4325,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -4537,11 +4553,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDController
   panelRenderer: {fileID: 0}
-  shiftEnabledRoomIds:
-  - hallway
   lanternNotObtainedSprite: {fileID: 1426271938, guid: 6d30d81ac4b34b14ba80fcd6910dcdd5, type: 3}
   lanternObtainedSprite: {fileID: -371352943, guid: 6d30d81ac4b34b14ba80fcd6910dcdd5, type: 3}
   lanternItemId: flashlight_tool
+  memory01Concept: {fileID: 0}
+  memory02Concept: {fileID: 0}
+  memory03Concept: {fileID: 0}
+  memory04Concept: {fileID: 0}
+  memory05Concept: {fileID: 0}
   feedbackDuration: 2
   roomTransitionDuration: 0.35
   realityPulseDuration: 0.25
@@ -4596,6 +4615,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -4859,7 +4879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   useDebugStartRoom: 1
-  debugStartRoomId: forest
+  debugStartRoomId: basement
 --- !u!4 &1253440029
 Transform:
   m_ObjectHideFlags: 0
@@ -5030,6 +5050,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -5527,6 +5548,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -5590,6 +5612,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -5700,6 +5723,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -5995,6 +6019,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -6185,6 +6210,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -6354,6 +6380,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -6464,6 +6491,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -6697,6 +6725,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -7058,6 +7087,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -7121,6 +7151,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -7323,6 +7354,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -7492,6 +7524,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -7601,6 +7634,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -8316,6 +8350,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -8614,6 +8649,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -8725,6 +8761,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -8913,6 +8950,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
@@ -9128,6 +9166,7 @@ MonoBehaviour:
     description: 
     descriptionInNormalReality: 
     descriptionInOtherReality: 
+    memoryId: 
     interactionType: 0
     visibleInNormalReality: 1
     visibleInOtherReality: 1
