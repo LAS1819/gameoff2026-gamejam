@@ -1,8 +1,8 @@
 # Game Off 2026 - GUÍA VISUAL
 
-- Versión 0.1 - Dirección Artística y Escala
+- Versión 0.2 - Dirección Artística y Escala
 - Creado: 03/11/2026
-- Actualizado: 03/11/2026
+- Actualizado: 22/11/2026
 
 Esta guía define las bases visuales del proyecto para mantener una producción coherente, rápida y realista para un único desarrollador, alineada con la estética pixel art establecida en el GDD y con los escenarios definidos en el Puzzle Flow.
 
@@ -239,6 +239,65 @@ Para cualquier elemento artístico:
 - **Si se necesita una animación compleja**: buscar una alternativa estática.
 - **Si existen dos versiones completamente diferentes**: intentar reutilizar una.
 - **Si el jugador no interactúa con ello**: reducir detalle.
+
+---
+
+## 14. Gráficos de las Memorias
+
+Las imágenes de descubrimiento deben representarse como momentos simbólicos en lugar de ilustraciones completas.
+
+Su composición debe seguir una regla visual común:
+
+- formato horizontal;
+- protagonista y padre como sombras;
+- un único elemento identificativo;
+- fondo sencillo;
+- paleta limitada;
+- sin texto dentro del sprite;
+- sin detalles faciales realistas;
+- sin revelar directamente la muerte del padre.
+
+### Dimensiones y escala
+
+- resolución interna: `640 x 360`;
+- canvas recomendado para el sprite: `320 x 112`;
+- posición principal: dentro de `MemoryDiscoveryOverlay`;
+- escala visual: conservar proporción sin estirar;
+- fondo del panel: puede oscurecerse para separar el recuerdo del escenario.
+
+El tamaño `320 x 112` permite construir las cinco imágenes con la misma estructura y encaja aproximadamente con el área visual actual del overlay. Cada recurso puede contener:
+
+- una silueta pequeña del protagonista;
+- una silueta del padre;
+- una acción o objeto de apoyo;
+- uno o dos planos de fondo.
+
+### Pautas Aseprite
+
+- activar cuadrícula con tamaño 8 x 8 o 16 x 16;
+- dibujar a 1x sin zoom durante la creación;
+- usar líneas rectas y formas geométricas simples;
+- limitar contornos a 1-2 píxeles;
+- no usar antialiasing manual;
+- no generar rotaciones arbitrarias;
+- evitar degradados y texturas de alta frecuencia;
+- exportar PNG a tamaño original;
+- conservar transparencias solo si ayudan a integrar el fondo.
+
+### Pixel scale en Unity
+
+Estos sprites pertenecen al `overlay` de UI y deben conservar bordes nítidos:
+
+- `Texture Type`: `Sprite (2D and UI)`;
+- `Sprite Mode`: `Single`;
+- `Pixels Per Unit`: utilizar un valor coherente con el resto del proyecto;
+- `Filter Mode`: `Point (no filter)`;
+- `Mip Maps`: desactivados;
+- `Compression`: `None` en las builds iniciales si es necesario para preservar nitidez;
+- `Generate Lighting`: desactivado;
+- `Alpha is Transparency`: activado solo si existe transparencia real.
+
+El elemento visual no debe interpolarse con píxeles fraccionarios. Mantener una posición par y dimensiones pares en Aseprite evita desplazamientos horizontales o verticales no deseados.
 
 ---
 

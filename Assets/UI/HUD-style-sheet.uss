@@ -186,7 +186,7 @@ VisualElement {}
     margin-bottom: 10px;
     border-radius: 6px;
     background-color: rgba(90, 92, 100, 0.22);
-    -unity-background-scale-mode: scale-and-crop;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 .memory-discovery-eyebrow {

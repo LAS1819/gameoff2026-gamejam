@@ -1,6 +1,6 @@
 # Memories Design
 
-- **Versión del documento**: 0.3
+- **Versión del documento**: 0.4
 - **Creado**: 2026-11-19
 - **Última actualización**: 2026-11-22
 
@@ -158,20 +158,31 @@ Duración orientativa:
 
 La secuencia debe reforzar que algo relevante ha sido descubierto, sin bloquear el juego ni mostrar el contador `X/5`. La señal positiva puede acompañarse de un pequeño sonido o música, pero no debe depender de él.
 
-#### Uso de concept art en MVP
+#### Representación visual para la entrega
 
-Para el MVP, reutilizar el concept art existente de cada Room como imagen base es la opción más eficaz. El esfuerzo visual se puede mantener bajo mediante:
+Para la primera entrega se utilizarán imágenes rápidas creadas en Aseprite. No se pretende representar escenas detalladas ni reproducir una vista completa de cada Room.
 
-- recortes preparados como sprites horizontales;
-- un único tratamiento visual compartido;
-- superposición semitransparente sobre la escena;
-- tipografía integrada en la capa superior.
+Cada imagen debe mostrar una silueta sencilla del protagonista junto a su padre, acompañada de un elemento mínimo que identifique la Memoria:
 
-Esta solución permite validar el ritmo y la respuesta emocional sin producir cinco escenas nuevas.
+- **Memory_01 - Primeros Pasos:** caminando juntos, con una silueta infantil delante del padre.
+- **Memory_02 - El Fósil:** ambos agachados o observando una amonita.
+- **Memory_03 - La Ventana Cerrada:** el padre al otro lado de una puerta o una ventana cerrada.
+- **Memory_04 - Las 11:30:** dos figuras silenciosas junto a un reloj fijo en 11:30.
+- **Memory_05 - El Huerto:** padre e hijo junto a herramientas o plantas sencillas.
+
+La representación debe mantenerse simbólica y reconocible:
+
+- el padre y el protagonista son siluetas oscuras;
+- el momento se distingue por un único objeto o gesto;
+- el fondo es limitado, suave y legible;
+- no se muestran expresiones faciales detalladas;
+- no se revela explícitamente la muerte ni el accidente.
+
+Las imágenes se muestran dentro de `MemoryDiscoveryOverlay`, no sobre el escenario. Esta decisión evita modificar los fondos de las Rooms y mantiene visible la relación entre el recuerdo y la realidad donde fue descubierto.
 
 #### Evolución a ilustraciones propias
 
-Si se dispone de tiempo después del MVP, conviene sustituir los concept arts por bocetos rápidos exclusivos de cada Memoria:
+Después de la entrega inicial pueden refinarse las imágenes sustituyendo los primeros bocetos por composiciones exclusivas:
 
 - deben representar un momento concreto, no una vista genérica de la Room;
 - pueden usar dibujo a lápiz o bolígrafo con poco detalle;

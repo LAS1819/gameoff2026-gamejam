@@ -1,9 +1,9 @@
 # TD - Memories
 
-- **Versión:** 0.1
+- **Versión:** 0.2
 - **Creado:** 2026-11-22
 - **Última actualización:** 2026-11-22
-- **Estado:** implementación lógica iniciada; arte de los conceptos pendiente de asignación
+- **Estado:** implementación lógica iniciada; pendiente asignar los cinco sprites de sombras
 
 ## 1. Objetivo
 
@@ -180,15 +180,15 @@ No se debe depender de `consumedInteractables`, porque ese estado pertenece a ot
 
 ### MVP
 
-El MVP reutiliza el concept art existente de la Room activa.
+La entrega inicial utiliza cinco imágenes horizontales rápidas creadas en Aseprite. Las imágenes representan a padre e hijo como sombras y presentan un elemento mínimo asociado a cada recuerdo.
 
 Recomendación para el `overlay`:
 
-- Mostrar la imagen con opacidad alta
-- Aplicar un filtro visual monocromático o de tinta
-- Superponer un fondo translúcido
-- Usar el título de la `Memoria`
-- Limitar el cuerpo a una o dos frases
+- mostrar la imagen con opacidad alta;
+- conservar el fondo ligeramente translúcido;
+- usar una única paleta cromática común;
+- mostrar el título de la `Memoria`;
+- limitar el cuerpo a una o dos frases.
 
 El `overlay` debe evitar:
 
@@ -201,13 +201,46 @@ El `overlay` debe evitar:
 
 ### Evolución visual
 
-Después del MVP pueden sustituirse las imágenes por bocetos exclusivos.
+Después de la entrega pueden sustituirse los bocetos por composiciones más detalladas.
 
-No conviene producir una escena completa por `Memoria`. La opción más eficiente es:
+No conviene producir una escena completa por `Memoria`. La opción más eficiente es mantener:
 
-- una composición horizontal por `Memoria`;
+- una composición horizontal común por `Memoria`;
 - reutilizar el tratamiento visual común;
-- mantener la silueta y paleta de la `Room` correspondiente.
+- mantener la silueta de padre e hijo;
+- cambiar únicamente el elemento que identifica cada recuerdo.
+
+### Especificaciones de los sprites
+
+Los recursos gráficos se producirán con estas características:
+
+- **Canvas recomendado:** `320 x 112` píxeles.
+- **Formato:** PNG sin transparencia innecesaria.
+- **Proporción:** horizontal, adaptada al área visual actual del panel.
+- **Paleta:** 8-16 colores por imagen.
+- **Contornos:** 1-2 píxeles de grosor, sin antialiasing.
+- **Sombras:** bloques compactos de negro, azul oscuro o morado oscuro.
+- **Objeto asociado:** máximo 16-32 píxeles de ancho.
+- **Fondo:** simple; nunca debe competir con las siluetas.
+- **Exportación:** Sprite único por Memoria, sin hojas de sprites salvo que se añada animación.
+
+Nombres recomendados:
+
+```text
+memory-01-first-steps.png
+memory-02-fossil.png
+memory-03-closed-window.png
+memory-04-eleven-thirty.png
+memory-05-orchard.png
+```
+
+Si se crean variaciones de normalidad o distorsión, deben compartir:
+
+- las mismas dimensiones;
+- el mismo pivote;
+- el mismo tamaño de siluetas;
+- la misma posición de padre e hijo;
+- el mismo tratamiento de borde.
 
 ---
 

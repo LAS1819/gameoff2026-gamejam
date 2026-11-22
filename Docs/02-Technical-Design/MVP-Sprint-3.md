@@ -55,6 +55,9 @@ The goal was no longer limited to opening the Basement. The sprint delivered the
 - [x] five room interactables configured
 - [x] first-discovery flags and repeat protection implemented
 - [x] non-modal discovery overlay implemented in the HUD
+- [ ] create five 320x112 shadow compositions in Aseprite
+- [ ] assign one Memory sprite to each overlay state
+- [ ] verify sprite scaling and point filtering in WebGL
 - [ ] assign final concept-art sprites
 - [ ] complete playtest coverage for the five discoveries
 - define the five optional Memory interactables in the Other Side

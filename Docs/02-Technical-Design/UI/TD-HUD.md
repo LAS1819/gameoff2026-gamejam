@@ -1,6 +1,6 @@
 # TD-HUD - HUD mínimo runtime (Sprint 2)
 
-- **Versión:** 3.0
+- **Versión:** 3.1
 - **Creado:** 2026-11-06
 - **Actualizado:** 2026-11-21
 - **Autor:** @LAS1819
@@ -142,6 +142,19 @@ Las vistas específicas mantienen su propio estado:
 - `HUDInventoryView`: slots, selección e inspección de objetos.
 - `HUDStoryOverlayView`: carta, final, reinicio y navegación modal.
 - `HUDMemoryDiscoveryView`: construcción, fade y presentación temporal de una Memoria.
+
+### Arte de Memorias
+
+El overlay de descubrimiento usa un sprite horizontal de `320 x 112` píxeles recomendado.
+
+El recurso representa padre e hijo como sombras y debe seleccionarse por `memoryId`. No se recomienda dibujar una composición distinta con dimensiones diferentes para cada Memoria.
+
+Import settings:
+
+- `Filter Mode = Point`;
+- mip maps desactivados;
+- compresión sin pérdida para las primeras pruebas;
+- escala sin recorte (`scale-to-fit`) para mantener completas las siluetas.
 
 ## USS compatible con esta versión de UI Toolkit
 
