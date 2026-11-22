@@ -1,8 +1,9 @@
 # MVP Sprint 3 - Complete prototype route and ending loop
 
 - Start: 2026-11-12
-- Closed: 2026-11-21
-- Status: Complete
+- Closed: 2026-11-23
+- Status: Complete prototype route - Memory discovery polish in progress
+- Update: 2026-11-22
 - Release milestone: `0.1.0-proto`
 
 ## Objective achieved
@@ -47,6 +48,17 @@ The goal was no longer limited to opening the Basement. The sprint delivered the
 - background removal in the final black room
 - Table, Ceiling Light, and Revelation Letter activation
 - no return route to the Basement
+
+### Memory discovery polish - in progress
+
+- define the five optional Memory interactables in the Other Side
+- activate one persistent Memory flag on the first examination
+- prevent repeated presentation of an already discovered Memory
+- add a short overlay for the discovery event
+- reuse the concept art of the active Room in the MVP overlay
+- keep the overlay non-modal and without a visible Memory counter
+- preserve the existing ending count of `0-2 / 3-4 / 5` Memories
+- validate the five discoveries, including return and restart behavior
 
 ### Letter and ending
 

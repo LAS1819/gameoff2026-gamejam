@@ -23,6 +23,7 @@ This folder contains the active technical reference for the `0.1.0-proto` vertic
 ## Systems
 
 - [Interaction model](./Gameplay/TD-Interactables.md)
+- [Memories](./Gameplay/TD-Memories.md)
 - [Room architecture](./Gameplay/Rooms/TD-Room-Architecture.md)
 - [HUD](./UI/TD-HUD.md)
 - [Audio](./Audio/TD-Audio-System.md)
