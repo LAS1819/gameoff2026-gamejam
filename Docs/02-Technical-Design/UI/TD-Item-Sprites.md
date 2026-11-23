@@ -70,7 +70,7 @@ Para cada PNG:
 - Filter Mode = `Point`;
 - Compression = sin perdida en el primer test;
 - mipmaps desactivados;
-- ppu = `64`;
+- ppu = `16`;
 - preserve alpha;
 - no recortar transparencias;
 - evitar atlasing temporal hasta medir el resultado.

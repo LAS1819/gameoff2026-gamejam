@@ -12,31 +12,37 @@ VisualElement {}
 #inventory-panel {
     position: absolute;
     left: 50%;
-    bottom: 24px;
+    bottom: 18px;
     translate: -50% 0;
     flex-direction: row;
+    align-items: center;
+    padding: 6px 8px;
+    background-color: rgba(22, 20, 32, 0.94);
+    border-width: 2px;
+    border-radius: 12px;
+    border-color: rgba(199, 163, 92, 0.92);
 }
 
 .inventory-slot {
-    width: 64px;
-    height: 64px;
-    margin-right: 12px;
+    width: 48px;
+    height: 48px;
+    margin-right: 8px;
     justify-content: center;
     align-items: center;
-    border-radius: 12px;
-    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    background-color: rgba(47, 43, 59, 0.96);
     border-width: 2px;
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(128, 119, 142, 0.78);
 }
 
 .inventory-slot.full {
-    background-color: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.6);
+    background-color: rgba(64, 57, 76, 0.98);
+    border-color: rgba(221, 207, 174, 0.9);
 }
 
 .inventory-slot.selected {
-    background-color: rgba(255, 214, 102, 0.22);
-    border-color: rgba(255, 214, 102, 0.9);
+    background-color: rgba(93, 70, 44, 0.98);
+    border-color: rgba(255, 211, 102, 1);
 }
 
 .slot-label {
@@ -47,6 +53,15 @@ VisualElement {}
     margin: 0;
     padding: 0;
     white-space: nowrap;
+}
+
+.inventory-slot > .slot-icon {
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 #feedback-text {
