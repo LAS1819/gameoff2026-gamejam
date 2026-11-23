@@ -17,10 +17,13 @@ VisualElement {}
     flex-direction: row;
     align-items: center;
     padding: 6px 8px;
-    background-color: rgba(22, 20, 32, 0.94);
-    border-width: 2px;
-    border-radius: 12px;
-    border-color: rgba(199, 163, 92, 0.92);
+    background-color: rgba(22, 20, 32, 0);
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/sprite-ui-inventory-background-v1.png");
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-slice-left: 12;
+    -unity-slice-top: 12;
+    -unity-slice-right: 12;
+    -unity-slice-bottom: 12;
 }
 
 .inventory-slot {

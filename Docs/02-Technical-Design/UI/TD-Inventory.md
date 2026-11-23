@@ -161,8 +161,9 @@ El tratamiento visual mantiene el minimalismo del HUD:
 - icono: representación completa a `48 x 48 px`, usando un `Image` de UI
   Toolkit para respetar el tamaño nativo del sprite.
 
-No se utiliza un sprite de background del slot: el estilo compartido se
-resuelve en USS y mantiene el fallback textual para items sin icono.
+El panel usa ahora
+`sprite-ui-inventory-background-v1.png` como background 9-slice. Los slots
+siguen resueltos en USS y mantienen el fallback textual para items sin icono.
 
 ## Background decorativo del inventario
 
@@ -218,10 +219,10 @@ colocarse cerca de las cuatro esquinas.
 
 ### Import settings
 
-Ruta recomendada:
+Asset implementado:
 
 ```text
-Assets/Visuals/UI/Inventory/inventory-background-v1.png
+Assets/Visuals/UI/Inventory/sprite-ui-inventory-background-v1.png
 ```
 
 Configuración inicial:
@@ -308,6 +309,13 @@ para este background porque dejaría bandas vacías si cambia la relación.
 
 No declarar el background en UXML mediante un `style`; debe permanecer en USS
 para que se pueda sustituir posteriormente sin tocar la lógica.
+
+### Estado implementado
+
+El asset actual mide `180 x 64 px`, usa PPU `16`, Filter Mode Point, sin
+mipmaps y tiene los bordes 9-slice configurados a `12 px` por lado. La
+asignación se realiza en `#inventory-panel`; no modifica los slots ni su
+comportamiento.
 
 ### Convivencia con el estilo actual
 
