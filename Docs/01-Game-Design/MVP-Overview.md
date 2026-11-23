@@ -1,7 +1,7 @@
-# Game Off 2026 - Prototype 0.1.0
+# Game Off 2026 - Prototype 0.1.1
 
-- Version: 0.1.0-proto
-- Updated: 2026-11-21
+- Version: 0.1.1-proto
+- Updated: 2026-11-23
 - Status: complete playable vertical slice
 
 ## Objective
