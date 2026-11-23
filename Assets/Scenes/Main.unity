@@ -4904,12 +4904,13 @@ MonoBehaviour:
   lanternItemId: flashlight_tool
   memory01Concept: {fileID: 21300000, guid: 6d221f6725931d441924ea53beba8c09, type: 3}
   memory02Concept: {fileID: 21300000, guid: 2e17c5cfdf610a74eaeaab7e288082f2, type: 3}
-  memory03Concept: {fileID: 0}
-  memory04Concept: {fileID: 0}
-  memory05Concept: {fileID: 0}
+  memory03Concept: {fileID: 21300000, guid: 1b4f2d7bbd49b884a9de2e7ddb1d20f1, type: 3}
+  memory04Concept: {fileID: 21300000, guid: a530aba7526a453489efec0c8eafdd27, type: 3}
+  memory05Concept: {fileID: 21300000, guid: dc5ced6d4c9e560469fbede7c596f40c, type: 3}
   feedbackDuration: 2
   roomTransitionDuration: 0.35
   realityPulseDuration: 0.25
+  memoryDiscoveryDuration: 10
 --- !u!1 &1198215900
 GameObject:
   m_ObjectHideFlags: 0

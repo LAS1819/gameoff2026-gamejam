@@ -149,6 +149,9 @@ El overlay de descubrimiento usa un sprite horizontal de `320 x 112` píxeles re
 
 El recurso representa padre e hijo como sombras y debe seleccionarse por `memoryId`. No se recomienda dibujar una composición distinta con dimensiones diferentes para cada Memoria.
 
+El overlay muestra un botón `Continue` y se cierra automáticamente después de `memoryDiscoveryDuration` segundos.
+El valor inicial recomendado es `10`, configurable desde el Inspector de `HUDController`.
+
 Import settings:
 
 - `Filter Mode = Point`;

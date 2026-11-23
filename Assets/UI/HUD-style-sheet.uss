@@ -213,6 +213,20 @@ VisualElement {}
     margin-top: 8px;
 }
 
+.memory-discovery-close {
+    width: 176px;
+    height: 36px;
+    margin-top: 10px;
+    color: rgba(248, 236, 205, 0.98);
+    background-color: rgba(70, 52, 36, 0.92);
+    border-width: 1px;
+    border-color: rgba(238, 216, 169, 0.72);
+    border-radius: 6px;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    font-size: 13px;
+}
+
 #story-overlay-backdrop {
     position: absolute;
     left: 0;

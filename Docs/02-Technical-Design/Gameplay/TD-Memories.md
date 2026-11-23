@@ -52,13 +52,15 @@ MemoryDiscoveryOverlay
 └── texto breve
 ```
 
-La presentación dura aproximadamente 5.5 segundos:
+La presentación dura por defecto aproximadamente 10 segundos:
 
 - 0.3 segundos de entrada;
-- 4.6 segundos de contenido;
+- 9.1 segundos de contenido;
 - 0.6 segundos de salida.
 
-El jugador puede seguir viendo la `Room` actual detrás del overlay. No recibe el contador de `Memorias` y no necesita pulsar un botón.
+El jugador puede seguir viendo la `Room` actual detrás del overlay. No recibe el contador de `Memorias`.
+Puede cerrar el mensaje pulsando `Continue` o esperar a que finalice el temporizador.
+La duración debe definirse mediante un campo serializado en `HUDController` para ajustar las pruebas sin recompilar.
 
 ## 3. Datos
 

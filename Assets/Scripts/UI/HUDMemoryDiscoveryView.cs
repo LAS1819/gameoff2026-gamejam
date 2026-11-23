@@ -10,7 +10,9 @@ public class HUDMemoryDiscoveryView
     private VisualElement image;
     private Label title;
     private Label body;
+    private Button continueButton;
     private Coroutine routine;
+    private float discoveryDuration;
 
     public HUDMemoryDiscoveryView(
         MonoBehaviour owner,
@@ -19,10 +21,12 @@ public class HUDMemoryDiscoveryView
         Sprite memory02,
         Sprite memory03,
         Sprite memory04,
-        Sprite memory05)
+        Sprite memory05,
+        float discoveryDuration)
     {
         this.owner = owner;
         concepts = new[] { memory01, memory02, memory03, memory04, memory05 };
+        this.discoveryDuration = discoveryDuration;
         Build(root);
     }
 
@@ -44,7 +48,23 @@ public class HUDMemoryDiscoveryView
         {
             owner.StopCoroutine(routine);
         }
-        routine = owner.StartCoroutine(Play(memory.duration));
+        var duration = discoveryDuration > 0f ? discoveryDuration : 10f;
+        routine = owner.StartCoroutine(Play(duration));
+    }
+
+    public void Close()
+    {
+        if (routine != null)
+        {
+            owner.StopCoroutine(routine);
+            routine = null;
+        }
+
+        if (overlay != null)
+        {
+            overlay.style.opacity = 0f;
+            overlay.style.display = DisplayStyle.None;
+        }
     }
 
     private Sprite ResolveConcept(string memoryId)
@@ -76,7 +96,7 @@ public class HUDMemoryDiscoveryView
             root.Add(overlay);
         }
 
-        overlay.pickingMode = PickingMode.Ignore;
+        overlay.pickingMode = PickingMode.Position;
         overlay.style.display = DisplayStyle.None;
 
         var backdrop = overlay.Q<VisualElement>("memory-discovery-backdrop");
@@ -93,7 +113,7 @@ public class HUDMemoryDiscoveryView
         {
             panel = new VisualElement { name = "memory-discovery-panel" };
             panel.AddToClassList("memory-discovery-panel");
-            panel.pickingMode = PickingMode.Ignore;
+            panel.pickingMode = PickingMode.Position;
             overlay.Add(panel);
         }
 
@@ -120,6 +140,27 @@ public class HUDMemoryDiscoveryView
             body.AddToClassList("memory-discovery-body");
             panel.Add(body);
         }
+
+        continueButton = panel.Q<Button>("memory-discovery-close");
+        if (continueButton == null)
+        {
+            continueButton = new Button
+            {
+                name = "memory-discovery-close",
+                text = "Continue"
+            };
+            continueButton.AddToClassList("memory-discovery-close");
+            continueButton.pickingMode = PickingMode.Position;
+            panel.Add(continueButton);
+        }
+
+        continueButton.UnregisterCallback<ClickEvent>(OnContinueClicked);
+        continueButton.RegisterCallback<ClickEvent>(OnContinueClicked);
+    }
+
+    private void OnContinueClicked(ClickEvent _)
+    {
+        Close();
     }
 
     private IEnumerator Play(float duration)

@@ -31,6 +31,7 @@ public class HUDController : MonoBehaviour
     [SerializeField] private float feedbackDuration = 2f;
     [SerializeField] private float roomTransitionDuration = 0.35f;
     [SerializeField] private float realityPulseDuration = 0.25f;
+    [SerializeField] private float memoryDiscoveryDuration = 10f;
 
     private PanelRenderer.VersionedUIReloadCallback reloadCallback;
     private Label feedbackText;
@@ -246,7 +247,8 @@ public class HUDController : MonoBehaviour
             memory02Concept,
             memory03Concept,
             memory04Concept,
-            memory05Concept);
+            memory05Concept,
+            memoryDiscoveryDuration);
         storyView = new HUDStoryOverlayView(this, hudRoot);
 
         BindShiftButton(root);

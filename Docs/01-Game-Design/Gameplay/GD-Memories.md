@@ -155,10 +155,11 @@ El MVP recomendado utiliza una imagen superpuesta sobre la Room activa durante u
 Duración orientativa:
 
 - aparición: 0.2-0.4 segundos;
-- presentación: 4.5-5.5 segundos;
+- presentación: hasta 10 segundos;
 - desaparición: 0.4-0.6 segundos.
 
 La secuencia debe reforzar que algo relevante ha sido descubierto, sin bloquear el juego ni mostrar el contador `X/5`. La señal positiva puede acompañarse de un pequeño sonido o música, pero no debe depender de él.
+El jugador puede cerrar el mensaje anticipadamente mediante el botón `Continue`.
 
 #### Representación visual para la entrega
 
