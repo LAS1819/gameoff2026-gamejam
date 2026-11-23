@@ -135,6 +135,9 @@ The prototype is accepted when:
 - final accessibility pass
 - WebGL and Windows delivery build validation
 - itch.io private-draft and publication checks
+- shared HUD, font, inventory, cursor, and Memory presentation polish
+- room-by-room visual sweep
+- optional lightweight Lantern / global-light prototype behind the P2 scope gate
 
 ## Technical rules
 
@@ -144,4 +147,4 @@ The prototype is accepted when:
 - keep room data centralized in `DefaultRoomCatalog`
 - prefer existing systems over new managers
 - preserve explicit and testable state transitions
-- do not add gameplay systems during Sprint 4
+- do not add gameplay systems unless they pass the Sprint 4 P2 scope gate

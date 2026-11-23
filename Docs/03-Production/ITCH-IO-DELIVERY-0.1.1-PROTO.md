@@ -32,7 +32,7 @@ This guide prepares the first itch.io page for the `0.1.1-proto` test build.
 
 ## Page configuration
 
-- **Embed size:** `960 x 540`
+- **Embed size:** `Embed in Page` -> `Auto-detect size (Unity HTML only)`
 - **Aspect ratio:** `16:9`
 - **Fullscreen button:** Enabled
 - **Mobile friendly:** No
