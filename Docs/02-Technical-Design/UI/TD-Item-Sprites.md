@@ -2,8 +2,11 @@
 
 - **Version:** 1.0
 - **Creado:** 2026-11-23
+- **Actualizado:** 2026-11-23
 - **Autor:** @LAS1819
 - **Estado:** Planificado para el Bloque 1
+
+---
 
 ## Objetivo
 

@@ -1,17 +1,20 @@
-# TD-Inventory - Inventario grafico Sprint 4
+# TD-Inventory - Inventario gráfico Sprint 4
 
 - **Version:** 1.0
 - **Creado:** 2026-11-23
+- **Actualizado:** 2026-11-23
 - **Autor:** @LAS1819
 - **Estado:** Planificado para el Bloque 1
+
+---
 
 ## Objetivo
 
 Reemplazar los placeholders visuales de los tres slots del inventario sin
-cambiar el comportamiento actual de seleccion, inspeccion y eliminacion.
+cambiar el comportamiento actual de selección, inspección y eliminación.
 
 El sistema debe seguir usando `PanelRenderer + UXML + USS + HUDInventoryView`;
-no requiere una escena nueva, un manager nuevo ni migracion a ScriptableObjects.
+no requiere una escena nueva, un manager nuevo ni migración a ScriptableObjects.
 
 ## Estado actual
 
@@ -39,11 +42,13 @@ Cada slot usa:
 - left click para seleccionar;
 - right click o context click para inspeccionar.
 
-## Decision tecnica
+---
 
-### Representacion visual
+## Decisión técnica
 
-Cada slot mantiene el mismo `VisualElement`. Dentro de el se reutiliza:
+### Representación visual
+
+Cada slot mantiene el mismo `VisualElement`. Dentro de él se reutiliza:
 
 - `slot-icon` para el sprite del item;
 - `slot-label` solo como fallback textual.
@@ -61,27 +66,27 @@ fallback de nombre corto si falta el sprite.
 
 ### Datos
 
-No hace falta crear un catalogo nuevo ni ampliar `InventoryItemData` con
-referencias a Assets. La opcion recomendada mantiene el dato del item como
-informacion de gameplay y resuelve su icono por `item.id` en la capa visual.
+No hace falta crear un catálogo nuevo ni ampliar `InventoryItemData` con
+referencias a Assets. La opción recomendada mantiene el dato del item como
+información de gameplay y resuelve su icono por `item.id` en la capa visual.
 
 No se recomienda almacenar rutas de Assets como strings en el modelo runtime.
 Las referencias de Sprite se mantienen serializadas en `HUDController` y se
 entregan a `HUDInventoryView`.
 
-### Asignacion desde HUDController
+### Asignación desde HUDController
 
-`HUDController` puede seguir siendo el punto de configuracion visual:
+`HUDController` puede seguir siendo el punto de configuración visual:
 
 - serializar los Sprites prioritarios;
 - pasarles una referencia o resolver al construir `HUDInventoryView`;
 - no crear un IconManager ni un ScriptableObject por este bloque.
 
-La asignacion exacta se detalla en [TD-Item-Sprites.md](TD-Item-Sprites.md).
+La asignación exacta se detalla en [TD-Item-Sprites.md](TD-Item-Sprites.md).
 
-## Dimension y layout
+## Dimensión y layout
 
-Mantener el tamano actual de `64 x 64 px` como base y un margen lateral de
+Mantener el tamaño actual de `64 x 64 px` como base y un margen lateral de
 `12 px`.
 
 Import settings de los iconos:
@@ -110,7 +115,7 @@ El slot usa `scale-to-fit` para que el sprite completo quede visible.
 - icono o fallback;
 - borde activo;
 - left click disponible;
-- right click de inspeccion disponible.
+- right click de inspección disponible.
 
 ### Selected
 
@@ -124,15 +129,15 @@ Si falta un sprite:
 
 - el slot permanece `full`;
 - se conserva la inicial o abreviatura actual;
-- la seleccion e inspeccion siguen funcionando;
+- la selección e inspección siguen funcionando;
 - no se elimina el item del inventario.
 
-Si falta el label por algun motivo:
+Si falta el label por algún motivo:
 
 - el slot conserva fondo, borde y estado seleccionado;
-- el item sigue disponible para seleccion e inspeccion.
+- el item sigue disponible para selección e inspección.
 
-## Implementacion
+## Implementación
 
 1. Serializar los seis Sprites prioritarios en `HUDController`.
 2. Pasar las referencias necesarias al construir `HUDInventoryView`.
@@ -143,11 +148,11 @@ Si falta el label por algun motivo:
 7. No cambiar eventos, flags ni consumo de items.
 8. Actualizar [TD-HUD.md](TD-HUD.md) con el estado final del inventario.
 
-## Validacion
+## Validación
 
 Probar:
 
-- slots vacios;
+- slots vacíos;
 - un, dos y tres items;
 - slot seleccionado;
 - fallback sin sprite;
@@ -155,7 +160,7 @@ Probar:
 - right click;
 - pickup y removal;
 - reset desde Restart;
-- resolucion `640 x 360`;
+- resolución `640 x 360`;
 - embed WebGL `640 x 360`.
 
 ## Criterio de done
@@ -164,6 +169,6 @@ El inventario pasa si:
 
 - los tres slots son legibles;
 - los iconos no cortan ni deforman;
-- el fallback no bloquea item actions;
+- el fallback no bloquea acciones del item;
 - el reset limpia slots e iconos;
 - no se crean cuellos de botella ni managers nuevos.

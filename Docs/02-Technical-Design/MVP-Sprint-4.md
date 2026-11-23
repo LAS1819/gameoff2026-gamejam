@@ -55,7 +55,7 @@ estado en Editor, WebGL y Windows.
 ### Bloque 1 - Fundaciones visuales compartidas
 
 - **Rama recomendada:** `feat/s4-ui-foundations`
-- [ ] Importar y probar una fuente retro legible.
+- [x] Importar y probar una fuente retro legible.
 - [ ] Sustituir los placeholders de slots e iconos prioritarios del inventario.
 - [ ] Añadir sprites propios a Staff Key, Library Key, Worn Book, Floppy Disk,
       Basement Code y Valve Handle.
