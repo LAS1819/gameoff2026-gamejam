@@ -1,9 +1,10 @@
 # MVP Sprint 3 - Complete prototype route and ending loop
 
 - Start: 2026-11-12
-- Closed: 2026-11-21
-- Status: Complete
-- Release milestone: `0.1.0-proto`
+- Closed: 2026-11-23
+- Status: Complete prototype route and Memory discovery MVP
+- Update: 2026-11-23
+- Release milestone: `0.1.1-proto`
 
 ## Objective achieved
 
@@ -48,6 +49,21 @@ The goal was no longer limited to opening the Basement. The sprint delivered the
 - Table, Ceiling Light, and Revelation Letter activation
 - no return route to the Basement
 
+### Memory discovery MVP - complete
+
+- [x] Memory data model and catalog implemented
+- [x] five room interactables configured
+- [x] first-discovery flags and repeat protection implemented
+- [x] non-modal discovery overlay implemented in the HUD
+- [x] create five 320x112 shadow compositions
+- [x] assign one Memory sprite to each overlay state
+- [x] keep the overlay non-modal and without a visible Memory counter
+- [x] preserve the existing ending count of `0-2 / 3-4 / 5` Memories
+- [x] add a 10-second display duration configurable from the Inspector
+- [x] add manual Continue control
+- [ ] validate the five final room interactables with their final scene positions
+- [ ] complete playtest coverage for the five discoveries
+
 ### Letter and ending
 
 - reusable UI Toolkit Story Overlay
@@ -80,6 +96,10 @@ All release blockers are closed:
 - [x] Letter and Ending overlays are readable and clickable
 - [x] ending depends on recovered Memories
 - [x] restart returns to a clean Lobby
+- [x] Memory 01 discovery works in Lobby Normal Reality
+- [x] Memory overlay artwork is assigned for all five Memories
+- [x] left-click and right-click Memory behavior is separated
+- [x] Memory overlay supports Continue and automatic timeout
 - [x] Unity compiles with 0 errors and 0 warnings
 
 ## Deferred to Sprint 4
@@ -99,4 +119,4 @@ Sprint 4 is a polish and delivery sprint, not a new gameplay expansion. The prot
 
 ## Release handoff
 
-`0.1.0-proto` is ready to move from `develop` into `main` once the documentation release pass is committed and the branches are synchronized. The next source-control milestones are the `v0.1.0-proto` tag and GitHub Release.
+`0.1.1-proto` is ready for test builds and the Sprint 4 delivery pass. Remaining work is polish and final scene placement, not a new gameplay framework.

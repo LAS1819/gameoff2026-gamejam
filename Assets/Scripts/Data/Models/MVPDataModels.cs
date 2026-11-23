@@ -70,6 +70,7 @@ public class InteractableData
     public string description;
     public string descriptionInNormalReality;
     public string descriptionInOtherReality;
+    public string memoryId;
     public InteractionType interactionType;
     
     // Visibility rules for reality system
@@ -125,4 +126,75 @@ public class RoomData
     public string displayName;
     public List<InteractableData> interactables = new List<InteractableData>();
     public List<string> connectedRoomIds = new List<string>();
+}
+
+[Serializable]
+public class MemoryDefinition
+{
+    public string id;
+    public string title;
+    public string body;
+    public float duration;
+
+    public MemoryDefinition(string id, string title, string body, float duration = 10f)
+    {
+        this.id = id;
+        this.title = title;
+        this.body = body;
+        this.duration = duration;
+    }
+}
+
+public static class MemoryCatalog
+{
+    private static readonly Dictionary<string, MemoryDefinition> Definitions =
+        new Dictionary<string, MemoryDefinition>(StringComparer.OrdinalIgnoreCase)
+        {
+            {
+                GameFlagNames.Memory_01,
+                new MemoryDefinition(
+                    GameFlagNames.Memory_01,
+                    "First Steps",
+                    "I remember walking beside him, when the whole world seemed larger than both of us.")
+            },
+            {
+                GameFlagNames.Memory_02,
+                new MemoryDefinition(
+                    GameFlagNames.Memory_02,
+                    "The Fossil",
+                    "Even the things that disappear leave marks. Father said the past can remain for a very long time.")
+            },
+            {
+                GameFlagNames.Memory_03,
+                new MemoryDefinition(
+                    GameFlagNames.Memory_03,
+                    "The Closed Window",
+                    "I shut myself away. He stayed outside the door, patient, until I was ready to open it.")
+            },
+            {
+                GameFlagNames.Memory_04,
+                new MemoryDefinition(
+                    GameFlagNames.Memory_04,
+                    "11:30",
+                    "At 11:30, we talked about ordinary things. It was the last conversation I never knew would end.")
+            },
+            {
+                GameFlagNames.Memory_05,
+                new MemoryDefinition(
+                    GameFlagNames.Memory_05,
+                    "The Orchard",
+                    "His hands worked the soil with quiet pride. For a while, helping others made him truly happy.")
+            }
+        };
+
+    public static bool TryGet(string memoryId, out MemoryDefinition definition)
+    {
+        if (string.IsNullOrWhiteSpace(memoryId))
+        {
+            definition = null;
+            return false;
+        }
+
+        return Definitions.TryGetValue(memoryId, out definition);
+    }
 }

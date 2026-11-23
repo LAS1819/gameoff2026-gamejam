@@ -60,6 +60,18 @@ public class InteractionManager : MonoBehaviour
             return true;
         }
 
+        if (!string.IsNullOrWhiteSpace(interactable.memoryId)
+            && interactable.interactionType == InteractionType.Examine)
+        {
+            if (!InteractionGuard.CanProcess(interactable))
+            {
+                return false;
+            }
+
+            ShowFeedback("This needs closer inspection.", 1.5f);
+            return true;
+        }
+
         if (IsAlreadyCollected(interactable))
         {
             ShowFeedback("There is nothing interesting here.", 1.5f);

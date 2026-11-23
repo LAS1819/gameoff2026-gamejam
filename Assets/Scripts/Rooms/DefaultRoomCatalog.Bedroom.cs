@@ -19,6 +19,19 @@ public static partial class DefaultRoomCatalog
     {
         bedroom.interactables.Add(new InteractableData
         {
+            id = "memory_03_closed_window",
+            displayName = "Closed Window",
+            description = "The window is sealed from the outside.",
+            descriptionInOtherReality = "Beyond the bricks, I remember the patient shadow of my father waiting on the other side.",
+            memoryId = GameFlagNames.Memory_03,
+            interactionType = InteractionType.Examine,
+            visibleInNormalReality = false,
+            visibleInOtherReality = true,
+            resultFlag = GameFlagNames.Memory_03
+        });
+
+        bedroom.interactables.Add(new InteractableData
+        {
             id = "nightstand",
             displayName = "Nightstand",
             description = "A small nightstand with old objects on top. One of them is a flashlight.",

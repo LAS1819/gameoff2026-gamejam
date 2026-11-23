@@ -10,6 +10,11 @@ internal static class InteractionExamineTransitionProcessor
             return false;
         }
 
+        if (TryResolveMemoryDiscovery(interactable))
+        {
+            return true;
+        }
+
         if ((interactable.id == "library_door" || interactable.id == "bedroom_door") &&
             (RealityManager.Instance == null || RealityManager.Instance.CurrentReality != RealityType.OtherSide))
         {
@@ -24,47 +29,7 @@ internal static class InteractionExamineTransitionProcessor
             return false;
         }
 
-        if (interactable.id.Equals("hallway_obstacle", StringComparison.OrdinalIgnoreCase)
-            && !string.IsNullOrEmpty(interactable.resultFlag))
-        {
-            var gameManager = GameManager.Instance;
-            if (gameManager != null)
-            {
-                gameManager.SetFlag(interactable.resultFlag, true);
-            }
-        }
-        else if (interactable.id.Equals("shelf_secret_door", StringComparison.OrdinalIgnoreCase))
-        {
-            var gameManager = GameManager.Instance;
-            if (gameManager != null)
-            {
-                gameManager.SetFlag(GameFlagNames.LibrarySecretRevealed, true);
-            }
-        }
-        else if ((interactable.id.Equals("shelf_right", StringComparison.OrdinalIgnoreCase)
-            || interactable.id.Equals("right_shelf", StringComparison.OrdinalIgnoreCase))
-            && !string.IsNullOrEmpty(interactable.resultFlag))
-        {
-            var gameManager = GameManager.Instance;
-            if (gameManager != null)
-            {
-                gameManager.SetFlag(interactable.resultFlag, true);
-            }
-        }
-        else if ((interactable.id.Equals("storage_shelf_left", StringComparison.OrdinalIgnoreCase)
-            || interactable.id.Equals("storage_shelf_right", StringComparison.OrdinalIgnoreCase)
-            || interactable.id.Equals("personal_effects_box", StringComparison.OrdinalIgnoreCase)
-            || interactable.id.Equals("pipelines", StringComparison.OrdinalIgnoreCase)
-            || interactable.id.Equals("ambulance_lights", StringComparison.OrdinalIgnoreCase)
-            || interactable.id.Equals("denial_manifestation", StringComparison.OrdinalIgnoreCase))
-            && !string.IsNullOrEmpty(interactable.resultFlag))
-        {
-            var gameManager = GameManager.Instance;
-            if (gameManager != null)
-            {
-                gameManager.SetFlag(interactable.resultFlag, true);
-            }
-        }
+        ApplyExplicitExamineFlag(interactable);
 
         var currentReality = RealityManager.Instance != null ? RealityManager.Instance.CurrentReality : RealityType.Normal;
         var descriptionText = interactable.GetDescriptionForReality(currentReality);
@@ -82,6 +47,75 @@ internal static class InteractionExamineTransitionProcessor
         }
 
         TryResolveBasementProgress();
+
+        return true;
+    }
+
+    private static void ApplyExplicitExamineFlag(InteractableData interactable)
+    {
+        var gameManager = GameManager.Instance;
+        if (gameManager == null || interactable == null)
+        {
+            return;
+        }
+
+        if (interactable.id.Equals("hallway_obstacle", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("shelf_secret_door", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("shelf_right", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("right_shelf", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("storage_shelf_left", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("storage_shelf_right", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("personal_effects_box", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("pipelines", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("ambulance_lights", StringComparison.OrdinalIgnoreCase)
+            || interactable.id.Equals("denial_manifestation", StringComparison.OrdinalIgnoreCase))
+        {
+            if (!string.IsNullOrEmpty(interactable.resultFlag))
+            {
+                gameManager.SetFlag(interactable.resultFlag, true);
+            }
+        }
+    }
+
+    private static bool TryResolveMemoryDiscovery(InteractableData interactable)
+    {
+        if (string.IsNullOrWhiteSpace(interactable.memoryId))
+        {
+            return false;
+        }
+
+        var isLobbyFirstMemory = interactable.id.Equals("memory_01_family_picture", StringComparison.OrdinalIgnoreCase)
+            && interactable.memoryId == GameFlagNames.Memory_01;
+        if (!isLobbyFirstMemory
+            && (RealityManager.Instance == null
+                || RealityManager.Instance.CurrentReality != RealityType.OtherSide))
+        {
+            return false;
+        }
+
+        var gameManager = GameManager.Instance;
+        if (gameManager == null)
+        {
+            return false;
+        }
+
+        if (gameManager.HasFlag(interactable.memoryId))
+        {
+            return false;
+        }
+
+        if (!MemoryCatalog.TryGet(interactable.memoryId, out var memory))
+        {
+            Debug.LogWarning($"[MemoryDiscovery] Missing catalog entry for '{interactable.memoryId}'.");
+            return false;
+        }
+
+        gameManager.SetFlag(interactable.memoryId, true);
+
+        if (UIManager.Instance != null)
+        {
+            UIManager.Instance.ShowMemoryDiscovery(memory);
+        }
 
         return true;
     }

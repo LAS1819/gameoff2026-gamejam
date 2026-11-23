@@ -19,6 +19,19 @@ public static partial class DefaultRoomCatalog
     {
         basement.interactables.Add(new InteractableData
         {
+            id = "memory_05_toolbox",
+            displayName = "Toolbox",
+            description = "A toolbox shows years of worn paint and repeated use.",
+            descriptionInOtherReality = "The tools return me to my father's orchard and the quiet pride he found in helping others.",
+            memoryId = GameFlagNames.Memory_05,
+            interactionType = InteractionType.Examine,
+            visibleInNormalReality = false,
+            visibleInOtherReality = true,
+            resultFlag = GameFlagNames.Memory_05
+        });
+
+        basement.interactables.Add(new InteractableData
+        {
             id = "storage_shelf_left",
             displayName = "Storage Shelves",
             description = "The left shelves are packed with old boxes and rusted tools.",

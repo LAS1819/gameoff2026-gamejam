@@ -1,6 +1,6 @@
 # Technical design
 
-This folder contains the active technical reference for the `0.1.0-proto` vertical slice and the implementation history behind it.
+This folder contains the active technical reference for the `0.1.1-proto` vertical slice and the implementation history behind it.
 
 ## Start here
 
@@ -23,6 +23,7 @@ This folder contains the active technical reference for the `0.1.0-proto` vertic
 ## Systems
 
 - [Interaction model](./Gameplay/TD-Interactables.md)
+- [Memories](./Gameplay/TD-Memories.md)
 - [Room architecture](./Gameplay/Rooms/TD-Room-Architecture.md)
 - [HUD](./UI/TD-HUD.md)
 - [Audio](./Audio/TD-Audio-System.md)
@@ -44,4 +45,4 @@ This folder contains the active technical reference for the `0.1.0-proto` vertic
 - no null-propagation operators in runtime scripts
 - UI Toolkit through `PanelRenderer`
 
-Older sprint documents remain as historical records. They should not override the current `0.1.0-proto` specification.
+Older sprint documents remain as historical records. They should not override the current `0.1.1-proto` specification.

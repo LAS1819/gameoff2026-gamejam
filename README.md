@@ -1,6 +1,6 @@
 # Game Off 2026 - Psychological Horror Prototype
 
-`0.1.0-proto` is a complete playable point-and-click horror prototype created for Game Off 2026.
+`0.1.1-proto` is a complete playable point-and-click horror prototype created for Game Off 2026.
 
 The player explores a liminal building by switching between the Normal reality and the Other Side, recovering memories, and following the truth behind a father's disappearance. The current prototype includes the full route from the Lobby to the Forest, revelation letter, ending evaluation, and restart loop.
 

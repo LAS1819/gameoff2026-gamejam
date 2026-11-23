@@ -2,6 +2,53 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1-proto] - 2026-11-23 - Memory discovery pass and test-build readiness
+
+**Added:**
+
+- Five optional Memories with persistent Memory flags and right-click examination
+- Memory discovery overlay for concise narrative presentation
+- Five 320x112 pixel-art Memory sprites for the Lobby, Hallway, Bedroom, Library, and Basement
+- Ten-second configurable Memory overlay duration through `HUDController.memoryDiscoveryDuration`
+- Continue button for closing Memory overlays before the automatic timeout
+- Memory_01 discovery support in the Lobby in Normal Reality
+- Memory_02 discovery support in the Hallway in the Other Side
+- Memory test interactables in every playable Room
+- Initial documentation for the final 0.1.1-proto test-build milestone
+
+**Changed:**
+
+- Memory presentation now uses a dedicated non-modal overlay instead of the modal Story Overlay
+- Memory sprites use 320x112 horizontal pixel compositions with Point filtering
+- Memory overlay art uses `scale-to-fit` to preserve complete silhouettes
+- Memory display time is configurable from the Unity Inspector
+- Sprint 3 documentation now records Memory discovery as a complete MVP block
+- MVP specification and overview now identify `0.1.1-proto` as the test-build milestone
+- HUD responsibilities remain split between inventory, story overlays, and Memory discovery views
+
+**Fixed:**
+
+- Prevented left-click Use actions from discovering Memories
+- Restricted Memory discovery to right-click Examine except where Memory_01 is explicitly available in Lobby Normal Reality
+- Prevented repeat examinations from reopening or reactivating an already recovered Memory
+- Prevented generic Examine result flags from changing unrelated state
+- Fixed Memory_01 and Memory_02 sprites remaining unassigned in the HUD scene
+- Fixed Forest Room initial depth not applying when entering from the resolved Basement
+- Fixed initial overlay visibility and disabled modal controls at startup
+- Fixed Wardrobe, monster, switch, and Library Door interaction regressions
+- Fixed repeated interaction logic bypassing required-item and reality checks
+- Fixed Story Overlay and Memory overlay lifecycle after restart
+
+**Notes:**
+
+- `0.1.1-proto` is the current test-build candidate for WebGL and Windows delivery
+- The remaining work is room-by-room final interactable placement, polish, accessibility, localization, and final build validation
+- Memory 03-05 scene interactables remain in test position until the final Room pass assigns the intended objects
+- The release does not introduce a persistent save system or post-MVP collection UI
+- Sprint 4 is the polish and delivery sprint for builds, Itch.io, Credits, localization, and final narrative copy
+
+---
+
 ## [0.1.0-proto] - 2026-11-21 - Forest room and complete ending game loop
 
 **Added:**

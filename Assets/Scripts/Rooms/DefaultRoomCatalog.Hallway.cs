@@ -19,6 +19,19 @@ public static partial class DefaultRoomCatalog
     {
         hallway.interactables.Add(new InteractableData
         {
+            id = "memory_02_ammonite_stain",
+            displayName = "Ammonite Stain",
+            description = "A damp stain follows the shape of an ammonite.",
+            descriptionInOtherReality = "The stain opens a childhood memory of fossils and summers spent beside my father.",
+            memoryId = GameFlagNames.Memory_02,
+            interactionType = InteractionType.Examine,
+            visibleInNormalReality = false,
+            visibleInOtherReality = true,
+            resultFlag = GameFlagNames.Memory_02
+        });
+
+        hallway.interactables.Add(new InteractableData
+        {
             id = "hallway_obstacle",
             displayName = "Hallway Obstacle",
             description = "A massive figure blocks the path in this reality.",
