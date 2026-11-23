@@ -162,3 +162,27 @@ Si una tarea de pulido no termina antes del cierre:
 3. documentar la limitación pública;
 4. priorizar jugar, ver y entender el loop completo.
 
+---
+
+## Tareas MVP Sprint 4 - IDEAS (por organizar y priorizar)
+
+- GRÁFICOS: mejorar Backgrounds, Interactables y demás elementos gráficos de cada Room.
+- FUENTE: importar fuente retro para los textos, coherente con la estética del juego.
+- FUENTE: buscar fuente retro o escalada a resolución adecuada para los textos del juego en Carta de Revelación y/o Memorias.
+- INVENTARIO UI: mejorar apartado gráfico del inventario con sprites propios (ahora mismo son genéricos o placeholders).
+- ITEMS: añadir sprites a cada Item para que se represente en el inventario.
+- DEDICATORIA: añadir texto final con dedicatoria especial a Luki.
+- ROOMS: mejorar transición entre Rooms.
+- SFX: añadir (crear con Sonic Pi) los SFX base para el MVP, incluyendo interacciones, transiciones y eventos clave en cada Room.
+- LINTERNA: añadir sistema de mecánica e iluminación de Room mediante Linterna, usando, como se había planeado, un sistema de Luz Global y un sprite light 2D para simular el efecto de la linterna alrededor del cursor del jugador.
+- LUZ GLOBAL: implementar un sistema de iluminación global que afecte a todas las Rooms, permitiendo simular cambios de luz ambiental y reforzar la mecánica de la Linterna por cada una de las Rooms.
+- MAIN MENU: diseñar sistema para Menú Principal, incluyendo opciones de inicio, configuración y salida del juego. De momento, para la Jam, podemos incluirlo en la misma escena Main que estamos usando para todo el juego.
+- SFX MEMORIA RECORDADA: añadir efectos de sonido específicos para cuando una Memoria es recordada, reforzando la retroalimentación auditiva del jugador.
+- INTERACTABLES: ampliar número de Interactables por Room para añadir más narrativa y más hotspots que investigar.
+- GAMEPLAY: complicar un poco más el flujo de puzles para alargar un poco la duración del juego y aumentar el desafío para el jugador.
+- CURSOR: crear un diseño personalizado para el cursor del jugador, coherente con la estética retro del juego y que se destaque sobre los elementos interactuables en cada Room.
+- NOMBRE INTERACTABLES: podría aparecer el nombre del Interactable cuando el cursor del jugador pase sobre él, proporcionando retroalimentación visual y ayudando a identificar los elementos interactuables en cada Room.
+- MEMORIAS: crear background específico para las Memorias, que sea diferente a otros backgrounds de ventanas/modales, reforzando la sensación de que el jugador está accediendo a un recuerdo especial.
+- LUCES: en caso de añadir la Luz Global, añadir elementos de iluminación específicos en cada Room para reforzar la atmósfera y la narrativa visual del juego.
+- INTRO: añadir introducción simple con algo de contexto inicial, con background único. Usar el mismo que podamos crear para el fondo del Main Menu.
+- FOREST - LUCES: en caso de añadir Luz Global, añadir luces 2D Light parpadeando que vayan escalando tras cada avance del jugador en la Room, reforzando la sensación de progresión y tensión.
