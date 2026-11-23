@@ -27,6 +27,9 @@ This folder contains the active technical reference for the `0.1.1-proto` vertic
 - [Memories](./Gameplay/TD-Memories.md)
 - [Room architecture](./Gameplay/Rooms/TD-Room-Architecture.md)
 - [HUD](./UI/TD-HUD.md)
+- [Sprint 4 fonts](./UI/TD-Fonts.md)
+- [Sprint 4 inventory](./UI/TD-Inventory.md)
+- [Sprint 4 item sprites](./UI/TD-Item-Sprites.md)
 - [Audio](./Audio/TD-Audio-System.md)
 
 ## Sprint history
