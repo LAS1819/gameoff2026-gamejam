@@ -63,7 +63,7 @@ estado en Editor, WebGL y Windows.
 - [ ] Mantener contraste y fallback si una fuente o sprite todavía no está listo.
 
 **Gate:** HUD e inventario siguen siendo legibles a `640 x 360` y en el embed
-WebGL `960 x 540`; ningún texto nuevo corta controles.
+WebGL `640 x 360`; ningún texto nuevo corta controles.
 
 ### Bloque 2 - Interacción y feedback compartido
 
