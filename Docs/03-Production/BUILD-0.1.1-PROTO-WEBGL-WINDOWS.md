@@ -35,11 +35,11 @@ Objetivo: sacar builds de prueba estables y repetibles para validar entrega temp
 
 - Resolución interna del proyecto: **640 x 360**.
 - Resolución objetivo 16:9: **1920 x 1080**.
-- Resolución recomendada para el embed de itch.io: **960 x 540**.
+- Resolución recomendada para el embed de itch.io: **640 x 360**.
 - Cambiar en **Player Settings > Resolution and Presentation**:
-  - Default Screen Width (Web): `960`.
-  - Default Screen Height (Web): `540`
-- El proyecto usa render 640 x 360 y escalado exacto x3; 960 x 540 es equivalente a un escalado x1.5 en el embed.
+  - Default Screen Width (Web): `640`.
+  - Default Screen Height (Web): `360`
+- El proyecto usa render 640 x 360 y escalado exacto x3; 640 x 360 es equivalente a un escalado x1 en el embed.
 - En la página de itch.io, configurar el embed con el mismo ratio **16:9**.
 
 **Carpeta de salida sugerida:**
