@@ -4,7 +4,7 @@
 - **Creado:** 2026-11-23
 - **Última actualización:** 2026-11-23
 - **Autor:** @LAS1819
-- **Estado:** Planificado para el Bloque 1
+- **Estado:** Implementación aplicada en el HUD
 - **Alcance:** HUD, inventario, Memorias y Story Overlay
 
 ---
@@ -245,6 +245,17 @@ Pixelify Sans aporta exactamente ese equilibrio.
 5. Ajustar solo si es necesario los tamaños definidos por las vistas existentes.
 6. Probar Mayúsculas, minúsculas, números, signo `?`, apóstrofe y textos largos.
 7. Revisar paneles en `640 x 360` y en el embed WebGL `640 x 360`.
+
+### Estado aplicado
+
+- Ambas fuentes se importaron como TextCore `FontAsset` con fuente SDF y atlas
+  `1024 x 1024`;
+- Pixelify Sans se asignó como fuente heredada de `#hud-root`;
+- Press Start 2P se asignó a títulos de Memoria, títulos del Story Overlay,
+  contador de Memorias y controles Continue / Restart;
+- los cuerpos, créditos, feedback e inventario heredan Pixelify Sans;
+- no se requiere código C# adicional para aplicar la tipografía;
+- `PanelSettings` mantiene la resolución de referencia `640 x 360`.
 
 ## Validación
 

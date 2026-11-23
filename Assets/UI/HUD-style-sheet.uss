@@ -6,6 +6,7 @@ VisualElement {}
     top: 0;
     right: 0;
     bottom: 0;
+    -unity-font-definition: url("project://database/Assets/Fonts/PixelifySans-Regular-SDF.asset");
 }
 
 #inventory-panel {
@@ -40,8 +41,8 @@ VisualElement {}
 
 .slot-label {
     color: rgba(255, 255, 255, 0.95);
-    font-size: 11px;
-    -unity-font-style: bold;
+    font-size: 14px;
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     margin: 0;
     padding: 0;
@@ -53,6 +54,10 @@ VisualElement {}
     top: 24px;
     left: 50%;
     translate: -50% 0;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 14px;
+    -unity-text-align: middle-center;
+    white-space: normal;
     opacity: 0;
     transition: opacity 0.2s ease;
 }
@@ -192,7 +197,7 @@ VisualElement {}
 .memory-discovery-eyebrow {
     color: rgba(70, 74, 82, 0.82);
     font-size: 11px;
-    -unity-font-style: bold;
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     letter-spacing: 2px;
 }
@@ -200,7 +205,8 @@ VisualElement {}
 .memory-discovery-title {
     color: rgba(36, 38, 44, 0.98);
     font-size: 20px;
-    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     margin-top: 4px;
 }
@@ -223,8 +229,9 @@ VisualElement {}
     border-color: rgba(238, 216, 169, 0.72);
     border-radius: 6px;
     -unity-text-align: middle-center;
-    -unity-font-style: bold;
-    font-size: 13px;
+    -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
+    -unity-font-style: normal;
+    font-size: 14px;
 }
 
 #story-overlay-backdrop {
@@ -258,7 +265,7 @@ VisualElement {}
 .story-overlay-eyebrow {
     color: rgba(62, 44, 29, 0.86);
     font-size: 12px;
-    -unity-font-style: bold;
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     letter-spacing: 2px;
 }
@@ -266,7 +273,8 @@ VisualElement {}
 .story-overlay-title {
     color: rgba(48, 35, 25, 0.98);
     font-size: 22px;
-    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     margin-top: 6px;
 }
@@ -285,7 +293,8 @@ VisualElement {}
 .story-overlay-memory-count {
     color: rgba(48, 35, 25, 0.86);
     font-size: 14px;
-    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     margin-bottom: 4px;
 }
@@ -317,7 +326,8 @@ VisualElement {}
     border-color: rgba(238, 216, 169, 0.72);
     border-radius: 6px;
     -unity-text-align: middle-center;
-    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
+    -unity-font-style: normal;
     font-size: 14px;
     cursor: link;
 }
