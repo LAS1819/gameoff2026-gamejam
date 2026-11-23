@@ -82,6 +82,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ShowMemoryDiscovery(MemoryDefinition memory)
+    {
+        TryResolveHudController();
+        if (hudController != null)
+        {
+            hudController.ShowMemoryDiscovery(memory);
+        }
+    }
+
     public void ShowEndingOverlay(string title, string farewell, string credits, int memoryCount)
     {
         TryResolveHudController();

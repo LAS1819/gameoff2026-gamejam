@@ -78,7 +78,7 @@ El proyecto encaja con el tema y ya dispone de un vertical slice completo:
 
 SHIFT = cambio entre dos realidades.
 
-Estado de entrega `0.1.0-proto`:
+Estado de entrega `0.1.1-proto`:
 
 1. Sistema SHIFT funcionando.
 2. Lobby, Hallway, Bedroom y Library jugables.
@@ -86,6 +86,8 @@ Estado de entrega `0.1.0-proto`:
 4. Forest y profundidad final implementados.
 5. Carta, finales y reinicio funcional.
 6. Loop completo validado.
+7. Cinco Memories opcionales integradas en la progresión.
+8. Candidata preparada para validación de builds WebGL y Windows.
 
 Sprint final recomendado:
 
@@ -93,8 +95,8 @@ Sprint final recomendado:
 2. Copy narrativo final.
 3. Arte final de carta / créditos.
 4. Audio, accesibilidad y localización si el tiempo lo permite.
-5. Builds WebGL y Windows.
-6. Página pública de itch.io y assets de entrega.
+5. Builds WebGL y Windows validadas como candidatas de entrega.
+6. Página privada de itch.io probada antes de hacerla pública.
 
 ## Mantra de desarrollo
 

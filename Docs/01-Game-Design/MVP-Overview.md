@@ -1,7 +1,7 @@
-# Game Off 2026 - Prototype 0.1.0
+# Game Off 2026 - Prototype 0.1.1
 
-- Version: 0.1.0-proto
-- Updated: 2026-11-21
+- Version: 0.1.1-proto
+- Updated: 2026-11-23
 - Status: complete playable vertical slice
 
 ## Objective
@@ -63,7 +63,8 @@ The Forest cannot return to the Basement. It is the terminal narrative route.
 - dedicated Credits scene
 - additional SFX
 - visual polish and accessibility checks
-- final builds and delivery page
+- final WebGL and Windows build validation
+- private itch.io draft validation before public release
 
 ## Definition of prototype done
 

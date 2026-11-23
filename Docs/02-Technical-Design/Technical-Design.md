@@ -1,8 +1,8 @@
 # Game Off 2026 - TECHNICAL DESIGN
 
-- **Versión:** 0.1.0-proto
+- **Versión:** 0.1.1-proto
 - **Creación:** 03/11/2026
-- **Última actualización:** 21/11/2026
+- **Última actualización:** 23/11/2026
 
 ---
 

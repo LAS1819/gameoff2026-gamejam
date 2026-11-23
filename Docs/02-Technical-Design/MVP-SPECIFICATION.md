@@ -1,8 +1,8 @@
 # MVP Specification - Start here
 
-- Version: 0.1.0-proto
-- Status: Complete playable prototype
-- Last updated: 2026-11-21
+- Version: 0.1.1-proto
+- Status: Complete playable prototype for test builds
+- Last updated: 2026-11-23
 - Primary scene: `Assets/Scenes/Main.unity`
 
 ## Prototype objective
@@ -80,6 +80,8 @@ Implemented states:
 - Lantern indicator
 - room and reality transition overlays
 - reusable Story Overlay for the letter and ending
+- Memory discovery overlay with five pixel-art sprites
+- configurable `memoryDiscoveryDuration` and manual Continue control
 - three ending variants
 - recovered Memories summary
 - restart to Lobby
@@ -115,6 +117,10 @@ The prototype is accepted when:
 - Forest reaches the depth 6 final state
 - letter, ending, and Memory summary render correctly
 - Story Overlay controls remain inside the viewport
+- Memory_01 works in Lobby Normal Reality
+- Memory_02-05 work in the intended Other Side rooms
+- Memory discovery left/right-click behavior is consistent
+- Memory overlay displays artwork, text, Continue, and automatic timeout
 - Restart resets flags, inventory, Forest depth, and active room
 - Unity compiles without errors or warnings
 
@@ -125,8 +131,8 @@ The prototype is accepted when:
 - English / Spanish localization
 - final SFX and audio polish
 - final accessibility pass
-- WebGL and Windows delivery builds
-- itch.io presentation and release metadata
+- WebGL and Windows delivery build validation
+- itch.io private-draft and publication checks
 
 ## Technical rules
 

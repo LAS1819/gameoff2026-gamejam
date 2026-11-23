@@ -154,7 +154,9 @@ internal static class InteractionSpecialCases
             gameManager.SetFlag(GameFlagNames.ForestLetterRead, true);
         }
 
-        var memoryCount = CountRecoveredMemories(gameManager);
+        var memoryCount = gameManager != null
+            ? gameManager.CountRecoveredMemories()
+            : 0;
         var letter = ResolveForestLetter(memoryCount);
         if (UIManager.Instance == null)
         {
@@ -168,22 +170,6 @@ internal static class InteractionSpecialCases
             "Continue",
             StoryOverlayMode.Letter);
         return true;
-    }
-
-    private static int CountRecoveredMemories(GameManager gameManager)
-    {
-        if (gameManager == null)
-        {
-            return 0;
-        }
-
-        var count = 0;
-        if (gameManager.HasFlag(GameFlagNames.Memory_01)) count++;
-        if (gameManager.HasFlag(GameFlagNames.Memory_02)) count++;
-        if (gameManager.HasFlag(GameFlagNames.Memory_03)) count++;
-        if (gameManager.HasFlag(GameFlagNames.Memory_04)) count++;
-        if (gameManager.HasFlag(GameFlagNames.Memory_05)) count++;
-        return count;
     }
 
     private static (string title, string body) ResolveForestLetter(int memoryCount)

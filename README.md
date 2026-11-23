@@ -1,6 +1,6 @@
 # Game Off 2026 - Psychological Horror Prototype
 
-`0.1.0-proto` is a complete playable point-and-click horror prototype created for Game Off 2026.
+`0.1.1-proto` is a complete playable point-and-click horror prototype created for Game Off 2026.
 
 The player explores a liminal building by switching between the Normal reality and the Other Side, recovering memories, and following the truth behind a father's disappearance. The current prototype includes the full route from the Lobby to the Forest, revelation letter, ending evaluation, and restart loop.
 
@@ -85,6 +85,8 @@ Start with:
 - [MVP specification](Docs/02-Technical-Design/MVP-SPECIFICATION.md)
 - [Sprint 3 closeout](Docs/02-Technical-Design/MVP-Sprint-3.md)
 - [Changelog](Docs/03-Production/CHANGELOG.md)
+- [WebGL and Windows build guide](Docs/03-Production/BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md)
+- [itch.io delivery guide](Docs/03-Production/ITCH-IO-DELIVERY-0.1.1-PROTO.md)
 
 Room-specific references:
 
@@ -95,14 +97,15 @@ Room-specific references:
 
 This is a game jam prototype, not a final release.
 
-The current goal is a stable complete loop before the delivery polish pass. Planned work for the final iteration includes:
+The current `0.1.1-proto` candidate already contains the complete loop. The remaining work is delivery-oriented:
 
 - final letter and ending copy
 - final Story Overlay / antique-letter artwork
 - dedicated Credits scene
 - English and Spanish localization through Unity Localization
 - additional SFX, visual polish, and accessibility validation
-- final WebGL / Windows builds
+- validation of the candidate WebGL / Windows builds
+- private itch.io page testing before public submission
 
 ## Code health
 
