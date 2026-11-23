@@ -1,7 +1,10 @@
 # Setup Session 05/11/2026 - MVP Sprint 1 Cierre
 
+> **Registro histórico cerrado.** Las checklists abiertas pertenecen a la sesión
+> inicial y fueron absorbidas por los Sprints 2-4. No representan tareas actuales.
+
 - **Creado:** 2026-11-05
-- **Última Actualización:** 2026-11-06
+- **Última Actualización:** 2026-11-23
 
 ---
 

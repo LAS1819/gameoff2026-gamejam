@@ -1,5 +1,9 @@
 # TD - Interactables
 
+> **Estado `0.1.1-proto`:** contrato implementado. Clic izquierdo resuelve
+> acciones; clic derecho solo examina. La progresión usa flags y validación de
+> item / realidad antes de aplicar resultados.
+
 - Versión: 0.1
 - Estado: en uso en el MVP y base para futuras rooms
 - Creado: 11/11/2026

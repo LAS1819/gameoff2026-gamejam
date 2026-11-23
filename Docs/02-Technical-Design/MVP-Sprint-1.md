@@ -2,9 +2,14 @@
 
 - Fecha inicio: 03/11/2026
 - Fecha objetivo: 08/11/2026
-- Estado: 🟡 IN PROGRESS - Lobby validado, Hallway final push
+- Estado: ✅ CERRADO - base absorbida y superada por los Sprints 2-4
 - Creado: 03/11/2026
-- Actualizado: 07/11/2026
+- Actualizado: 23/11/2026
+
+> Registro histórico. Los pendientes de este documento se resolvieron, dejaron de
+> aplicar o se absorbieron en la validación final de
+> [MVP-Sprint-4.md](./MVP-Sprint-4.md). Para el estado vigente usar
+> [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md).
 
 ## Objetivo
 

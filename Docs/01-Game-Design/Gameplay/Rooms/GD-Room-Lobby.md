@@ -1,5 +1,9 @@
 # Lobby Room Design
 
+> **Estado `0.1.1-proto`:** Lobby está implementado con Family Picture, Staff
+> Key, Front Door y transición a Hallway. Este documento conserva la intención
+> visual; no convierte los props de ambiente no creados en bloqueantes.
+
 - Versión 0.2 - Diseño de Sala
 - Creado: 10/11/2026
 - Actualizado: 10/11/2026

@@ -1,5 +1,9 @@
 # Room Lobby — Technical Spec
 
+> **Estado `0.1.1-proto`:** implementado mediante `DefaultRoomCatalog.Lobby`.
+> Family Picture, Staff Key, Front Door, Hallway Entrance y reinicio están
+> integrados. No hay save persistente.
+
 - Versión 0.1
 - Creado: 10/11/2026
 - Actualizado: 10/11/2026

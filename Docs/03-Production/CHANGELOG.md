@@ -18,6 +18,11 @@ All notable changes to this project will be documented in this file.
 
 **Changed:**
 
+- Documentation normalized for the complete `0.1.1-proto` state and final Sprint 4 delivery scope
+- Added the final polish, QA, build, itch.io, localization, credits, and release-cut plan
+- Corrected WebGL / Windows resolution and fullscreen documentation to match Player Settings
+- Marked Sprints 1-3 as closed historical records
+- Distinguished implemented behavior from deferred or discarded design
 - Memory presentation now uses a dedicated non-modal overlay instead of the modal Story Overlay
 - Memory sprites use 320x112 horizontal pixel compositions with Point filtering
 - Memory overlay art uses `scale-to-fit` to preserve complete silhouettes

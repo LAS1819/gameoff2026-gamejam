@@ -2,6 +2,7 @@
 
 - Version: 0.1.1-proto
 - Status: Complete playable prototype for test builds
+- Sprint: 4 - final polish, validation, and delivery
 - Last updated: 2026-11-23
 - Primary scene: `Assets/Scenes/Main.unity`
 
@@ -124,11 +125,12 @@ The prototype is accepted when:
 - Restart resets flags, inventory, Forest depth, and active room
 - Unity compiles without errors or warnings
 
-## Deferred for Sprint 4
+## Sprint 4 work
 
 - final narrative copy and letter art
 - dedicated Credits scene
-- English / Spanish localization
+- final credits presentation
+- optional English / Spanish localization if it does not endanger delivery
 - final SFX and audio polish
 - final accessibility pass
 - WebGL and Windows delivery build validation
@@ -142,3 +144,4 @@ The prototype is accepted when:
 - keep room data centralized in `DefaultRoomCatalog`
 - prefer existing systems over new managers
 - preserve explicit and testable state transitions
+- do not add gameplay systems during Sprint 4

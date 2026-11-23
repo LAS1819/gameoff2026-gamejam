@@ -1,5 +1,8 @@
 # itch.io Release Guide - `0.1.1-proto`
 
+> Guía de entrega activa para Sprint 4. Probar primero en draft privado y
+> resolver copy y créditos provisionales antes de publicar.
+
 This guide prepares the first itch.io page for the `0.1.1-proto` test build.
 
 ## Release details

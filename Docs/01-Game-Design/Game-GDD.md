@@ -6,6 +6,11 @@
 - Creado: 03/11/2026
 - Actualizado: 23/11/2026
 
+> **Estado `0.1.1-proto`:** este documento combina el diseño vigente con ideas
+> descartadas o aplazadas. El loop completo implementado se define en
+> [MVP-Overview.md](./MVP-Overview.md) y
+> [MVP-SPECIFICATION.md](../02-Technical-Design/MVP-SPECIFICATION.md).
+
 ---
 
 ________________________________________
@@ -81,7 +86,8 @@ Representa una versión alterada del mundo.
 
 - **Reglas**
   - El cambio es instantáneo.
-  - Puede ejecutarse en cualquier momento.
+  - Está disponible en Hallway, Bedroom, Library y Basement.
+  - No está disponible en Lobby ni en Forest.
   - El jugador conserva su posición.
   - Cada escenario (o casi todos) posee una versión en ambas realidades.
 
@@ -89,36 +95,11 @@ ________________________________________
 
 ## 4. Sistema Temporal
 
-El juego contará con un reloj global que determinará el momento temporal de la partida.
+**Fuera del alcance de `0.1.1-proto`.**
 
-### Funcionamiento
-
-- El tiempo avanzará mediante acciones significativas.
-- El jugador podrá esperar voluntariamente.
-- Consultar el inventario no consumirá tiempo.
-- Examinar objetos y leer descripciones tampoco consumirá tiempo.
-- Las acciones tendrán costes temporales configurables.
-- Los eventos podrán depender de la hora o de determinados intervalos temporales.
-
-### Costes temporales orientativos
-
-| Acción | Tiempo |
-| -------- | -------- |
-| Examinar | 0 minutos |
-| Consultar inventario | 0 minutos |
-| Coger objeto | 1 minuto |
-| Usar objeto | 1 minuto |
-| Resolver mecanismo sencillo | 3-10 minutos |
-| Cambiar de escenario | 1-3 minutos |
-| Esperar | Intervalo seleccionado |
-
-Los valores son provisionales y deberán ajustarse durante el desarrollo.
-
-### Reglas adicionales
-
-- El reloj será global, no independiente por escenario.
-- Los acontecimientos podrán variar según la hora.
-- Algunas oportunidades podrán aparecer o desaparecer.
+La propuesta inicial de reloj global, espera y eventos por hora se conserva como
+idea histórica, pero no existe en la versión jugable. La progresión actual
+avanza únicamente mediante flags, objetos e interacciones de rooms.
 
 ________________________________________
 
@@ -141,14 +122,14 @@ ________________________________________
 
 ## 6. Sistema de interacción
 
-La interacción se realizará mediante un sistema contextual sencillo.
+La interacción utiliza clic directo sin menú contextual.
 
 ### Flujo de interacción
 
-1. El Jugador selecciona un Elemento del Escenario.
-2. El Juego determina las Acciones posibles.
-3. El Jugador ejecuta la Interacción.
-4. Se actualizan los Estados correspondientes.
+1. Clic izquierdo: interactuar, recoger, usar, cambiar de sala o avanzar.
+2. Clic derecho: examinar sin modificar el estado.
+3. Los items seleccionados se validan contra el interactable.
+4. Se actualizan flags, inventario y presentación.
 
 ### Acciones contempladas
 
@@ -240,19 +221,15 @@ ________________________________________
 
 El juego contará con eventos opcionales capaces de modificar determinados acontecimientos de cada partida.
 
-### Tipos de eventos
-
-#### Eventos temporales
-
-- Activados por una hora específica del reloj global.
-
-#### Eventos de realidad
+### Tipos de eventos implementados
 
 - Solo visibles o accesibles en una de las dos realidades.
 
 #### Eventos de decisión
 
 - Activados por determinadas acciones realizadas por el jugador.
+- Las Memorias opcionales dependen de un primer examen y permanecen como flags
+  durante la sesión.
 
 ### Objetivo
 

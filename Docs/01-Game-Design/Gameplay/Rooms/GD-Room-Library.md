@@ -1,8 +1,11 @@
 # GD Room - Library Design
 
+> **Estado `0.1.1-proto`:** estantería, Worn Book, Floppy Disk, panel y acceso
+> al Basement están integrados. Elementos extra quedan como dirección visual.
+
 - Versión 0.1
 - Creado: 12/11/2026
-- Actualizado: 12/11/2026
+- Actualizado: 23/11/2026
 
 ## 1. Qué representa esta Room
 

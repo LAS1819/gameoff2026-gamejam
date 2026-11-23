@@ -1,8 +1,12 @@
 # Bedroom Room Design
 
+> **Estado `0.1.1-proto`:** Bedroom está implementada: luz, armario, monstruo,
+> llave, ordenador y salida funcionan. La linterna solo aparece como indicador
+> de posesión; no tiene uso activo ni batería en esta versión.
+
 - Versión 0.1 - Diseño de Sala
 - Creado: 10/11/2026
-- Actualizado: 10/11/2026
+- Actualizado: 23/11/2026
 
 ---
 
@@ -38,8 +42,8 @@ La Bedroom tiene tres funciones muy claras dentro de la progresión del juego:
 
 1. Introducir la idea de la memoria como espacio activo.
 2. Presentar la mecánica de luz como herramienta narrativa y de supervivencia.
-3. Proporcionar un objeto esencial para la siguiente parte del juego: la Llave de la Biblioteca.
-4. Usar el Ordenador con un ítem específico que se localiza en la Biblioteca.
+3. Proporcionar la Llave de la Biblioteca.
+4. Recibir el Disquete de Library para obtener el Basement Code.
 
 Es también la primera Room en la que el jugador entiende que el concepto de “lugar” no es inocente. La habitación no es solo un sitio del edificio; es una zona donde el personaje ha construido una realidad alternativa para sostener su dolor.
 
@@ -158,8 +162,8 @@ La idea base es que la linterna no forme parte del inventario como un objeto tra
 
 #### Recomendación de diseño
 
-- La linterna debe aparecer en la UI como un interactuable permanente.
-- El jugador sólo puede activarla en Rooms específicas (como el futuro Basement).
+- La linterna aparece en la UI como indicador permanente.
+- Su activación en Basement está descartada del alcance MVP actual.
 - (Descartado de momento) Debe tener pilas o carga, no necesariamente un sistema complejo en MVP.
 - Su uso es esencial para la exploración y para la seguridad en el Otro Lado.
 - No debe sentirse como un objeto “recogido” y luego olvidado; debe ser una herramienta que acompaña al personaje de forma constante.

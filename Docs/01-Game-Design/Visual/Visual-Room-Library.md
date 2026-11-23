@@ -1,5 +1,9 @@
 # Game Off 2026 - HABITACIÓN / LIBRARY
 
+> **Estado `0.1.1-proto`:** referencia visual de Library. Los props y
+> decoraciones marcados como pendientes son opcionales frente a la progresión
+> ya implementada.
+
 - Versión 0.1 - Diseño Visual
 - Creado: 15/11/2026
 - Actualizado: 15/11/2026

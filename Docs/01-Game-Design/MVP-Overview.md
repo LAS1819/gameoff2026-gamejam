@@ -3,6 +3,7 @@
 - Version: 0.1.1-proto
 - Updated: 2026-11-23
 - Status: complete playable vertical slice
+- Current sprint: 4 - final polish, QA, and delivery
 
 ## Objective
 
@@ -65,6 +66,9 @@ The Forest cannot return to the Basement. It is the terminal narrative route.
 - visual polish and accessibility checks
 - final WebGL and Windows build validation
 - private itch.io draft validation before public release
+
+The full final-sprint plan is in
+[MVP-Sprint-4.md](../02-Technical-Design/MVP-Sprint-4.md).
 
 ## Definition of prototype done
 

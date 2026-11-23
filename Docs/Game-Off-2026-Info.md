@@ -89,7 +89,7 @@ Estado de entrega `0.1.1-proto`:
 7. Cinco Memories opcionales integradas en la progresión.
 8. Candidata preparada para validación de builds WebGL y Windows.
 
-Sprint final recomendado:
+Sprint final activo:
 
 1. Corrección y bloqueo de bugs.
 2. Copy narrativo final.
@@ -97,6 +97,9 @@ Sprint final recomendado:
 4. Audio, accesibilidad y localización si el tiempo lo permite.
 5. Builds WebGL y Windows validadas como candidatas de entrega.
 6. Página privada de itch.io probada antes de hacerla pública.
+
+La planificación cerrada y el checklist de este último sprint están en
+[MVP-Sprint-4.md](./02-Technical-Design/MVP-Sprint-4.md).
 
 ## Mantra de desarrollo
 

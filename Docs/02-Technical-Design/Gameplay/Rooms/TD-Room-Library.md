@@ -1,5 +1,8 @@
 # Room Library — Technical Spec
 
+> **Estado `0.1.1-proto`:** Worn Book, Floppy Disk, estantería secreta, Code
+> Panel y Basement están integrados. Este documento ya no describe placeholders.
+
 - Versión 0.3
 - Creado: 14/11/2026
 - Actualizado: 15/11/2026

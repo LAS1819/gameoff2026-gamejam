@@ -7,7 +7,7 @@ The documentation is organized by purpose. Public-facing status always takes pri
 - Prototype version: `0.1.1-proto`
 - Unity: `6000.6.9f1`
 - Status: complete playable vertical slice ready for test builds
-- Current sprint: Sprint 4 polish, build validation, and delivery preparation
+- Current sprint: Sprint 4, final polish, validation, and delivery
 
 ## Structure
 
@@ -27,6 +27,7 @@ Docs/
     MVP-Sprint-1.md
     MVP-Sprint-2.md
     MVP-Sprint-3.md
+    MVP-Sprint-4.md
     Technical-Design.md
     GameObject-Hierarchy.md
     Gameplay/
@@ -44,9 +45,10 @@ Docs/
 2. [01-Game-Design/Gameplay/Puzzle-Flow.md](./01-Game-Design/Gameplay/Puzzle-Flow.md) - complete room progression
 3. [02-Technical-Design/MVP-SPECIFICATION.md](./02-Technical-Design/MVP-SPECIFICATION.md) - current technical MVP
 4. [02-Technical-Design/MVP-Sprint-3.md](./02-Technical-Design/MVP-Sprint-3.md) - Sprint 3 closeout
-5. [03-Production/CHANGELOG.md](./03-Production/CHANGELOG.md) - released prototype milestones
-6. [03-Production/BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md](./03-Production/BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md) - WebGL and Windows build settings
-7. [03-Production/ITCH-IO-DELIVERY-0.1.1-PROTO.md](./03-Production/ITCH-IO-DELIVERY-0.1.1-PROTO.md) - itch.io copy and publication checklist
+5. [02-Technical-Design/MVP-Sprint-4.md](./02-Technical-Design/MVP-Sprint-4.md) - active final sprint
+6. [03-Production/CHANGELOG.md](./03-Production/CHANGELOG.md) - released prototype milestones
+7. [03-Production/BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md](./03-Production/BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md) - WebGL and Windows build settings
+8. [03-Production/ITCH-IO-DELIVERY-0.1.1-PROTO.md](./03-Production/ITCH-IO-DELIVERY-0.1.1-PROTO.md) - itch.io copy and publication checklist
 
 ## Design
 

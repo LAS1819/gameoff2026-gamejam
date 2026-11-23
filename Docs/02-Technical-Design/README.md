@@ -7,6 +7,7 @@ This folder contains the active technical reference for the `0.1.1-proto` vertic
 - [MVP-SPECIFICATION.md](./MVP-SPECIFICATION.md) - current end-to-end technical contract
 - [Technical-Design.md](./Technical-Design.md) - architecture principles
 - [MVP-Sprint-3.md](./MVP-Sprint-3.md) - Sprint 3 closeout and Sprint 4 handoff
+- [MVP-Sprint-4.md](./MVP-Sprint-4.md) - active polish, QA, build, and delivery sprint
 - [GameObject-Hierarchy.md](./GameObject-Hierarchy.md) - scene hierarchy conventions
 
 ## Implemented room documents
@@ -33,6 +34,7 @@ This folder contains the active technical reference for the `0.1.1-proto` vertic
 1. [MVP-Sprint-1.md](./MVP-Sprint-1.md) - Lobby and SHIFT foundation
 2. [MVP-Sprint-2.md](./MVP-Sprint-2.md) - Bedroom, Library, interaction, and HUD stabilization
 3. [MVP-Sprint-3.md](./MVP-Sprint-3.md) - complete Basement, Forest, and ending loop
+4. [MVP-Sprint-4.md](./MVP-Sprint-4.md) - final polish and delivery
 
 ## Current architecture rules
 
@@ -44,5 +46,7 @@ This folder contains the active technical reference for the `0.1.1-proto` vertic
 - Unity Input System only
 - no null-propagation operators in runtime scripts
 - UI Toolkit through `PanelRenderer`
+- no active Lantern gameplay in the current build; its HUD icon only represents possession
+- no persistent save or global clock in the `0.1.1-proto` scope
 
 Older sprint documents remain as historical records. They should not override the current `0.1.1-proto` specification.

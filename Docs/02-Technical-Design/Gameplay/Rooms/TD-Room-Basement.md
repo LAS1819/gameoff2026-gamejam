@@ -1,5 +1,9 @@
 # Room Basement — Technical Spec
 
+> **Estado `0.1.1-proto`:** flujo implementado sin requisito activo de linterna.
+> `LanternController`, Light 2D, `requiresLantern` y batería son diseño
+> descartado. La fuente vigente es el catálogo y los resolvers runtime.
+
 - Versión 0.3
 - Creado: 17/11/2026
 - Actualizado: 19/11/2026

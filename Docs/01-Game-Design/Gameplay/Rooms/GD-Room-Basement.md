@@ -1,8 +1,12 @@
 # GD Room - Basement Design
 
+> **Estado `0.1.1-proto`:** caja, manivela, válvula, vapor, manifestación y salida
+> al Forest están implementados. La luz 2D y el uso obligatorio de linterna no
+> forman parte de esta versión.
+
 - Versión 0.4
 - Creado: 17/11/2026
-- Actualizado: 19/11/2026
+- Actualizado: 23/11/2026
 
 ---
 
@@ -51,7 +55,7 @@ La room debe ser breve y densa: 2-3 interacciones principales, alto peso emocion
 
 ---
 
-## 4. Reglas de luz y linterna
+## 4. Reglas de luz y linterna (fuera del MVP)
 
 ### Principio base
 
@@ -108,7 +112,8 @@ Es la `Evidencia Principal` del `Basement`.
 
 Se encuentra entre cajas y objetos almacenados. En ella se localiza la `Manivela de la válvula`.
 
-En el MVP actual se usa desde el `Otro Lado`; la lógica visual y los requisitos de linterna se integrarán en una iteración posterior.
+En `0.1.1-proto` la caja entrega la manivela directamente. No existe requisito
+activo de linterna ni batería.
 
 **Contenido:**
 

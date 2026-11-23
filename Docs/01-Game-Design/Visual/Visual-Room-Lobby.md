@@ -1,5 +1,8 @@
 # Game Off 2026 - VESTÍBULO
 
+> **Estado `0.1.1-proto`:** referencia de arte de Lobby. Las listas de props no
+> existentes son backlog visual histórico, no requisitos de entrega.
+
 - Versión 0.2 - Diseño Visual
 - Creado: 03/11/2026
 - Actualizado: 05/11/2026

@@ -1,5 +1,9 @@
 # Game Off 2026 - HABITACIÓN / BEDROOM - SPRITES Y POSICIONAMIENTO
 
+> **Estado `0.1.1-proto`:** layout de referencia histórica para Bedroom. La
+> colocación vigente es la de `Main.unity`; Sprint 4 solo ajusta claridad,
+> hitboxes y consistencia visual.
+
 - Versión 0.1 - Layout de producción
 - Creado: 10/11/2026
 - Actualizado: 10/11/2026

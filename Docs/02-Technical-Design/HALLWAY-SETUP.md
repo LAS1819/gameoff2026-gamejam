@@ -1,5 +1,9 @@
 # Hallway Room Configuration - MVP Setup
 
+> **Registro histórico de Sprint 1.** Hallway ya está montado en `Main.unity`;
+> no ejecutar esta guía como setup nuevo. Usa la especificación MVP y el catálogo
+> runtime como fuentes vigentes.
+
 - Versión 0.1
 - Fecha: 05/11/2026
 - Actualización: 05/11/2026

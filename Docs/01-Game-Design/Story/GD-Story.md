@@ -1,8 +1,12 @@
 # Story Design
 
+> **Estado `0.1.1-proto`:** existe una ruta y tres finales jugables. El copy es
+> provisional hasta la revisión narrativa de Sprint 4 y debe conservar los
+> rangos `0-2 / 3-4 / 5`.
+
 - **Versión del documento*** 0.6
 - **Creado:** 2026-11-07
-- **Última actualización:** 2026-11-19
+- **Última actualización:** 2026-11-23
 
 ---
 
