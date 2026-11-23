@@ -34,6 +34,7 @@ Docs/
     Audio/
   03-Production/
     CHANGELOG.md
+    BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md
 ```
 
 ## Recommended reading
@@ -71,6 +72,7 @@ Use `03-Production/` for:
 - release notes and changelog entries
 - delivery milestones
 - future production summaries
+- build and release checklists per platform
 
 ## Document status policy
 
