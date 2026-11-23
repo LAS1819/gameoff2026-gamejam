@@ -4,10 +4,10 @@ The documentation is organized by purpose. Public-facing status always takes pri
 
 ## Current project state
 
-- Prototype version: `0.1.0-proto`
+- Prototype version: `0.1.1-proto`
 - Unity: `6000.6.9f1`
-- Status: complete playable MVP loop
-- Current sprint: Sprint 3 closed; Sprint 4 polish and delivery preparation
+- Status: complete playable vertical slice ready for test builds
+- Current sprint: Sprint 4 polish, build validation, and delivery preparation
 
 ## Structure
 
@@ -35,6 +35,7 @@ Docs/
   03-Production/
     CHANGELOG.md
     BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md
+    ITCH-IO-DELIVERY-0.1.1-PROTO.md
 ```
 
 ## Recommended reading
@@ -44,6 +45,8 @@ Docs/
 3. [02-Technical-Design/MVP-SPECIFICATION.md](./02-Technical-Design/MVP-SPECIFICATION.md) - current technical MVP
 4. [02-Technical-Design/MVP-Sprint-3.md](./02-Technical-Design/MVP-Sprint-3.md) - Sprint 3 closeout
 5. [03-Production/CHANGELOG.md](./03-Production/CHANGELOG.md) - released prototype milestones
+6. [03-Production/BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md](./03-Production/BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md) - WebGL and Windows build settings
+7. [03-Production/ITCH-IO-DELIVERY-0.1.1-PROTO.md](./03-Production/ITCH-IO-DELIVERY-0.1.1-PROTO.md) - itch.io copy and publication checklist
 
 ## Design
 
@@ -73,10 +76,11 @@ Use `03-Production/` for:
 - delivery milestones
 - future production summaries
 - build and release checklists per platform
+- itch.io delivery copy and publication checklist
 
 ## Document status policy
 
-- Current documents describe the behavior of `0.1.0-proto`.
+- Current documents describe the behavior of `0.1.1-proto`.
 - Sprint documents are implementation records and may contain historical decisions.
 - Deferred items are explicit; they must not be mistaken for unfinished blockers.
 - New design should update the existing relevant document before creating another one.

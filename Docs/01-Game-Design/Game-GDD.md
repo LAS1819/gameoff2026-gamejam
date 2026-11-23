@@ -1,10 +1,10 @@
 # Game Off 2026 - GAME DESIGN DOCUMENT
 
 - Aventura gráfica de terror psicológico
-- Versión: 0.1.0-proto
+- Versión: 0.1.1-proto
 - Estado: Vertical slice jugable completo
 - Creado: 03/11/2026
-- Actualizado: 21/11/2026
+- Actualizado: 23/11/2026
 
 ---
 

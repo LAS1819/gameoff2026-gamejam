@@ -131,8 +131,8 @@ The prototype is accepted when:
 - English / Spanish localization
 - final SFX and audio polish
 - final accessibility pass
-- WebGL and Windows delivery builds
-- itch.io presentation and release metadata
+- WebGL and Windows delivery build validation
+- itch.io private-draft and publication checks
 
 ## Technical rules
 

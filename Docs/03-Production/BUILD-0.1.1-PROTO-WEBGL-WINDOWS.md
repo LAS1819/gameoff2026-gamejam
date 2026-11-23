@@ -10,8 +10,10 @@ Objetivo: sacar builds de prueba estables y repetibles para validar entrega temp
    - [x] Company: Zig-Art Studio
    - [x] Product Name: SilentFeel-GameOff2026-GameJam
    - [x] Version: `0.1.1-proto`.
-   - [ ] Scripting Backend: **IL2CPP**.
-   - [ ] API Compatibility Level: mantener el valor actual del proyecto (no cambiar para esta fase).
+   - [x] Scripting Backend WebGL: **IL2CPP** (WebGL no usa otro backend en Unity).
+   - [x] Scripting Backend Windows: **IL2CPP** para las candidatas de entrega; **Mono** solo puede usarse temporalmente para acelerar una prueba local de depuración.
+   - [x] API Compatibility Level: mantener el valor configurado actualmente en el proyecto. No cambiarlo en `0.1.1-proto` salvo que aparezca un error de compilación concreto.
+   - [x] Color Space: **Linear**, según la configuración actual del proyecto.
 4. Hacer un build de prueba local antes de publicar.
 
 ## 2) Build WebGL (prioridad)
@@ -21,11 +23,23 @@ Objetivo: sacar builds de prueba estables y repetibles para validar entrega temp
 - [x] Platform: **WebGL**
 - [x] Development Build: **OFF** (para build candidata)
 - [x] Autoconnect Profiler: **OFF**
-- [ ] Script Debugging: **OFF**
-- [x] Compression Format: **Gzip** (más simple para pruebas en itch.io) <- Por qué Gzip y no Brotli? Es necesario poner Brotli cuando se haga la build final para producción?
-- [x] Name Files As Hashes: **ON** <- Por qué se recomienda activar esto para evitar problemas de cache en el navegador?
-- [x] Data Caching: **ON** <- Permite que el navegador almacene datos de la build para acelerar cargas posteriores.
-- [x] Color Space: mantener la del proyecto Linear (sin cambios para esta versión)
+- [x] Script Debugging: **OFF**
+- [x] Compression Format: **Gzip** para la primera build. Es la opción más compatible y está bien soportada por itch.io. Brotli reduce más el tamaño, pero conviene usarlo solo al validar también el alojamiento final y sus cabeceras.
+- [x] Name Files As Hashes: **ON**. Los nombres con hash permiten que el navegador detecte una versión nueva sin reutilizar archivos antiguos por caché.
+- [x] Data Caching: **ON**. Permite al navegador reutilizar los datos de la build descargada y acelerar cargas posteriores.
+- [x] Color Space: mantener **Linear**, según la configuración actual del proyecto.
+
+### Resolución WebGL
+
+- Resolución interna del proyecto: **640 x 360**.
+- Resolución objetivo 16:9: **1920 x 1080**.
+- Resolución recomendada para el embed de itch.io: **960 x 540**.
+- Cambiar en **Player Settings > Resolution and Presentation**:
+  - Default Screen Width (Web): `960`.
+  - Default Screen Height (Web): `600` es el valor actual del proyecto, pero debe cambiarse a `540` para mantener 16:9.
+- El proyecto usa render 640 x 360 y escalado exacto x3; 960 x 540 es equivalente a un escalado x1.5 en el embed.
+- Evitar resolución 960 x 600 para esta build: no corresponde al formato 16:9 documentado.
+- En la página de itch.io, configurar el embed con el mismo ratio **16:9**.
 
 **Carpeta de salida sugerida:**
 
@@ -46,11 +60,25 @@ Objetivo: sacar builds de prueba estables y repetibles para validar entrega temp
 **Perfil recomendado:**
 
 - [ ] Platform: **Windows**
-- [ ] Architecture: **x86_64**
-- [ ] Development Build: **OFF** (para candidata)
-- [ ] Script Debugging: **OFF**
-- [ ] Fullscreen Mode: **Windowed Fullscreen** o el valor actual del proyecto
-- [ ] Resolution: dejar la actual del proyecto para evitar scope extra
+- [x] Architecture: **x86_64**
+- [x] Development Build: **OFF** (para candidata)
+- [x] Script Debugging: **OFF**
+- [x] Fullscreen Mode: **Fullscreen Window** para abrir en la resolución del monitor, o **Windowed** si se necesita depuración fácil.
+- [x] Resolution Windows: mantener **1920 x 1080** como resolución predeterminada para coincidir con el objetivo visual.
+- [x] Resizable Window: **OFF** en `0.1.1-proto` para evitar redimensionados no validados.
+
+### Resolución Windows
+
+- Resolución interna del proyecto: **640 x 360**.
+- Resolución objetivo recomendada: **1920 x 1080**.
+- Formato obligatorio: **16:9**.
+- Valor actual del proyecto:
+  - Default Screen Width: `1920`.
+  - Default Screen Height: `1080`.
+  - Fullscreen Mode: `Fullscreen Window`.
+- Para una primera prueba en pantalla pequeña, puede usarse una ventana de **1280 x 720** sin cambiar el diseño base.
+- Si se activa modo ventana, mantener el ratio 16:9 al redimensionar manualmente.
+- No modificar aún el ratio de cámara o los fondos para “encajar” resoluciones distintas.
 
 **Carpeta de salida sugerida:**
 
@@ -77,6 +105,9 @@ Para evitar sorpresas de última hora:
 3. Test rápido en navegador desde la página privada de itch.io.
 4. Subir build Windows como descarga opcional en el mismo draft.
 
+La configuración de la página, los metadatos y el texto listo para publicar están en
+[ITCH-IO-DELIVERY-0.1.1-PROTO.md](./ITCH-IO-DELIVERY-0.1.1-PROTO.md).
+
 ## 5) Checklist final de salida
 
 - [ ] Versión `0.1.1-proto` visible en Player Settings
@@ -84,5 +115,7 @@ Para evitar sorpresas de última hora:
 - [ ] Build Windows generada y probada
 - [ ] Test básico de flujo completo superado
 - [ ] Draft de itch.io publicado en privado para validación interna
+- [ ] Resolución WebGL configurada a **960 x 540** y probada dentro de un embed 16:9
+- [ ] Resolución Windows configurada a **1920 x 1080** como predeterminada y probada también en una ventana 1280 x 720
 
 Si este checklist pasa, la versión queda lista como baseline para seguir iterando con menor riesgo.

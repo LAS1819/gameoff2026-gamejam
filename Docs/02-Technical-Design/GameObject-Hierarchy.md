@@ -1,4 +1,4 @@
-# GameObject Hierarchy - 0.1.0-proto
+# GameObject Hierarchy - 0.1.1-proto
 
 This document defines the expected hierarchy of objects in each scene. It reflects the actual MVP architecture: **point-and-click horror, no player movement, data-driven design.**
 
@@ -14,7 +14,7 @@ This document defines the expected hierarchy of objects in each scene. It reflec
 
 The current prototype uses the single `Main` gameplay scene and persistent
 manager components. `Bootstrap` remains compatible with project setup, but is
-not required for the documented `0.1.0-proto` route.
+not required for the documented `0.1.1-proto` route.
 
 ```text
 Bootstrap

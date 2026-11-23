@@ -110,8 +110,8 @@ All release blockers are closed:
 - English / Spanish localization
 - final SFX and audio mix
 - performance, accessibility, and playtest pass
-- WebGL and Windows builds
-- itch.io delivery page
+- WebGL and Windows build validation
+- itch.io delivery page publication and final testing
 
 ## Scope decision
 

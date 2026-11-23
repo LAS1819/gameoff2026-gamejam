@@ -63,7 +63,8 @@ The Forest cannot return to the Basement. It is the terminal narrative route.
 - dedicated Credits scene
 - additional SFX
 - visual polish and accessibility checks
-- final builds and delivery page
+- final WebGL and Windows build validation
+- private itch.io draft validation before public release
 
 ## Definition of prototype done
 
