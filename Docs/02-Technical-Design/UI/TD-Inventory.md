@@ -48,10 +48,21 @@ Cada slot usa:
 
 ### Representación visual
 
-Cada slot mantiene el mismo `VisualElement`. Dentro de él se reutiliza:
+El inventario ya contiene exactamente tres slots creados en
+[HUD.uxml](../../../Assets/UI/HUD.uxml):
 
-- `slot-icon` para el sprite del item;
-- `slot-label` solo como fallback textual.
+```text
+inventory-panel
+├── slot-0
+├── slot-1
+└── slot-2
+```
+
+No se debe crear un nuevo slot por cada item. El código actual recibe los items
+de `InventoryManager`, ocupa el primer slot libre y reutiliza el mismo
+`VisualElement` cuando cambia el inventario.
+
+Cada slot mantiene la misma estructura runtime:
 
 La jerarquia runtime debe ser:
 
@@ -61,8 +72,35 @@ inventory-slot
 └── slot-label
 ```
 
-`slot-label` queda oculto cuando existe icono valido y se conserva como
+Dentro de él:
+
+- `slot-icon` muestra el sprite del item;
+- `slot-label` se usa solo como fallback textual.
+
+`slot-label` queda oculto cuando existe icono válido y se conserva como
 fallback de nombre corto si falta el sprite.
+
+### Qué debe crear el diseñador o artista
+
+Crear seis PNG independientes y transparentes:
+
+- Staff Key;
+- Library Key;
+- Worn Book;
+- Floppy Disk;
+- Basement Code;
+- Valve Handle.
+
+No hace falta crear:
+
+- una malla de tres slots;
+- una plantilla prefabricada por item;
+- un GameObject o prefab por slot;
+- un sprite separado para el estado vacío;
+- un sprite separado para selección.
+
+Los estados vacío, lleno y seleccionado se mantienen en `HUDInventoryView`
+mediante USS y las clases `empty`, `full` y `selected`.
 
 ### Datos
 
@@ -86,15 +124,19 @@ La asignación exacta se detalla en [TD-Item-Sprites.md](TD-Item-Sprites.md).
 
 ## Dimensión y layout
 
-Mantener el tamaño actual de `64 x 64 px` como base y un margen lateral de
-`12 px`.
+Usar como propuesta final `48 x 48 px` para cada slot y `8 px` de margen
+horizontal. Esta reducción mejora la separación visual sin cambiar el número
+de slots ni modificar la lógica.
+
+No requiere una segunda prueba de arquitectura ni asset especial: solo debe
+ajustarse el tamaño en `HUD-style-sheet.uss`.
 
 Import settings de los iconos:
 
 - Texture Type = Sprite (2D and UI);
 - Filter Mode = Point;
 - mipmaps desactivados;
-- pixels per unit coherente con `64 px`;
+- pixels per unit coherente con `48 px`;
 - preservar transparencia;
 - evitar escalado no entero.
 

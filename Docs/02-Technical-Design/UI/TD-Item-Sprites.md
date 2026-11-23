@@ -36,7 +36,7 @@ inventario hasta que la mecánica vuelva a usar el item normal.
 | `basement_code` | Basement Code | Bedroom computer | `sprite-ui-item-basement-code-v1.png` |
 | `valve_handle` | Valve Handle | Personal Effects Box | `sprite-ui-item-valve-handle-v1.png` |
 
-## Ubicacion prevista
+## Ubicación prevista
 
 Usar una feature folder dentro de UI:
 
@@ -47,18 +47,18 @@ Assets/Visuals/UI/Inventory/
 No mezclar los iconos con backgrounds de Rooms ni con los spritesheets de
 Memorias. Mantener un solo PNG por item.
 
-## Convencion visual
+## Convención visual
 
 - canvas transparente;
-- imagen final `64 x 64` px;
-- silueta identificable a baja resolucion;
+- imagen final `48 x 48` px;
+- silueta identificable a baja resolución;
 - alto contraste frente al fondo oscuro del HUD;
 - padding interno de al menos 4 px;
 - sin texto dentro del sprite;
 - fondo propio solo si mejora legibilidad;
 - no usar bordes decorativos que parezcan estados del slot.
 
-El sprite debe representar el objeto, no una ilustracion de interfaz. Los
+El sprite debe representar el objeto, no una ilustración de interfaz. Los
 detalles finos pueden omitirse si dejan de verse a `640 x 360`.
 
 ## Import settings
@@ -75,9 +75,9 @@ Para cada PNG:
 - no recortar transparencias;
 - evitar atlasing temporal hasta medir el resultado.
 
-## Implementacion
+## Implementación
 
-### Relacion ID -> Sprite
+### Relación ID -> Sprite
 
 El enfoque preferido mantiene la relacion visual dentro de `HUDController`
 y se resuelve en `HUDInventoryView` por `item.id`.
@@ -86,16 +86,16 @@ No se amplía `InventoryItemData` ni se introduce un catalogo global de sprites:
 los seis iconos caben en referencias serializadas y el item ya conserva su ID
 como clave estable.
 
-### Asignacion por item
+### Asignación por item
 
-Las rutas de construccion actuales son:
+Las rutas de construcción actuales son:
 
 - pickups genericos en `InteractionResolver`;
 - Worn Book y Valve Handle en `InteractionItemFactory`;
 - Basement Code en `BedroomComputerController`;
 - Floppy Disk en `HUDInventoryView` al inspeccionar el Worn Book.
 
-La asignacion visual debe evitar cambiar estas rutas. Puede resolverse de
+La asignación visual debe evitar cambiar estas rutas. Puede resolverse de
 forma comun por `item.id` al refrescar el slot, sin modificar flags o puzzle
 logic.
 
@@ -110,7 +110,7 @@ Si el sprite falta:
 
 - el slot conserva el estado `full`;
 - el label fallback permanece legible;
-- seleccion e inspeccion siguen disponibles;
+- selección e inspección siguen disponibles;
 - no se muestra un icono roto.
 
 ## Accesibilidad
@@ -120,12 +120,12 @@ El icono no sustituye por completo al nombre del item:
 - mantener el fallback textual;
 - conservar feedback al pickup;
 - conservar feedback al seleccionar;
-- conservar descripcion al inspect.
+- conservar descripción al inspeccionar.
 
-El color no debe ser el unico indicador de estado; el borde y la clase
+El color no debe ser el único indicador de estado; el borde y la clase
 `selected` deben seguir visibles.
 
-## Validacion
+## Validación
 
 Validar cada item tras recibirlo:
 
