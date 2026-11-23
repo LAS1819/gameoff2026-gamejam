@@ -21,6 +21,8 @@ Objetivo: sacar builds de prueba estables y repetibles para validar entrega temp
 **Perfil recomendado:**
 
 - [x] Platform: **WebGL**
+- [x] WebGL Template: **SilentFeel16x9** (centers and scales the canvas at 16:9).
+- [x] Custom template: the project includes `Assets/WebGLTemplates/SilentFeel16x9`, with a responsive 960x540 16:9 canvas and local fullscreen control.
 - [x] Development Build: **OFF** (para build candidata)
 - [x] Autoconnect Profiler: **OFF**
 - [x] Script Debugging: **OFF**
