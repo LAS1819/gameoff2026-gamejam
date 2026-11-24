@@ -2,6 +2,8 @@
 
 Objetivo: sacar builds de prueba estables y repetibles para validar entrega temprana, con prioridad en WebGL y respaldo en Windows.
 
+NOTA: para ahorrar tiempo, realizar recompilaciones sobre la misma carpeta de salida siempre que sea posible.
+
 ## 1) Preparación común (una vez)
 
 1. Abrir **File > Build Profiles**.
@@ -33,12 +35,12 @@ Objetivo: sacar builds de prueba estables y repetibles para validar entrega temp
 ### Resolución WebGL
 
 - Resolución base de arte: **640 x 360**.
-- Resolución configurada en WebGL: **960 x 540**.
-- Resolución recomendada para el embed de itch.io: **960 x 540**.
+- Resolución configurada en WebGL: **640 x 360**.
+- Resolución recomendada para el embed de itch.io: **640 x 360**.
 - Cambiar en **Player Settings > Resolution and Presentation**:
-  - Default Screen Width (Web): `960`.
-  - Default Screen Height (Web): `540`
-- La base visual 640 x 360 se presenta en un canvas WebGL 960 x 540; el
+  - Default Screen Width (Web): `640`.
+  - Default Screen Height (Web): `360`
+- La base visual 640 x 360 se presenta en un canvas WebGL 640 x 360; el
   escalado debe validarse visualmente en la candidata.
 - En la página de itch.io, configurar el embed con el mismo ratio **16:9**.
 

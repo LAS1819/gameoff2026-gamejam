@@ -197,9 +197,15 @@ Replace the GitHub URL if the repository is moved or published under a different
   <hr>
 
   <p>
-    <strong>Developed by Zig-Art Studio</strong><br>
+    <strong>Developed by Zig-Art Studio - Luxus Zigard as Solo Developer</strong><br>
     Created for <strong>Game Off 2026</strong><br>
     Made with <strong>Unity 6000.6.9f1</strong>
+  </p>
+
+  <p>
+  <a href="https://github.com/LAS1819/gameoff2026-gamejam">
+    View the source code on GitHub
+  </a>
   </p>
 </div>
 ```
@@ -207,11 +213,7 @@ Replace the GitHub URL if the repository is moved or published under a different
 Optional repository call-to-action:
 
 ```html
-<p>
-  <a href="https://github.com/LAS1819/gameoff2026-gamejam">
-    View the source code on GitHub
-  </a>
-</p>
+
 ```
 
 ## Recommended content notice
