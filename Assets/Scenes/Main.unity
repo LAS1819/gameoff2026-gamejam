@@ -5234,7 +5234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   useDebugStartRoom: 0
-  debugStartRoomId: basement
+  debugStartRoomId: forest
 --- !u!4 &1253440029
 Transform:
   m_ObjectHideFlags: 0

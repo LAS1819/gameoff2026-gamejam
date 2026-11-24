@@ -101,11 +101,12 @@ WebGL `640 x 360`; ningún texto nuevo corta controles.
 ### Bloque 2 - Interacción y feedback compartido
 
 - **Rama recomendada:** `feat/s4-interaction-feedback`
+- **Versión final:** `0.1.3-proto`
 - [ ] Corrección de hallazgos de bugs encontrados en versión `0.1.2-proto`
   - [x] Inventario: seleccionar otra vez el mismo item deselecciona el item.
   - [x] Inventario: las acciones resueltas limpian la selección obsoleta.
   - [x] Manivela: el Personal Effects Box evita una segunda recolección.
-  - [ ] Feedback sobre fondos claros: fondo semitransparente aplicado al HUD.
+  - [x] Feedback sobre fondos claros: fondo semitransparente aplicado a los textos.
   - [x] Memorias: el overlay permanece abierto hasta cerrar manualmente.
   - [x] Carta Revelación: layout flex relativo revisado para evitar cortes por resolución o loop.
   - [x] Resumen Final: layout flex relativo revisado para evitar cortes por resolución o loop.
@@ -116,7 +117,7 @@ WebGL `640 x 360`; ningún texto nuevo corta controles.
 - [ ] Revisar el fade de transición entre rooms.
 - [ ] Revisar el pulse de cambio de realidad.
 - [x] Mantener el background visual del overlay de Memorias con panel legible y close manual.
-- [ ] Mantener Continue, timeout y cierre por Escape / Enter / Space.
+- [x] Mantener Continue, timeout y cierre por Escape / Enter / Space.
   - [x] Continue cerrado por botón.
   - [x] Escape / Enter / Space disponibles en Memorias.
   - [x] Timeout eliminado de Memorias.

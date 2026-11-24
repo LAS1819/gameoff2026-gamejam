@@ -1,6 +1,6 @@
 # TD-HUD - HUD mínimo runtime (Sprint 2)
 
-- **Versión:** 3.4
+- **Versión:** 3.5
 - **Creado:** 2026-11-06
 - **Actualizado:** 2026-11-24
 - **Autor:** @LAS1819
@@ -192,19 +192,208 @@ Las vistas específicas mantienen su propio estado:
 
 ### Arte de Memorias
 
-El overlay de descubrimiento usa un sprite horizontal de `320 x 112` píxeles recomendado.
+El overlay de descubrimiento usa dos tipos de gráfico:
 
-El recurso representa padre e hijo como sombras y debe seleccionarse por `memoryId`. No se recomienda dibujar una composición distinta con dimensiones diferentes para cada Memoria.
+- **Concepto de Memoria:** sprite horizontal de `320 x 112` píxeles.
+- **Background del panel:** sprite independiente, recomendado `320 x 240` con
+  9-slice de `16 px` por cada borde.
 
-El overlay muestra un botón `Continue` y se cierra automáticamente después de `memoryDiscoveryDuration` segundos.
-El valor inicial recomendado es `10`, configurable desde el Inspector de `HUDController`.
+El concepto representa padre e hijo como sombras y se selecciona por `memoryId`.
+No conviene dibujar una composición distinta con dimensiones diferentes para
+cada Memoria. El texto, título y botón deben permanecer fuera de la imagen.
+
+Jerarquía visual:
+
+```text
+memory-discovery-overlay
+├── memory-discovery-backdrop
+└── memory-discovery-panel
+    ├── memory-discovery-image
+    ├── memory-discovery-title
+    ├── memory-discovery-body
+    └── memory-discovery-close
+```
+
+El panel debe conservar `Continue`, Escape, Enter y Space. No debe cerrarse
+automáticamente: el tiempo se usa solo como dato histórico; `memoryDiscoveryDuration`
+ya no controla el cierre.
 
 Import settings:
 
 - `Filter Mode = Point`;
 - mip maps desactivados;
+- Texture Type = `Sprite (2D and UI)`;
+- Sprite Mode = `Single`;
 - compresión sin pérdida para las primeras pruebas;
-- escala sin recorte (`scale-to-fit`) para mantener completas las siluetas.
+- concepto sin recorte (`scale-to-fit`);
+- background mediante 9-slice y `stretch-to-fill`.
+
+Rutas:
+
+```text
+Assets/Visuals/UI/Memory/
+├── sprite-ui-memory-background-v1.png
+├── sprite-ui-memory-01-v1.png
+├── sprite-ui-memory-02-v1.png
+├── sprite-ui-memory-03-v1.png
+├── sprite-ui-memory-04-v1.png
+└── sprite-ui-memory-05-v1.png
+```
+
+En el gate `640 x 360`, el panel debe mantener al menos `200 px` de alto,
+preferiblemente `320 px` como máximo, y reservar siempre espacio visible para
+`Continue`.
+
+---
+
+## Arte del Cursor
+
+Crear un solo cursor base como PNG transparente:
+
+- resolución: `32 x 32` px;
+- formato: RGBA;
+- pivote/hotspot visible cerca de la punta;
+- Filter Mode = `Point`;
+- compresión = None;
+- Texture Type = `Cursor` o `Default` siguiendo el flujo de Unity que asigna
+  `customCursorTexture`;
+- no añadir sombra, escalado ni contorno borroso.
+
+Ruta recomendada:
+
+```text
+Assets/Visuals/UI/Cursor/sprite-ui-cursor-default-v1.png
+```
+
+Configurar en `HUDController`:
+
+- `customCursorTexture` = el PNG importado;
+- `customCursorHotspot` = coordenada real del pixel activo;
+- si la textura no está asignada, `OnEnable` / `OnDisable` restablecen
+  `UnityEngine.Cursor.SetCursor(null, ...)` y la plataforma muestra el cursor
+  del sistema.
+
+El cursor personalizado es un fallback visual global. No se deben sustituir
+cursor ni hotspot desde una clase específica de room o interactable.
+
+Estados opcionales futuros:
+
+- default;
+- hover sobre interactable;
+- point / select;
+- blocked / use unavailable.
+
+No añadir estados nuevos hasta que exista una necesidad jugable. Los estados
+deben compartir el mismo canvas de `32 x 32`; el hotspot se expresa como
+coordenadas internas del sprite y no debe cambiar a no ser que cambie la punta
+visible del cursor.
+
+---
+
+## Arte de Carta y Resumen Final
+
+Carta Revelación y Resumen Final deben compartir un mismo recurso de
+background si las variantes son solo tono o borde. La opción mínima es:
+
+- `sprite-ui-story-panel-background-v1.png`;
+- resolución: `320 x 320`;
+- 9-slice recomendado: `24 px` izquierda/derecha y `24 px` arriba/abajo;
+- esquinas con remaches, bordes o ornamento que no se deformen;
+- centro plano o con textura muy suave.
+
+Jerarquía:
+
+```text
+hud-modal-layer
+├── story-overlay-backdrop
+└── story-overlay-panel
+    ├── story-overlay-eyebrow
+    ├── story-overlay-title
+    ├── story-overlay-body
+    ├── story-overlay-memory-count
+    ├── story-overlay-credits
+    └── story-overlay-actions
+        ├── story-overlay-close
+        └── story-overlay-restart
+```
+
+El texto nunca debe estar pintado dentro del PNG. Todo el copy debe permanecer
+como UI Toolkit para permitir wrap, reescalado y localización.
+
+Medidas vigentes:
+
+- panel: `420 px` mínimo y `620 px` máximo;
+- alto: `220-320 px`;
+- padding: `14-28 px`;
+- título Letter: `18 px`;
+- título Ending: `16 px` y dos líneas:
+  `Bad / Neutral / True Ending` y la segunda línea `Denial / Escape / Reunion`;
+- body: `15 px`, Pixelify Sans;
+- memoria recuperada: `14 px`;
+- créditos: `13 px`;
+- botones: `176 x 42 px`.
+
+Usar wrapping normal y `flex-shrink` para título y cuerpo. No usar texto fijo
+en una sola línea ni un panel absoluto con coordenadas calculadas por loop.
+El panel debe estar centrado por el contenedor flexible y crecer dentro de los
+límites establecidos.
+
+Ruta recomendada:
+
+```text
+Assets/Visuals/UI/Story/sprite-ui-story-panel-background-v1.png
+```
+
+---
+
+## Feedback sobre fondos claros
+
+Mantener el background semitransparente en los textos temporales:
+
+- `feedback-text`: fondo `rgba(18,16,24,0.82)`, borde dorado tenue;
+- `hover-name-text`: fondo `rgba(18,16,24,0.82)`, borde dorado tenue;
+- padding mínimo de `6 px 12 px`;
+- texto blanco con opacidad `0.95`;
+- no añadir sombra de texto ni sustitutos con outline.
+
+El fondo pertenece al texto, no a la room. No debe aplicarse transparencia
+global al Inventario ni a los slots. Para HUD sobre fondo claro, se recomienda
+un fondo opaco al `82-90%` para que el copy siga legible.
+
+---
+
+## Transición entre rooms
+
+Usar el mismo elemento `transition-overlay` para todas las rooms:
+
+- duración objetivo: `0.35 s`;
+- fondo oscuro: `rgba(0,0,0,0.70)`;
+- apertura y cierre con opacity: `0.3 s` de transición;
+- no se deben crear overlays por room;
+- no bloquear controles después de terminar la transición;
+- respetar `RoomChanged` como único evento disparador.
+
+Si se incorpora un sprite o patrón de fade, debe ocupar toda la pantalla y
+mantener el centro visual simple. Evitar 9-slice, bordes pixelados o animaciones
+que requieran nuevos assets por room.
+
+---
+
+## Pulse de cambio de realidad
+
+Usar `reality-pulse` como flash global y breve:
+
+- duración objetivo: `0.25 s`;
+- tint suave: `rgba(120,130,255,0.18)`;
+- cubrir toda la pantalla;
+- dispararse solo en `RealityChanged`;
+- no bloquear mouse ni teclado;
+- no sustituir por animación de todos los interactables.
+
+El pulse comunica el cambio de realidad; no debe usarse como efecto de carga
+de room ni como sustituto del fade de transición.
+
+---
 
 ## USS compatible con esta versión de UI Toolkit
 
