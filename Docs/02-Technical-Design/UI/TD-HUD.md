@@ -1,14 +1,14 @@
 # TD-HUD - HUD mínimo runtime (Sprint 2)
 
-- **Versión:** 3.3
+- **Versión:** 3.4
 - **Creado:** 2026-11-06
-- **Actualizado:** 2026-11-23
+- **Actualizado:** 2026-11-24
 - **Autor:** @LAS1819
 - **Estado:** Integrado en el HUD del prototipo; Sprint 4 amplía fuentes e inventario
 
 ## Objetivo
 
-Mantener el HUD mínimo, estable y usable de `0.1.1-proto` sin crear una
+Mantener el HUD mínimo, estable y usable de `0.1.2-proto` sin crear una
 segunda arquitectura de UI.
 
 Incluye:
