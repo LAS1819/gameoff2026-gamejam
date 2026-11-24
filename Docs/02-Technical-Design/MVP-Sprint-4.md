@@ -65,15 +65,40 @@ estado en Editor, WebGL y Windows.
 - [x] Mantener contraste y fallback si una fuente o sprite todavía no está listo.
 - [x] Actualizar documentación pertinente.
 - [x] Actualizar Changelog.
-- [ ] PR hacia `develop` y después hacia `main`
-- [ ] Crear nuevas Builds, verificar funcionamiento en WebGL y Windows y subir a Itch.io junto con el Changelog nuevo.
+- [x] PR hacia `develop` y después hacia `main`
+- [x] Crear nuevas Builds, verificar funcionamiento en WebGL y Windows y subir a Itch.io junto con el Changelog nuevo.
 
 **Gate:** HUD e inventario siguen siendo legibles a `640 x 360` y en el embed
 WebGL `640 x 360`; ningún texto nuevo corta controles.
 
+**Hallazgos:**
+
+- **Karq - WebGL:**
+  - *Sensación general:* "Está guapo, tío, muy emotivo si sabes de qué va realmente. Me gusta. La música queda genial, la verdad, acompaña muy bien la experiencia. Me ha costado un ratillo pasármelo eh? Buen puzle."
+  - *Bugs/Sugerencias/Ideas encontrados:*
+    - **Memorias**: igual no es un bug, pero sólo se pueden consultar una vez las Memorias. Luego, ya no más. Además, desaparecen solas las ventanas de Memorias haciendo que el botón Continue tenga poco sentido y que puedas perder info, además.
+      - *Solución Luxus:* bien visto, quizá sería mejor mantener las ventanas de Memorias abiertas hasta que el jugador decida cerrarlas, evitando así la pérdida de información y dando más sentido al botón Continue.
+    - **Cuarto de la Derecha (Bedroom)**: cuando inspeccionas la Ventana, el texto no se ve con el fondo blanco.
+      - *Solución Luxus:* considerar cambiar el color del texto o añadir un fondo semitransparente al background del texto para mejorar la legibilidad.
+    - **Items de Inventario:** los objetos del inventario se tienen que poder desseleccionar pinchando otra vez (o algo por el estilo) porque a veces se queda seleccionado algo del inventario y "te raya" no poder dejar de usarlo.
+      - *Solución Luxus:* permitir que los objetos del inventario se desseleccionen al hacer clic nuevamente sobre ellos o al interactuar con otro objeto, evitando así que el jugador quede bloqueado con un objeto seleccionado. NOTA: esto se había resuelto anteriormente, pero parece que no se ha solucionado en todos los Interactables.
+    - **Manivela:** he podido obtener la Manivela 2 veces, una vez puesta en la tubería, en la realidad alternativa se puede volver a recoger.
+    - **Monstruo del Sótano:** tras el game loop completo, no me ha vuelto a salir el Monstruo del Sótano. Aún así, cuando he instalado la manivela en la tubería, y activado la Otra Realidad, se ha visto cómo desaparecía a causa del vapor.
+      - *Solución Luxus:* revisar la lógica de aparición y desaparición del Monstruo del Sótano para asegurar que se comporte de manera consistente en todas las realidades y tras completar el game loop.
+    - **UI Carta Revelación**: los textos de la Carta Revelación no se encuadran en el espacio destinado, causando que parte del texto se corte o quede fuera de la vista.
+      - *Solución Luxus:* ajustar el layout de la Carta Revelación para que los textos se encuadren correctamente dentro del espacio disponible, asegurando que toda la información sea visible y legible.
+    - **UI Resumen Final**: los textos del Resumen Final no se encuadran correctamente en el espacio destinado, causando que parte del texto se corte o quede fuera de la vista.
+      - *Solución Luxus:* ajustar el layout del Resumen Final para que los textos se encuadren correctamente dentro del espacio disponible, asegurando que toda la información sea visible y legible.
+    - **Interactable Carta Revelación:** ahora mismo, la Carta Revelación queda detrás del panel del Inventario, sólo se ve unos píxeles y es difícil de interactuar con ella.
+      - *Solución Luxus:* subir los elementos de la Mesa y la Carta para que queden por encima del panel del Inventario, asegurando que sean completamente visibles e interactuables.
+      - *Idea:* podríamos añadir un poco de transparencia al background del panel, pero como algo estético, no como solución al problema de visibilidad de la Carta Revelación.
+    - **Linterna:** he encontrado la Linterna en la habitación, pensaba que servía para algo, pero no he tenido ocasión de saber para qué.
+      - *Comentario Luxus:* tranquilo, la mecánica de la Linterna todavía no está implementada. Tenemos pendiente implementar un sistema de luz global para que la Linterna tenga que usarse en el Sótano, mediante uso de Sprites Light 2D alrededor del cursor del ratón.
+
 ### Bloque 2 - Interacción y feedback compartido
 
 - **Rama recomendada:** `feat/s4-interaction-feedback`
+- [ ] Corrección de hallazgos de bugs encontrados en versión `0.1.2-proto`
 - [ ] Añadir cursor personalizado con cursor sistema como fallback.
 - [ ] Mostrar el nombre del interactable solo al hacer hover, sin ensuciar la vista.
 - [ ] Revisar el fade de transición entre rooms.
