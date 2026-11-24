@@ -1,10 +1,10 @@
 # TD-Inventory - Inventario gráfico Sprint 4
 
-- **Version:** 1.0
+- **Version:** 1.1
 - **Creado:** 2026-11-23
 - **Actualizado:** 2026-11-24
 - **Autor:** @LAS1819
-- **Estado:** Implementación completa (6 iconos conectados)
+- **Estado:** 6 iconos y background implementados; estados gráficos de slots planificados
 
 ---
 
@@ -345,6 +345,422 @@ Comprobar:
 - los tres slots y sus iconos no cambian de tamaño;
 - el background mantiene nitidez en `640 x 360`;
 - el panel sigue ocupando el rectángulo esperado sobre fondos claros y oscuros.
+
+## Sprites gráficos de los slots
+
+Los slots deben tratarse como una pieza de interfaz independiente del sprite
+del item. La misma ranura conserva su estado visual y el contenido cambia
+por `item.id`; no se debe dibujar un slot distinto dentro de cada icono.
+
+### Proporción y tamaño
+
+La jerarquía visual y lógica ya validada usa:
+
+- slot: `48 x 48 px`;
+- icono del item: `48 x 48 px`;
+- separación horizontal: `8 px`;
+- panel: `180 x 64 px` aproximadamente;
+- relación del slot: `1:1`.
+
+Crear los tres estados como PNG independientes de `48 x 48 px` y fondo
+transparente:
+
+```text
+sprite-ui-inventory-slot-empty-v1.png
+sprite-ui-inventory-slot-full-v1.png
+sprite-ui-inventory-slot-selected-v1.png
+```
+
+Usar tres archivos separados al principio. Permite probar estados sin
+spritesheet slicing y evita invalidar el atlas si cambia una de las placas.
+
+### Qué contiene cada PNG
+
+#### Empty
+
+- marco exterior completo;
+- relleno vacío o transparente;
+- superficie neutra sin símbolo de item;
+- no incluir letras, números ni botones.
+
+#### Full
+
+- mismo marco y geometría que `Empty`;
+- variación reconocible que indique que el slot contiene un item;
+- fondo neutro detrás del futuro icono;
+- no dibujar Staff Key, Library Key u otro item dentro de esta placa.
+
+#### Selected
+
+- mismo marco y geometría que los otros estados;
+- borde, esquinas, brillo o fondo especial que indique selección;
+- el estado Selected puede aplicarse sobre un slot Full;
+- no dibujar una versión distinta del item seleccionado.
+
+Mantener la geometría común de los tres PNG. Cambiar solo superficie, borde o
+brillo evita que el slot parezca desplazarse al cambiar de estado.
+
+### Jerarquía de renderizado
+
+La estructura runtime debe mantener esta profundidad:
+
+```text
+inventory-panel
+└── inventory-slot
+    ├── slot-state-background
+    ├── slot-icon
+    └── slot-label
+```
+
+Orden visual recomendado:
+
+1. `slot-state-background`;
+2. `slot-icon`;
+3. `slot-label` como fallback superior o oculto.
+
+El icono debe aparecer centrado dentro del marco. El fallback textual solo
+debe mostrarse si no existe el Sprite del item.
+
+No añadir el nombre del item dentro del sprite gráfico del slot. El nombre
+permanecerá en datos, feedback e inspección.
+
+### Rutas de assets
+
+Usar una feature folder separada para estados de slot:
+
+```text
+Assets/Visuals/UI/Inventory/Slots/
+```
+
+Conservar los iconos por item en:
+
+```text
+Assets/Visuals/UI/Inventory/Items/
+```
+
+Nombres recomendados:
+
+```text
+Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-empty-v1.png
+Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-full-v1.png
+Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-selected-v1.png
+```
+
+No mezclar slot backgrounds, item sprites y el panel 9-slice en una sola
+imagen. El panel y los slots son elementos visuales independientes.
+
+### Import settings de los slots
+
+Para cada uno de los tres PNG:
+
+- Texture Type = `Sprite (2D and UI)`;
+- Sprite Mode = `Single`;
+- Filter Mode = `Point`;
+- mipmaps desactivados;
+- PPU = `16`, coherente con `PanelSettings`;
+- compresión sin pérdida;
+- transparencia preservada;
+- sin 9-slice, porque el estado se usa a tamaño fijo de `48 x 48 px`;
+- no recortar transparencia;
+- no generar Sprite Sheet salvo que se mida una necesidad real de batching.
+
+### Integración futura en USS
+
+La integración visual debe resolver los tres estados mediante las clases
+existentes:
+
+```uss
+.inventory-slot.empty {
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-empty-v1.png");
+}
+
+.inventory-slot.full {
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-full-v1.png");
+}
+
+.inventory-slot.selected {
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-selected-v1.png");
+}
+```
+
+La clase `selected` debe tener suficiente especificidad para sustituir al
+background de `full` sin cambiar clases ni datos:
+
+```text
+empty
+full
+full + selected
+```
+
+Para mantener el fallback CSS mientras el arte final no esté disponible:
+
+1. conservar temporalmente `background-color` y `border-*`;
+2. añadir `background-image`;
+3. retirar el borde CSS solo si el PNG incluye el borde completo;
+4. mantener la forma `48 x 48` aunque el estado sea placeholder.
+
+No modificar `HUD.uxml` para añadir un nuevo estado por cada item.
+`HUDInventoryView` continúa cambiando `empty`, `full` y `selected` sobre los
+tres slots existentes.
+
+### Capa del item sobre el slot
+
+El `slot-icon` de cada slot debe continuar siendo una imagen independiente:
+
+- estado vacío: `slot-icon` oculto;
+- estado full: `slot-icon` visible;
+- estado selected: `slot-icon` visible sobre el nuevo frame seleccionado;
+- fallback: `slot-label` visible solo si no existe el icono.
+
+El PNG del slot no debe incluir el dibujo del item. La combinación final es:
+
+```text
+slot frame PNG + item PNG + optional fallback label
+```
+
+Esto permite reutilizar Staff Key, Library Key, Worn Book, Floppy Disk,
+Basement Code y Valve Handle sin crear variantes del frame para cada item.
+
+### Validación visual de cada estado
+
+Para el primer lote gráfico comprobar:
+
+- empty a `48 x 48` sin recortes;
+- full a `48 x 48` con el icono centrado;
+- selected a `48 x 48` claramente distinguible;
+- marco sin antialias ni escalado no entero;
+- separación de `8 px` entre slots;
+- contraste sobre el fondo del panel;
+- fallback legible si falta el PNG del estado;
+- tres items simultáneamente sin solapamientos;
+- resultados a `640 x 360` y en el embed WebGL.
+
+---
+
+## Dirección artística: Compartimentos de expediente
+
+Los slots representan pequeños compartimentos físicos integrados en la placa principal del inventario. No deben interpretarse como bolsas, cofres, espacios mágicos ni ranuras tecnológicas.
+
+**Narrativamente representan:**
+
+- evidencias archivadas;
+- recuerdos preservados;
+- objetos importantes retenidos temporalmente por el protagonista;
+- pruebas relacionadas con la verdad que intenta reconstruirse durante la aventura.
+
+Visualmente deben parecer una extensión natural de la placa del sanatorio.
+
+### Geometría compartida
+
+Los tres estados deben conservar exactamente: 48 x 48 px
+
+Estructura común:
+
+```text
+┌────────────┐
+│            │
+│            │
+│            │
+│            │
+└────────────┘
+```
+
+**Componentes permanentes:**
+
+- **marco exterior metálico;**
+- **esquinas ligeramente desgastadas;**
+- **profundidad interior;**
+- **sombras internas consistentes;**
+- **misma silueta en los tres estados.**
+
+**No modificar:**
+
+- **tamaño;**
+- **grosor del marco;**
+- **posición de sombras;**
+- **área útil para iconos.**
+
+### Estado EMPTY
+
+**Objetivo visual:** Comunicar "Este compartimento todavía no contiene nada."
+
+**Apariencia:**
+
+- Interior oscuro
+- Superficie vacía
+- Profundidad visible
+- Tonos marrón oscuro y gris envejecido
+- Textura muy ligera
+
+**Referencia conceptual:**
+
+```text
+┌────────────┐
+│▒▒▒▒▒▒▒▒▒▒▒▒│
+│▒          ▒│
+│▒          ▒│
+│▒          ▒│
+│▒▒▒▒▒▒▒▒▒▒▒▒│
+└────────────┘
+```
+
+**Sensación:**
+
+- Archivador vacío
+- Hueco preparado para recibir una evidencia.
+
+---
+
+### Estado FULL
+
+**Objetivo visual:** Comunicar "Existe un objeto almacenado en este compartimento."
+
+**Apariencia:** Misma geometría que Empty.
+
+**Cambios permitidos:**
+
+- Fondo ligeramente más claro
+- Superficie interior suavemente iluminada
+- Textura parecida a papel envejecido
+- Sensación de objeto depositado
+
+**Referencia conceptual:**
+
+```text
+┌────────────┐
+│▓▓▓▓▓▓▓▓▓▓▓▓│
+│▓          ▓│
+│▓          ▓│
+│▓          ▓│
+│▓▓▓▓▓▓▓▓▓▓▓▓│
+└────────────┘
+```
+
+**Importante:** el usuario debe identificar el estado Full incluso si el icono tarda unos fotogramas en aparecer.
+
+---
+
+### Estado SELECTED
+
+**Objetivo visual:**
+
+Comunicar:
+
+"Este es el objeto actualmente activo."
+
+**Apariencia:**
+
+Mantener la misma geometría.
+
+**Añadir únicamente:**
+
+- **borde interior iluminado;**
+- **esquinas enfatizadas;**
+- **reflejo metálico suave.**
+
+**Referencia conceptual:**
+
+```text
+╔════════════╗
+║            ║
+║            ║
+║            ║
+╚════════════╝
+```
+
+**Color recomendado:**
+
+**No usar:**
+
+azul RPG;
+verde tecnológico;
+neón moderno.
+
+**Usar:**
+
+- **latón envejecido**
+- **ocre claro**
+- **dorado antiguo**
+
+## Inspiración
+
+La luz de una linterna iluminando una evidencia encontrada.
+
+### Paleta recomendada
+
+- **Marco**
+  - #2A2724
+  - #3A3530
+  - #514941
+
+- **Interior Empty**
+  - #1E1B19
+  - #262220
+
+- **Interior Full**
+  - #4C433B
+  - #66584D
+
+- **Selected**
+  - #B79A62
+  - #D4B77A
+
+
+**Coherente con la Realidad Normal del proyecto:**
+
+- **marrones apagados;**
+- **grises;**
+- **amarillos envejecidos;**
+- **decadencia hospitalaria.**
+**Reglas de producción**
+**Mantener**
+
+✅ borde de 2 px
+✅ profundidad interna
+✅ lectura clara a 640×360
+✅ icono centrado
+✅ apariencia de compartimento físico
+
+**Evitar:**
+
+❌ cruces médicas
+❌ símbolos RPG
+❌ botones modernos
+❌ texto incrustado
+❌ indicadores numéricos
+❌ grandes efectos de brillo
+❌ cambiar la silueta entre estados
+
+**Resumen visual:**
+
+```text
+EMPTY
+┌──────────┐
+│ oscuro   │
+└──────────┘
+
+FULL
+┌──────────┐
+│ iluminado│
+└──────────┘
+
+SELECTED
+╔══════════╗
+║  brillo  ║
+╚══════════╝
+```
+
+La filosofía es muy simple:
+
+El panel completo es una placa del sanatorio.
+
+Los slots son compartimentos de expediente.
+
+Los objetos son evidencias.
+
+El estado seleccionado es la evidencia que el protagonista está examinando ahora mismo.
+
+---
 
 ## Estados
 
