@@ -2,9 +2,9 @@
 
 - **Version:** 1.0
 - **Creado:** 2026-11-23
-- **Actualizado:** 2026-11-23
+- **Actualizado:** 2026-11-24
 - **Autor:** @LAS1819
-- **Estado:** Planificado para el Bloque 1
+- **Estado:** Implementado en el Bloque 1
 
 ---
 
@@ -98,6 +98,10 @@ Las rutas de construcción actuales son:
 La asignación visual debe evitar cambiar estas rutas. Puede resolverse de
 forma comun por `item.id` al refrescar el slot, sin modificar flags o puzzle
 logic.
+
+Los seis sprites prioritarios están ahora conectados en `HUDController` y
+resueltos por `item.id` en `HUDInventoryView`. Cualquier item futuro conserva
+el fallback textual si todavía no tiene Sprite asignado.
 
 ## Fallback
 

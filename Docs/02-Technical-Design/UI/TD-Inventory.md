@@ -2,9 +2,9 @@
 
 - **Version:** 1.0
 - **Creado:** 2026-11-23
-- **Actualizado:** 2026-11-23
+- **Actualizado:** 2026-11-24
 - **Autor:** @LAS1819
-- **Estado:** Implementación parcial (3 iconos conectados)
+- **Estado:** Implementación completa (6 iconos conectados)
 
 ---
 
@@ -47,7 +47,10 @@ Actualmente están conectados por `item.id`:
 - `staff_key` -> icono gráfico;
 - `library_key` -> icono gráfico;
 - `worn_book` -> icono gráfico;
-- resto de items -> fallback textual hasta completar sprites.
+- `floppy_disk` -> icono gráfico;
+- `basement_code` -> icono gráfico;
+- `valve_handle` -> icono gráfico;
+- cualquier ID sin sprite asignado -> fallback textual.
 
 ---
 
@@ -389,7 +392,7 @@ Si falta el label por algún motivo:
 5. Crear o resolver `slot-icon` desde `HUDInventoryView`.
 6. Mantener `slot-label` como fallback.
 7. No cambiar eventos, flags ni consumo de items.
-8. Completar iconos pendientes (`floppy_disk`, `basement_code`, `valve_handle`).
+8. Mantener el fallback textual para IDs futuros.
 9. Actualizar [TD-HUD.md](TD-HUD.md) con el estado final del inventario.
 
 ## Validación

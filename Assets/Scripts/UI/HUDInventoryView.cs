@@ -94,11 +94,20 @@ public class HUDInventoryView
         }
     }
 
-    public void SetItemIcons(Sprite staffKeyIcon, Sprite libraryKeyIcon, Sprite wornBookIcon)
+    public void SetItemIcons(
+        Sprite staffKeyIcon,
+        Sprite libraryKeyIcon,
+        Sprite wornBookIcon,
+        Sprite floppyDiskIcon,
+        Sprite basementCodeIcon,
+        Sprite valveHandleIcon)
     {
         SetItemIcon("staff_key", staffKeyIcon);
         SetItemIcon("library_key", libraryKeyIcon);
         SetItemIcon("worn_book", wornBookIcon);
+        SetItemIcon("floppy_disk", floppyDiskIcon);
+        SetItemIcon("basement_code", basementCodeIcon);
+        SetItemIcon("valve_handle", valveHandleIcon);
     }
 
     public void RefreshLantern(

@@ -1,6 +1,6 @@
 # TD-HUD - HUD mínimo runtime (Sprint 2)
 
-- **Versión:** 3.2
+- **Versión:** 3.3
 - **Creado:** 2026-11-06
 - **Actualizado:** 2026-11-23
 - **Autor:** @LAS1819
@@ -98,6 +98,10 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 
 - Se refresca al recibir `InventoryManager.ItemAdded` / `ItemRemoved`.
 - Slots alternan clases `empty` / `full`.
+- Los seis items del MVP muestran su Sprite por `item.id`.
+- `Floppy Disk`, `Basement Code` y `Valve Handle` usan el mismo flujo gráfico
+  que Staff Key, Library Key y Worn Book.
+- Los IDs futuros sin Sprite conservan el fallback textual del slot.
 
 ### Feedback
 
