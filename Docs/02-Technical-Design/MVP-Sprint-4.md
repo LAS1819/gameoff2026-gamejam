@@ -56,14 +56,19 @@ estado en Editor, WebGL y Windows.
 
 - **Rama recomendada:** `feat/s4-ui-foundations`
 - [x] Importar y probar una fuente retro legible.
-- [ ] Sustituir los placeholders de slots e iconos prioritarios del inventario.
+- [x] Sustituir los placeholders de slots e iconos prioritarios del inventario.
 - [x] Añadir sprites propios a Staff Key, Library Key, Worn Book, Floppy Disk,
       Basement Code y Valve Handle.
 - [x] Aplicar la fuente a HUD, Memorias y carta sin cortar texto.
 - [x] Mantener contraste y fallback si una fuente o sprite todavía no está listo.
+- [ ] Actualizar documentación pertinente.
+- [ ] Actualizar Changelog.
+- [ ] PR hacia `develop` y después hacia `main`
+- [ ] Crear nuevas Builds, verificar funcionamiento en WebGL y Windows y subir a Itch.io junto con el Changelog nuevo.
 
 **Gate:** HUD e inventario siguen siendo legibles a `640 x 360` y en el embed
 WebGL `640 x 360`; ningún texto nuevo corta controles.
+**Versión:** `0.1.2-proto`
 
 ### Bloque 2 - Interacción y feedback compartido
 
