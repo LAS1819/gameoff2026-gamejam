@@ -1,5 +1,9 @@
 # Game Off 2026 - HABITACIÓN / BEDROOM
 
+> **Estado `0.1.1-proto`:** Bedroom usa el set de assets integrado en `Main`.
+> Este documento conserva dirección de arte; sus listas abiertas no implican
+> assets faltantes bloqueantes.
+
 - Versión 0.1 - Diseño Visual
 - Creado: 10/11/2026
 - Actualizado: 10/11/2026

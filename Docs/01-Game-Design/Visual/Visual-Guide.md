@@ -1,5 +1,8 @@
 # Game Off 2026 - GUÍA VISUAL
 
+> **Estado `0.1.1-proto`:** guía estética vigente. Los elementos no producidos o
+> descritos como futuros son opcionales y no deben ampliar el alcance de Sprint 4.
+
 - Versión 0.2 - Dirección Artística y Escala
 - Creado: 03/11/2026
 - Actualizado: 22/11/2026

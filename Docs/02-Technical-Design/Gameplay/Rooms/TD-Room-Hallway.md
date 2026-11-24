@@ -1,5 +1,9 @@
 # Room Hallway — Technical Spec
 
+> **Estado `0.1.1-proto`:** implementado. Las puertas de Bedroom y Library no
+> son placeholders: Bedroom abre en Other Side y Library consume Library Key.
+> Referencias futuras en este documento son históricas.
+
 - Versión 0.1
 - Creado: 10/11/2026
 - Actualizado: 10/11/2026
@@ -32,8 +36,8 @@ RoomData
   - hallway_obstacle
   - shift_trigger
   - lobby_exit
-  - library_door (future)
-  - bedroom_door (future)
+  - library_door
+  - bedroom_door
 ```
 
 ### Estado inicial
@@ -125,7 +129,7 @@ visibleInOtherReality: true
 
 ---
 
-### 3.4 LibraryDoor / BedroomDoor (future placeholders)
+### 3.4 LibraryDoor / BedroomDoor (implementadas)
 
 ```text
 id: "library_door"
@@ -226,7 +230,7 @@ Load Room hallway
 → reality changes
 → HallwayObstacle disappears
 → route is now passable
-→ player can exit to Lobby or continue to future room
+→ el jugador puede volver al Lobby o continuar a Bedroom / Library
 ```
 
 ### Secuencia de validación recomendada

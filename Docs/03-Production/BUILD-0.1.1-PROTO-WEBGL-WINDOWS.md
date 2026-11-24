@@ -1,4 +1,4 @@
-# Build guide - `0.1.1-proto` (WebGL + Windows)
+# Build guide - `0.1.2-proto` (WebGL + Windows)
 
 Objetivo: sacar builds de prueba estables y repetibles para validar entrega temprana, con prioridad en WebGL y respaldo en Windows.
 
@@ -9,10 +9,10 @@ Objetivo: sacar builds de prueba estables y repetibles para validar entrega temp
 3. En **Player Settings**:
    - [x] Company: Zig-Art Studio
    - [x] Product Name: SilentFeel-GameOff2026-GameJam
-   - [x] Version: `0.1.1-proto`.
+   - [x] Version: `0.1.2-proto`.
    - [x] Scripting Backend WebGL: **IL2CPP** (WebGL no usa otro backend en Unity).
    - [x] Scripting Backend Windows: **IL2CPP** para las candidatas de entrega; **Mono** solo puede usarse temporalmente para acelerar una prueba local de depuración.
-   - [x] API Compatibility Level: mantener el valor configurado actualmente en el proyecto. No cambiarlo en `0.1.1-proto` salvo que aparezca un error de compilación concreto.
+   - [x] API Compatibility Level: mantener el valor configurado actualmente en el proyecto. No cambiarlo en `0.1.2-proto` salvo que aparezca un error de compilación concreto.
    - [x] Color Space: **Linear**, según la configuración actual del proyecto.
 4. Hacer un build de prueba local antes de publicar.
 
@@ -32,18 +32,19 @@ Objetivo: sacar builds de prueba estables y repetibles para validar entrega temp
 
 ### Resolución WebGL
 
-- Resolución interna del proyecto: **640 x 360**.
-- Resolución objetivo 16:9: **1920 x 1080**.
-- Resolución recomendada para el embed de itch.io: **640 x 360**.
+- Resolución base de arte: **640 x 360**.
+- Resolución configurada en WebGL: **960 x 540**.
+- Resolución recomendada para el embed de itch.io: **960 x 540**.
 - Cambiar en **Player Settings > Resolution and Presentation**:
-  - Default Screen Width (Web): `640`.
-  - Default Screen Height (Web): `360`
-- El proyecto usa render 640 x 360 y escalado exacto x3; 640 x 360 es equivalente a un escalado x1 en el embed.
+  - Default Screen Width (Web): `960`.
+  - Default Screen Height (Web): `540`
+- La base visual 640 x 360 se presenta en un canvas WebGL 960 x 540; el
+  escalado debe validarse visualmente en la candidata.
 - En la página de itch.io, configurar el embed con el mismo ratio **16:9**.
 
 **Carpeta de salida sugerida:**
 
-`Builds/WebGL/0.1.1-proto/`
+`Builds/WebGL/0.1.2-proto/`
 
 **Validación rápida WebGL:**
 
@@ -59,13 +60,13 @@ Objetivo: sacar builds de prueba estables y repetibles para validar entrega temp
 
 **Perfil recomendado:**
 
-- [ ] Platform: **Windows**
+- [x] Platform: **Windows**
 - [x] Architecture: **x86_64**
 - [x] Development Build: **OFF** (para candidata)
 - [x] Script Debugging: **OFF**
-- [x] Fullscreen Mode: **Fullscreen Window** para abrir en la resolución del monitor, o **Windowed** si se necesita depuración fácil.
+- [x] Fullscreen Mode actual: **Windowed**.
 - [x] Resolution Windows: mantener **1920 x 1080** como resolución predeterminada para coincidir con el objetivo visual.
-- [x] Resizable Window: **OFF** en `0.1.1-proto` para evitar redimensionados no validados.
+- [x] Resizable Window: **OFF** en `0.1.2-proto` para evitar redimensionados no validados.
 
 ### Resolución Windows
 
@@ -75,14 +76,14 @@ Objetivo: sacar builds de prueba estables y repetibles para validar entrega temp
 - Valor actual del proyecto:
   - Default Screen Width: `1920`.
   - Default Screen Height: `1080`.
-  - Fullscreen Mode: `Fullscreen Window`.
+  - Fullscreen Mode: `Windowed`.
 - Para una primera prueba en pantalla pequeña, puede usarse una ventana de **1280 x 720** sin cambiar el diseño base.
 - Si se activa modo ventana, mantener el ratio 16:9 al redimensionar manualmente.
 - No modificar aún el ratio de cámara o los fondos para “encajar” resoluciones distintas.
 
 **Carpeta de salida sugerida:**
 
-`Builds/Windows/0.1.1-proto/`
+`Builds/Windows/0.1.2-proto/`
 
 **Validación rápida Windows:**
 
@@ -99,7 +100,7 @@ Para evitar sorpresas de última hora:
 
 1. Subir primero la build WebGL como **Draft**.
 2. Página mínima con:
-   - título de versión: `0.1.1-proto`,
+   - título de versión: `0.1.2-proto`,
    - controles (clic izquierdo / clic derecho),
    - nota de que es build de prueba.
 3. Test rápido en navegador desde la página privada de itch.io.
@@ -110,7 +111,7 @@ La configuración de la página, los metadatos y el texto listo para publicar es
 
 ## 5) Checklist final de salida
 
-- [ ] Versión `0.1.1-proto` visible en Player Settings
+- [ ] Versión `0.1.2-proto` visible en Player Settings
 - [ ] Build WebGL generada y probada
 - [ ] Build Windows generada y probada
 - [ ] Test básico de flujo completo superado
@@ -119,3 +120,6 @@ La configuración de la página, los metadatos y el texto listo para publicar es
 - [ ] Resolución Windows configurada a **1920 x 1080** como predeterminada y probada también en una ventana 1280 x 720
 
 Si este checklist pasa, la versión queda lista como baseline para seguir iterando con menor riesgo.
+
+El plan completo de QA, builds y publicación está en
+[MVP-Sprint-4.md](../02-Technical-Design/MVP-Sprint-4.md).

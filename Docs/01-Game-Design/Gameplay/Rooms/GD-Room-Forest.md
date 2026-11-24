@@ -1,8 +1,11 @@
 # GD Room - Forest Design
 
+> **Estado `0.1.1-proto`:** Forest, profundidades 0-6, carta, tres finales y
+> restart están implementados. Es la ruta terminal; no vuelve al Basement.
+
 - **Versión 0.1**
 - **Creado:** 19/11/2026
-- **Última actualización:** 19/11/2026
+- **Última actualización:** 23/11/2026
 
 ---
 
@@ -79,7 +82,8 @@ El jugador cree avanzar hacia una respuesta. En realidad está avanzando hacia e
 
 **Importante:**
 
-Las luces nunca llegan a revelarse completamente. Cuando el jugador cree estar a punto de alcanzar su origen, la realidad se interrumpe y aparece la Habitación Final.
+Las luces nunca llegan a revelarse completamente. Al llegar a la profundidad 6,
+Forest se convierte en la sala final con mesa, luz y carta.
 
 El Bosque genera continuamente la sensación de que existe una respuesta física al final del recorrido. La Habitación Final revela que la respuesta siempre fue emocional.
 
@@ -135,9 +139,11 @@ De este modo el propio jugador construye el desenlace a partir de aquello que de
 
 ---
 
-## La Habitación Final
+## Sala final de Forest
 
-El jugador espera llegar finalmente al origen de las luces. Sin embargo, en el momento en que parece haber alcanzado su destino, la Habitación Final aparece de forma imposible. No existe transición visible. No existe explicación. El jugador nunca llega a descubrir físicamente qué había al final del camino.
+El jugador espera encontrar el origen de las luces. Al alcanzar el último
+nivel, el fondo desaparece y la mesa, la luz y la carta aparecen en la misma room.
+No existe transición de escena adicional.
 
 Es la última construcción mental creada por el protagonista. Es el último refugio antes de enfrentarse definitivamente a la verdad.
 
@@ -220,7 +226,7 @@ La Room contiene un único interactuable invisible llamado `Forest Path`.
 - El jugador hace click sobre la zona interactiva central.
 - Cada clic incrementa el nivel de profundidad.
 - Las cuatro capas cambian al mismo frame.
-- Al alcanzar el nivel 5, el siguiente paso abre la transición hacia la Habitación Final.
+- Al alcanzar el nivel 5, el siguiente avance activa el estado final de nivel 6.
 - El interactuable no consume objetos ni requiere puzles adicionales.
 
 ---

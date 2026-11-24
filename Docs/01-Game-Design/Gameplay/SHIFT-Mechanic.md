@@ -1,5 +1,9 @@
 # Game Off 2026 - SHIFT MECHANIC
 
+> **Estado `0.1.1-proto`:** SHIFT está implementado con Input System, botón HUD
+> y gating en Hallway, Bedroom, Library y Basement. Lobby y Forest no permiten
+> el cambio. No existe coste temporal asociado.
+
 - Versión 0.1 - Diseño de Interacción y Progresión
 - Creado: 05/11/2026
 - Actualizado: 05/11/2026

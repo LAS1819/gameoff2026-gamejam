@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class HUDInventoryView
 {
     private readonly Action<string, float> showFeedback;
+    private readonly Dictionary<string, Sprite> itemIconsById = new(StringComparer.OrdinalIgnoreCase);
     private readonly List<VisualElement> slots = new();
     private VisualElement inventoryPanel;
 
@@ -57,24 +58,56 @@ public class HUDInventoryView
             slot.EnableInClassList("full", item != null);
             slot.EnableInClassList("empty", item == null);
 
+            var icon = slot.Q<Image>("slot-icon");
+            if (icon == null)
+            {
+                icon = new Image { name = "slot-icon" };
+                icon.AddToClassList("slot-icon");
+                icon.pickingMode = PickingMode.Ignore;
+                icon.focusable = false;
+                slot.Add(icon);
+            }
+
             var label = slot.Q<Label>("slot-label");
             if (label == null)
             {
                 label = new Label { name = "slot-label" };
                 label.AddToClassList("slot-label");
+                label.pickingMode = PickingMode.Ignore;
+                label.focusable = false;
                 slot.Add(label);
             }
 
             var selected = item != null
                 && InventoryManager.Instance != null
                 && item.id == InventoryManager.Instance.SelectedItemId;
+            var itemIcon = item != null ? ResolveIcon(item.id) : null;
+            var hasIcon = itemIcon != null;
             slot.EnableInClassList("selected", selected);
+            icon.sprite = hasIcon ? itemIcon : null;
+            icon.style.display = hasIcon ? DisplayStyle.Flex : DisplayStyle.None;
             label.text = item == null ? string.Empty : GetSlotLabel(item);
-            label.style.display = item == null ? DisplayStyle.None : DisplayStyle.Flex;
-            slot.style.marginRight = index == slots.Count - 1 ? 0 : 12;
+            label.style.display = item == null || hasIcon ? DisplayStyle.None : DisplayStyle.Flex;
+            slot.style.marginRight = index == slots.Count - 1 ? 0 : 8;
             slot.pickingMode = item == null ? PickingMode.Ignore : PickingMode.Position;
             slot.focusable = item != null;
         }
+    }
+
+    public void SetItemIcons(
+        Sprite staffKeyIcon,
+        Sprite libraryKeyIcon,
+        Sprite wornBookIcon,
+        Sprite floppyDiskIcon,
+        Sprite basementCodeIcon,
+        Sprite valveHandleIcon)
+    {
+        SetItemIcon("staff_key", staffKeyIcon);
+        SetItemIcon("library_key", libraryKeyIcon);
+        SetItemIcon("worn_book", wornBookIcon);
+        SetItemIcon("floppy_disk", floppyDiskIcon);
+        SetItemIcon("basement_code", basementCodeIcon);
+        SetItemIcon("valve_handle", valveHandleIcon);
     }
 
     public void RefreshLantern(
@@ -204,6 +237,33 @@ public class HUDInventoryView
             slot = slot.parent;
         }
         return slot;
+    }
+
+    private void SetItemIcon(string itemId, Sprite icon)
+    {
+        if (string.IsNullOrWhiteSpace(itemId))
+        {
+            return;
+        }
+
+        if (icon == null)
+        {
+            itemIconsById.Remove(itemId);
+            return;
+        }
+
+        itemIconsById[itemId] = icon;
+    }
+
+    private Sprite ResolveIcon(string itemId)
+    {
+        if (string.IsNullOrWhiteSpace(itemId))
+        {
+            return null;
+        }
+
+        itemIconsById.TryGetValue(itemId, out var icon);
+        return icon;
     }
 
     private static string GetSlotLabel(InventoryItemData item)

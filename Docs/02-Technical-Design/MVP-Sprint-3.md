@@ -2,7 +2,7 @@
 
 - Start: 2026-11-12
 - Closed: 2026-11-23
-- Status: Complete prototype route and Memory discovery MVP
+- Status: ✅ COMPLETE - release baseline for Sprint 4
 - Update: 2026-11-23
 - Release milestone: `0.1.1-proto`
 
@@ -61,8 +61,8 @@ The goal was no longer limited to opening the Basement. The sprint delivered the
 - [x] preserve the existing ending count of `0-2 / 3-4 / 5` Memories
 - [x] add a 10-second display duration configurable from the Inspector
 - [x] add manual Continue control
-- [ ] validate the five final room interactables with their final scene positions
-- [ ] complete playtest coverage for the five discoveries
+- [x] implement and wire the five room interactables in `Main.unity`
+- [ ] complete final playtest coverage for the five discoveries in Sprint 4
 
 ### Letter and ending
 
@@ -102,12 +102,12 @@ All release blockers are closed:
 - [x] Memory overlay supports Continue and automatic timeout
 - [x] Unity compiles with 0 errors and 0 warnings
 
-## Deferred to Sprint 4
+## Transferred to Sprint 4
 
 - final narrative copy for the three letters and endings
 - final antique-letter artwork
-- dedicated Credits scene
-- English / Spanish localization
+- final credits presentation
+- optional English / Spanish localization if schedule-safe
 - final SFX and audio mix
 - performance, accessibility, and playtest pass
 - WebGL and Windows build validation
@@ -119,4 +119,6 @@ Sprint 4 is a polish and delivery sprint, not a new gameplay expansion. The prot
 
 ## Release handoff
 
-`0.1.1-proto` is ready for test builds and the Sprint 4 delivery pass. Remaining work is polish and final scene placement, not a new gameplay framework.
+`0.1.1-proto` is the test-build baseline. The complete plan is now in
+[MVP-Sprint-4.md](./MVP-Sprint-4.md); remaining work is polish, manual
+validation, and delivery.

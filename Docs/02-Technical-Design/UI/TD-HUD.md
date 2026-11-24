@@ -1,14 +1,15 @@
 # TD-HUD - HUD mínimo runtime (Sprint 2)
 
-- **Versión:** 3.1
+- **Versión:** 3.4
 - **Creado:** 2026-11-06
-- **Actualizado:** 2026-11-21
+- **Actualizado:** 2026-11-24
 - **Autor:** @LAS1819
-- **Estado:** Integrado en el HUD del prototipo
+- **Estado:** Integrado en el HUD del prototipo; Sprint 4 amplía fuentes e inventario
 
 ## Objetivo
 
-Tener un HUD mínimo, estable y usable para la demo del sprint 1 sin crear una segunda arquitectura de UI.
+Mantener el HUD mínimo, estable y usable de `0.1.2-proto` sin crear una
+segunda arquitectura de UI.
 
 Incluye:
 
@@ -22,6 +23,16 @@ Incluye:
   - `HUDInventoryView`;
   - `HUDStoryOverlayView`;
   - `HUDMemoryDiscoveryView`.
+
+## Fundaciones visuales Sprint 4
+
+El Bloque 1 se diseña sin cambiar el sistema base del HUD:
+
+- [TD-Fonts.md](TD-Fonts.md): fuente retro compartida y fallback.
+- [TD-Inventory.md](TD-Inventory.md): reemplazo visual de los tres slots.
+- [TD-Item-Sprites.md](TD-Item-Sprites.md): iconos prioritarios por item.
+
+La implementación debe preservar el layout, los eventos y los estados existentes.
 
 ## Decisión técnica
 
@@ -87,6 +98,10 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 
 - Se refresca al recibir `InventoryManager.ItemAdded` / `ItemRemoved`.
 - Slots alternan clases `empty` / `full`.
+- Los seis items del MVP muestran su Sprite por `item.id`.
+- `Floppy Disk`, `Basement Code` y `Valve Handle` usan el mismo flujo gráfico
+  que Staff Key, Library Key y Worn Book.
+- Los IDs futuros sin Sprite conservan el fallback textual del slot.
 
 ### Feedback
 
@@ -97,7 +112,7 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 ### SHIFT
 
 - Click sobre `shift-button` del HUD ejecuta `RealityManager.ToggleReality()`.
-- Respeta gating por room (por defecto `hallway`).
+- Respeta gating por room: Hallway, Bedroom, Library y Basement.
 - Actualiza clases visuales `normal` / `other-side`.
 - Marca flag `ShiftPerformed`.
 
@@ -108,8 +123,9 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 - Este sprite representa la silueta de la `Linterna` sin obtener.
 - Cuando el jugador recoge la `Linterna` en `Bedroom`, el `HUD` cambia al Sprite 1 del mismo atlas.
 - El Sprite 1 representa la `Linterna` obtenida, pero apagada.
-- En `Basement`, el jugador puede alternar la `Linterna` y pasar al Sprite 2 (obtenida-encendida).
-- Fuera de rooms permitidas, el toggle se bloquea por gating de room (mismo patrón conceptual que SHIFT).
+- No existe estado activo de linterna en `0.1.1-proto`; el icono representa
+  únicamente si la herramienta fue obtenida.
+- Light 2D, batería y gating por uso se mantienen fuera del MVP.
 - El icono se sitúa por encima del `shift-button`, sin romper la compactación visual del `HUD`.
 
 ### Transiciones visuales
@@ -185,7 +201,8 @@ Usar:
 En [Main.unity](../../../Assets/Scenes/Main.unity), en `HUDRoot`:
 
 - **Delete el GameObject `ShiftPanel`** (hijo de HUDRoot)
-  - Es el que tiene `UIShiftButton.cs` y su propio `PanelRenderer` con [ShiftUI.uxml](E:/repos/unity/GameOff2026-GameJam/Assets/UI/ShiftUI.uxml)
+  - `UIShiftButton.cs` y [ShiftUI.uxml](../../../Assets/UI/ShiftUI.uxml) son
+    referencias históricas; no deben coexistir como un segundo SHIFT runtime
   - Ya no es necesario; todo está en el HUD centralizado
 
 ### 2) HUDRoot configuración final

@@ -1,5 +1,9 @@
 # Room Architecture Pattern - MVP
 
+> **Estado `0.1.1-proto`:** la arquitectura data-driven está validada y contiene
+> Lobby, Hallway, Bedroom, Library, Basement y Forest. Sprint 4 no añade tipos de
+> room ni managers.
+
 - Versión 0.4
 - Creado: 10/11/2026
 - Actualizado: 10/11/2026

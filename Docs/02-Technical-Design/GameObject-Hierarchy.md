@@ -2,6 +2,9 @@
 
 This document defines the expected hierarchy of objects in each scene. It reflects the actual MVP architecture: **point-and-click horror, no player movement, data-driven design.**
 
+> Estado vigente: `Main.unity` es la única escena de gameplay en build;
+> `Bootstrap.unity` queda como apoyo histórico y no se incluye en la release.
+
 ---
 
 ## 🎯 Core Principle
@@ -108,14 +111,16 @@ Room children are consistently organized as `Visuals`, `Props`, and
 room state or depth flags.
 
 The Story Overlay is built at runtime inside the HUD root. This avoids coupling
-the modal to an individual room and keeps it reusable for the Letter, Ending,
-and future Credits presentation.
+the modal to an individual room and keeps it reusable for the Letter and Ending.
+Credits may remain in this overlay unless Sprint 4 proves a separate scene is
+necessary.
 
 ### Runtime UI (UI Toolkit + Panel Renderer)
 
 - SHIFT icon is implemented with **UI Toolkit runtime** via **PanelRenderer**.
-- `ShiftUI.uxml` contains a `VisualElement` named `shift-button` and all visual styling lives in `shift-button-style-sheet.uss`.
-- `UIShiftButton` binds the click callback during panel reload and calls `RealityManager.Instance.ToggleReality()` only when the current room is allowed.
+- `HUD.uxml` contains the `shift-button`; the current controller and styles are
+  `HUDController`, `HUD.uxml`, and `HUD-style-sheet.uss`.
+- `HUDController` binds the click callback and calls the gated reality switch.
 - The button does not use a native Unity `Button`; instead it uses `RegisterCallback<ClickEvent>()` and CSS classes for `normal` and `other-side` state.
 - Avoid mixing with legacy Canvas/Button setup for SHIFT to prevent duplicated or conflicting configuration.
 

@@ -1,8 +1,11 @@
 # Game Off 2026 - TECHNICAL DESIGN
 
-- **Versión:** 0.1.1-proto
+- **Versión:** 0.1.2-proto
 - **Creación:** 03/11/2026
-- **Última actualización:** 23/11/2026
+- **Última actualización:** 24/11/2026
+
+> Arquitectura vigente para `0.1.2-proto`. Save persistente, reloj global,
+> ScriptableObjects obligatorios y un EventData genérico están fuera del MVP.
 
 ---
 
@@ -35,7 +38,7 @@ Y sistemas auxiliares:
 
 ```plaintext
 Event System
-Save System
+Runtime restart
 HUD / Story Overlay
 ```
 
@@ -157,9 +160,11 @@ Ejemplos:
 
 ```plaintext
 StaffKey
-Fuse
-Medallion
-Photo
+LibraryKey
+WornBook
+FloppyDisk
+BasementCode
+ValveHandle
 ```
 
 [GameOff26-...zleFlow-v1 | Word]
@@ -202,9 +207,10 @@ Toda la progresión debe depender de Flags.
 ```plaintext
 HasStaffKey
 DoorOpened
-FoundCode
-HasFuse
-GeneratorEnabled
+WornBookFound
+HasFloppyDisk
+BasementCodeFound
+PressureValveRepaired
 ForestFinalTableVisible
 ForestLetterRead
 ForestEndingReached
@@ -239,15 +245,14 @@ SecretEnding
 ```
 
 The ending loop uses the existing HUD as a reusable `StoryOverlay` for the
-letter and final tier. A separate `Credits` scene is planned for Sprint 4 and
-should be loaded additively so the persistent game state can return to the
-Lobby without rebuilding the global systems.
+letter and final tier. Sprint 4 must choose the smallest final credits
+presentation; the existing overlay is valid and a separate scene is optional.
 
 ---
 
 ## 10. MVP
 
-El MVP técnico debe permitir:
+El MVP técnico ya permite:
 
 ```mermaid
 graph TD
@@ -264,5 +269,7 @@ Cuando eso funcione:
 ✅ Arquitectura validada.
 ✅ Vertical Slice posible.
 ✅ Riesgo técnico principal eliminado.
+✅ Ruta completa hasta Forest, carta, final y reinicio.
+✅ Cinco Memorias opcionales y tres rangos de final.
 
 ---

@@ -2,9 +2,13 @@
 
 - Fecha inicio: 09/11/2026
 - Fecha objetivo: 15/11/2026
-- Estado: 🟡 PLANIFICADO - Base de Lobby/Hallway validada, Bedroom como prioridad MVP
+- Estado: ✅ CERRADO - Bedroom, interacción, inventario y HUD integrados
 - Creado: 10/11/2026
-- Actualizado: 12/11/2026
+- Actualizado: 23/11/2026
+
+> Registro histórico. La implementación final de Bedroom y el contrato de click
+> están integrados en `0.1.1-proto`. Los playtests pendientes se trasladan a la
+> matriz de validación de [MVP-Sprint-4.md](./MVP-Sprint-4.md).
 
 ## Objetivo
 

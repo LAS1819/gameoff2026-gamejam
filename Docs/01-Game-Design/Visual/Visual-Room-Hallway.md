@@ -1,5 +1,9 @@
 # Game Off 2026 - PASILLO PRINCIPAL
 
+> **Estado `0.1.1-proto`:** los fondos y la puerta/bloqueo del Hallway están
+> integrados. Cualquier mejora visual entra solo si no altera interacción o
+> legibilidad.
+
 - Versión 0.1 - Diseño Visual
 - Creado: 05/11/2026
 - Actualizado: 05/11/2026
@@ -163,7 +167,7 @@ Visualmente:
 Feedback adicional:
 
 - el Icono del Amuleto (UI) en la esquina superior derecha debe estar **parpadeando o mostrando feedback visual** para indicar que SHIFT está disponible;
-- ver [SHIFT-Mechanic.md](./SHIFT-Mechanic.md) para detalles completos sobre el icono y su activación.
+- ver [SHIFT-Mechanic.md](../Gameplay/SHIFT-Mechanic.md) para detalles completos sobre el icono y su activación.
 
 ---
 

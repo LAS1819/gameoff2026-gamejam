@@ -1,8 +1,12 @@
 # Audio System Technical Design
 
+> **Estado `0.1.1-proto`:** `AudioManager`, `MusicManager`, mixer y tema musical
+> están integrados. Ambientes y SFX siguen como backlog de pulido, no como
+> requisitos estructurales.
+
 - **Autor:** @LAS1819
 - **Versión:** 1.1
-- **Fecha:** 2026-11-09
+- **Fecha:** 2026-11-23
 - **Actualización:** 2026-11-10
 
 ## Resumen

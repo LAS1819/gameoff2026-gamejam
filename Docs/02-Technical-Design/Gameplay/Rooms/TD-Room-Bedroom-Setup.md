@@ -1,5 +1,8 @@
 # Bedroom Room Setup - Unity Hierarchy
 
+> **Registro integrado.** La jerarquía vigente es la de `Main.unity`. Este
+> documento no exige una linterna activa ni debe ejecutarse como migración nueva.
+
 - Versión 0.1
 - Creado: 10/11/2026
 - Actualizado: 10/11/2026

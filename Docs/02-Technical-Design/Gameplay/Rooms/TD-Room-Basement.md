@@ -1,5 +1,9 @@
 # Room Basement — Technical Spec
 
+> **Estado `0.1.1-proto`:** flujo implementado sin requisito activo de linterna.
+> `LanternController`, Light 2D, `requiresLantern` y batería son diseño
+> descartado. La fuente vigente es el catálogo y los resolvers runtime.
+
 - Versión 0.3
 - Creado: 17/11/2026
 - Actualizado: 19/11/2026
@@ -122,7 +126,7 @@ id: "storage_shelf_left"
 displayName: "Storage Shelves"
 interactionType: Examine
 visibleInNormalReality: true
-visibleInOtherReality: true
+visibleInOtherReality: false
 resultFlag: BasementShelfLeftExplored
 ```
 
@@ -335,6 +339,14 @@ resultFlag: ForestExitUnlocked
 - `PressureValveRepaired == true`;
 - `SteamEnabled == true`;
 - `DenialManifestationRejected == true`.
+- Reality activa: `Normal`.
+
+Aunque la salida quede desbloqueada al terminar la secuencia en `Other Side`,
+el vapor bloquea el tránsito. La puerta no debe mostrarse ni procesarse en esa
+realidad. El jugador debe volver a Normal antes de cargar Forest.
+
+`ResolveForestExit` vuelve a comprobar las tres flags de progresión como
+defensa frente a llamadas directas o bindings desactualizados.
 
 **Visual:** No tiene visual, sólo es un colisionador que se activa tras cumplir las condiciones.
 

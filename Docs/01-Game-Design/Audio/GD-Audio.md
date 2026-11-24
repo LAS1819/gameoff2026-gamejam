@@ -1,8 +1,12 @@
 # Audio Design
 
+> **Estado `0.1.1-proto`:** existe una pista musical principal y la estructura
+> del mixer. Las capas, ambientes y SFX descritos aquí siguen siendo dirección
+> de pulido de Sprint 4, no sistemas ya implementados.
+
 - **Versión del documento:** 0.4
 - **Creado:** 2026-11-07
-- **Última actualización:** 2026-11-07
+- **Última actualización:** 2026-11-23
 
 ---
 

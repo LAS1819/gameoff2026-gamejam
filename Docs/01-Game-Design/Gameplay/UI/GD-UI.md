@@ -1,9 +1,12 @@
 # GD-UI - UI del juego
 
+> **Estado `0.1.1-proto`:** inventario, SHIFT, feedback, carta, final y Memorias
+> están integrados en un HUD. La linterna solo distingue no obtenida / obtenida.
+
 - **Versión** 0.1 - Diseño de UI
 - **Autor:** @LAS1819
 - **Creado:** 12/11/2026
-- **Actualizado:** 12/11/2026
+- **Actualizado:** 23/11/2026
 
 ---
 
@@ -60,10 +63,10 @@ La `Linterna` es un icono persistente, complementario al SHIFT.
 
 - Surge como elemento de `UI` desde el inicio, pero en estado no obtenido.
 - Se coloca sobre el `shift-button` en la misma capa visual del `HUD`.
-- Tiene tres estados visuales principales:
+- Tiene dos estados implementados:
   - Sprite 0: silueta de la linterna sin obtener / sin activar.
   - Sprite 1: linterna obtenida, en estado apagada.
-  - Sprite 2: linterna encendida (cuando se implemente su uso en el Sótano).
+- Un tercer sprite puede evaluarse en una versión futura si se implementa su uso.
 - Una vez se recoge la `Linterna` en el `Bedroom`, el icono pasa al Sprite 1.
 - Este cambio no significa que la `Linterna` esté activa; solo refleja que el objeto ya pertenece al `Inventario` del jugador y que queda como herramienta disponible para el futuro.
 
@@ -91,15 +94,16 @@ La `Linterna` no debe ser un icono “bonito” de decoración: debe ser un marc
 - El icono sigue siendo visible y estable.
 - La `Linterna` no se usa todavía; solo ha sido descubierta y añadida a la progresión del jugador.
 
-### Estado 2: encendida
+### Estado 2 descartado: encendida
 
 - La `Linterna` se muestra con el sprite correspondiente al estado encendido.
 - Indica que el jugador puede usarla activamente (sólo en el `Sótano`).
 - El icono sigue siendo visible y estable mientras la `Linterna` esté encendida.
 
-### Estado futuro: usable en el Sótano
+### Estado descartado del MVP: usable en el Sótano
 
-Más adelante, cuando el juego introduzca el `Sótano` y la mecánica de explotación de la `Linterna`, el icono podrá pasar a un tercer estado:
+Si una versión posterior introduce una mecánica real de linterna, el icono podrá
+pasar a un tercer estado. No forma parte de `0.1.1-proto`.
 
 - encendida,
 - apagada,

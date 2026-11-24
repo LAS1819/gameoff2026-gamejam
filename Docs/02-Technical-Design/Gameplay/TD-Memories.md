@@ -1,9 +1,9 @@
 # TD - Memories
 
-- **Versión:** 0.2
+- **Versión:** 1.0
 - **Creado:** 2026-11-22
-- **Última actualización:** 2026-11-22
-- **Estado:** implementación lógica iniciada; pendiente asignar los cinco sprites de sombras
+- **Última actualización:** 2026-11-23
+- **Estado:** implementado en `0.1.1-proto`; pendiente validación manual final
 
 ## 1. Objetivo
 
@@ -237,19 +237,10 @@ memory-04-eleven-thirty.png
 memory-05-orchard.png
 ```
 
-En la implementación actual existe el primer recurso preparado:
-
-- `Assets/Visuals/Memories/sprite-memory-01-first-steps-v1.png`
-- asignado al campo `memory01Concept` de `HUDController`;
-- importado como sprite único con filtrado de punto;
-- mostrado dentro de `HUDMemoryDiscoveryView`.
-
-También existe el recurso preparado para Hallway:
-
-- `Assets/Visuals/Memories/sprite-memory-02-fossil-v1.png`
-- asignado al campo `memory02Concept` de `HUDController`;
-- disponible únicamente para `Memory_02`;
-- mostrado tras examinar la mancha de amonita en El Otro Lado.
+La implementación actual incluye y asigna los cinco recursos desde
+`sprite-memory-01-first-steps-v1.png` hasta
+`sprite-memory-05-orchard-v1.png`. `HUDController` mantiene las referencias y
+`HUDMemoryDiscoveryView` selecciona cada sprite por `memoryId`.
 
 Si se crean variaciones de normalidad o distorsión, deben compartir:
 
@@ -325,16 +316,16 @@ El reinicio debe probarse desde la pantalla final y desde el Lobby.
 
 ### Casos obligatorios
 
-- [ ] Cada interactuable aparece únicamente en El Otro Lado
-- [ ] El primer examen activa su Flag
-- [ ] El overlay muestra título, imagen y texto correctos
-- [ ] El overlay desaparece sin bloquear controles
-- [ ] Repetir el examen no vuelve a mostrar el overlay
-- [ ] Volver a cambiar de realidad no reactiva Memorias
-- [ ] Reiniciar elimina todas las Flags
-- [ ] Contar 0-2, 3-4 y 5 produce el final correspondiente
-- [ ] No aparece ningún contador durante el recorrido
-- [ ] La pantalla final muestra `Recovered Memories: X / 5`
+- [x] Implementado: visibilidad en Other Side, con excepción de Memory 01
+- [x] Implementado: el primer examen activa su Flag
+- [x] Implementado: overlay con título, imagen y texto
+- [x] Implementado: Continue y timeout de 10 segundos
+- [x] Implementado: protección contra repetición
+- [x] Implementado: reinicio de flags
+- [x] Implementado: finales 0-2, 3-4 y 5
+- [x] Implementado: sin contador durante el recorrido
+- [x] Implementado: resumen `Recovered Memories: X / 5`
+- [ ] QA de Sprint 4: posiciones, clics, overlay y restart en builds
 
 ---
 

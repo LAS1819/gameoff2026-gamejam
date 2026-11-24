@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.2-proto] - 2026-11-24 - Shared UI foundations and replay stabilization
+
+**Added:**
+
+- Press Start 2P title/accent font and Pixelify Sans body font for UI Toolkit
+- Retro inventory slot states for Empty, Full, and Selected using a three-frame sprite sheet
+- Nine-slice inventory panel background with a contrasting 9-slice-aware frame
+- Graphic inventory icons for Staff Key, Library Key, Worn Book, Floppy Disk, Basement Code, and Valve Handle
+- Technical-design guidance for inventory slot sprites, item sprites, import settings, and fallback behavior
+- Replay verification coverage for Bedroom, Library, Basement, and Forest state restoration
+
+**Changed:**
+
+- Inventory slots now render as `48 x 48` pixel-art elements with `48 x 48` item icons
+- Inventory panel spacing and slot separation now preserve readable contrast around the frame
+- Shared HUD styles now use Pixelify Sans for readable text and Press Start 2P for titles and primary accent actions
+- Library secret shelf, Bedroom persistent state, and Forest depth visuals now synchronize with progression flags when a room is re-entered
+- Forest entry is explicitly restricted to Normal Reality after the Basement sequence is resolved
+
+**Fixed:**
+
+- Fixed Bedroom restarting with the light on, wardrobe open, computer powered, disk inserted, and Library Key already resolved
+- Fixed Library secret shelf remaining open after restart and closing only by animation after re-entering
+- Fixed Forest Exit Door resolving or opening the Forest from Other Side
+- Fixed the first Forest depth frame loading with inactive or missing background renderers
+- Fixed Forest entry forcing the wrong reality and leaving the Normal background disabled
+- Preserved fallback labels and inventory interaction behavior when an item icon is unavailable
+
+**Notes:**
+
+- `0.1.2-proto` closes Sprint 4 Block 1, shared UI foundations
+- The release candidate keeps the complete playable loop and adds no new puzzle or room
+- Remaining work is build validation, itch.io submission, final P0/P1 QA, and later visual polish blocks
+- The next code milestone is interaction and feedback polish, not a new gameplay system
+
+---
+
 ## [0.1.1-proto] - 2026-11-23 - Memory discovery pass and test-build readiness
 
 **Added:**
@@ -18,6 +55,11 @@ All notable changes to this project will be documented in this file.
 
 **Changed:**
 
+- Documentation normalized for the complete `0.1.1-proto` state and final Sprint 4 delivery scope
+- Added the final polish, QA, build, itch.io, localization, credits, and release-cut plan
+- Corrected WebGL / Windows resolution and fullscreen documentation to match Player Settings
+- Marked Sprints 1-3 as closed historical records
+- Distinguished implemented behavior from deferred or discarded design
 - Memory presentation now uses a dedicated non-modal overlay instead of the modal Story Overlay
 - Memory sprites use 320x112 horizontal pixel compositions with Point filtering
 - Memory overlay art uses `scale-to-fit` to preserve complete silhouettes

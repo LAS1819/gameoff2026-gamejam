@@ -1,5 +1,8 @@
 # Room Library — Technical Spec
 
+> **Estado `0.1.1-proto`:** Worn Book, Floppy Disk, estantería secreta, Code
+> Panel y Basement están integrados. Este documento ya no describe placeholders.
+
 - Versión 0.3
 - Creado: 14/11/2026
 - Actualizado: 15/11/2026
@@ -365,6 +368,23 @@ BasementCodeAcquired
 - La `Room` debe sostenerse con flags simples y claros.
 - El secreto del `Basement` debe depender del `SHIFT` + `Interactive Shelf` + `Worn Book`, no de una llave que aparezca por casualidad.
 - La `Room` no debería necesitar un árbol de estado enorme para funcionar bien.
+
+### Reinicio visual de la ShelfSecretDoor
+
+La posición de la estantería es estado visual persistente: el GameObject de
+Library continúa vivo aunque la room esté oculta. Al reactivar Library,
+`ShelfSecretDoorController` debe sincronizarse inmediatamente con
+`LibrarySecretDoorOpen`.
+
+- flag `false`: colocar la puerta en `closedLocalPosition` sin animación;
+- flag `true`: colocarla directamente en `closedLocalPosition + openLocalOffset`;
+- la animación gradual solo se usa cuando el puzzle abre la puerta durante la
+  partida;
+- los objetos revelados (`BasementDoor` y `CodePanel`) se muestran según la
+  misma posición inmediata.
+
+Esto evita que Restart muestre un frame abierto y luego cierre lentamente una
+estantería que ya debería estar reseteada.
 
 ---
 

@@ -1,8 +1,12 @@
 # Memories Design
 
+> **Estado `0.1.1-proto`:** las cinco Memorias, su catálogo, flags, overlays y
+> sprites están implementados. El Sprint 4 se limita a validar escenas, copy,
+> posiciones, duración y reinicio.
+
 - **Versión del documento**: 0.4
 - **Creado**: 2026-11-19
-- **Última actualización**: 2026-11-22
+- **Última actualización**: 2026-11-23
 
 ## Objetivo
 

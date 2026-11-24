@@ -1,5 +1,9 @@
 # Hallway Room Design
 
+> **Estado `0.1.1-proto`:** Hallway, obstáculo, SHIFT, salida y puertas a Bedroom
+> / Library están implementados. Las referencias a puertas futuras o placeholders
+> son históricas.
+
 - Versión 0.1 - Diseño de Sala
 - Creado: 10/11/2026
 - Actualizado: 10/11/2026
@@ -78,7 +82,8 @@ El Hallway funciona como la primera “ruptura” entre la esperanza y la verdad
 
 - Son indicios de espacios aún no explorados.
 - Su presencia sugiere que el edificio tiene más zonas detrás del pasillo.
-- Aunque por ahora no se abren, funcionan como semillas de futuro y como símbolo de la progresión por venir.
+- Las puertas a Bedroom y Library ya forman parte del recorrido. Bedroom es
+  accesible en Other Side y Library requiere la Library Key.
 
 ---
 

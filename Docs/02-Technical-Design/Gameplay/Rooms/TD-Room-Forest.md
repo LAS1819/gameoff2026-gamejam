@@ -1,5 +1,8 @@
 # Room Forest - Technical Spec
 
+> **Estado `0.1.1-proto`:** profundidad 0-6, sala final, carta, finales y
+> restart están implementados. Credits separado sigue siendo opcional.
+
 - Version 0.7
 - Created: 20/11/2026
 - Updated: 21/11/2026
@@ -57,6 +60,10 @@ At scene load, the level 6 objects start inactive:
 The Forest background remains active for depth levels 0-5. At depth 6,
 `BackgroundNormal` is disabled and the level 6 props become active.
 
+Forest is a Normal-reality destination. `RoomManager.LoadRoom("forest")`
+forces the Normal reality before activating the room so `BackgroundNormal`
+cannot remain disabled because the Basement exit was reached from Other Side.
+
 ## 3. Depth controller
 
 `ForestDepthController` owns the visual transition:
@@ -73,6 +80,10 @@ The controller uses the existing spritesheets:
 - `spritesheet-room-forest-background-outer-forest-v1.png`
 - `spritesheet-room-forest-background-sky-v1.png`
 The `Sky` is the lowest visual layer and darkens with each depth level.
+
+The controller applies depth on activation and `RoomManager` refreshes it
+again immediately after showing Forest. At depth 0, all four renderers must
+have a non-null sprite before the room is ready for interaction.
 
 ## 4. Forest advance
 
@@ -412,10 +423,11 @@ rely on a forced browser tab close.
 No new room is required after the letter. The overlay completes the game
 loop.
 
-## 12.1 Credits scene plan - Sprint 4
+## 12.1 Credits presentation options - Sprint 4
 
-The in-overlay credits are valid for the current Game Loop, but the target
-structure for Sprint 4 is a separate `Credits` scene.
+The in-overlay credits are valid for the current Game Loop. Use a separate
+`Credits` scene only if it adds clear presentation value without endangering
+restart, localization, or delivery.
 
 Recommended flow:
 
@@ -490,10 +502,10 @@ Sprint 4 because it avoids extra scene lifecycle state.
 12. ✅ Implement replay reset.
 13. Verify the complete Basement -> Forest -> Letter -> Ending loop.
 
-### Future localization - Sprint 4
+### Optional localization - Sprint 4
 
-All runtime copy should remain in English until a real localization pipeline
-is introduced. A future English/Spanish language selector should use Unity
+Runtime copy remains English. Add an English/Spanish selector only if the final
+schedule is safe. A real localization setup should use Unity
 Localization rather than branches or parallel text files in `HUDController`.
 
 Recommended keys:
@@ -510,8 +522,8 @@ ui.story_overlay.restart
 ui.ending.memory_count
 ```
 
-Current package status: `com.unity.localization` is not installed. For Sprint
-4, install the package only when localization is started, create English and
+Current package status: `com.unity.localization` is not installed. Install the
+package only when localization is started, create English and
 Spanish locales, and migrate display strings without hand-rolled language
 state. The UI Toolkit labels should receive values from localization services
 rather than storing separate Spanish and English variables.

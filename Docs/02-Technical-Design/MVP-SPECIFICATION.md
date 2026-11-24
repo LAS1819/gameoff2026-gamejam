@@ -1,8 +1,9 @@
 # MVP Specification - Start here
 
-- Version: 0.1.1-proto
+- Version: 0.1.2-proto
 - Status: Complete playable prototype for test builds
-- Last updated: 2026-11-23
+- Sprint: 4 - final polish, validation, and delivery
+- Last updated: 2026-11-24
 - Primary scene: `Assets/Scenes/Main.unity`
 
 ## Prototype objective
@@ -124,15 +125,19 @@ The prototype is accepted when:
 - Restart resets flags, inventory, Forest depth, and active room
 - Unity compiles without errors or warnings
 
-## Deferred for Sprint 4
+## Sprint 4 work
 
 - final narrative copy and letter art
 - dedicated Credits scene
-- English / Spanish localization
+- final credits presentation
+- optional English / Spanish localization if it does not endanger delivery
 - final SFX and audio polish
 - final accessibility pass
 - WebGL and Windows delivery build validation
 - itch.io private-draft and publication checks
+- shared HUD, font, inventory, cursor, and Memory presentation polish
+- room-by-room visual sweep
+- optional lightweight Lantern / global-light prototype behind the P2 scope gate
 
 ## Technical rules
 
@@ -142,3 +147,4 @@ The prototype is accepted when:
 - keep room data centralized in `DefaultRoomCatalog`
 - prefer existing systems over new managers
 - preserve explicit and testable state transitions
+- do not add gameplay systems unless they pass the Sprint 4 P2 scope gate
