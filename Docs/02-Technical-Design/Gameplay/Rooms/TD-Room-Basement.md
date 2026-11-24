@@ -176,7 +176,7 @@ resultFlag: BasementShelfRightExplored
 id: "personal_effects_box"
 displayName: "Personal Effects Box"
 interactionType: Use
-visibleInNormalReality: false
+visibleInNormalReality: true
 visibleInOtherReality: true
 resultFlag: BasementEvidenceFound
 ```
@@ -189,8 +189,9 @@ resultFlag: BasementEvidenceFound
 
 **Regla técnica:**
 
-- sólo puede usarse en `Other Side`;
-- al usarla, añade `ValveHandle` al inventario y activa `ValveHandleFound`;
+- se ve en `Normal` y en `Other Side`;
+- al usarla en `Normal`, no entrega item (solo feedback narrativo);
+- al usarla en `Other Side`, añade `ValveHandle` al inventario y activa `ValveHandleFound`;
 - la caja sigue visible como evidencia; no se consume.
 - sólo entrega la manivela una vez;
 - si el inventario o `ValveHandleFound` indican que ya fue recogida, informa

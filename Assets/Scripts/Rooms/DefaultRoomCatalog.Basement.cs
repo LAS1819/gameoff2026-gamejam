@@ -64,7 +64,7 @@ public static partial class DefaultRoomCatalog
             descriptionInNormalReality = "The label says PERSONAL. Photos and papers are tucked inside.",
             descriptionInOtherReality = "The same label now reads MIND. The contents no longer agree with each other.",
             interactionType = InteractionType.Use,
-            visibleInNormalReality = false,
+            visibleInNormalReality = true,
             visibleInOtherReality = true,
             resultFlag = GameFlagNames.BasementEvidenceFound
         });

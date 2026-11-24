@@ -118,6 +118,8 @@ activo de linterna ni batería.
 La manivela se entrega una sola vez al usar la caja en el Otro Lado. La caja
 permanece visible como evidencia después de la recolección. Si el jugador vuelve
 a usarla, recibe feedback de que ya está vacía y no obtiene una segunda manivela.
+En Realidad Normal la caja también es visible, pero usarla no entrega la
+manivela.
 
 **Contenido:**
 
