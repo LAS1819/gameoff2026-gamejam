@@ -4,12 +4,12 @@
 - Objetivo: 2026-12-01
 - Estado: 🟡 ACTIVO - último sprint del MVP
 - Milestone de entrada: `0.1.1-proto`
-- Milestone de salida: `0.1.2-proto`
+- Milestone de salida: `0.1.3-proto`
 
 ## Objetivo
 
 Cerrar la versión jugable existente sin ampliar el proyecto. Este sprint transforma
-`0.1.1-proto` en la candidata `0.1.2-proto`, estable para WebGL, Windows e itch.io.
+`0.1.2-proto` en la candidata `0.1.3-proto`, estable para WebGL, Windows e itch.io.
 
 No se añaden rooms, managers, mecánicas de combate, movimiento del jugador ni
 infraestructuras nuevas. Una petición entra en el sprint solo si corrige un
