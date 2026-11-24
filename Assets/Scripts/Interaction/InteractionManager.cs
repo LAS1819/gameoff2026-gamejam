@@ -68,7 +68,7 @@ public class InteractionManager : MonoBehaviour
                 return false;
             }
 
-            ShowFeedback("This needs closer inspection.", 1.5f);
+            ShowFeedback($"Take a closer look at {interactable.displayName}.", 1.5f);
             return true;
         }
 
@@ -96,6 +96,7 @@ public class InteractionManager : MonoBehaviour
         var wasResolved = InteractionResolver.Resolve(interactable, sourceObject, MarkConsumed);
         if (wasResolved)
         {
+            ClearSelectionAfterInteraction();
             if (RoomManager.Instance != null)
             {
                 RoomManager.Instance.RefreshInteractables();
@@ -178,6 +179,14 @@ public class InteractionManager : MonoBehaviour
     public void ResetRuntimeState()
     {
         consumedInteractables.Clear();
+    }
+
+    private static void ClearSelectionAfterInteraction()
+    {
+        if (InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.DeselectSelectedItem();
+        }
     }
 
     private void MarkConsumed(string interactableId)

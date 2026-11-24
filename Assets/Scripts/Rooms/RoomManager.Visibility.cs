@@ -400,6 +400,15 @@ public partial class RoomManager
                 rejectionController = denial.gameObject.AddComponent<DenialManifestationController>();
             }
 
+            if (GameManager.Instance != null
+                && !GameManager.Instance.HasFlag(GameFlagNames.DenialManifestationRejected))
+            {
+                if (rejectionController.HasPlayed || rejectionController.IsPlaying)
+                {
+                    rejectionController.ResetForReplay();
+                }
+            }
+
             if (!shouldBeVisible
                 && GameManager.Instance != null
                 && GameManager.Instance.HasFlag(GameFlagNames.DenialManifestationRejected)

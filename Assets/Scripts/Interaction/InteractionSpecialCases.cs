@@ -48,6 +48,16 @@ internal static class InteractionSpecialCases
 
         var inventory = InventoryManager.Instance;
         var gameManager = GameManager.Instance;
+        var handleAlreadyCollected = (inventory != null && inventory.HasItem("valve_handle"))
+            || (gameManager != null
+                && (gameManager.HasFlag(GameFlagNames.ValveHandleFound)
+                    || gameManager.HasFlag(GameFlagNames.PressureValveRepaired)));
+        if (handleAlreadyCollected)
+        {
+            ShowFeedback("The box is empty. The handle has already been taken.", 1.8f);
+            return true;
+        }
+
         if (inventory != null && !inventory.HasItem("valve_handle"))
         {
             inventory.AddItem(InteractionItemFactory.CreateValveHandle());

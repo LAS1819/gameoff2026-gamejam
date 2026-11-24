@@ -1,6 +1,6 @@
 # Technical design
 
-This folder contains the active technical reference for the `0.1.2-proto` vertical slice and the implementation history behind it.
+This folder contains the active technical reference for the `0.1.3-proto` vertical slice and the implementation history behind it.
 
 ## Start here
 
@@ -30,6 +30,8 @@ This folder contains the active technical reference for the `0.1.2-proto` vertic
 - [Sprint 4 fonts](./UI/TD-Fonts.md)
 - [Sprint 4 inventory](./UI/TD-Inventory.md)
 - [Sprint 4 item sprites](./UI/TD-Item-Sprites.md)
+- [Sprint 4 cursor](./UI/TD-Cursor.md)
+- [Sprint 4 overlay backgrounds](./UI/TD-Overlay-Backgrounds.md)
 - [Audio](./Audio/TD-Audio-System.md)
 
 ## Sprint history
@@ -50,6 +52,6 @@ This folder contains the active technical reference for the `0.1.2-proto` vertic
 - no null-propagation operators in runtime scripts
 - UI Toolkit through `PanelRenderer`
 - no active Lantern gameplay in the current build; its HUD icon only represents possession
-- no persistent save or global clock in the `0.1.2-proto` scope
+- no persistent save or global clock in the `0.1.3-proto` scope
 
-Older sprint documents remain as historical records. They should not override the current `0.1.2-proto` specification.
+Older sprint documents remain as historical records. They should not override the current `0.1.3-proto` specification.

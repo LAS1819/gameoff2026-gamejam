@@ -78,6 +78,10 @@ public class DenialManifestationController : MonoBehaviour
             spriteRenderer.enabled = true;
             spriteRenderer.color = originalColor;
         }
+        if (spriteStateController != null)
+        {
+            spriteStateController.SetState(0);
+        }
     }
 
     private IEnumerator PlayRejectionRoutine()

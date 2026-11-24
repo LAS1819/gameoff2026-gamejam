@@ -83,8 +83,6 @@ internal static class InteractionOutcomeProcessor
             case "basement_code":
             case "code_basement":
                 return GameFlagNames.BasementCodeAcquired;
-            case "valve_handle":
-                return GameFlagNames.ValveHandleFound;
             default:
                 return null;
         }

@@ -1,6 +1,6 @@
 # TD-HUD - HUD mínimo runtime (Sprint 2)
 
-- **Versión:** 3.4
+- **Versión:** 3.6
 - **Creado:** 2026-11-06
 - **Actualizado:** 2026-11-24
 - **Autor:** @LAS1819
@@ -8,7 +8,7 @@
 
 ## Objetivo
 
-Mantener el HUD mínimo, estable y usable de `0.1.2-proto` sin crear una
+Mantener el HUD mínimo, estable y usable de `0.1.3-proto` sin crear una
 segunda arquitectura de UI.
 
 Incluye:
@@ -31,6 +31,8 @@ El Bloque 1 se diseña sin cambiar el sistema base del HUD:
 - [TD-Fonts.md](TD-Fonts.md): fuente retro compartida y fallback.
 - [TD-Inventory.md](TD-Inventory.md): reemplazo visual de los tres slots.
 - [TD-Item-Sprites.md](TD-Item-Sprites.md): iconos prioritarios por item.
+- [TD-Cursor.md](TD-Cursor.md): cursor personalizado y fallback del sistema.
+- [TD-Overlay-Backgrounds.md](TD-Overlay-Backgrounds.md): fondos de Memorias, Carta y Final.
 
 La implementación debe preservar el layout, los eventos y los estados existentes.
 
@@ -99,6 +101,8 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 - Se refresca al recibir `InventoryManager.ItemAdded` / `ItemRemoved`.
 - Slots alternan clases `empty` / `full`.
 - Los seis items del MVP muestran su Sprite por `item.id`.
+- Un click sobre el item seleccionado lo deselecciona.
+- Las interacciones resueltas limpian la selección para evitar usos obsoletos.
 - `Floppy Disk`, `Basement Code` y `Valve Handle` usan el mismo flujo gráfico
   que Staff Key, Library Key y Worn Book.
 - Los IDs futuros sin Sprite conservan el fallback textual del slot.
@@ -107,7 +111,36 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 
 - `UIManager.ShowFeedback(...)` delega en `HUDController`.
 - Mensajes temporales con auto-hide.
+- El texto de feedback usa un fondo semitransparente oscuro para mantener
+  contraste sobre fondos claros.
 - `InteractionManager` envía feedback en pickup/use/examine y errores de gating.
+
+### Memorias
+
+- `Use` o clic principal sobre el interactable solo muestra feedback narrativo
+  ("mira más de cerca").
+- `Examine` mediante clic derecho es la única acción que desbloquea, recupera
+  o reabre la Memoria.
+- El descubrimiento muestra el overlay completo y permanece abierto.
+- Al volver a Examinar el mismo Interactable se abre de nuevo; la flag de
+  descubrimiento solo registra progreso y no impide la reconsulta.
+- El timeout automático está eliminado.
+- Continue, Escape, Enter y Space cierran el overlay.
+
+### Layout del Story Overlay
+
+- Carta y Resumen usan paneles relativos al viewport.
+- El panel limita su alto a `220-320 px` y permite que título, cuerpo y acciones
+  adapten su espacio sin solaparse.
+- El texto usa `flex-shrink` y ajuste normal para evitar cortes intermitentes
+  entre loops o resoluciones.
+- En el gate `640 x 360`, el panel mantiene el contenido dentro de la vista
+  y conserva acciones accesibles.
+
+### Hover
+
+- El nombre del interactable visible aparece solo mientras el cursor está sobre él.
+- El tooltip usa el sistema HUD y desaparece fuera del hotspot o ante overlays.
 
 ### SHIFT
 
@@ -159,21 +192,68 @@ Las vistas específicas mantienen su propio estado:
 - `HUDStoryOverlayView`: carta, final, reinicio y navegación modal.
 - `HUDMemoryDiscoveryView`: construcción, fade y presentación temporal de una Memoria.
 
-### Arte de Memorias
+### Arte de overlays
 
-El overlay de descubrimiento usa un sprite horizontal de `320 x 112` píxeles recomendado.
+Los requisitos visuales completos están separados en
+[TD-Overlay-Backgrounds.md](TD-Overlay-Backgrounds.md):
 
-El recurso representa padre e hijo como sombras y debe seleccionarse por `memoryId`. No se recomienda dibujar una composición distinta con dimensiones diferentes para cada Memoria.
+- Memorias: panel azul ceniza con detalles de archivo;
+- Carta: textura de papel sin texto pintado;
+- Resumen Final: marco oscuro con ornamento dorado.
 
-El overlay muestra un botón `Continue` y se cierra automáticamente después de `memoryDiscoveryDuration` segundos.
-El valor inicial recomendado es `10`, configurable desde el Inspector de `HUDController`.
+Los PNG sirven como fondo. Los textos permanecen en UI Toolkit para permitir
+wrap, redimensionado y localización.
 
-Import settings:
+---
 
-- `Filter Mode = Point`;
-- mip maps desactivados;
-- compresión sin pérdida para las primeras pruebas;
-- escala sin recorte (`scale-to-fit`) para mantener completas las siluetas.
+## Feedback sobre fondos claros
+
+Mantener el background semitransparente en los textos temporales:
+
+- `feedback-text`: fondo `rgba(18,16,24,0.82)`, borde dorado tenue;
+- `hover-name-text`: fondo `rgba(18,16,24,0.82)`, borde dorado tenue;
+- padding mínimo de `6 px 12 px`;
+- texto blanco con opacidad `0.95`;
+- no añadir sombra de texto ni sustitutos con outline.
+
+El fondo pertenece al texto, no a la room. No debe aplicarse transparencia
+global al Inventario ni a los slots. Para HUD sobre fondo claro, se recomienda
+un fondo opaco al `82-90%` para que el copy siga legible.
+
+---
+
+## Transición entre rooms
+
+Usar el mismo elemento `transition-overlay` para todas las rooms:
+
+- duración objetivo: `0.35 s`;
+- fondo oscuro: `rgba(0,0,0,0.70)`;
+- apertura y cierre con opacity: `0.3 s` de transición;
+- no se deben crear overlays por room;
+- no bloquear controles después de terminar la transición;
+- respetar `RoomChanged` como único evento disparador.
+
+Si se incorpora un sprite o patrón de fade, debe ocupar toda la pantalla y
+mantener el centro visual simple. Evitar 9-slice, bordes pixelados o animaciones
+que requieran nuevos assets por room.
+
+---
+
+## Pulse de cambio de realidad
+
+Usar `reality-pulse` como flash global y breve:
+
+- duración objetivo: `0.25 s`;
+- tint suave: `rgba(120,130,255,0.18)`;
+- cubrir toda la pantalla;
+- dispararse solo en `RealityChanged`;
+- no bloquear mouse ni teclado;
+- no sustituir por animación de todos los interactables.
+
+El pulse comunica el cambio de realidad; no debe usarse como efecto de carga
+de room ni como sustituto del fade de transición.
+
+---
 
 ## USS compatible con esta versión de UI Toolkit
 

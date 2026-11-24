@@ -2,6 +2,57 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.3-proto] - 2026-11-24 - Interaction feedback and shared overlay backgrounds
+
+**Added:**
+
+- Custom 32x32 retro cursor with a precise hotspot and automatic fallback to the system cursor
+- Dedicated cursor technical-design guidance in `TD-Cursor.md`
+- Pixel-art 9-slice backgrounds for Memory, Revelation Letter, and Ending overlays
+- Memory panel background with an archive-inspired blue-gray frame
+- Parchment-style Revelation Letter background
+- Dark wood and gold Ending/Summary background
+- Clear cream and gold text colors for the dark Ending/Summary panel
+- Dedicated technical-design guidance for overlay backgrounds in `TD-Overlay-Backgrounds.md`
+
+**Changed:**
+
+- Memory interactables now unlock and reopen Memories only through right-click Examine
+- Left-click Use on a Memory interactable provides a contextual prompt to examine it more closely
+- Memory, Letter, and Ending panels now use flexible UI Toolkit layouts instead of brittle absolute text positioning
+- Ending titles split by final type and outcome into two readable lines
+- Inventory panel remains lower and slightly transparent without changing slot dimensions
+- The Revelation Letter and final Table are raised above the Inventory panel interaction area
+- USS cursor styles removed to avoid runtime cursor warnings; the HUD now owns the single global cursor
+- Final Story Overlay text now uses a light palette against the dark Ending background while the Letter preserves dark text on paper
+- Sprint 4 documentation now distinguishes implemented behavior from deferred transition and reality effects
+
+**Fixed:**
+
+- Fixed Memory overlays only being available once after discovery
+- Fixed Personal Effects Box visibility and Normal/Other Side use semantics
+- Fixed duplicate Valve Handle collection
+- Fixed Revelation Letter and Ending text clipping inconsistently across loops
+- Fixed the Ending title overlapping or being cut by its surrounding layout
+- Fixed the Inventory panel covering the Revelation Letter and Personal Effects Box
+- Fixed runtime warnings caused by UI Toolkit `cursor: link` declarations
+- Fixed dark text becoming unreadable over the Ending/Summary background
+
+**QA/Deferred:**
+
+- Room transition fade is documented but remains visually deferred
+- Reality change pulse is documented but remains visually deferred
+- Lantern interaction, local 2D lighting, and cursor-follow lighting remain outside the MVP
+
+**Notes:**
+
+- `0.1.3-proto` closes Sprint 4 Block 2 interaction and feedback polish
+- The release preserves the complete playable loop and adds no new room or mechanic
+- Fade/pulse implementation remains an optional follow-up rather than a delivery blocker
+- Remaining work is final build validation, itch.io delivery preparation, localization, credits, and submission polish
+
+---
+
 ## [0.1.2-proto] - 2026-11-24 - Shared UI foundations and replay stabilization
 
 **Added:**

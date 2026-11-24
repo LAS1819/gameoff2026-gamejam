@@ -99,11 +99,6 @@ internal static class InteractionExamineTransitionProcessor
             return false;
         }
 
-        if (gameManager.HasFlag(interactable.memoryId))
-        {
-            return false;
-        }
-
         if (!MemoryCatalog.TryGet(interactable.memoryId, out var memory))
         {
             Debug.LogWarning($"[MemoryDiscovery] Missing catalog entry for '{interactable.memoryId}'.");

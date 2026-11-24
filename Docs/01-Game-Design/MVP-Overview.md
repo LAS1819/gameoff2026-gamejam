@@ -1,6 +1,6 @@
-# Game Off 2026 - Prototype 0.1.2
+# Game Off 2026 - Prototype 0.1.3
 
-- Version: 0.1.2-proto
+- Version: 0.1.3-proto
 - Updated: 2026-11-24
 - Status: complete playable vertical slice
 - Current sprint: 4 - final polish, QA, and delivery

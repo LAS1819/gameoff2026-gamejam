@@ -1275,7 +1275,7 @@ Transform:
   m_GameObject: {fileID: 265288784}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.5, z: 0}
+  m_LocalPosition: {x: 0, y: -5.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1405,7 +1405,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 11
+  m_SortingOrder: 21
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: a97bd762184aa7b40b813419e6745a9a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2264,7 +2264,7 @@ Transform:
   m_GameObject: {fileID: 541286345}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -8.5, z: 0}
+  m_LocalPosition: {x: 0, y: -7.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2317,7 +2317,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 20
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: f35aeb079ccc50848b0e2caaa300aa11, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4913,6 +4913,8 @@ MonoBehaviour:
   memory03Concept: {fileID: 21300000, guid: 1b4f2d7bbd49b884a9de2e7ddb1d20f1, type: 3}
   memory04Concept: {fileID: 21300000, guid: a530aba7526a453489efec0c8eafdd27, type: 3}
   memory05Concept: {fileID: 21300000, guid: dc5ced6d4c9e560469fbede7c596f40c, type: 3}
+  customCursorTexture: {fileID: 2800000, guid: a3efd86490463224e8a0ff9ddf6c9986, type: 3}
+  customCursorHotspot: {x: 2, y: 1}
   feedbackDuration: 2
   roomTransitionDuration: 0.35
   realityPulseDuration: 0.25
@@ -5231,8 +5233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8811e9d3a2d09498adb4d6adb72208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  useDebugStartRoom: 0
-  debugStartRoomId: basement
+  useDebugStartRoom: 1
+  debugStartRoomId: forest
 --- !u!4 &1253440029
 Transform:
   m_ObjectHideFlags: 0

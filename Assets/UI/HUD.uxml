@@ -16,6 +16,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Label name="feedback-text" text="" class="feedback-text"/>
+        <ui:Label name="hover-name-text" text="" class="hover-name-text"/>
         <ui:VisualElement name="shift-button" class="shift-button normal"/>
         <ui:VisualElement name="lantern-icon" class="lantern-icon"/>
         <ui:VisualElement name="transition-overlay" class="transition-overlay"/>
