@@ -361,6 +361,31 @@ ItemData
 | FloppyInserted | El disquete está insertado en el ordenador | `bedroom_computer` |
 | BasementCodeUnlocked | Se ha mostrado el código del Basement | `bedroom_computer.monitor` |
 
+### Sincronización visual en Restart
+
+Las flags son la fuente de verdad del estado de Bedroom. Al cargar la room,
+`RoomManager` debe reconstruir los controladores visuales desde:
+
+- `BedroomLightOn` -> estado del sprite de `CeilingLamp`;
+- `BedroomWardrobeOpened` -> `WardrobeController.IsOpen` y hitboxes abiertas;
+- `BedroomComputerPowered` -> estado visual y lógico de la torre;
+- `BedroomComputerDiskInserted` -> estado del flujo de disquete/código.
+
+`GameManager.InitializeMVP()` limpia estas flags durante Restart, pero los
+GameObjects de `Main.unity` permanecen vivos. Por ello no basta con resetear
+datos: la sincronización visual debe ejecutarse cada vez que Bedroom entra en
+carga.
+
+Resultado esperado tras Restart:
+
+- lámpara apagada;
+- armario cerrado;
+- torre y monitor apagados;
+- disquete no insertado;
+- `InteractionManager` sin la llave marcada como consumida;
+- `library_key` oculta hasta cumplir de nuevo luz encendida + armario abierto
+  en Other Side.
+
 **Regla técnica sugerida:**
 
 ```text
