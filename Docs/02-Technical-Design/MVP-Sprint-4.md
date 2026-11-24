@@ -102,7 +102,7 @@ WebGL `640 x 360`; ningún texto nuevo corta controles.
 
 - **Rama recomendada:** `feat/s4-interaction-feedback`
 - **Versión final:** `0.1.3-proto`
-- [ ] Corrección de hallazgos de bugs encontrados en versión `0.1.2-proto`
+- [x] Corrección de hallazgos de bugs encontrados en versión `0.1.2-proto`
   - [x] Inventario: seleccionar otra vez el mismo item deselecciona el item.
   - [x] Inventario: las acciones resueltas limpian la selección obsoleta.
   - [x] Manivela: el Personal Effects Box evita una segunda recolección.
@@ -122,6 +122,7 @@ WebGL `640 x 360`; ningún texto nuevo corta controles.
   - [x] Continue cerrado por botón.
   - [x] Escape / Enter / Space disponibles en Memorias.
   - [x] Timeout eliminado de Memorias.
+- [x] Añadidos backgrounds para ventanas de Memorias, Carta y Resumen Final.
 
 **Gate:** hover, cursor, transiciones y Memorias funcionan con ratón y teclado,
 sin ocultar hotspots ni bloquear la room.
