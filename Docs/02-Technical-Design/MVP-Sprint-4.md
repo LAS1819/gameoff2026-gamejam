@@ -111,7 +111,7 @@ WebGL `640 x 360`; ningún texto nuevo corta controles.
   - [x] Carta Revelación: layout flex relativo revisado para evitar cortes por resolución o loop.
   - [x] Resumen Final: layout flex relativo revisado para evitar cortes por resolución o loop.
   - [x] Carta Revelación y Mesa elevadas en Y y sobre la interferencia del inventario.
-- [ ] Añadir cursor personalizado con cursor sistema como fallback.
+- [x] Añadir cursor personalizado con cursor sistema como fallback.
   - [x] Hook técnico disponible.
   - [x] Cursor personalizado implementado con fallback al sistema.
 - [x] Mostrar el nombre del interactable solo al hacer hover, sin ensuciar la vista.

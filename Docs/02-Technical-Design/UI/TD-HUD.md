@@ -32,6 +32,7 @@ El Bloque 1 se diseña sin cambiar el sistema base del HUD:
 - [TD-Inventory.md](TD-Inventory.md): reemplazo visual de los tres slots.
 - [TD-Item-Sprites.md](TD-Item-Sprites.md): iconos prioritarios por item.
 - [TD-Cursor.md](TD-Cursor.md): cursor personalizado y fallback del sistema.
+- [TD-Overlay-Backgrounds.md](TD-Overlay-Backgrounds.md): fondos de Memorias, Carta y Final.
 
 La implementación debe preservar el layout, los eventos y los estados existentes.
 
@@ -191,113 +192,17 @@ Las vistas específicas mantienen su propio estado:
 - `HUDStoryOverlayView`: carta, final, reinicio y navegación modal.
 - `HUDMemoryDiscoveryView`: construcción, fade y presentación temporal de una Memoria.
 
-### Arte de Memorias
+### Arte de overlays
 
-El overlay de descubrimiento usa dos tipos de gráfico:
+Los requisitos visuales completos están separados en
+[TD-Overlay-Backgrounds.md](TD-Overlay-Backgrounds.md):
 
-- **Concepto de Memoria:** sprite horizontal de `320 x 112` píxeles.
-- **Background del panel:** sprite independiente, recomendado `320 x 240` con
-  9-slice de `16 px` por cada borde.
+- Memorias: panel azul ceniza con detalles de archivo;
+- Carta: textura de papel sin texto pintado;
+- Resumen Final: marco oscuro con ornamento dorado.
 
-El concepto representa padre e hijo como sombras y se selecciona por `memoryId`.
-No conviene dibujar una composición distinta con dimensiones diferentes para
-cada Memoria. El texto, título y botón deben permanecer fuera de la imagen.
-
-Jerarquía visual:
-
-```text
-memory-discovery-overlay
-├── memory-discovery-backdrop
-└── memory-discovery-panel
-    ├── memory-discovery-image
-    ├── memory-discovery-title
-    ├── memory-discovery-body
-    └── memory-discovery-close
-```
-
-El panel debe conservar `Continue`, Escape, Enter y Space. No debe cerrarse
-automáticamente: el tiempo se usa solo como dato histórico; `memoryDiscoveryDuration`
-ya no controla el cierre.
-
-Import settings:
-
-- `Filter Mode = Point`;
-- mip maps desactivados;
-- Texture Type = `Sprite (2D and UI)`;
-- Sprite Mode = `Single`;
-- compresión sin pérdida para las primeras pruebas;
-- concepto sin recorte (`scale-to-fit`);
-- background mediante 9-slice y `stretch-to-fill`.
-
-Rutas:
-
-```text
-Assets/Visuals/UI/Memory/
-├── sprite-ui-memory-background-v1.png
-├── sprite-ui-memory-01-v1.png
-├── sprite-ui-memory-02-v1.png
-├── sprite-ui-memory-03-v1.png
-├── sprite-ui-memory-04-v1.png
-└── sprite-ui-memory-05-v1.png
-```
-
-En el gate `640 x 360`, el panel debe mantener al menos `200 px` de alto,
-preferiblemente `320 px` como máximo, y reservar siempre espacio visible para
-`Continue`.
-
-## Arte de Carta y Resumen Final
-
-Carta Revelación y Resumen Final deben compartir un mismo recurso de
-background si las variantes son solo tono o borde. La opción mínima es:
-
-- `sprite-ui-story-panel-background-v1.png`;
-- resolución: `320 x 320`;
-- 9-slice recomendado: `24 px` izquierda/derecha y `24 px` arriba/abajo;
-- esquinas con remaches, bordes o ornamento que no se deformen;
-- centro plano o con textura muy suave.
-
-Jerarquía:
-
-```text
-hud-modal-layer
-├── story-overlay-backdrop
-└── story-overlay-panel
-    ├── story-overlay-eyebrow
-    ├── story-overlay-title
-    ├── story-overlay-body
-    ├── story-overlay-memory-count
-    ├── story-overlay-credits
-    └── story-overlay-actions
-        ├── story-overlay-close
-        └── story-overlay-restart
-```
-
-El texto nunca debe estar pintado dentro del PNG. Todo el copy debe permanecer
-como UI Toolkit para permitir wrap, reescalado y localización.
-
-Medidas vigentes:
-
-- panel: `420 px` mínimo y `620 px` máximo;
-- alto: `220-320 px`;
-- padding: `14-28 px`;
-- título Letter: `18 px`;
-- título Ending: `16 px` y dos líneas:
-  `Bad / Neutral / True Ending` y la segunda línea `Denial / Escape / Reunion`;
-- body: `15 px`, Pixelify Sans;
-- memoria recuperada: `14 px`;
-- créditos: `13 px`;
-- botones: `176 x 42 px`.
-
-Usar wrapping normal y `flex-shrink` para título y cuerpo. No usar texto fijo
-en una sola línea ni un panel absoluto con coordenadas calculadas por loop.
-El panel debe estar centrado por el contenedor flexible y crecer dentro de los
-límites establecidos.
-
-Ruta recomendada:
-
-```text
-Assets/Visuals/UI/Story/sprite-ui-story-panel-background-v1.png
-```
+Los PNG sirven como fondo. Los textos permanecen en UI Toolkit para permitir
+wrap, redimensionado y localización.
 
 ---
 

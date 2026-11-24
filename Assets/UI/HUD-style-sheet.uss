@@ -221,10 +221,15 @@ VisualElement {}
     align-items: center;
     justify-content: flex-start;
     overflow: visible;
-    background-color: rgba(235, 232, 220, 0.94);
+    background-image: url("project://database/Assets/Visuals/UI/Memory/sprite-ui-memory-panel-background-v1.png");
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-slice-left: 24;
+    -unity-slice-top: 24;
+    -unity-slice-right: 24;
+    -unity-slice-bottom: 24;
     border-width: 2px;
     border-radius: 10px;
-    border-color: rgba(70, 74, 82, 0.72);
+    border-color: rgba(188, 178, 132, 0.72);
 }
 
 .memory-discovery-image {
@@ -302,13 +307,22 @@ VisualElement {}
     max-height: 320px;
     padding: 14px 28px 12px;
     justify-content: flex-start;
-    background-color: rgba(171, 137, 93, 0.96);
+    background-image: url("project://database/Assets/Visuals/UI/Story/sprite-ui-story-ending-background-v1.png");
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-slice-left: 24;
+    -unity-slice-top: 24;
+    -unity-slice-right: 24;
+    -unity-slice-bottom: 24;
     border-width: 3px;
     border-radius: 12px;
     border-color: rgba(238, 216, 169, 0.72);
     z-index: 1;
     flex-direction: column;
     overflow: visible;
+}
+
+#story-overlay-panel.story-overlay-panel-letter {
+    background-image: url("project://database/Assets/Visuals/UI/Story/sprite-ui-story-letter-background-v1.png");
 }
 
 #story-overlay-panel > .story-overlay-title,
@@ -320,15 +334,19 @@ VisualElement {}
 }
 
 .story-overlay-eyebrow {
-    color: rgba(62, 44, 29, 0.86);
+    color: rgba(230, 212, 166, 0.86);
     font-size: 12px;
     -unity-font-style: normal;
     -unity-text-align: middle-center;
     letter-spacing: 2px;
 }
 
+#story-overlay-panel.story-overlay-panel-letter .story-overlay-eyebrow {
+    color: rgba(62, 44, 29, 0.86);
+}
+
 .story-overlay-title {
-    color: rgba(48, 35, 25, 0.98);
+    color: rgba(244, 228, 190, 0.98);
     font-size: 22px;
     -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
     -unity-font-style: normal;
@@ -338,10 +356,14 @@ VisualElement {}
     flex-shrink: 1;
 }
 
+#story-overlay-panel.story-overlay-panel-letter .story-overlay-title {
+    color: rgba(48, 35, 25, 0.98);
+}
+
 .story-overlay-body {
     flex-grow: 1;
     flex-shrink: 1;
-    color: rgba(48, 35, 25, 0.98);
+    color: rgba(241, 229, 201, 0.98);
     font-size: 15px;
     white-space: normal;
     -unity-text-align: middle-center;
@@ -351,8 +373,12 @@ VisualElement {}
     overflow: visible;
 }
 
+#story-overlay-panel.story-overlay-panel-letter .story-overlay-body {
+    color: rgba(48, 35, 25, 0.98);
+}
+
 .story-overlay-memory-count {
-    color: rgba(48, 35, 25, 0.86);
+    color: rgba(229, 201, 134, 0.96);
     font-size: 14px;
     -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
     -unity-font-style: normal;
@@ -360,13 +386,21 @@ VisualElement {}
     margin-bottom: 4px;
 }
 
+#story-overlay-panel.story-overlay-panel-letter .story-overlay-memory-count {
+    color: rgba(48, 35, 25, 0.86);
+}
+
 .story-overlay-credits {
-    color: rgba(48, 35, 25, 0.72);
+    color: rgba(218, 197, 151, 0.86);
     font-size: 13px;
     white-space: normal;
     -unity-text-align: middle-center;
     margin-top: 2px;
     margin-bottom: 8px;
+}
+
+#story-overlay-panel.story-overlay-panel-letter .story-overlay-credits {
+    color: rgba(48, 35, 25, 0.72);
 }
 
 .story-overlay-actions {

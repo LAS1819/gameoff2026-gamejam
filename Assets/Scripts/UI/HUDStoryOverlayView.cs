@@ -74,6 +74,7 @@ public class HUDStoryOverlayView
     public void ShowLetter(string overlayTitle, string overlayBody, string hint)
     {
         mode = StoryOverlayMode.Letter;
+        panel.EnableInClassList("story-overlay-panel-letter", true);
         eyebrow.text = "A LETTER";
         title.text = overlayTitle;
         title.style.fontSize = 18f;
@@ -95,6 +96,7 @@ public class HUDStoryOverlayView
     public void ShowEnding(string endingTitle, string farewell, string creditsText, int recoveredCount)
     {
         mode = StoryOverlayMode.Ending;
+        panel.EnableInClassList("story-overlay-panel-letter", false);
         eyebrow.text = "ENDING";
         title.text = endingTitle;
         title.style.fontSize = 16f;
