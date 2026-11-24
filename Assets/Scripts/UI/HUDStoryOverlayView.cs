@@ -13,6 +13,7 @@ public class HUDStoryOverlayView
     private Label body;
     private Label memoryCount;
     private Label credits;
+    private VisualElement actions;
     private Button close;
     private Button restart;
     private StoryOverlayMode mode = StoryOverlayMode.Letter;
@@ -157,7 +158,7 @@ public class HUDStoryOverlayView
         memoryCount = GetOrCreateLabel(panel, "story-overlay-memory-count", "story-overlay-memory-count");
         credits = GetOrCreateLabel(panel, "story-overlay-credits", "story-overlay-credits");
 
-        var actions = panel.Q<VisualElement>("story-overlay-actions");
+        actions = panel.Q<VisualElement>("story-overlay-actions");
         if (actions == null)
         {
             actions = new VisualElement { name = "story-overlay-actions" };
@@ -324,22 +325,39 @@ public class HUDStoryOverlayView
             body.style.position = Position.Relative;
             memoryCount.style.position = Position.Relative;
             credits.style.position = Position.Relative;
-            body.style.marginBottom = 54f;
+            title.style.marginBottom = 4f;
+            body.style.marginTop = 6f;
+            body.style.marginBottom = 8f;
+            actions.style.position = Position.Relative;
+            actions.style.bottom = StyleKeyword.Auto;
+            close.style.position = StyleKeyword.Auto;
+            close.style.left = StyleKeyword.Auto;
+            close.style.bottom = StyleKeyword.Auto;
             return;
         }
 
-        title.style.position = Position.Absolute;
-        title.style.left = 28f;
-        title.style.top = 35f;
-        body.style.position = Position.Absolute;
-        body.style.left = 28f;
-        body.style.top = 92f;
-        memoryCount.style.position = Position.Absolute;
-        memoryCount.style.left = 28f;
-        memoryCount.style.top = 150f;
-        credits.style.position = Position.Absolute;
-        credits.style.left = 28f;
-        credits.style.top = 182f;
+        title.style.position = Position.Relative;
+        title.style.left = StyleKeyword.Auto;
+        title.style.top = StyleKeyword.Auto;
+        title.style.marginBottom = 4f;
+        body.style.position = Position.Relative;
+        body.style.left = StyleKeyword.Auto;
+        body.style.top = StyleKeyword.Auto;
+        body.style.marginTop = 4f;
+        body.style.marginBottom = 6f;
+        memoryCount.style.position = Position.Relative;
+        memoryCount.style.left = StyleKeyword.Auto;
+        memoryCount.style.top = StyleKeyword.Auto;
+        memoryCount.style.marginBottom = 4f;
+        credits.style.position = Position.Relative;
+        credits.style.left = StyleKeyword.Auto;
+        credits.style.top = StyleKeyword.Auto;
+        credits.style.marginBottom = 8f;
+        actions.style.position = Position.Relative;
+        actions.style.bottom = StyleKeyword.Auto;
+        restart.style.position = StyleKeyword.Auto;
+        restart.style.left = StyleKeyword.Auto;
+        restart.style.bottom = StyleKeyword.Auto;
     }
 
     private bool TryGetHudPoint(Vector2 screenPoint, out Vector2 point)

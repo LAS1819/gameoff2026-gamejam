@@ -192,6 +192,11 @@ resultFlag: BasementEvidenceFound
 - sólo puede usarse en `Other Side`;
 - al usarla, añade `ValveHandle` al inventario y activa `ValveHandleFound`;
 - la caja sigue visible como evidencia; no se consume.
+- sólo entrega la manivela una vez;
+- si el inventario o `ValveHandleFound` indican que ya fue recogida, informa
+  que la caja está vacía y no crea un segundo item;
+- `BasementEvidenceFound` identifica la evidencia principal y puede activarse
+  al usar la caja sin depender del resultado de recolección.
 
 **Visual:**
 

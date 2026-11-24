@@ -73,6 +73,12 @@ VisualElement {}
     top: 24px;
     left: 50%;
     translate: -50% 0;
+    max-width: 520px;
+    padding: 6px 12px;
+    background-color: rgba(18, 16, 24, 0.82);
+    border-width: 1px;
+    border-radius: 6px;
+    border-color: rgba(220, 196, 144, 0.62);
     color: rgba(255, 255, 255, 0.95);
     font-size: 14px;
     -unity-text-align: middle-center;
@@ -83,6 +89,23 @@ VisualElement {}
 
 #feedback-text.visible {
     opacity: 1;
+}
+
+.hover-name-text {
+    position: absolute;
+    left: 50%;
+    bottom: 104px;
+    translate: -50% 0;
+    padding: 4px 9px;
+    background-color: rgba(18, 16, 24, 0.82);
+    border-width: 1px;
+    border-radius: 5px;
+    border-color: rgba(220, 196, 144, 0.55);
+    color: rgba(255, 255, 255, 0.96);
+    font-size: 12px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    opacity: 0;
 }
 
 #shift-button {
@@ -279,6 +302,16 @@ VisualElement {}
     border-radius: 12px;
     border-color: rgba(238, 216, 169, 0.72);
     z-index: 1;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#story-overlay-panel > .story-overlay-title,
+#story-overlay-panel > .story-overlay-body,
+#story-overlay-panel > .story-overlay-memory-count,
+#story-overlay-panel > .story-overlay-credits {
+    width: 100%;
+    flex-shrink: 1;
 }
 
 .story-overlay-eyebrow {
@@ -305,8 +338,9 @@ VisualElement {}
     white-space: normal;
     -unity-text-align: middle-center;
     margin-top: 10px;
-    margin-bottom: 54px;
-    padding-bottom: 4px;
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+    overflow: visible;
 }
 
 .story-overlay-memory-count {

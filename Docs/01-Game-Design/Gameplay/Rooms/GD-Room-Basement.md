@@ -115,6 +115,10 @@ Se encuentra entre cajas y objetos almacenados. En ella se localiza la `Manivela
 En `0.1.1-proto` la caja entrega la manivela directamente. No existe requisito
 activo de linterna ni batería.
 
+La manivela se entrega una sola vez al usar la caja en el Otro Lado. La caja
+permanece visible como evidencia después de la recolección. Si el jugador vuelve
+a usarla, recibe feedback de que ya está vacía y no obtiene una segunda manivela.
+
 **Contenido:**
 
 - `Manivela de la válvula`

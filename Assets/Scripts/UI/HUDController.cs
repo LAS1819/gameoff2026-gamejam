@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public enum StoryOverlayMode
@@ -35,6 +36,10 @@ public class HUDController : MonoBehaviour
     [SerializeField] private Sprite memory04Concept;
     [SerializeField] private Sprite memory05Concept;
 
+    [Header("Cursor")]
+    [SerializeField] private Texture2D customCursorTexture;
+    [SerializeField] private Vector2 customCursorHotspot = Vector2.zero;
+
     [Header("Timings")]
     [SerializeField] private float feedbackDuration = 2f;
     [SerializeField] private float roomTransitionDuration = 0.35f;
@@ -43,6 +48,7 @@ public class HUDController : MonoBehaviour
 
     private PanelRenderer.VersionedUIReloadCallback reloadCallback;
     private Label feedbackText;
+    private Label hoverNameText;
     private VisualElement shiftButton;
     private VisualElement lanternIcon;
     private VisualElement transitionOverlay;
@@ -65,6 +71,10 @@ public class HUDController : MonoBehaviour
 
     private void OnEnable()
     {
+        UnityEngine.Cursor.SetCursor(
+            customCursorTexture,
+            customCursorHotspot,
+            CursorMode.Auto);
         ResolvePanelRenderer();
         if (panelRenderer == null)
         {
@@ -100,10 +110,76 @@ public class HUDController : MonoBehaviour
         {
             storyView.Update();
         }
+        if (memoryView != null)
+        {
+            memoryView.Update();
+        }
+        UpdateInteractableHover();
+    }
+
+    private void UpdateInteractableHover()
+    {
+        if (hoverNameText == null)
+        {
+            return;
+        }
+
+        var name = ResolveHoveredInteractableName();
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            hoverNameText.text = string.Empty;
+            hoverNameText.style.opacity = 0f;
+            return;
+        }
+
+        hoverNameText.text = name;
+        hoverNameText.style.opacity = 1f;
+    }
+
+    private static string ResolveHoveredInteractableName()
+    {
+        if (UIManager.Instance != null && UIManager.Instance.IsStoryOverlayVisible())
+        {
+            return string.Empty;
+        }
+
+        var mouse = Mouse.current;
+        var camera = Camera.main;
+        if (mouse == null || camera == null)
+        {
+            return string.Empty;
+        }
+
+        var ray = camera.ScreenPointToRay(mouse.position.ReadValue());
+        var hits = Physics2D.RaycastAll(ray.origin, ray.direction);
+        for (var index = 0; index < hits.Length; index++)
+        {
+            var behaviour = hits[index].collider.GetComponent<InteractableBehaviour>();
+            if (behaviour == null)
+            {
+                behaviour = hits[index].collider.GetComponentInParent<InteractableBehaviour>();
+            }
+            if (behaviour == null || !behaviour.HasData())
+            {
+                continue;
+            }
+
+            var data = behaviour.GetData();
+            if (RoomManager.Instance != null
+                && !RoomManager.Instance.IsInteractableVisible(data))
+            {
+                continue;
+            }
+
+            return data.displayName;
+        }
+
+        return string.Empty;
     }
 
     private void OnDisable()
     {
+        UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         CancelInvoke(nameof(TrySubscribeRuntimeEvents));
         if (panelRenderer != null && reloadCallback != null)
         {
@@ -241,6 +317,18 @@ public class HUDController : MonoBehaviour
         hudRoot = root.Q<VisualElement>("hud-root");
         inventoryPanel = root.Q<VisualElement>("inventory-panel");
         feedbackText = root.Q<Label>("feedback-text");
+        hoverNameText = root.Q<Label>("hover-name-text");
+        if (hoverNameText == null)
+        {
+            hoverNameText = new Label
+            {
+                name = "hover-name-text",
+                text = string.Empty
+            };
+            hoverNameText.AddToClassList("hover-name-text");
+            hoverNameText.pickingMode = PickingMode.Ignore;
+            root.Add(hoverNameText);
+        }
         transitionOverlay = root.Q<VisualElement>("transition-overlay");
         realityPulse = root.Q<VisualElement>("reality-pulse");
 

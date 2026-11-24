@@ -76,16 +76,18 @@ WebGL `640 x 360`; ningún texto nuevo corta controles.
 - **Karq - WebGL:**
   - *Sensación general:* "Está guapo, tío, muy emotivo si sabes de qué va realmente. Me gusta. La música queda genial, la verdad, acompaña muy bien la experiencia. Me ha costado un ratillo pasármelo eh? Buen puzle."
   - *Bugs/Sugerencias/Ideas encontrados:*
-    - **Memorias**: igual no es un bug, pero sólo se pueden consultar una vez las Memorias. Luego, ya no más. Además, desaparecen solas las ventanas de Memorias haciendo que el botón Continue tenga poco sentido y que puedas perder info, además.
+    - [x] **Memorias**: igual no es un bug, pero sólo se pueden consultar una vez las Memorias. Luego, ya no más. Además, desaparecen solas las ventanas de Memorias haciendo que el botón Continue tenga poco sentido y que puedas perder info, además.
       - *Solución Luxus:* bien visto, quizá sería mejor mantener las ventanas de Memorias abiertas hasta que el jugador decida cerrarlas, evitando así la pérdida de información y dando más sentido al botón Continue.
+    - [ ] **Memorias:** estaría bien que pudiesen volver a verse las Memorias. En estos momentos sólo se ve una vez y ya está. Esto podría mejorar la experiencia y, además, dar más tiempo a apreciar los detalles de cada Memoria (gráfico y texto).
+      - *Solución Luxus:* implementar la posibilidad de volver a consultar las Memorias al pulsar sobre el Interactuable que las contiene.
     - **Cuarto de la Derecha (Bedroom)**: cuando inspeccionas la Ventana, el texto no se ve con el fondo blanco.
       - *Solución Luxus:* considerar cambiar el color del texto o añadir un fondo semitransparente al background del texto para mejorar la legibilidad.
-    - **Items de Inventario:** los objetos del inventario se tienen que poder desseleccionar pinchando otra vez (o algo por el estilo) porque a veces se queda seleccionado algo del inventario y "te raya" no poder dejar de usarlo.
+    - [x] **Items de Inventario:** los objetos del inventario se tienen que poder desseleccionar pinchando otra vez (o algo por el estilo) porque a veces se queda seleccionado algo del inventario y "te raya" no poder dejar de usarlo.
       - *Solución Luxus:* permitir que los objetos del inventario se desseleccionen al hacer clic nuevamente sobre ellos o al interactuar con otro objeto, evitando así que el jugador quede bloqueado con un objeto seleccionado. NOTA: esto se había resuelto anteriormente, pero parece que no se ha solucionado en todos los Interactables.
     - **Manivela:** he podido obtener la Manivela 2 veces, una vez puesta en la tubería, en la realidad alternativa se puede volver a recoger.
     - **Monstruo del Sótano:** tras el game loop completo, no me ha vuelto a salir el Monstruo del Sótano. Aún así, cuando he instalado la manivela en la tubería, y activado la Otra Realidad, se ha visto cómo desaparecía a causa del vapor.
       - *Solución Luxus:* revisar la lógica de aparición y desaparición del Monstruo del Sótano para asegurar que se comporte de manera consistente en todas las realidades y tras completar el game loop.
-    - **UI Carta Revelación**: los textos de la Carta Revelación no se encuadran en el espacio destinado, causando que parte del texto se corte o quede fuera de la vista.
+    - [x] **UI Carta Revelación**: los textos de la Carta Revelación no se encuadran en el espacio destinado, causando que parte del texto se corte o quede fuera de la vista.
       - *Solución Luxus:* ajustar el layout de la Carta Revelación para que los textos se encuadren correctamente dentro del espacio disponible, asegurando que toda la información sea visible y legible.
     - **UI Resumen Final**: los textos del Resumen Final no se encuadran correctamente en el espacio destinado, causando que parte del texto se corte o quede fuera de la vista.
       - *Solución Luxus:* ajustar el layout del Resumen Final para que los textos se encuadren correctamente dentro del espacio disponible, asegurando que toda la información sea visible y legible.
@@ -99,12 +101,24 @@ WebGL `640 x 360`; ningún texto nuevo corta controles.
 
 - **Rama recomendada:** `feat/s4-interaction-feedback`
 - [ ] Corrección de hallazgos de bugs encontrados en versión `0.1.2-proto`
+  - [x] Inventario: seleccionar otra vez el mismo item deselecciona el item.
+  - [x] Inventario: las acciones resueltas limpian la selección obsoleta.
+  - [x] Manivela: el Personal Effects Box evita una segunda recolección.
+  - [ ] Feedback sobre fondos claros: fondo semitransparente aplicado al HUD.
+  - [x] Memorias: el overlay permanece abierto hasta cerrar manualmente.
+  - [ ] Carta Revelación: layout flex revisado y pendiente de validación visual.
+  - [ ] Resumen Final: layout flex revisado y pendiente de validación visual.
+  - [x] Carta Revelación y Mesa elevadas en sorting sobre la interferencia del inventario.
 - [ ] Añadir cursor personalizado con cursor sistema como fallback.
-- [ ] Mostrar el nombre del interactable solo al hacer hover, sin ensuciar la vista.
+  - [x] Hook técnico disponible; queda pendiente asignar la textura final.
+- [x] Mostrar el nombre del interactable solo al hacer hover, sin ensuciar la vista.
 - [ ] Revisar el fade de transición entre rooms.
 - [ ] Revisar el pulse de cambio de realidad.
 - [ ] Crear o ajustar el background visual del overlay de Memorias.
 - [ ] Mantener Continue, timeout y cierre por Escape / Enter / Space.
+  - [x] Continue cerrado por botón.
+  - [x] Escape / Enter / Space disponibles en Memorias.
+  - [x] Timeout eliminado de Memorias.
 
 **Gate:** hover, cursor, transiciones y Memorias funcionan con ratón y teclado,
 sin ocultar hotspots ni bloquear la room.

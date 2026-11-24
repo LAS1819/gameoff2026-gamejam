@@ -159,6 +159,14 @@ public class HUDInventoryView
             return;
         }
 
+        if (InventoryManager.Instance.SelectedItemId == itemId)
+        {
+            InventoryManager.Instance.DeselectSelectedItem();
+            showFeedback($"{item.displayName} deselected.", 1.1f);
+            Refresh();
+            return;
+        }
+
         InventoryManager.Instance.SelectItem(itemId);
         showFeedback($"{item.displayName} selected.", 1.1f);
         Refresh();

@@ -99,6 +99,8 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 - Se refresca al recibir `InventoryManager.ItemAdded` / `ItemRemoved`.
 - Slots alternan clases `empty` / `full`.
 - Los seis items del MVP muestran su Sprite por `item.id`.
+- Un click sobre el item seleccionado lo deselecciona.
+- Las interacciones resueltas limpian la selección para evitar usos obsoletos.
 - `Floppy Disk`, `Basement Code` y `Valve Handle` usan el mismo flujo gráfico
   que Staff Key, Library Key y Worn Book.
 - Los IDs futuros sin Sprite conservan el fallback textual del slot.
@@ -107,7 +109,20 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 
 - `UIManager.ShowFeedback(...)` delega en `HUDController`.
 - Mensajes temporales con auto-hide.
+- El texto de feedback usa un fondo semitransparente oscuro para mantener
+  contraste sobre fondos claros.
 - `InteractionManager` envía feedback en pickup/use/examine y errores de gating.
+
+### Memorias
+
+- El descubrimiento muestra el overlay completo y permanece abierto.
+- El timeout automático está eliminado.
+- Continue, Escape, Enter y Space cierran el overlay.
+
+### Hover
+
+- El nombre del interactable visible aparece solo mientras el cursor está sobre él.
+- El tooltip usa el sistema HUD y desaparece fuera del hotspot o ante overlays.
 
 ### SHIFT
 

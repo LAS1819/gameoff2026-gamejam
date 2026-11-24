@@ -1,5 +1,5 @@
-using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class HUDMemoryDiscoveryView
@@ -11,8 +11,6 @@ public class HUDMemoryDiscoveryView
     private Label title;
     private Label body;
     private Button continueButton;
-    private Coroutine routine;
-    private float discoveryDuration;
 
     public HUDMemoryDiscoveryView(
         MonoBehaviour owner,
@@ -26,8 +24,25 @@ public class HUDMemoryDiscoveryView
     {
         this.owner = owner;
         concepts = new[] { memory01, memory02, memory03, memory04, memory05 };
-        this.discoveryDuration = discoveryDuration;
+        _ = discoveryDuration;
         Build(root);
+    }
+
+    public void Update()
+    {
+        if (overlay == null || !overlay.ClassListContains("visible"))
+        {
+            return;
+        }
+
+        var keyboard = Keyboard.current;
+        if (keyboard != null
+            && (keyboard.escapeKey.wasPressedThisFrame
+                || keyboard.enterKey.wasPressedThisFrame
+                || keyboard.spaceKey.wasPressedThisFrame))
+        {
+            Close();
+        }
     }
 
     public void Show(MemoryDefinition memory)
@@ -43,27 +58,20 @@ public class HUDMemoryDiscoveryView
         image.style.backgroundImage = concept != null
             ? new StyleBackground(concept)
             : StyleKeyword.Null;
-
-        if (routine != null)
-        {
-            owner.StopCoroutine(routine);
-        }
-        var duration = discoveryDuration > 0f ? discoveryDuration : 10f;
-        routine = owner.StartCoroutine(Play(duration));
+        overlay.style.opacity = 1f;
+        overlay.style.display = DisplayStyle.Flex;
+        overlay.AddToClassList("visible");
+        continueButton.focusable = true;
+        continueButton.Focus();
     }
 
     public void Close()
     {
-        if (routine != null)
-        {
-            owner.StopCoroutine(routine);
-            routine = null;
-        }
-
         if (overlay != null)
         {
             overlay.style.opacity = 0f;
             overlay.style.display = DisplayStyle.None;
+            overlay.RemoveFromClassList("visible");
         }
     }
 
@@ -163,26 +171,4 @@ public class HUDMemoryDiscoveryView
         Close();
     }
 
-    private IEnumerator Play(float duration)
-    {
-        overlay.style.display = DisplayStyle.Flex;
-        yield return Fade(0.3f, 0f, 1f);
-        overlay.style.opacity = 1f;
-        yield return new WaitForSecondsRealtime(Mathf.Max(0.5f, duration - 0.9f));
-        yield return Fade(0.6f, 1f, 0f);
-        overlay.style.opacity = 0f;
-        overlay.style.display = DisplayStyle.None;
-        routine = null;
-    }
-
-    private IEnumerator Fade(float length, float from, float to)
-    {
-        for (var elapsed = 0f; elapsed < length; elapsed += Time.unscaledDeltaTime)
-        {
-            var amount = Mathf.Clamp01(elapsed / length);
-            overlay.style.opacity = Mathf.Lerp(from, to, amount);
-            yield return null;
-        }
-        overlay.style.opacity = to;
-    }
 }
