@@ -4913,8 +4913,8 @@ MonoBehaviour:
   memory03Concept: {fileID: 21300000, guid: 1b4f2d7bbd49b884a9de2e7ddb1d20f1, type: 3}
   memory04Concept: {fileID: 21300000, guid: a530aba7526a453489efec0c8eafdd27, type: 3}
   memory05Concept: {fileID: 21300000, guid: dc5ced6d4c9e560469fbede7c596f40c, type: 3}
-  customCursorTexture: {fileID: 0}
-  customCursorHotspot: {x: 0, y: 0}
+  customCursorTexture: {fileID: 2800000, guid: a3efd86490463224e8a0ff9ddf6c9986, type: 3}
+  customCursorHotspot: {x: 2, y: 1}
   feedbackDuration: 2
   roomTransitionDuration: 0.35
   realityPulseDuration: 0.25

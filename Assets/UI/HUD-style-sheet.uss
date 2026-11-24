@@ -138,7 +138,6 @@ VisualElement {}
     padding: 0;
     margin: 0;
     -unity-background-scale-mode: scale-to-fit;
-    cursor: link;
 }
 
 .shift-button:hover {
@@ -391,5 +390,4 @@ VisualElement {}
     -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
     -unity-font-style: normal;
     font-size: 14px;
-    cursor: link;
 }

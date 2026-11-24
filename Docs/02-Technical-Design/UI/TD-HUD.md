@@ -31,6 +31,7 @@ El Bloque 1 se diseña sin cambiar el sistema base del HUD:
 - [TD-Fonts.md](TD-Fonts.md): fuente retro compartida y fallback.
 - [TD-Inventory.md](TD-Inventory.md): reemplazo visual de los tres slots.
 - [TD-Item-Sprites.md](TD-Item-Sprites.md): iconos prioritarios por item.
+- [TD-Cursor.md](TD-Cursor.md): cursor personalizado y fallback del sistema.
 
 La implementación debe preservar el layout, los eventos y los estados existentes.
 
@@ -243,52 +244,6 @@ Assets/Visuals/UI/Memory/
 En el gate `640 x 360`, el panel debe mantener al menos `200 px` de alto,
 preferiblemente `320 px` como máximo, y reservar siempre espacio visible para
 `Continue`.
-
----
-
-## Arte del Cursor
-
-Crear un solo cursor base como PNG transparente:
-
-- resolución: `32 x 32` px;
-- formato: RGBA;
-- pivote/hotspot visible cerca de la punta;
-- Filter Mode = `Point`;
-- compresión = None;
-- Texture Type = `Cursor` o `Default` siguiendo el flujo de Unity que asigna
-  `customCursorTexture`;
-- no añadir sombra, escalado ni contorno borroso.
-
-Ruta recomendada:
-
-```text
-Assets/Visuals/UI/Cursor/sprite-ui-cursor-default-v1.png
-```
-
-Configurar en `HUDController`:
-
-- `customCursorTexture` = el PNG importado;
-- `customCursorHotspot` = coordenada real del pixel activo;
-- si la textura no está asignada, `OnEnable` / `OnDisable` restablecen
-  `UnityEngine.Cursor.SetCursor(null, ...)` y la plataforma muestra el cursor
-  del sistema.
-
-El cursor personalizado es un fallback visual global. No se deben sustituir
-cursor ni hotspot desde una clase específica de room o interactable.
-
-Estados opcionales futuros:
-
-- default;
-- hover sobre interactable;
-- point / select;
-- blocked / use unavailable.
-
-No añadir estados nuevos hasta que exista una necesidad jugable. Los estados
-deben compartir el mismo canvas de `32 x 32`; el hotspot se expresa como
-coordenadas internas del sprite y no debe cambiar a no ser que cambie la punta
-visible del cursor.
-
----
 
 ## Arte de Carta y Resumen Final
 
