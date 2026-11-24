@@ -369,6 +369,23 @@ BasementCodeAcquired
 - El secreto del `Basement` debe depender del `SHIFT` + `Interactive Shelf` + `Worn Book`, no de una llave que aparezca por casualidad.
 - La `Room` no debería necesitar un árbol de estado enorme para funcionar bien.
 
+### Reinicio visual de la ShelfSecretDoor
+
+La posición de la estantería es estado visual persistente: el GameObject de
+Library continúa vivo aunque la room esté oculta. Al reactivar Library,
+`ShelfSecretDoorController` debe sincronizarse inmediatamente con
+`LibrarySecretDoorOpen`.
+
+- flag `false`: colocar la puerta en `closedLocalPosition` sin animación;
+- flag `true`: colocarla directamente en `closedLocalPosition + openLocalOffset`;
+- la animación gradual solo se usa cuando el puzzle abre la puerta durante la
+  partida;
+- los objetos revelados (`BasementDoor` y `CodePanel`) se muestran según la
+  misma posición inmediata.
+
+Esto evita que Restart muestre un frame abierto y luego cierre lentamente una
+estantería que ya debería estar reseteada.
+
 ---
 
 ## 7. Flow de progresión recomendado para MVP

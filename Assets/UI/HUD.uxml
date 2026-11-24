@@ -2,9 +2,18 @@
     <Style src="project://database/Assets/UI/HUD-style-sheet.uss?fileID=7433441132597879392&amp;guid=4635c6a99454ae1419fccbdc634874fe&amp;type=3#HUD-style-sheet"/>
     <ui:VisualElement name="hud-root">
         <ui:VisualElement name="inventory-panel">
-            <ui:VisualElement name="slot-0" class="inventory-slot empty"/>
-            <ui:VisualElement name="slot-1" class="inventory-slot empty"/>
-            <ui:VisualElement name="slot-2" class="inventory-slot empty"/>
+            <ui:VisualElement name="slot-0" class="inventory-slot empty">
+                <ui:Image name="slot-icon" class="slot-icon"/>
+                <ui:Label name="slot-label" class="slot-label"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="slot-1" class="inventory-slot empty">
+                <ui:Image name="slot-icon" class="slot-icon"/>
+                <ui:Label name="slot-label" class="slot-label"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="slot-2" class="inventory-slot empty">
+                <ui:Image name="slot-icon" class="slot-icon"/>
+                <ui:Label name="slot-label" class="slot-label"/>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:Label name="feedback-text" text="" class="feedback-text"/>
         <ui:VisualElement name="shift-button" class="shift-button normal"/>

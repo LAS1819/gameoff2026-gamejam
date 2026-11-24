@@ -67,6 +67,13 @@ public partial class RoomManager : MonoBehaviour
             return false;
         }
 
+        if (roomId.Equals(GameManager.ForestRoomId, StringComparison.OrdinalIgnoreCase)
+            && RealityManager.Instance != null
+            && RealityManager.Instance.CurrentReality != RealityType.Normal)
+        {
+            RealityManager.Instance.SetReality(RealityType.Normal);
+        }
+
         CurrentRoom = room;
 
         if (GameManager.Instance != null)

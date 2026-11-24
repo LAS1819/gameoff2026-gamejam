@@ -20,6 +20,14 @@ public class HUDController : MonoBehaviour
     [SerializeField] private Sprite lanternObtainedSprite;
     [SerializeField] private string lanternItemId = "flashlight_tool";
 
+    [Header("Inventory item icons")]
+    [SerializeField] private Sprite staffKeyItemIcon;
+    [SerializeField] private Sprite libraryKeyItemIcon;
+    [SerializeField] private Sprite wornBookItemIcon;
+    [SerializeField] private Sprite floppyDiskItemIcon;
+    [SerializeField] private Sprite basementCodeItemIcon;
+    [SerializeField] private Sprite valveHandleItemIcon;
+
     [Header("Memory discovery concepts")]
     [SerializeField] private Sprite memory01Concept;
     [SerializeField] private Sprite memory02Concept;
@@ -240,6 +248,13 @@ public class HUDController : MonoBehaviour
             this,
             root,
             ShowFeedback);
+        inventoryView.SetItemIcons(
+            staffKeyItemIcon,
+            libraryKeyItemIcon,
+            wornBookItemIcon,
+            floppyDiskItemIcon,
+            basementCodeItemIcon,
+            valveHandleItemIcon);
         memoryView = new HUDMemoryDiscoveryView(
             this,
             hudRoot,

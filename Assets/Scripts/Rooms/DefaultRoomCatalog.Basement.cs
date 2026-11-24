@@ -130,7 +130,7 @@ public static partial class DefaultRoomCatalog
             descriptionInOtherReality = "The steam burns here. I cannot pass through it.",
             interactionType = InteractionType.Transition,
             visibleInNormalReality = true,
-            visibleInOtherReality = true,
+            visibleInOtherReality = false,
             linkedRoomId = GameManager.ForestRoomId,
             resultFlag = GameFlagNames.ForestExitUnlocked
         });

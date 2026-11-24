@@ -4,12 +4,12 @@
 - Objetivo: 2026-12-01
 - Estado: 🟡 ACTIVO - último sprint del MVP
 - Milestone de entrada: `0.1.1-proto`
-- Milestone de salida: candidata final de Game Off 2026
+- Milestone de salida: `0.1.2-proto`
 
 ## Objetivo
 
 Cerrar la versión jugable existente sin ampliar el proyecto. Este sprint transforma
-`0.1.1-proto` en una candidata estable para WebGL, Windows e itch.io.
+`0.1.1-proto` en la candidata `0.1.2-proto`, estable para WebGL, Windows e itch.io.
 
 No se añaden rooms, managers, mecánicas de combate, movimiento del jugador ni
 infraestructuras nuevas. Una petición entra en el sprint solo si corrige un
@@ -55,15 +55,21 @@ estado en Editor, WebGL y Windows.
 ### Bloque 1 - Fundaciones visuales compartidas
 
 - **Rama recomendada:** `feat/s4-ui-foundations`
-- [ ] Importar y probar una fuente retro legible.
-- [ ] Sustituir los placeholders de slots e iconos prioritarios del inventario.
-- [ ] Añadir sprites propios a Staff Key, Library Key, Worn Book, Floppy Disk,
+- **Estado:** ✅ COMPLETADO
+- **Versión de salida:** `0.1.2-proto`
+- [x] Importar y probar una fuente retro legible.
+- [x] Sustituir los placeholders de slots e iconos prioritarios del inventario.
+- [x] Añadir sprites propios a Staff Key, Library Key, Worn Book, Floppy Disk,
       Basement Code y Valve Handle.
-- [ ] Aplicar la fuente a HUD, Memorias y carta sin cortar texto.
-- [ ] Mantener contraste y fallback si una fuente o sprite todavía no está listo.
+- [x] Aplicar la fuente a HUD, Memorias y carta sin cortar texto.
+- [x] Mantener contraste y fallback si una fuente o sprite todavía no está listo.
+- [x] Actualizar documentación pertinente.
+- [x] Actualizar Changelog.
+- [ ] PR hacia `develop` y después hacia `main`
+- [ ] Crear nuevas Builds, verificar funcionamiento en WebGL y Windows y subir a Itch.io junto con el Changelog nuevo.
 
 **Gate:** HUD e inventario siguen siendo legibles a `640 x 360` y en el embed
-WebGL `960 x 540`; ningún texto nuevo corta controles.
+WebGL `640 x 360`; ningún texto nuevo corta controles.
 
 ### Bloque 2 - Interacción y feedback compartido
 

@@ -6,46 +6,66 @@ VisualElement {}
     top: 0;
     right: 0;
     bottom: 0;
+    -unity-font-definition: url("project://database/Assets/Fonts/PixelifySans-Regular-SDF.asset");
 }
 
 #inventory-panel {
     position: absolute;
     left: 50%;
-    bottom: 24px;
+    bottom: 18px;
     translate: -50% 0;
     flex-direction: row;
+    align-items: center;
+    padding: 9px 12px;
+    background-color: rgba(22, 20, 32, 0);
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/sprite-ui-inventory-background-v1.png");
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-slice-left: 12;
+    -unity-slice-top: 12;
+    -unity-slice-right: 12;
+    -unity-slice-bottom: 12;
 }
 
 .inventory-slot {
-    width: 64px;
-    height: 64px;
-    margin-right: 12px;
+    width: 48px;
+    height: 48px;
+    margin-right: 8px;
     justify-content: center;
     align-items: center;
-    border-radius: 12px;
-    background-color: rgba(255, 255, 255, 0.08);
-    border-width: 2px;
-    border-color: rgba(255, 255, 255, 0.2);
+    background-color: transparent;
+    border-width: 0;
+    -unity-background-scale-mode: stretch-to-fill;
 }
 
 .inventory-slot.full {
-    background-color: rgba(255, 255, 255, 0.18);
-    border-color: rgba(255, 255, 255, 0.6);
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/spritesheet-ui-inventory-slots.png#spritesheet-ui-inventory-slots_1");
+}
+
+.inventory-slot.empty {
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/spritesheet-ui-inventory-slots.png#spritesheet-ui-inventory-slots_0");
 }
 
 .inventory-slot.selected {
-    background-color: rgba(255, 214, 102, 0.22);
-    border-color: rgba(255, 214, 102, 0.9);
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/spritesheet-ui-inventory-slots.png#spritesheet-ui-inventory-slots_2");
 }
 
 .slot-label {
     color: rgba(255, 255, 255, 0.95);
-    font-size: 11px;
-    -unity-font-style: bold;
+    font-size: 14px;
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     margin: 0;
     padding: 0;
     white-space: nowrap;
+}
+
+.inventory-slot > .slot-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
+    -unity-background-scale-mode: scale-to-fit;
 }
 
 #feedback-text {
@@ -53,6 +73,10 @@ VisualElement {}
     top: 24px;
     left: 50%;
     translate: -50% 0;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 14px;
+    -unity-text-align: middle-center;
+    white-space: normal;
     opacity: 0;
     transition: opacity 0.2s ease;
 }
@@ -192,7 +216,7 @@ VisualElement {}
 .memory-discovery-eyebrow {
     color: rgba(70, 74, 82, 0.82);
     font-size: 11px;
-    -unity-font-style: bold;
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     letter-spacing: 2px;
 }
@@ -200,7 +224,8 @@ VisualElement {}
 .memory-discovery-title {
     color: rgba(36, 38, 44, 0.98);
     font-size: 20px;
-    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     margin-top: 4px;
 }
@@ -223,8 +248,9 @@ VisualElement {}
     border-color: rgba(238, 216, 169, 0.72);
     border-radius: 6px;
     -unity-text-align: middle-center;
-    -unity-font-style: bold;
-    font-size: 13px;
+    -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
+    -unity-font-style: normal;
+    font-size: 14px;
 }
 
 #story-overlay-backdrop {
@@ -258,7 +284,7 @@ VisualElement {}
 .story-overlay-eyebrow {
     color: rgba(62, 44, 29, 0.86);
     font-size: 12px;
-    -unity-font-style: bold;
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     letter-spacing: 2px;
 }
@@ -266,7 +292,8 @@ VisualElement {}
 .story-overlay-title {
     color: rgba(48, 35, 25, 0.98);
     font-size: 22px;
-    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     margin-top: 6px;
 }
@@ -285,7 +312,8 @@ VisualElement {}
 .story-overlay-memory-count {
     color: rgba(48, 35, 25, 0.86);
     font-size: 14px;
-    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
+    -unity-font-style: normal;
     -unity-text-align: middle-center;
     margin-bottom: 4px;
 }
@@ -317,7 +345,8 @@ VisualElement {}
     border-color: rgba(238, 216, 169, 0.72);
     border-radius: 6px;
     -unity-text-align: middle-center;
-    -unity-font-style: bold;
+    -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
+    -unity-font-style: normal;
     font-size: 14px;
     cursor: link;
 }

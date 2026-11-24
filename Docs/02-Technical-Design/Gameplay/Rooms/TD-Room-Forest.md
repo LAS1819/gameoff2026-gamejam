@@ -60,6 +60,10 @@ At scene load, the level 6 objects start inactive:
 The Forest background remains active for depth levels 0-5. At depth 6,
 `BackgroundNormal` is disabled and the level 6 props become active.
 
+Forest is a Normal-reality destination. `RoomManager.LoadRoom("forest")`
+forces the Normal reality before activating the room so `BackgroundNormal`
+cannot remain disabled because the Basement exit was reached from Other Side.
+
 ## 3. Depth controller
 
 `ForestDepthController` owns the visual transition:
@@ -76,6 +80,10 @@ The controller uses the existing spritesheets:
 - `spritesheet-room-forest-background-outer-forest-v1.png`
 - `spritesheet-room-forest-background-sky-v1.png`
 The `Sky` is the lowest visual layer and darkens with each depth level.
+
+The controller applies depth on activation and `RoomManager` refreshes it
+again immediately after showing Forest. At depth 0, all four renderers must
+have a non-null sprite before the room is ready for interaction.
 
 ## 4. Forest advance
 

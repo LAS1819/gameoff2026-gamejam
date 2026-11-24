@@ -1,14 +1,14 @@
 # TD-HUD - HUD mínimo runtime (Sprint 2)
 
-- **Versión:** 3.1
+- **Versión:** 3.4
 - **Creado:** 2026-11-06
-- **Actualizado:** 2026-11-23
+- **Actualizado:** 2026-11-24
 - **Autor:** @LAS1819
-- **Estado:** Integrado en el HUD del prototipo
+- **Estado:** Integrado en el HUD del prototipo; Sprint 4 amplía fuentes e inventario
 
 ## Objetivo
 
-Mantener el HUD mínimo, estable y usable de `0.1.1-proto` sin crear una
+Mantener el HUD mínimo, estable y usable de `0.1.2-proto` sin crear una
 segunda arquitectura de UI.
 
 Incluye:
@@ -23,6 +23,16 @@ Incluye:
   - `HUDInventoryView`;
   - `HUDStoryOverlayView`;
   - `HUDMemoryDiscoveryView`.
+
+## Fundaciones visuales Sprint 4
+
+El Bloque 1 se diseña sin cambiar el sistema base del HUD:
+
+- [TD-Fonts.md](TD-Fonts.md): fuente retro compartida y fallback.
+- [TD-Inventory.md](TD-Inventory.md): reemplazo visual de los tres slots.
+- [TD-Item-Sprites.md](TD-Item-Sprites.md): iconos prioritarios por item.
+
+La implementación debe preservar el layout, los eventos y los estados existentes.
 
 ## Decisión técnica
 
@@ -88,6 +98,10 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 
 - Se refresca al recibir `InventoryManager.ItemAdded` / `ItemRemoved`.
 - Slots alternan clases `empty` / `full`.
+- Los seis items del MVP muestran su Sprite por `item.id`.
+- `Floppy Disk`, `Basement Code` y `Valve Handle` usan el mismo flujo gráfico
+  que Staff Key, Library Key y Worn Book.
+- Los IDs futuros sin Sprite conservan el fallback textual del slot.
 
 ### Feedback
 

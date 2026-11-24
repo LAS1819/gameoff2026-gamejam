@@ -1,9 +1,9 @@
 # MVP Specification - Start here
 
-- Version: 0.1.1-proto
+- Version: 0.1.2-proto
 - Status: Complete playable prototype for test builds
 - Sprint: 4 - final polish, validation, and delivery
-- Last updated: 2026-11-23
+- Last updated: 2026-11-24
 - Primary scene: `Assets/Scenes/Main.unity`
 
 ## Prototype objective

@@ -123,6 +123,12 @@ public partial class RoomManager
         if (interactable.id.Equals("forest_exit_door", StringComparison.OrdinalIgnoreCase)
             && GameManager.Instance != null)
         {
+            if (RealityManager.Instance == null
+                || RealityManager.Instance.CurrentReality != RealityType.Normal)
+            {
+                return false;
+            }
+
             var resolved = GameManager.Instance.HasFlag(GameFlagNames.PressureValveRepaired)
                 && GameManager.Instance.HasFlag(GameFlagNames.SteamEnabled)
                 && GameManager.Instance.HasFlag(GameFlagNames.DenialManifestationRejected);
@@ -232,6 +238,8 @@ public partial class RoomManager
             return;
         }
 
+        RefreshBedroomPersistentState(roomRoot);
+
         var behaviours = roomRoot.GetComponentsInChildren<InteractableBehaviour>(true);
         foreach (var behaviour in behaviours)
         {
@@ -278,6 +286,51 @@ public partial class RoomManager
             {
                 spriteState.StopLoop();
             }
+        }
+    }
+
+    private static void RefreshBedroomPersistentState(GameObject roomRoot)
+    {
+        var gameManager = GameManager.Instance;
+        if (gameManager == null || roomRoot == null)
+        {
+            return;
+        }
+
+        var wardrobe = roomRoot.GetComponentInChildren<WardrobeController>(true);
+        if (wardrobe != null)
+        {
+            wardrobe.SetOpen(gameManager.HasFlag(GameFlagNames.BedroomWardrobeOpened));
+        }
+
+        var computer = roomRoot.GetComponentInChildren<BedroomComputerController>(true);
+        if (computer != null)
+        {
+            computer.SetPowered(gameManager.HasFlag(GameFlagNames.BedroomComputerPowered));
+            computer.SetDiskInserted(gameManager.HasFlag(GameFlagNames.BedroomComputerDiskInserted));
+        }
+
+        var ceilingLamp = roomRoot.transform.Find("CeilingLamp");
+        if (ceilingLamp == null)
+        {
+            var transforms = roomRoot.GetComponentsInChildren<Transform>(true);
+            foreach (var transform in transforms)
+            {
+                if (transform != null
+                    && transform.name.Equals("CeilingLamp", StringComparison.OrdinalIgnoreCase))
+                {
+                    ceilingLamp = transform;
+                    break;
+                }
+            }
+        }
+
+        var lightState = ceilingLamp != null
+            ? ceilingLamp.GetComponent<SpriteStateController>()
+            : null;
+        if (lightState != null)
+        {
+            lightState.SetState(gameManager.HasFlag(GameFlagNames.BedroomLightOn) ? 1 : 0);
         }
     }
 

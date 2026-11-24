@@ -105,11 +105,19 @@ internal static class InteractionSpecialCases
             return true;
         }
 
-        ShowFeedback("The path is clear now. A door to the forest waits beyond.", 2f);
-        if (GameManager.Instance != null)
+        var gameManager = GameManager.Instance;
+        var canEnterForest = gameManager != null
+            && gameManager.HasFlag(GameFlagNames.PressureValveRepaired)
+            && gameManager.HasFlag(GameFlagNames.SteamEnabled)
+            && gameManager.HasFlag(GameFlagNames.DenialManifestationRejected);
+        if (!canEnterForest)
         {
-            GameManager.Instance.SetFlag(GameFlagNames.ForestExitUnlocked, true);
+            ShowFeedback("The exit is still blocked.", 1.8f);
+            return true;
         }
+
+        ShowFeedback("The path is clear now. A door to the forest waits beyond.", 2f);
+        gameManager.SetFlag(GameFlagNames.ForestExitUnlocked, true);
 
         return RoomManager.Instance != null
             && RoomManager.Instance.LoadRoom(GameManager.ForestRoomId);
