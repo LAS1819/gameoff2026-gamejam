@@ -115,8 +115,8 @@ WebGL `640 x 360`; ningún texto nuevo corta controles.
   - [x] Hook técnico disponible.
   - [x] Cursor personalizado implementado con fallback al sistema.
 - [x] Mostrar el nombre del interactable solo al hacer hover, sin ensuciar la vista.
-- [ ] Revisar el fade de transición entre rooms.
-- [ ] Revisar el pulse de cambio de realidad.
+- [POSPUESTO] Revisar el fade de transición entre rooms.
+- [POSPUESTO] Revisar el pulse de cambio de realidad.
 - [x] Mantener el background visual del overlay de Memorias con panel legible y close manual.
 - [x] Mantener Continue, timeout y cierre por Escape / Enter / Space.
   - [x] Continue cerrado por botón.
@@ -129,6 +129,8 @@ sin ocultar hotspots ni bloquear la room.
 ### Bloque 3 - Menu e introducción ligeros
 
 - **Rama recomendada:** `feat/s4-menu-intro`
+- **Versión final:** `0.1.4-proto`
+- [ ] Tratar el Main Menu como una Room más dentro del flujo. Sería la primera room antes del Lobby.
 - [ ] Reutilizar un único background compartido para menu e intro.
 - [ ] Añadir Start, Settings y Exit sin crear una escena nueva.
 - [ ] Implementar Settings solo si puede resolverse dentro del HUD existente.
