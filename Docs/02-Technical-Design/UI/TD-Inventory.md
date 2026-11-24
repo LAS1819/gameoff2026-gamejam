@@ -330,6 +330,8 @@ Después, aplicar el asset sobre `#inventory-panel`:
 ```uss
 #inventory-panel {
     background-image: url("project://database/Assets/Visuals/UI/Inventory/inventory-background-v1.png");
+    background-color: rgba(22, 20, 32, 0.28);
+    bottom: 10px;
     -unity-background-scale-mode: stretch-to-fill;
     -unity-slice-left: 12;
     -unity-slice-top: 12;

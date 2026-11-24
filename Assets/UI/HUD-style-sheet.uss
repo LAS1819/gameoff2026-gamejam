@@ -12,7 +12,7 @@ VisualElement {}
 #inventory-panel {
     position: absolute;
     left: 50%;
-    bottom: 18px;
+    bottom: 10px;
     translate: -50% 0;
     flex-direction: row;
     align-items: center;
@@ -216,11 +216,12 @@ VisualElement {}
     position: relative;
     width: 72%;
     max-width: 620px;
-    min-height: 220px;
-    max-height: 280px;
-    padding: 18px 28px;
+    min-height: 200px;
+    max-height: 320px;
+    padding: 12px 28px;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    overflow: visible;
     background-color: rgba(235, 232, 220, 0.94);
     border-width: 2px;
     border-radius: 10px;
@@ -229,8 +230,9 @@ VisualElement {}
 
 .memory-discovery-image {
     width: 100%;
-    height: 112px;
-    margin-bottom: 10px;
+    height: 96px;
+    margin-bottom: 6px;
+    flex-shrink: 1;
     border-radius: 6px;
     background-color: rgba(90, 92, 100, 0.22);
     -unity-background-scale-mode: scale-to-fit;
@@ -250,7 +252,8 @@ VisualElement {}
     -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
     -unity-font-style: normal;
     -unity-text-align: middle-center;
-    margin-top: 4px;
+    margin-top: 2px;
+    flex-shrink: 1;
 }
 
 .memory-discovery-body {
@@ -258,7 +261,8 @@ VisualElement {}
     font-size: 14px;
     white-space: normal;
     -unity-text-align: middle-center;
-    margin-top: 8px;
+    margin-top: 6px;
+    flex-shrink: 1;
 }
 
 .memory-discovery-close {
@@ -289,21 +293,23 @@ VisualElement {}
 }
 
 #story-overlay-panel {
-    position: absolute;
+    position: relative;
+    left: auto;
+    top: auto;
     width: 58%;
     max-width: 620px;
     min-width: 420px;
     min-height: 220px;
-    max-height: 300px;
-    padding: 20px 28px 14px;
-    justify-content: space-between;
+    max-height: 320px;
+    padding: 14px 28px 12px;
+    justify-content: flex-start;
     background-color: rgba(171, 137, 93, 0.96);
     border-width: 3px;
     border-radius: 12px;
     border-color: rgba(238, 216, 169, 0.72);
     z-index: 1;
     flex-direction: column;
-    overflow: hidden;
+    overflow: visible;
 }
 
 #story-overlay-panel > .story-overlay-title,
@@ -328,11 +334,14 @@ VisualElement {}
     -unity-font-definition: url("project://database/Assets/Fonts/PressStart2P-Regular-SDF.asset");
     -unity-font-style: normal;
     -unity-text-align: middle-center;
-    margin-top: 6px;
+    white-space: normal;
+    margin-top: 4px;
+    flex-shrink: 1;
 }
 
 .story-overlay-body {
     flex-grow: 1;
+    flex-shrink: 1;
     color: rgba(48, 35, 25, 0.98);
     font-size: 15px;
     white-space: normal;
@@ -358,7 +367,7 @@ VisualElement {}
     white-space: normal;
     -unity-text-align: middle-center;
     margin-top: 2px;
-    margin-bottom: 54px;
+    margin-bottom: 8px;
 }
 
 .story-overlay-actions {

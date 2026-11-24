@@ -76,6 +76,8 @@ public class HUDStoryOverlayView
         mode = StoryOverlayMode.Letter;
         eyebrow.text = "A LETTER";
         title.text = overlayTitle;
+        title.style.fontSize = 18f;
+        title.style.whiteSpace = WhiteSpace.Normal;
         body.text = overlayBody;
         memoryCount.text = string.Empty;
         credits.text = string.Empty;
@@ -95,6 +97,8 @@ public class HUDStoryOverlayView
         mode = StoryOverlayMode.Ending;
         eyebrow.text = "ENDING";
         title.text = endingTitle;
+        title.style.fontSize = 16f;
+        title.style.whiteSpace = WhiteSpace.Normal;
         body.text = farewell;
         memoryCount.text = $"Recovered Memories: {Mathf.Clamp(recoveredCount, 0, 5)} / 5";
         credits.text = creditsText;
@@ -258,13 +262,13 @@ public class HUDStoryOverlayView
     {
         if (count <= 2)
         {
-            return ("Bad Ending - Denial", "You are still not ready to leave the lie behind. The farewell remains unfinished.");
+            return ("Bad Ending\nDenial", "You are still not ready to leave the lie behind. The farewell remains unfinished.");
         }
         if (count <= 4)
         {
-            return ("Neutral Ending - Escape", "You understood part of the truth, but there is still one word that could not be spoken.");
+            return ("Neutral Ending\nEscape", "You understood part of the truth, but there is still one word that could not be spoken.");
         }
-        return ("True Ending - Reunion", "You accept his death and your own. At last, you can stop searching for answers and say goodbye.");
+        return ("True Ending\nReunion", "You accept his death and your own. At last, you can stop searching for answers and say goodbye.");
     }
 
     private void Restart()
@@ -309,12 +313,15 @@ public class HUDStoryOverlayView
         overlay.style.justifyContent = Justify.Center;
 
         var panelWidth = Mathf.Clamp(width * 0.58f, 420f, 620f);
-        var panelHeight = Mathf.Min(300f, Mathf.Max(220f, height - 40f));
-        panel.style.position = Position.Absolute;
-        panel.style.left = (width - panelWidth) * 0.5f;
-        panel.style.top = (height - panelHeight) * 0.5f;
+        var panelHeight = Mathf.Clamp(height - 24f, 220f, 320f);
+        panel.style.position = Position.Relative;
+        panel.style.left = StyleKeyword.Auto;
+        panel.style.top = StyleKeyword.Auto;
         panel.style.width = panelWidth;
         panel.style.height = panelHeight;
+        panel.style.minHeight = 220f;
+        panel.style.maxHeight = 320f;
+        panel.style.overflow = Overflow.Visible;
     }
 
     private void ApplyLayout(StoryOverlayMode layoutMode)
@@ -328,6 +335,8 @@ public class HUDStoryOverlayView
             title.style.marginBottom = 4f;
             body.style.marginTop = 6f;
             body.style.marginBottom = 8f;
+            body.style.flexShrink = 1f;
+            body.style.overflow = Overflow.Visible;
             actions.style.position = Position.Relative;
             actions.style.bottom = StyleKeyword.Auto;
             close.style.position = StyleKeyword.Auto;

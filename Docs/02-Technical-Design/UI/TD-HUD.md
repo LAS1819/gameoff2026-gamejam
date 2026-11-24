@@ -115,9 +115,25 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 
 ### Memorias
 
+- `Use` o clic principal sobre el interactable solo muestra feedback narrativo
+  ("mira más de cerca").
+- `Examine` mediante clic derecho es la única acción que desbloquea, recupera
+  o reabre la Memoria.
 - El descubrimiento muestra el overlay completo y permanece abierto.
+- Al volver a Examinar el mismo Interactable se abre de nuevo; la flag de
+  descubrimiento solo registra progreso y no impide la reconsulta.
 - El timeout automático está eliminado.
 - Continue, Escape, Enter y Space cierran el overlay.
+
+### Layout del Story Overlay
+
+- Carta y Resumen usan paneles relativos al viewport.
+- El panel limita su alto a `220-320 px` y permite que título, cuerpo y acciones
+  adapten su espacio sin solaparse.
+- El texto usa `flex-shrink` y ajuste normal para evitar cortes intermitentes
+  entre loops o resoluciones.
+- En el gate `640 x 360`, el panel mantiene el contenido dentro de la vista
+  y conserva acciones accesibles.
 
 ### Hover
 
