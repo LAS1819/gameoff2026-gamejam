@@ -16,7 +16,7 @@ VisualElement {}
     translate: -50% 0;
     flex-direction: row;
     align-items: center;
-    padding: 6px 8px;
+    padding: 9px 12px;
     background-color: rgba(22, 20, 32, 0);
     background-image: url("project://database/Assets/Visuals/UI/Inventory/sprite-ui-inventory-background-v1.png");
     -unity-background-scale-mode: stretch-to-fill;
@@ -32,20 +32,21 @@ VisualElement {}
     margin-right: 8px;
     justify-content: center;
     align-items: center;
-    border-radius: 8px;
-    background-color: rgba(47, 43, 59, 0.96);
-    border-width: 2px;
-    border-color: rgba(128, 119, 142, 0.78);
+    background-color: transparent;
+    border-width: 0;
+    -unity-background-scale-mode: stretch-to-fill;
 }
 
 .inventory-slot.full {
-    background-color: rgba(64, 57, 76, 0.98);
-    border-color: rgba(221, 207, 174, 0.9);
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/spritesheet-ui-inventory-slots.png#spritesheet-ui-inventory-slots_1");
+}
+
+.inventory-slot.empty {
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/spritesheet-ui-inventory-slots.png#spritesheet-ui-inventory-slots_0");
 }
 
 .inventory-slot.selected {
-    background-color: rgba(93, 70, 44, 0.98);
-    border-color: rgba(255, 211, 102, 1);
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/spritesheet-ui-inventory-slots.png#spritesheet-ui-inventory-slots_2");
 }
 
 .slot-label {
@@ -60,8 +61,8 @@ VisualElement {}
 
 .inventory-slot > .slot-icon {
     position: absolute;
-    left: -2px;
-    top: -2px;
+    left: 0;
+    top: 0;
     flex-shrink: 0;
     flex-grow: 0;
     -unity-background-scale-mode: scale-to-fit;

@@ -4,7 +4,7 @@
 - **Creado:** 2026-11-23
 - **Actualizado:** 2026-11-24
 - **Autor:** @LAS1819
-- **Estado:** 6 iconos y background implementados; estados gráficos de slots planificados
+- **Estado:** 6 iconos, background y estados gráficos de slots implementados
 
 ---
 
@@ -167,6 +167,39 @@ El tratamiento visual mantiene el minimalismo del HUD:
 El panel usa ahora
 `sprite-ui-inventory-background-v1.png` como background 9-slice. Los slots
 siguen resueltos en USS y mantienen el fallback textual para items sin icono.
+
+### Ajuste recomendado del marco
+
+Mantener el tamaño fijo de los tres slots en `48 x 48 px` y aumentar el
+espacio exterior del panel, no los slots. La configuración aplicada usa:
+
+```uss
+padding: 9px 12px;
+```
+
+Resultado aproximado:
+
+- padding horizontal: `12 px`;
+- padding vertical: `9 px`;
+- separación entre slots: `8 px`;
+- panel: aproximadamente `184 x 66 px`.
+
+Este ajuste crea aproximadamente `6 px` adicionales en cada dimensión sobre
+la composición anterior y evita que los marcos de los slots se superpongan al
+9-slice decorativo del panel.
+
+Para alternar rápidamente entre una ampliación menor o mayor, cambiar solo
+el padding vertical y horizontal:
+
+```text
++4 px: padding: 8px 10px
++6 px: padding: 9px 12px
++8 px: padding: 10px 12px
+```
+
+No cambiar `width`, `height`, `margin-right` o PPU de los slots para agrandar
+el panel. El panel crece por su contenido y padding, mientras los slots siguen
+siendo píxeles exactos y los iconos conservan `48 x 48 px`.
 
 ## Background decorativo del inventario
 
@@ -362,17 +395,20 @@ La jerarquía visual y lógica ya validada usa:
 - panel: `180 x 64 px` aproximadamente;
 - relación del slot: `1:1`.
 
-Crear los tres estados como PNG independientes de `48 x 48 px` y fondo
-transparente:
+El asset implementado reúne los tres estados en un spritesheet horizontal de
+`144 x 48 px`, con slices de `48 x 48 px` y fondo transparente:
 
 ```text
-sprite-ui-inventory-slot-empty-v1.png
-sprite-ui-inventory-slot-full-v1.png
-sprite-ui-inventory-slot-selected-v1.png
+Assets/Visuals/UI/Inventory/Slots/spritesheet-ui-inventory-slots.png
 ```
 
-Usar tres archivos separados al principio. Permite probar estados sin
-spritesheet slicing y evita invalidar el atlas si cambia una de las placas.
+Índices implementados:
+
+```text
+0 = Empty
+1 = Full
+2 = Selected
+```
 
 ### Qué contiene cada PNG
 
@@ -407,14 +443,13 @@ La estructura runtime debe mantener esta profundidad:
 ```text
 inventory-panel
 └── inventory-slot
-    ├── slot-state-background
     ├── slot-icon
     └── slot-label
 ```
 
 Orden visual recomendado:
 
-1. `slot-state-background`;
+1. `background-image` del propio `inventory-slot`;
 2. `slot-icon`;
 3. `slot-label` como fallback superior o oculto.
 
@@ -438,12 +473,8 @@ Conservar los iconos por item en:
 Assets/Visuals/UI/Inventory/Items/
 ```
 
-Nombres recomendados:
-
 ```text
-Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-empty-v1.png
-Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-full-v1.png
-Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-selected-v1.png
+Assets/Visuals/UI/Inventory/Slots/spritesheet-ui-inventory-slots.png
 ```
 
 No mezclar slot backgrounds, item sprites y el panel 9-slice en una sola
@@ -454,12 +485,13 @@ imagen. El panel y los slots son elementos visuales independientes.
 Para cada uno de los tres PNG:
 
 - Texture Type = `Sprite (2D and UI)`;
-- Sprite Mode = `Single`;
+- Sprite Mode = `Multiple`;
 - Filter Mode = `Point`;
 - mipmaps desactivados;
 - PPU = `16`, coherente con `PanelSettings`;
 - compresión sin pérdida;
 - transparencia preservada;
+- slicing horizontal con tres sprites de `48 x 48 px`;
 - sin 9-slice, porque el estado se usa a tamaño fijo de `48 x 48 px`;
 - no recortar transparencia;
 - no generar Sprite Sheet salvo que se mida una necesidad real de batching.
@@ -471,15 +503,15 @@ existentes:
 
 ```uss
 .inventory-slot.empty {
-    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-empty-v1.png");
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/spritesheet-ui-inventory-slots.png#spritesheet-ui-inventory-slots_0");
 }
 
 .inventory-slot.full {
-    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-full-v1.png");
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/spritesheet-ui-inventory-slots.png#spritesheet-ui-inventory-slots_1");
 }
 
 .inventory-slot.selected {
-    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/sprite-ui-inventory-slot-selected-v1.png");
+    background-image: url("project://database/Assets/Visuals/UI/Inventory/Slots/spritesheet-ui-inventory-slots.png#spritesheet-ui-inventory-slots_2");
 }
 ```
 
@@ -496,8 +528,28 @@ Para mantener el fallback CSS mientras el arte final no esté disponible:
 
 1. conservar temporalmente `background-color` y `border-*`;
 2. añadir `background-image`;
-3. retirar el borde CSS solo si el PNG incluye el borde completo;
+3. retirar el borde CSS porque el spritesheet incluye el marco completo;
 4. mantener la forma `48 x 48` aunque el estado sea placeholder.
+
+El estado implementado ya completó esta transición: el fondo y el borde CSS
+están eliminados, y cada clase muestra su slice del spritesheet.
+
+### Resultado validado
+
+Tras introducir el spritesheet:
+
+- slot vacío usa `_0`;
+- slot lleno usa `_1`;
+- slot lleno + seleccionado usa `_2`;
+- cada slot mantiene `48 x 48 px`;
+- cada icono visible mantiene `48 x 48 px`;
+- el icono se alinea desde `0,0` porque el marco ya está dibujado en el slice;
+- `slot-label` permanece disponible como fallback.
+
+La actualización de clases ocurre en `HUDInventoryView.Refresh()`. UI Toolkit
+puede requerir un pase de layout antes de recalcular `resolvedStyle`; la lógica
+de producción no necesita esperar manualmente, el frame cambia en el siguiente
+render normal.
 
 No modificar `HUD.uxml` para añadir un nuevo estado por cada item.
 `HUDInventoryView` continúa cambiando `empty`, `full` y `selected` sobre los
