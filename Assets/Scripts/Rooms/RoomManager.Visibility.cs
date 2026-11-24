@@ -123,6 +123,12 @@ public partial class RoomManager
         if (interactable.id.Equals("forest_exit_door", StringComparison.OrdinalIgnoreCase)
             && GameManager.Instance != null)
         {
+            if (RealityManager.Instance == null
+                || RealityManager.Instance.CurrentReality != RealityType.Normal)
+            {
+                return false;
+            }
+
             var resolved = GameManager.Instance.HasFlag(GameFlagNames.PressureValveRepaired)
                 && GameManager.Instance.HasFlag(GameFlagNames.SteamEnabled)
                 && GameManager.Instance.HasFlag(GameFlagNames.DenialManifestationRejected);

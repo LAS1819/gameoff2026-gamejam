@@ -27,7 +27,7 @@ public class ShelfSecretDoorController : MonoBehaviour
     private void OnEnable()
     {
         ResolveTargetsIfNeeded();
-        SyncFromFlags();
+        SyncFromFlags(true);
     }
 
     private void Update()
@@ -43,14 +43,42 @@ public class ShelfSecretDoorController : MonoBehaviour
         desiredOpenState = open;
     }
 
-    private void SyncFromFlags()
+    private void SyncFromFlags(bool snapToState = false)
     {
         if (GameManager.Instance == null)
         {
             return;
         }
 
-        SetOpen(GameManager.Instance.HasFlag(GameFlagNames.LibrarySecretDoorOpen));
+        var shouldBeOpen = GameManager.Instance.HasFlag(GameFlagNames.LibrarySecretDoorOpen);
+        SetOpen(shouldBeOpen);
+        if (snapToState)
+        {
+            SnapToState(shouldBeOpen);
+        }
+    }
+
+    private void SnapToState(bool open)
+    {
+        if (doorTransform == null)
+        {
+            return;
+        }
+
+        doorTransform.localPosition = open
+            ? closedLocalPosition + openLocalOffset
+            : closedLocalPosition;
+        revealObjectsVisible = open;
+
+        if (basementDoorObject != null)
+        {
+            basementDoorObject.SetActive(open);
+        }
+
+        if (codePanelObject != null)
+        {
+            codePanelObject.SetActive(open);
+        }
     }
 
     private void MoveDoor()
