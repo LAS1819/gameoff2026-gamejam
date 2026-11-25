@@ -16,6 +16,8 @@ public class InteractableBehaviour : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Collider2D hitCollider;
     private bool warnedMissingData;
+    private Vector3 baseScale = Vector3.one;
+    private bool isMainMenuButtonHovered;
 
     public void Configure(InteractableData config)
     {
@@ -42,6 +44,7 @@ public class InteractableBehaviour : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         hitCollider = GetComponent<Collider2D>();
+        baseScale = transform.localScale;
     }
 
     private void LateUpdate()
@@ -53,8 +56,11 @@ public class InteractableBehaviour : MonoBehaviour
     {
         if (!IsMouseOverThisObject())
         {
+            ResetMainMenuButtonHover();
             return;
         }
+
+        ApplyMainMenuButtonHover();
 
         var mouse = Mouse.current;
         if (mouse == null)
@@ -201,6 +207,55 @@ public class InteractableBehaviour : MonoBehaviour
         {
             hitCollider.enabled = visible;
         }
+
+        if (!visible)
+        {
+            ResetMainMenuButtonHover();
+        }
+    }
+
+    private void ApplyMainMenuButtonHover()
+    {
+        if (!IsMainMenuButton())
+        {
+            return;
+        }
+
+        isMainMenuButtonHovered = true;
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = new Color(1f, 0.92f, 0.72f, 1f);
+        }
+
+        var pressed = Mouse.current != null && Mouse.current.leftButton.isPressed;
+        transform.localScale = baseScale * (pressed ? 0.94f : 1.06f);
+    }
+
+    private void ResetMainMenuButtonHover()
+    {
+        if (!isMainMenuButtonHovered)
+        {
+            return;
+        }
+
+        isMainMenuButtonHovered = false;
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = Color.white;
+        }
+        transform.localScale = baseScale;
+    }
+
+    private bool IsMainMenuButton()
+    {
+        if (data == null)
+        {
+            return false;
+        }
+
+        return data.id.Equals("main_menu_start", StringComparison.OrdinalIgnoreCase)
+            || data.id.Equals("main_menu_settings", StringComparison.OrdinalIgnoreCase)
+            || data.id.Equals("main_menu_exit", StringComparison.OrdinalIgnoreCase);
     }
 
     private void HandlePrimaryClick()

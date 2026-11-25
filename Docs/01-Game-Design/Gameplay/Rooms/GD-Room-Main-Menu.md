@@ -65,12 +65,21 @@ Al pulsar `Start`:
 El texto introductorio debe ser breve, una sola pantalla y accionable por
 `Continue`. No debe duplicar la Carta final ni iniciar mecánicas nuevas.
 
-**Texto base provisional:** <- MEJORAR
+El texto se muestra en dos páginas para mantener legibilidad:
 
-El texto debe hacer referencia al motivo por el cual está allí. Y es porque el protagonista recibió un mensaje donde decía que debía reunirse en el edificio con el nombre Horizon. Revisar `\Docs\01-Game-Design\Story\GD-Story.md` para más contexto. Implementar "paso de página" en la ventana de introducción en caso de añadir más texto narrativo.
+**Página 1 — Después de seis meses:**
 
-> `I return to the building where every light was switched off too soon.`
-> `The entrance is still there, waiting for the explanation I never gave.`
+> `For six months, I believed my father had disappeared and would return to explain everything.`
+>
+> `Today, a message arrived in his handwriting.`
+
+**Página 2 — La invitación:**
+
+> `It asked me to meet him inside the building marked HORIZON.`
+>
+> `I came here to find answers. I have not yet understood that I came to say goodbye.`
+
+El primer botón dice `Next` y el segundo `Continue`.
 
 El copy puede reemplazarse sin modificar flujo ni jerarquía.
 
@@ -123,9 +132,7 @@ No se guarda progreso. No se muestra una falsa persistencia al salir.
 
 ---
 
-## 6. Inicio limpio y Reinicio [MODIFICAR MECÁNICA DE REINICIO]
-
-NOTA: el reinicio del juego, es decir, cuando termina el juego y se selecciona `Restart` desde el Ending, debería volver al Main Menu, reiniciando el flujo de introducción y limpiando flags/runtime previos.
+## 6. Inicio limpio y Reinicio
 
 El arranque normal carga `Main Menu` y limpia flags/runtime.
 
@@ -135,7 +142,7 @@ El Restart desde el final mantiene el flujo acordado:
 Menu -> Intro -> Lobby -> ... -> Ending -> Restart -> Main Menu
 ```
 
-Al seleccionar `Restart`, se debe forzar el retorno al `Main Menu` para reiniciar el flujo de introducción y limpiar flags/runtime previos.
+Al seleccionar `Restart`, se fuerza el retorno al `Main Menu` para reiniciar el flujo de introducción y limpiar flags/runtime previos.
 
 ---
 

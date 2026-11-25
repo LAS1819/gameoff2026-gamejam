@@ -121,6 +121,15 @@ La acción primaria:
 - refresca interactables;
 - devuelve controles de gameplay visibles.
 
+El modo `Intro` usa dos páginas:
+
+- página 1: `"After six months"` y dos párrafos de contexto;
+- página 2: `"The invitation"` y el mensaje de HORIZON;
+- botón 1: `Next`;
+- botón 2: `Continue`;
+- Enter, Space, Escape y clic en el botón avanzan o cierran según la página;
+- `MainMenuEntryUnlocked` se activa solo al cerrar la segunda página.
+
 No reutilizar el flujo de cierre de Letter, que conduce al Ending.
 
 ---
@@ -143,6 +152,22 @@ No reutilizar el flujo de cierre de Letter, que conduce al Ending.
 - activa/desactiva el collider de la puerta.
 
 No contiene historia, routing de room ni flags de gameplay.
+
+Los botones `main_menu_start`, `main_menu_settings` y `main_menu_exit`
+implementan feedback local en `InteractableBehaviour`:
+
+- hover: tint crema cálido;
+- hover pulsado: escala `0.94`;
+- reposo: escala original y tint blanco;
+- el collider y el hotspot no cambian de tamaño;
+- al salir del room o ocultarse el interactable, se restablece el estado visual.
+
+El Restart se resuelve en `HUDStoryOverlayView.Restart()`:
+
+- ejecuta `GameManager.InitializeMVP()` para limpiar flags e inventario;
+- carga `MainMenuRoomId`;
+- fuerza la realidad Normal;
+- deja el menu con sus botones y el HORIZON apagado.
 
 ---
 

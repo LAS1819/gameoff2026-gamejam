@@ -17,6 +17,11 @@ public class HUDStoryOverlayView
     private Button close;
     private Button restart;
     private StoryOverlayMode mode = StoryOverlayMode.Letter;
+    private int introPage;
+    private string introPageOneTitle;
+    private string introPageOneBody;
+    private string introPageTwoTitle;
+    private string introPageTwoBody;
 
     public bool IsVisible
     {
@@ -96,15 +101,20 @@ public class HUDStoryOverlayView
     public void ShowIntro(string introTitle, string introBody, string hint)
     {
         mode = StoryOverlayMode.Intro;
+        introPage = 0;
+        introPageOneTitle = introTitle;
+        introPageOneBody = introBody;
+        introPageTwoTitle = "The invitation";
+        introPageTwoBody = "It asked me to meet him inside the building marked HORIZON.\n\nI came here to find answers. I have not yet understood that I came to say goodbye.";
         panel.EnableInClassList("story-overlay-panel-letter", true);
-        eyebrow.text = "INTRODUCTION";
-        title.text = introTitle;
-        title.style.fontSize = 18f;
+        eyebrow.text = "INTRODUCTION 1/2";
+        title.text = introPageOneTitle;
+        title.style.fontSize = 16f;
         title.style.whiteSpace = WhiteSpace.Normal;
-        body.text = introBody;
+        body.text = introPageOneBody;
         memoryCount.text = string.Empty;
         credits.text = string.Empty;
-        close.text = hint;
+        close.text = "Next";
         close.style.display = DisplayStyle.Flex;
         close.SetEnabled(true);
         close.focusable = true;
@@ -267,6 +277,17 @@ public class HUDStoryOverlayView
     {
         if (mode == StoryOverlayMode.Intro)
         {
+            if (introPage == 0)
+            {
+                introPage = 1;
+                eyebrow.text = "INTRODUCTION 2/2";
+                title.text = introPageTwoTitle;
+                body.text = introPageTwoBody;
+                close.text = "Continue";
+                close.Focus();
+                return;
+            }
+
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.SetFlag(GameFlagNames.MainMenuEntryUnlocked, true);
@@ -319,7 +340,7 @@ public class HUDStoryOverlayView
         GameManager.Instance.InitializeMVP();
         if (RoomManager.Instance != null)
         {
-            RoomManager.Instance.LoadRoom(GameManager.LobbyRoomId);
+            RoomManager.Instance.LoadRoom(GameManager.MainMenuRoomId);
         }
         if (RealityManager.Instance != null)
         {

@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Brief Intro displayed through the existing Story Overlay system
 - Dedicated Main Menu game-design and technical-design room documents
 - Main Menu runtime flags for intro started and entrance unlocked
+- Two-page introductory overlay with `Next` and `Continue` controls
 
 **Changed:**
 
@@ -19,7 +20,9 @@ All notable changes to this project will be documented in this file.
 - Start hides menu actions, preserves the graffiti title, and opens the Intro
 - Continuing the Intro illuminates the HORIZON sign and enables the Entrance Door
 - Entrance Door transitions to a clean Lobby in Normal Reality
-- Ending Restart still returns directly to the Lobby rather than repeating the Intro
+- Ending Restart clears runtime state and returns to Main Menu to replay the Intro
+- Intro text is divided into two readable pages to prevent title/body overlap
+- Main Menu Start, Settings, and Exit buttons use warm tint and slight scale feedback on hover/press
 - Main Menu hides Inventory, SHIFT, and Lantern while retaining feedback for Settings and Exit
 - Room lookup accepts normalized room names such as `MainMenu` and `main_menu`
 

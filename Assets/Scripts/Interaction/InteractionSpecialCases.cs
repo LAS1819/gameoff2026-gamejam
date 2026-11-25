@@ -19,8 +19,8 @@ internal static class InteractionSpecialCases
 
         gameManager.SetFlag(GameFlagNames.MainMenuIntroStarted, true);
         UIManager.Instance.ShowIntro(
-            "Before the door",
-            "I return to the building where every light was switched off too soon.\n\nThe entrance is still there, waiting for the explanation I never gave.",
+            "After six months",
+            "For six months, I believed my father had disappeared and would return to explain everything.\n\nToday, a message arrived in his handwriting.",
             "Continue");
 
         if (RoomManager.Instance != null)
