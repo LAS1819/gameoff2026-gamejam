@@ -56,7 +56,7 @@ public class HUDStoryOverlayView
             && mouse.leftButton.wasPressedThisFrame
             && TryGetHudPoint(mouse.position.ReadValue(), out var point))
         {
-            if (mode == StoryOverlayMode.Letter
+            if ((mode == StoryOverlayMode.Letter || mode == StoryOverlayMode.Intro)
                 && close != null
                 && close.worldBound.Contains(point))
             {
@@ -90,6 +90,28 @@ public class HUDStoryOverlayView
         restart.SetEnabled(false);
         Show();
         ApplyLayout(mode);
+        close.Focus();
+    }
+
+    public void ShowIntro(string introTitle, string introBody, string hint)
+    {
+        mode = StoryOverlayMode.Intro;
+        panel.EnableInClassList("story-overlay-panel-letter", true);
+        eyebrow.text = "INTRODUCTION";
+        title.text = introTitle;
+        title.style.fontSize = 18f;
+        title.style.whiteSpace = WhiteSpace.Normal;
+        body.text = introBody;
+        memoryCount.text = string.Empty;
+        credits.text = string.Empty;
+        close.text = hint;
+        close.style.display = DisplayStyle.Flex;
+        close.SetEnabled(true);
+        close.focusable = true;
+        restart.style.display = DisplayStyle.None;
+        restart.SetEnabled(false);
+        Show();
+        ApplyLayout(StoryOverlayMode.Intro);
         close.Focus();
     }
 
@@ -231,7 +253,7 @@ public class HUDStoryOverlayView
 
     private void HandlePrimaryAction()
     {
-        if (mode == StoryOverlayMode.Letter)
+        if (mode == StoryOverlayMode.Letter || mode == StoryOverlayMode.Intro)
         {
             Close();
         }
@@ -243,6 +265,20 @@ public class HUDStoryOverlayView
 
     private void Close()
     {
+        if (mode == StoryOverlayMode.Intro)
+        {
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.SetFlag(GameFlagNames.MainMenuEntryUnlocked, true);
+            }
+            if (RoomManager.Instance != null)
+            {
+                RoomManager.Instance.RefreshInteractables();
+            }
+            Hide();
+            return;
+        }
+
         if (mode != StoryOverlayMode.Letter)
         {
             Hide();
@@ -328,7 +364,7 @@ public class HUDStoryOverlayView
 
     private void ApplyLayout(StoryOverlayMode layoutMode)
     {
-        if (layoutMode == StoryOverlayMode.Letter)
+        if (layoutMode == StoryOverlayMode.Letter || layoutMode == StoryOverlayMode.Intro)
         {
             title.style.position = Position.Relative;
             body.style.position = Position.Relative;

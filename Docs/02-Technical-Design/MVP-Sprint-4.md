@@ -4,12 +4,12 @@
 - Objetivo: 2026-12-01
 - Estado: 🟡 ACTIVO - último sprint del MVP
 - Milestone de entrada: `0.1.1-proto`
-- Milestone de salida: `0.1.3-proto`
+- Milestone de salida: `0.1.4-proto`
 
 ## Objetivo
 
 Cerrar la versión jugable existente sin ampliar el proyecto. Este sprint transforma
-`0.1.2-proto` en la candidata `0.1.3-proto`, estable para WebGL, Windows e itch.io.
+`0.1.3-proto` en la candidata `0.1.4-proto`, estable para WebGL, Windows e itch.io.
 
 No se añaden rooms, managers, mecánicas de combate, movimiento del jugador ni
 infraestructuras nuevas. Una petición entra en el sprint solo si corrige un
@@ -101,6 +101,7 @@ WebGL `640 x 360`; ningún texto nuevo corta controles.
 ### Bloque 2 - Interacción y feedback compartido
 
 - **Rama recomendada:** `feat/s4-interaction-feedback`
+- **Estado:** ✅ COMPLETADO
 - **Versión final:** `0.1.3-proto`
 - [x] Corrección de hallazgos de bugs encontrados en versión `0.1.2-proto`
   - [x] Inventario: seleccionar otra vez el mismo item deselecciona el item.
@@ -131,13 +132,13 @@ sin ocultar hotspots ni bloquear la room.
 
 - **Rama recomendada:** `feat/s4-menu-intro`
 - **Versión final:** `0.1.4-proto`
-- [ ] Tratar el Main Menu como una Room más dentro del flujo. Sería la primera room antes del Lobby.
-- [ ] Reutilizar un único background compartido para menu e intro.
-- [ ] Añadir Start, Settings y Exit sin crear una escena nueva.
-- [ ] Implementar Settings solo si puede resolverse dentro del HUD existente.
-- [ ] Añadir una intro breve con opción de saltar.
-- [ ] Comprobar que Start devuelve al estado inicial limpio.
-- [ ] Comprobar que Exit funciona en Windows y no pretende persistir estado.
+- [x] Tratar el Main Menu como una Room más dentro del flujo. Es la primera room antes del Lobby.
+- [x] Reutilizar un único background compartido para menu e intro.
+- [x] Añadir Start, Settings y Exit sin crear una escena nueva.
+- [x] Implementar Settings como feedback dentro del flujo existente; se pospone configuración real.
+- [x] Añadir una intro breve con Continue por ratón y teclado.
+- [x] Comprobar que Start devuelve al estado inicial limpio.
+- [x] Comprobar que Exit funciona en Windows, informa en WebGL y no pretende persistir estado.
 
 **Gate:** el camino `Menu -> Intro -> Lobby -> Restart -> Lobby` funciona.
 Si Settings o Exit depende de infraestructura nueva, se recorta.

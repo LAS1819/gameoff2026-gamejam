@@ -15,6 +15,26 @@ public partial class RoomManager
             return false;
         }
 
+        if (CurrentRoom.id.Equals(GameManager.MainMenuRoomId, StringComparison.OrdinalIgnoreCase))
+        {
+            var introStarted = GameManager.Instance != null
+                && GameManager.Instance.HasFlag(GameFlagNames.MainMenuIntroStarted);
+            var entryUnlocked = GameManager.Instance != null
+                && GameManager.Instance.HasFlag(GameFlagNames.MainMenuEntryUnlocked);
+
+            if (interactable.id.Equals("main_menu_entrance", StringComparison.OrdinalIgnoreCase))
+            {
+                return introStarted && entryUnlocked;
+            }
+
+            if (interactable.id.Equals("main_menu_start", StringComparison.OrdinalIgnoreCase)
+                || interactable.id.Equals("main_menu_settings", StringComparison.OrdinalIgnoreCase)
+                || interactable.id.Equals("main_menu_exit", StringComparison.OrdinalIgnoreCase))
+            {
+                return !introStarted;
+            }
+        }
+
         if (InteractionManager.Instance != null && InteractionManager.Instance.IsConsumed(interactable.id))
         {
             return false;
@@ -222,6 +242,11 @@ public partial class RoomManager
             return;
         }
 
+        if (CurrentRoom.id.Equals(GameManager.MainMenuRoomId, StringComparison.OrdinalIgnoreCase))
+        {
+            RefreshMainMenuConditionalObjects();
+        }
+
         if (CurrentRoom.id.Equals(GameManager.BasementRoomId, StringComparison.OrdinalIgnoreCase))
         {
             RefreshBasementConditionalObjects();
@@ -287,6 +312,32 @@ public partial class RoomManager
                 spriteState.StopLoop();
             }
         }
+
+    }
+
+    private void RefreshMainMenuConditionalObjects()
+    {
+        var roomRoot = FindRoomRootById(GameManager.MainMenuRoomId);
+        if (roomRoot == null)
+        {
+            return;
+        }
+
+        var sign = FindNamedTransformInRoot(roomRoot.transform, "HorizonSign");
+        if (sign == null)
+        {
+            return;
+        }
+
+        var state = sign.GetComponent<SpriteStateController>();
+        if (state == null)
+        {
+            return;
+        }
+
+        var unlocked = GameManager.Instance != null
+            && GameManager.Instance.HasFlag(GameFlagNames.MainMenuEntryUnlocked);
+        state.SetState(unlocked ? 1 : 0);
     }
 
     private static void RefreshBedroomPersistentState(GameObject roomRoot)

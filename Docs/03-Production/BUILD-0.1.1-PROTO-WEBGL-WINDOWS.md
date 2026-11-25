@@ -1,4 +1,4 @@
-# Build guide - `0.1.3-proto` (WebGL + Windows)
+# Build guide - `0.1.4-proto` (WebGL + Windows)
 
 Objetivo: sacar builds de prueba estables y repetibles para validar entrega temprana, con prioridad en WebGL y respaldo en Windows.
 
@@ -11,10 +11,10 @@ NOTA: para ahorrar tiempo, realizar recompilaciones sobre la misma carpeta de sa
 3. En **Player Settings**:
    - [x] Company: Zig-Art Studio
    - [x] Product Name: SilentFeel-GameOff2026-GameJam
-   - [x] Version: `0.1.3-proto`.
+   - [x] Version: `0.1.4-proto`.
    - [x] Scripting Backend WebGL: **IL2CPP** (WebGL no usa otro backend en Unity).
    - [x] Scripting Backend Windows: **IL2CPP** para las candidatas de entrega; **Mono** solo puede usarse temporalmente para acelerar una prueba local de depuración.
-   - [x] API Compatibility Level: mantener el valor configurado actualmente en el proyecto. No cambiarlo en `0.1.3-proto` salvo que aparezca un error de compilación concreto.
+   - [x] API Compatibility Level: mantener el valor configurado actualmente en el proyecto. No cambiarlo en `0.1.4-proto` salvo que aparezca un error de compilación concreto.
    - [x] Color Space: **Linear**, según la configuración actual del proyecto.
 4. Hacer un build de prueba local antes de publicar.
 
@@ -46,7 +46,7 @@ NOTA: para ahorrar tiempo, realizar recompilaciones sobre la misma carpeta de sa
 
 **Carpeta de salida sugerida:**
 
-`Builds/WebGL/0.1.3-proto/`
+`Builds/WebGL/0.1.4-proto/`
 
 **Validación rápida WebGL:**
 
@@ -68,7 +68,7 @@ NOTA: para ahorrar tiempo, realizar recompilaciones sobre la misma carpeta de sa
 - [x] Script Debugging: **OFF**
 - [x] Fullscreen Mode actual: **Windowed**.
 - [x] Resolution Windows: mantener **1920 x 1080** como resolución predeterminada para coincidir con el objetivo visual.
-- [x] Resizable Window: **OFF** en `0.1.3-proto` para evitar redimensionados no validados.
+- [x] Resizable Window: **OFF** en `0.1.4-proto` para evitar redimensionados no validados.
 
 ### Resolución Windows
 
@@ -85,7 +85,7 @@ NOTA: para ahorrar tiempo, realizar recompilaciones sobre la misma carpeta de sa
 
 **Carpeta de salida sugerida:**
 
-`Builds/Windows/0.1.3-proto/`
+`Builds/Windows/0.1.4-proto/`
 
 **Validación rápida Windows:**
 
@@ -102,7 +102,7 @@ Para evitar sorpresas de última hora:
 
 1. Subir primero la build WebGL como **Draft**.
 2. Página mínima con:
-   - título de versión: `0.1.3-proto`,
+   - título de versión: `0.1.4-proto`,
    - controles (clic izquierdo / clic derecho),
    - nota de que es build de prueba.
 3. Test rápido en navegador desde la página privada de itch.io.
@@ -113,7 +113,7 @@ La configuración de la página, los metadatos y el texto listo para publicar es
 
 ## 5) Checklist final de salida
 
-- [ ] Versión `0.1.3-proto` visible en Player Settings
+- [ ] Versión `0.1.4-proto` visible en Player Settings
 - [ ] Build WebGL generada y probada
 - [ ] Build Windows generada y probada
 - [ ] Test básico de flujo completo superado

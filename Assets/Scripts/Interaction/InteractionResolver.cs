@@ -142,6 +142,21 @@ internal static class InteractionResolver
 
     private static bool ResolveUse(InteractableData interactable, GameObject sourceObject, Action<string> onConsumed)
     {
+        if (interactable.id.Equals("main_menu_start", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolveMainMenuStart();
+        }
+
+        if (interactable.id.Equals("main_menu_settings", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolveMainMenuSettings();
+        }
+
+        if (interactable.id.Equals("main_menu_exit", StringComparison.OrdinalIgnoreCase))
+        {
+            return InteractionSpecialCases.ResolveMainMenuExit();
+        }
+
         if (InteractionSpecialCases.IsLightInteractable(interactable))
         {
             return InteractionSpecialCases.ResolveLightSwitch(interactable);

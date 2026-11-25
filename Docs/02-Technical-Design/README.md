@@ -1,6 +1,6 @@
 # Technical design
 
-This folder contains the active technical reference for the `0.1.3-proto` vertical slice and the implementation history behind it.
+This folder contains the active technical reference for the `0.1.4-proto` vertical slice and the implementation history behind it.
 
 ## Start here
 
@@ -14,6 +14,7 @@ This folder contains the active technical reference for the `0.1.3-proto` vertic
 
 | Room | Game design | Technical design |
 | --- | --- | --- |
+| Main Menu | [GD-Room-Main-Menu.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Main-Menu.md) | [TD-Room-Main-Menu.md](./Gameplay/Rooms/TD-Room-Main-Menu.md) |
 | Lobby | [GD-Room-Lobby.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Lobby.md) | [TD-Room-Lobby.md](./Gameplay/Rooms/TD-Room-Lobby.md) |
 | Hallway | [GD-Room-Hallway.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Hallway.md) | [TD-Room-Hallway.md](./Gameplay/Rooms/TD-Room-Hallway.md) |
 | Bedroom | [GD-Room-Bedroom.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Bedroom.md) | [TD-Room-Bedroom.md](./Gameplay/Rooms/TD-Room-Bedroom.md) |
@@ -52,6 +53,6 @@ This folder contains the active technical reference for the `0.1.3-proto` vertic
 - no null-propagation operators in runtime scripts
 - UI Toolkit through `PanelRenderer`
 - no active Lantern gameplay in the current build; its HUD icon only represents possession
-- no persistent save or global clock in the `0.1.3-proto` scope
+- no persistent save or global clock in the `0.1.4-proto` scope
 
-Older sprint documents remain as historical records. They should not override the current `0.1.3-proto` specification.
+Older sprint documents remain as historical records. They should not override the current `0.1.4-proto` specification.
