@@ -265,6 +265,15 @@ public class InteractableBehaviour : MonoBehaviour
             return;
         }
 
+        if (data != null
+            && (data.id.Equals("main_menu_start", StringComparison.OrdinalIgnoreCase)
+                || data.id.Equals("main_menu_settings", StringComparison.OrdinalIgnoreCase)
+                || data.id.Equals("main_menu_exit", StringComparison.OrdinalIgnoreCase))
+            && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+        }
+
         interactionManager.TryInteract(data, gameObject);
         RefreshState();
     }

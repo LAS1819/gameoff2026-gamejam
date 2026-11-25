@@ -258,13 +258,28 @@ public class HUDStoryOverlayView
         restart.RegisterCallback<PointerDownEvent>(OnRestartPointerDown);
     }
 
-    private void OnClosePointerDown(PointerDownEvent _) => Close();
-    private void OnRestartPointerDown(PointerDownEvent _) => Restart();
+    private void OnClosePointerDown(PointerDownEvent _)
+    {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+        }
+        Close();
+    }
+
+    private void OnRestartPointerDown(PointerDownEvent _)
+    {
+        Restart();
+    }
 
     private void HandlePrimaryAction()
     {
         if (mode == StoryOverlayMode.Letter || mode == StoryOverlayMode.Intro)
         {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+            }
             Close();
         }
         else

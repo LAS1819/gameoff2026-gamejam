@@ -2,7 +2,7 @@
 
 - **Versión:** 1.0
 - **Creado:** 2026-11-25
-- **Estado:** Planificado; clips pendientes
+- **Estado:** Implementado en runtime; clips y mixer integrados
 
 ---
 
@@ -24,21 +24,39 @@ mediante IDs semánticos.
 
 | ID | Acción | Archivo sugerido |
 | --- | --- | --- |
-| `UI_CLICK` | clic principal de menú/hud | `sfx_ui_click.ogg` |
-| `UI_DENIED` | bloqueo, faltan requisitos o Settings | `sfx_ui_denied.ogg` |
-| `SHIFT` | cambio entre Normal y Other Side | `sfx_shift.ogg` |
-| `ROOM_TRANSITION` | carga de otra Room | `sfx_room_transition.ogg` |
-| `ITEM_PICKUP` | recoger llave, libro u otro item | `sfx_item_pickup.ogg` |
-| `ITEM_USE` | usar o instalar un item | `sfx_item_use.ogg` |
-| `DOOR_ACTION` | abrir, desbloquear o cruzar una puerta | `sfx_door_action.ogg` |
-| `LIGHT_SWITCH` | encender/apagar la lámpara de Bedroom | `sfx_light_switch.ogg` |
-| `MEMORY_DISCOVERY` | abrir una Memoria | `sfx_memory_discovery.ogg` |
-| `STORY_OPEN` | abrir Intro, Carta o Resumen Final | `sfx_story_open.ogg` |
-| `SHELF_SECRET_ACTION` | activar o retirar el secret shelf | `sfx_shelf_secret_action.ogg` |
-| `PRESSURE_VALVE_ACTION` | reparar la válvula | `sfx_pressure_valve_action.ogg` |
-| `STEAM_LOOP` | sonido continuo de la válvula | `sfx_steam_loop.ogg` |
+| `UI_CLICK` | clic principal de menú/hud | `sfx-interface-ui-click-v1.ogg` |
+| `UI_DENIED` | bloqueo, faltan requisitos o Settings | `sfx-interface-ui-denied-v1.ogg` |
+| `SHIFT` | cambio entre Normal y Other Side | `sfx-navigation-shift-v1.ogg` |
+| `ROOM_TRANSITION` | carga de otra Room | `sfx-navigation-room-transition-v1.ogg` |
+| `ITEM_PICKUP` | recoger llave, libro u otro item | `sfx-inventory-item-pickup-v1.ogg` |
+| `ITEM_USE` | usar o instalar un item | `sfx-inventory-item-use-v1.ogg` |
+| `DOOR_ACTION` | abrir, desbloquear o cruzar una puerta | `sfx-navigation-door-action-v1.ogg` |
+| `LIGHT_SWITCH` | encender/apagar la lámpara de Bedroom | `sfx-inventory-light-switch-v1.ogg` |
+| `MEMORY_DISCOVERY` | abrir una Memoria | `sfx-world-events-memory-discover-v1.ogg` |
+| `STORY_OPEN` | abrir Intro, Carta o Resumen Final | `sfx-interface-ui-story-open-v1.ogg` |
+| `SHELF_SECRET_ACTION` | activar o retirar el secret shelf | `sfx-world-events-shelf-secret-action-v1.ogg` |
+| `PRESSURE_VALVE_ACTION` | reparar la válvula | `sfx-world-events-pressure-valve-action-v1.ogg` |
+| `STEAM_LOOP` | sonido continuo de vapor | `sfx-world-events-steam-loop-v1.ogg` |
 
 Los archivos adicionales deben justificarse por una diferencia jugable real.
+
+Los nombres reales implementados incluyen prefijos por familia:
+
+```text
+sfx-interface-ui-click-v1.ogg
+sfx-interface-ui-denied-v1.ogg
+sfx-interface-ui-story-open-v1.ogg
+sfx-navigation-shift-v1.ogg
+sfx-navigation-room-transition-v1.ogg
+sfx-navigation-door-action-v1.ogg
+sfx-inventory-item-pickup-v1.ogg
+sfx-inventory-item-use-v1.ogg
+sfx-inventory-light-switch-v1.ogg
+sfx-world-events-memory-discover-v1.ogg
+sfx-world-events-shelf-secret-action-v1.ogg
+sfx-world-events-pressure-valve-action-v1.ogg
+sfx-world-events-steam-loop-v1.ogg
+```
 
 No son necesarias pistas separadas para:
 
@@ -176,6 +194,15 @@ PRESSURE_VALVE     = metal breve + hiss
 - Spatial Blend: `0`;
 - Force To Mono: `true`;
 - routing: grupo `SFX`.
+
+Configuración vigente:
+
+- `AudioSource` one-shot dedicado a cues cortos;
+- `AudioSource` separado para `STEAM_LOOP`;
+- volumen raíz configurable desde `SFXManager.SetRootVolume(...)`;
+- volumen individual serializable por cada clip;
+- fuente 2D y `playOnAwake = false`;
+- loop activo solo en la fuente de vapor.
 
 Nombre de asset:
 

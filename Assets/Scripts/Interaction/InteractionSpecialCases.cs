@@ -33,6 +33,10 @@ internal static class InteractionSpecialCases
 
     public static bool ResolveMainMenuSettings()
     {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.UiDenied);
+        }
         ShowFeedback("Settings are not available in this prototype.", 1.8f);
         return true;
     }
