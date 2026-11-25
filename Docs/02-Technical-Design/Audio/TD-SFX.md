@@ -71,23 +71,22 @@ No duplicar pistas por room si solo cambia el contexto.
 Agrupar por familia para mantener un proyecto limpio:
 
 ```text
-Assets/Audio/SonicPi/
-├── Scripts/
-│   ├── 00_sonicpi_helpers.rb
-│   ├── sfx_interface.rb
-│   ├── sfx_navigation.rb
-│   ├── sfx_inventory.rb
-│   └── sfx_world_events.rb
-└── Exports/
-    ├── WAV/
-    └── OGG/
+Works/sonic-pi/sfx/
+├── sfx_interface.rb
+├── sfx_navigation.rb
+├── sfx_inventory.rb
+└── sfx_world_events.rb
 ```
+
+Los WAV de grabación y los OGG finales se guardan fuera de los scripts,
+preferiblemente bajo `Works/sonic-pi/exports/WAV/` y `Assets/Audio/SFX/`
+respectivamente.
 
 ### `sfx_interface.rb`
 
 - `UI_CLICK`
 - `UI_DENIED`
-- `STORY_OPEN`
+- `UI_STORY_OPEN`
 
 ### `sfx_navigation.rb`
 
@@ -107,12 +106,17 @@ Assets/Audio/SonicPi/
 - `SHELF_SECRET_ACTION`
 - `PRESSURE_VALVE_ACTION`
 
-`00_sonicpi_helpers.rb` contiene envolventes, fades, panning, normalización
-y helpers de pitch. No contiene IDs jugables.
+Actualmente los cuatro scripts son autocontenidos. Un helper compartido solo
+se añadirá si aparecen patrones repetidos suficientes para justificarlo.
 
 ---
 
 ## 5. Producción en Sonic Pi
+
+- todos los scripts usan `use_bpm 80`;
+- amplitud base de interfaz, navegación, inventario y eventos: `1.25`;
+- cada script incluye live loops individuales con `stop` y uno `SFX TEST ALL`;
+- ejecutar un archivo a la vez para evitar solapes de pruebas.
 
 Formato recomendado:
 
