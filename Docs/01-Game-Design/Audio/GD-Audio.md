@@ -1,12 +1,12 @@
 # Audio Design
 
-> **Estado `0.1.1-proto`:** existe una pista musical principal y la estructura
-> del mixer. Las capas, ambientes y SFX descritos aquí siguen siendo dirección
-> de pulido de Sprint 4, no sistemas ya implementados.
+> **Estado `0.1.4-proto`:** existe una pista musical principal, la estructura
+> completa del mixer y el Main Menu. Las capas ambientales y SFX completos
+> forman el alcance planificado del Bloque 4.
 
-- **Versión del documento:** 0.4
+- **Versión del documento:** 0.5
 - **Creado:** 2026-11-07
-- **Última actualización:** 2026-11-23
+- **Última actualización:** 2026-11-25
 
 ---
 
@@ -137,5 +137,32 @@ Las ambientaciones podrán sugerir recuerdos, presencias o situaciones asociadas
 - Reutilizar variaciones mediante pitch y efectos.
 - Evitar producir audio complejo para eventos menores.
 - Si un sonido tarda demasiado en crearse, simplificar.
+
+---
+
+## Plan del Bloque 4
+
+El primer pasillo sonoro debe ser mínimo y reconocible:
+
+1. música principal ya integrada;
+2. clic de UI;
+3. SHIFT;
+4. transición de Room;
+5. pickup/use;
+6. Memoria y carta;
+7. ambiente base;
+8. puerta, válvula y steam;
+9. Ending y Restart.
+
+No producir aún una banda sonora completa por Room. Una pista base de ambiente
+Normal, una variante de Other Side y dos especializaciones (Basement/Forest)
+permiten validar el sistema con poco riesgo.
+
+El catálogo técnico está separado en:
+
+- [TD-SFX.md](../../02-Technical-Design/Audio/TD-SFX.md)
+- [TD-Music.md](../../02-Technical-Design/Audio/TD-Music.md)
+- [TD-Ambience.md](../../02-Technical-Design/Audio/TD-Ambience.md)
+- [TD-Audio-System.md](../../02-Technical-Design/Audio/TD-Audio-System.md)
 
 ---

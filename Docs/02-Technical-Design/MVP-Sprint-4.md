@@ -152,11 +152,37 @@ Si Settings o Exit depende de infraestructura nueva, se recorta.
 ### Bloque 4 - SFX y mezcla base
 
 - **Rama recomendada:** `feat/s4-sfx-base`
+- **Versión final prevista:** `0.1.5-proto`
+- [x] Confirmar plan sonoro y catálogo mínimo antes de producir clips.
 - [ ] Añadir cues para clic, SHIFT, transición, pickup/use y carta.
 - [ ] Añadir un cue específico al descubrir una Memoria.
 - [ ] Respetar `Master / Music / Ambient / SFX`.
 - [ ] Evitar duplicados al cambiar de room o reiniciar.
 - [ ] Ajustar volumen según build WebGL y Windows.
+- [ ] Documentar producción en Sonic Pi y importación en Unity.
+
+Plan técnico acordado:
+
+- mantener `AudioManager` como fachada pública;
+- mantener `MusicManager` para el tema principal existente;
+- añadir `SFXManager` solo si se necesitan AudioSources reutilizables;
+- añadir `AmbientManager` solo si hay varias pistas ambientales simultáneas;
+- escuchar eventos existentes: `RoomChanged`, `RealityChanged`, `InteractionResolved`
+  y descubrimiento de Memorias;
+- no llamar `AudioSource.Play()` desde cada Room o Interactable;
+- usar los cuatro grupos existentes del `MainAudioMixer`: `Master`, `Music`,
+  `Ambient` y `SFX`;
+- conservar el 2D audio y el loop de música por defecto;
+- no crear ambientes por room antes de validar el base building drone;
+- priorizar 10-14 SFX reconocibles y 2-4 ambientes reutilizables.
+
+Documentación de referencia:
+
+- [GD-Audio.md](../../01-Game-Design/Audio/GD-Audio.md) - intención narrativa;
+- [TD-Audio-System.md](./Audio/TD-Audio-System.md) - arquitectura vigente;
+- [TD-SFX.md](./Audio/TD-SFX.md) - catálogo de efectos;
+- [TD-Music.md](./Audio/TD-Music.md) - música y transiciones;
+- [TD-Ambience.md](./Audio/TD-Ambience.md) - ambientes y realidad.
 
 **Gate:** acciones críticas tienen audio coherente, el tema no se duplica y el
 reinicio deja una mezcla limpia.

@@ -34,6 +34,9 @@ This folder contains the active technical reference for the `0.1.4-proto` vertic
 - [Sprint 4 cursor](./UI/TD-Cursor.md)
 - [Sprint 4 overlay backgrounds](./UI/TD-Overlay-Backgrounds.md)
 - [Audio](./Audio/TD-Audio-System.md)
+- [SFX](./Audio/TD-SFX.md)
+- [Music](./Audio/TD-Music.md)
+- [Ambience](./Audio/TD-Ambience.md)
 
 ## Sprint history
 

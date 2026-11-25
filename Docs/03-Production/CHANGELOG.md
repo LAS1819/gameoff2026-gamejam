@@ -7,9 +7,9 @@ All notable changes to this project will be documented in this file.
 **Added:**
 
 - Main Menu implemented as the first `RoomData` before the Lobby
-- Reusable scene hierarchy for Background, Game Title, Horizon sign, Start, Settings, Exit, and Entrance Door
-- Provisional pixel-art Main Menu background, title, button sprites, and HORIZON on/off states
-- Brief Intro displayed through the existing Story Overlay system
+- Reusable scene hierarchy for final Background, Game Title, Horizon sign, Start, Settings, Exit, and Entrance Door
+- Final Aseprite Main Menu background, title, button sprites, entrance door, and HORIZON on/off states
+- Brief two-page Intro displayed through the existing Story Overlay system
 - Dedicated Main Menu game-design and technical-design room documents
 - Main Menu runtime flags for intro started and entrance unlocked
 - Two-page introductory overlay with `Next` and `Continue` controls
@@ -36,7 +36,7 @@ All notable changes to this project will be documented in this file.
 
 - Settings is intentionally a feedback-only placeholder in `0.1.4-proto`
 - Exit closes Windows builds, reports browser-tab behavior in WebGL, and is disabled in Editor
-- The provisional assets are ready to be replaced without moving hotspots
+- Final Aseprite assets are assigned; no replacement pass is required for 0.1.4
 - Fade and pulse polish remain deferred from the previous block
 
 ---
