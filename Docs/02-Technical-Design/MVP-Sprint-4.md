@@ -174,7 +174,7 @@ Plan técnico acordado:
   `Ambient` y `SFX`;
 - conservar el 2D audio y el loop de música por defecto;
 - no crear ambientes por room antes de validar el base building drone;
-- priorizar 10-14 SFX reconocibles y 2-4 ambientes reutilizables.
+- priorizar 12 SFX reconocibles y 2-4 ambientes reutilizables.
 
 Documentación de referencia:
 

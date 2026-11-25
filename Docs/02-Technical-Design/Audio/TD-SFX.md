@@ -25,20 +25,28 @@ mediante IDs semánticos.
 | ID | Acción | Archivo sugerido |
 | --- | --- | --- |
 | `UI_CLICK` | clic principal de menú/hud | `sfx_ui_click.ogg` |
-| `UI_DENIED` | Settings o acción bloqueada | `sfx_ui_denied.ogg` |
-| `SHIFT` | cambio de realidad | `sfx_shift.ogg` |
-| `ROOM_TRANSITION` | entrada/salida de Room | `sfx_room_transition.ogg` |
-| `ITEM_PICKUP` | recoger llave/libro/item | `sfx_item_pickup.ogg` |
-| `ITEM_USE` | usar item con éxito | `sfx_item_use.ogg` |
-| `ITEM_USE_DENIED` | falta item o selección | `sfx_item_denied.ogg` |
-| `DOOR_UNLOCKED` | puerta desbloqueada | `sfx_door_unlocked.ogg` |
+| `UI_DENIED` | bloqueo, faltan requisitos o Settings | `sfx_ui_denied.ogg` |
+| `SHIFT` | cambio entre Normal y Other Side | `sfx_shift.ogg` |
+| `ROOM_TRANSITION` | carga de otra Room | `sfx_room_transition.ogg` |
+| `ITEM_PICKUP` | recoger llave, libro u otro item | `sfx_item_pickup.ogg` |
+| `ITEM_USE` | usar o instalar un item | `sfx_item_use.ogg` |
+| `DOOR_ACTION` | abrir, desbloquear o cruzar una puerta | `sfx_door_action.ogg` |
+| `LIGHT_SWITCH` | encender/apagar la lámpara de Bedroom | `sfx_light_switch.ogg` |
 | `MEMORY_DISCOVERY` | abrir una Memoria | `sfx_memory_discovery.ogg` |
-| `LETTER_OPEN` | abrir Carta o Resumen | `sfx_letter_open.ogg` |
-| `PRESSURE_VALVE` | reparar la válvula | `sfx_pressure_valve.ogg` |
-| `STEAM_RELEASE` | activar vapor | `sfx_steam_release.ogg` |
-| `RESTART` | reiniciar al Main Menu | `sfx_restart.ogg` |
+| `STORY_OPEN` | abrir Intro, Carta o Resumen Final | `sfx_story_open.ogg` |
+| `SHELF_SECRET_ACTION` | activar o retirar el secret shelf | `sfx_shelf_secret_action.ogg` |
+| `PRESSURE_VALVE_ACTION` | reparar la válvula | `sfx_pressure_valve_action.ogg` |
 
 Los archivos adicionales deben justificarse por una diferencia jugable real.
+
+No son necesarias pistas separadas para:
+
+- reinicio: reutiliza `ROOM_TRANSITION`;
+- vapores: pueden compartir `PRESSURE_VALVE_ACTION` con pitch/volume;
+- ordenador/armario: pueden usar `ITEM_USE`, `DOOR_ACTION` o `UI_CLICK`;
+- abrir el Inventario: no existe transición propia en el diseño actual;
+- cartas individuales: reutilizan `STORY_OPEN`;
+- tipos de puerta: reutilizan `DOOR_ACTION`.
 
 ---
 
@@ -47,16 +55,64 @@ Los archivos adicionales deben justificarse por una diferencia jugable real.
 Para ahorrar producción:
 
 - pickup puede variar con pitch `0.95-1.05`;
-- UI puede compartir dos samples cortos;
-- SHIFT puede usar una única señal con más duración;
-- DOOR puede reutilizarse en varias puertas;
-- RESTART puede ser una versión suave de ROOM_TRANSITION.
+- SHIFT conserva una única identidad sonora;
+- DOOR_ACTION sirve para todas las puertas;
+- ITEM_USE sirve para instalar la manivela, insertar el disk y usar llaves;
+- STORY_OPEN sirve para Intro, Letter y Ending;
+- ROOM_TRANSITION también cubre Restart;
+- UI_DENIED cubre Settings, item incorrecto y acciones bloqueadas.
 
 No duplicar pistas por room si solo cambia el contexto.
 
 ---
 
-## 4. Producción en Sonic Pi
+## 4. Scripts Sonic Pi
+
+Agrupar por familia para mantener un proyecto limpio:
+
+```text
+Assets/Audio/SonicPi/
+├── Scripts/
+│   ├── 00_sonicpi_helpers.rb
+│   ├── sfx_interface.rb
+│   ├── sfx_navigation.rb
+│   ├── sfx_inventory.rb
+│   └── sfx_world_events.rb
+└── Exports/
+    ├── WAV/
+    └── OGG/
+```
+
+### `sfx_interface.rb`
+
+- `UI_CLICK`
+- `UI_DENIED`
+- `STORY_OPEN`
+
+### `sfx_navigation.rb`
+
+- `SHIFT`
+- `ROOM_TRANSITION`
+- `DOOR_ACTION`
+
+### `sfx_inventory.rb`
+
+- `ITEM_PICKUP`
+- `ITEM_USE`
+- `LIGHT_SWITCH`
+
+### `sfx_world_events.rb`
+
+- `MEMORY_DISCOVERY`
+- `SHELF_SECRET_ACTION`
+- `PRESSURE_VALVE_ACTION`
+
+`00_sonicpi_helpers.rb` contiene envolventes, fades, panning, normalización
+y helpers de pitch. No contiene IDs jugables.
+
+---
+
+## 5. Producción en Sonic Pi
 
 Formato recomendado:
 
@@ -81,18 +137,19 @@ Familia sonora:
 Ejemplos de diseño:
 
 ```text
-UI_CLICK      = pulse corto + tick
-SHIFT         = frecuencia ascendente/descendente breve
-ITEM_PICKUP   = dos tonos cortos ascendentes
-ITEM_USE      = tono estable + release
-MEMORY        = campana suave o glass armonico
-ROOM_TRANS     = ruido filtrado + fade
-PRESSURE      = metal breve + hiss
+UI_CLICK           = pulse corto + tick
+SHIFT              = barrido breve ascendente/descendente
+ITEM_PICKUP        = dos tonos cortos ascendentes
+ITEM_USE           = tono estable + release
+MEMORY_DISCOVERY   = campana suave o armónico de cristal
+ROOM_TRANSITION    = ruido filtrado + fade
+SHELF_SECRET       = madera/mecha mecánica breve
+PRESSURE_VALVE     = metal breve + hiss
 ```
 
 ---
 
-## 5. Importación Unity
+## 6. Importación Unity
 
 - `.ogg` preferido;
 - Load Type: `Decompress On Load`;
@@ -117,18 +174,20 @@ sfx_item_pickup.ogg
 
 ---
 
-## 6. Disparadores
+## 7. Disparadores
 
 Prioridad de implementación:
 
 1. UI_CLICK.
 2. SHIFT.
 3. ROOM_TRANSITION.
-4. ITEM_PICKUP / ITEM_USE / ITEM_USE_DENIED.
+4. ITEM_PICKUP / ITEM_USE.
 5. MEMORY_DISCOVERY.
-6. LETTER_OPEN.
-7. DOOR_UNLOCKED.
-8. PRESSURE_VALVE / STEAM_RELEASE.
-9. RESTART.
+6. STORY_OPEN.
+7. DOOR_ACTION.
+8. UI_DENIED.
+9. LIGHT_SWITCH.
+10. SHELF_SECRET_ACTION.
+11. PRESSURE_VALVE_ACTION.
 
 El resto no debe bloquear el MVP.
