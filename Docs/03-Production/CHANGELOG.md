@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4-proto] - 2026-11-25 - Main Menu and Intro room flow
+
+**Added:**
+
+- Main Menu implemented as the first `RoomData` before the Lobby
+- Reusable scene hierarchy for Background, Game Title, Horizon sign, Start, Settings, Exit, and Entrance Door
+- Provisional pixel-art Main Menu background, title, button sprites, and HORIZON on/off states
+- Brief Intro displayed through the existing Story Overlay system
+- Dedicated Main Menu game-design and technical-design room documents
+- Main Menu runtime flags for intro started and entrance unlocked
+- Two-page introductory overlay with `Next` and `Continue` controls
+
+**Changed:**
+
+- Fresh game startup now loads `MainMenu` in Editor and builds
+- Start hides menu actions, preserves the graffiti title, and opens the Intro
+- Continuing the Intro illuminates the HORIZON sign and enables the Entrance Door
+- Entrance Door transitions to a clean Lobby in Normal Reality
+- Ending Restart clears runtime state and returns to Main Menu to replay the Intro
+- Intro text is divided into two readable pages to prevent title/body overlap
+- Main Menu Start, Settings, and Exit buttons use warm tint and slight scale feedback on hover/press
+- Main Menu hides Inventory, SHIFT, and Lantern while retaining feedback for Settings and Exit
+- Room lookup accepts normalized room names such as `MainMenu` and `main_menu`
+
+**Fixed:**
+
+- Fixed menu actions requiring a separate Canvas or gameplay scene
+- Fixed the Intro mode sharing the Letter-to-Ending close behavior
+- Fixed WebGL Exit implying that a browser tab can be closed programmatically
+
+**Notes:**
+
+- Settings is intentionally a feedback-only placeholder in `0.1.4-proto`
+- Exit closes Windows builds, reports browser-tab behavior in WebGL, and is disabled in Editor
+- The provisional assets are ready to be replaced without moving hotspots
+- Fade and pulse polish remain deferred from the previous block
+
+---
+
 ## [0.1.3-proto] - 2026-11-24 - Interaction feedback and shared overlay backgrounds
 
 **Added:**

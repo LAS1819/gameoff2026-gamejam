@@ -7,7 +7,8 @@ using UnityEngine.UIElements;
 public enum StoryOverlayMode
 {
     Letter,
-    Ending
+    Ending,
+    Intro
 }
 
 [RequireComponent(typeof(PanelRenderer))]
@@ -220,7 +221,22 @@ public class HUDController : MonoBehaviour
     {
         if (storyView != null)
         {
-            storyView.ShowLetter(title, body, hint);
+            if (mode == StoryOverlayMode.Intro)
+            {
+                storyView.ShowIntro(title, body, hint);
+            }
+            else
+            {
+                storyView.ShowLetter(title, body, hint);
+            }
+        }
+    }
+
+    public void ShowIntro(string title, string body, string hint = "Continue")
+    {
+        if (storyView != null)
+        {
+            storyView.ShowIntro(title, body, hint);
         }
     }
 
@@ -255,9 +271,13 @@ public class HUDController : MonoBehaviour
 
     public void SetGameplayControlsVisible(bool visible)
     {
+        var isMainMenu = RoomManager.Instance != null
+            && RoomManager.Instance.CurrentRoom != null
+            && RoomManager.Instance.CurrentRoom.id == GameManager.MainMenuRoomId;
+
         if (inventoryPanel != null)
         {
-            inventoryPanel.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            inventoryPanel.style.display = visible && !isMainMenu ? DisplayStyle.Flex : DisplayStyle.None;
         }
         if (feedbackText != null)
         {
@@ -265,11 +285,11 @@ public class HUDController : MonoBehaviour
         }
         if (shiftButton != null)
         {
-            shiftButton.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            shiftButton.style.display = visible && !isMainMenu ? DisplayStyle.Flex : DisplayStyle.None;
         }
         if (lanternIcon != null)
         {
-            lanternIcon.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            lanternIcon.style.display = visible && !isMainMenu ? DisplayStyle.Flex : DisplayStyle.None;
         }
     }
 
@@ -379,6 +399,7 @@ public class HUDController : MonoBehaviour
 
         RefreshInventory();
         RefreshShiftButtonState();
+        SetGameplayControlsVisible(true);
     }
 
     private void BindShiftButton(VisualElement root)
@@ -448,6 +469,7 @@ public class HUDController : MonoBehaviour
     private void HandleRoomChanged(RoomData _)
     {
         RefreshShiftButtonState();
+        SetGameplayControlsVisible(true);
         PlayTransitionOverlay();
     }
 

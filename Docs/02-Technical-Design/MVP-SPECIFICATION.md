@@ -1,6 +1,6 @@
 # MVP Specification - Start here
 
-- Version: 0.1.3-proto
+- Version: 0.1.4-proto
 - Status: Complete playable prototype for test builds
 - Sprint: 4 - final polish, validation, and delivery
 - Last updated: 2026-11-24

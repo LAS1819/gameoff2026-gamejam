@@ -30,7 +30,8 @@ public partial class RoomManager
 
         foreach (Transform child in roomsParent.transform)
         {
-            if (child.gameObject.name.Equals(roomId, StringComparison.OrdinalIgnoreCase))
+            if (NormalizeIdentifier(child.gameObject.name)
+                .Equals(NormalizeIdentifier(roomId), StringComparison.OrdinalIgnoreCase))
             {
                 child.gameObject.SetActive(true);
                 Debug.Log($"[RoomManager] Activated room: {roomId}");
@@ -59,7 +60,8 @@ public partial class RoomManager
 
         foreach (Transform child in roomsParent.transform)
         {
-            if (child.gameObject.name.Equals(roomId, StringComparison.OrdinalIgnoreCase))
+            if (NormalizeIdentifier(child.gameObject.name)
+                .Equals(NormalizeIdentifier(roomId), StringComparison.OrdinalIgnoreCase))
             {
                 return child.gameObject;
             }

@@ -4,6 +4,7 @@ public static partial class DefaultRoomCatalog
 {
     public static List<RoomData> BuildMvpRooms()
     {
+        var mainMenu = CreateMainMenu();
         var lobby = CreateLobby();
         var hallway = CreateHallway();
         var bedroom = CreateBedroom();
@@ -13,6 +14,7 @@ public static partial class DefaultRoomCatalog
 
         return new List<RoomData>
         {
+            mainMenu,
             lobby,
             hallway,
             bedroom,

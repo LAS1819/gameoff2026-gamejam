@@ -1,15 +1,15 @@
-# itch.io Release Guide - `0.1.3-proto`
+# itch.io Release Guide - `0.1.4-proto`
 
 > Guía de entrega activa para Sprint 4. Probar primero en draft privado y
 > resolver copy y créditos provisionales antes de publicar.
 
-This guide prepares the itch.io page for the `0.1.3-proto` candidate build.
+This guide prepares the itch.io page for the `0.1.4-proto` candidate build.
 
 ## Release details
 
 - **Title:** Silent Feel
 - **Subtitle:** A psychological point-and-click horror prototype
-- **Version:** `0.1.3-proto`
+- **Version:** `0.1.4-proto`
 - **Developer:** Zig-Art Studio
 - **Jam:** Game Off 2026
 - **Theme:** SHIFT
@@ -23,12 +23,12 @@ This guide prepares the itch.io page for the `0.1.3-proto` candidate build.
 ## Files
 
 1. Upload the WebGL build as **HTML / Play in browser**.
-2. Compress the build contents, not the outer `0.1.3-proto` folder.
+2. Compress the build contents, not the outer `0.1.4-proto` folder.
 3. Make sure `index.html` is at the root of the ZIP.
 4. Upload the Windows build as a separate downloadable ZIP.
 5. Suggested filenames:
-   - `SilentFeel-0.1.3-proto-WebGL.zip`
-   - `SilentFeel-0.1.3-proto-Windows-x64.zip`
+   - `SilentFeel-0.1.4-proto-WebGL.zip`
+   - `SilentFeel-0.1.4-proto-Windows-x64.zip`
 
 ## Page configuration
 
@@ -54,7 +54,7 @@ The embed must remain 16:9. The game uses a 640x360 internal render resolution, 
 >
 > Explore the rooms of an abandoned sanatorium, investigate objects, solve practical puzzles, and switch between the Normal reality and the Other Side using SHIFT. Things hidden in one reality may become reachable in the other, revealing new routes and fragments of a disturbing personal history.
 >
-> Version `0.1.3-proto` contains the complete playable route: Lobby, Hallway, Bedroom, Library, Basement, Forest, Revelation Letter, and ending.
+> Version `0.1.4-proto` starts at the Main Menu and contains the complete playable route through the Lobby, Hallway, Bedroom, Library, Basement, Forest, Revelation Letter, and ending.
 >
 > Recover optional Memories to change the outcome. Finding 0-2 Memories leads to the Bad Ending, 3-4 to the Neutral Ending, and all 5 to the True Ending.
 
@@ -117,7 +117,7 @@ Replace the GitHub URL if the repository is moved or published under a different
   </p>
 
   <p>
-    Version <strong>0.1.3-proto</strong> contains the complete playable route:
+    Version <strong>0.1.4-proto</strong> starts at the Main Menu and contains the complete playable route:
     <strong>Lobby, Hallway, Bedroom, Library, Basement, Forest, Revelation Letter, and ending.</strong>
   </p>
 
@@ -237,7 +237,7 @@ Avoid describing scene-specific revelations or the truth behind the mystery befo
 - [ ] Fullscreen button tested
 - [ ] Browser cache tested in private/incognito mode
 - [ ] Windows x64 ZIP downloads and launches
-- [ ] Version `0.1.3-proto` is visible
+- [ ] Version `0.1.4-proto` is visible
 - [ ] Controls are readable on the page
 - [ ] Content notice is visible
 - [ ] Genres and tags are configured

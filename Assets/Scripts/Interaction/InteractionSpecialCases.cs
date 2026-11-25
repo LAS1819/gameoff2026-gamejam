@@ -3,6 +3,52 @@ using UnityEngine;
 
 internal static class InteractionSpecialCases
 {
+    public static bool ResolveMainMenuStart()
+    {
+        var gameManager = GameManager.Instance;
+        if (gameManager == null)
+        {
+            return false;
+        }
+
+        if (UIManager.Instance == null)
+        {
+            Debug.LogError("[InteractionSpecialCases] UIManager instance not found while opening Main Menu intro.");
+            return false;
+        }
+
+        gameManager.SetFlag(GameFlagNames.MainMenuIntroStarted, true);
+        UIManager.Instance.ShowIntro(
+            "After six months",
+            "For six months, I believed my father had disappeared and would return to explain everything.\n\nToday, a message arrived in his handwriting.",
+            "Continue");
+
+        if (RoomManager.Instance != null)
+        {
+            RoomManager.Instance.RefreshInteractables();
+        }
+
+        return true;
+    }
+
+    public static bool ResolveMainMenuSettings()
+    {
+        ShowFeedback("Settings are not available in this prototype.", 1.8f);
+        return true;
+    }
+
+    public static bool ResolveMainMenuExit()
+    {
+#if UNITY_EDITOR
+        ShowFeedback("Exit is disabled inside the Unity Editor.", 1.8f);
+#elif UNITY_WEBGL
+        ShowFeedback("Close the browser tab to exit the game.", 2f);
+#else
+        Application.Quit();
+#endif
+        return true;
+    }
+
     public static bool ResolveLightSwitch(InteractableData interactable)
     {
         return InteractionLightCases.ResolveLightSwitch(interactable);

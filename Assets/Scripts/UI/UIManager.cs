@@ -82,6 +82,15 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ShowIntro(string title, string body, string hint = "Continue")
+    {
+        TryResolveHudController();
+        if (hudController != null)
+        {
+            hudController.ShowIntro(title, body, hint);
+        }
+    }
+
     public void ShowMemoryDiscovery(MemoryDefinition memory)
     {
         TryResolveHudController();

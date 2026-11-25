@@ -1,10 +1,10 @@
 # Game Off 2026 - TECHNICAL DESIGN
 
-- **Versión:** 0.1.3-proto
+- **Versión:** 0.1.4-proto
 - **Creación:** 03/11/2026
 - **Última actualización:** 24/11/2026
 
-> Arquitectura vigente para `0.1.3-proto`. Save persistente, reloj global,
+> Arquitectura vigente para `0.1.4-proto`. Save persistente, reloj global,
 > ScriptableObjects obligatorios y un EventData genérico están fuera del MVP.
 
 ---
