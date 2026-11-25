@@ -137,6 +137,9 @@ sin ocultar hotspots ni bloquear la room.
 - [x] Añadir Start, Settings y Exit sin crear una escena nueva.
 - [x] Implementar Settings como feedback dentro del flujo existente; se pospone configuración real.
 - [x] Añadir una intro breve con Continue por ratón y teclado.
+- [x] Diseñar con Aseprite y crear gráficos (v1) para el Background y los Interactables y Visuales.
+- [x] Importar los gráficos diseñados en Aseprite al proyecto y verificar su correcta visualización.
+- [x] Sustituir sprites de test con los gráficos importados desde Aseprite.
 - [x] Comprobar que Start devuelve al estado inicial limpio.
 - [x] Comprobar que Exit funciona en Windows, informa en WebGL y no pretende persistir estado.
 
