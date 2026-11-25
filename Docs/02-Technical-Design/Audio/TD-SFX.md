@@ -36,6 +36,7 @@ mediante IDs semánticos.
 | `STORY_OPEN` | abrir Intro, Carta o Resumen Final | `sfx_story_open.ogg` |
 | `SHELF_SECRET_ACTION` | activar o retirar el secret shelf | `sfx_shelf_secret_action.ogg` |
 | `PRESSURE_VALVE_ACTION` | reparar la válvula | `sfx_pressure_valve_action.ogg` |
+| `STEAM_LOOP` | sonido continuo de la válvula | `sfx_steam_loop.ogg` |
 
 Los archivos adicionales deben justificarse por una diferencia jugable real.
 
@@ -43,6 +44,7 @@ No son necesarias pistas separadas para:
 
 - reinicio: reutiliza `ROOM_TRANSITION`;
 - vapores: pueden compartir `PRESSURE_VALVE_ACTION` con pitch/volume;
+- válvula: `STEAM_LOOP` cubre el sonido continuo; `PRESSURE_VALVE_ACTION` cubre la interacción inicial;
 - ordenador/armario: pueden usar `ITEM_USE`, `DOOR_ACTION` o `UI_CLICK`;
 - abrir el Inventario: no existe transición propia en el diseño actual;
 - cartas individuales: reutilizan `STORY_OPEN`;
@@ -88,11 +90,17 @@ respectivamente.
 - `UI_DENIED`
 - `UI_STORY_OPEN`
 
+- [x] **WAV RAW de Sonic Pi**
+- [ ] **Edición Audacity y compresión a OGG**
+
 ### `sfx_navigation.rb`
 
 - `SHIFT`
 - `ROOM_TRANSITION`
 - `DOOR_ACTION`
+
+- [x] **WAV RAW de Sonic Pi**
+- [ ] **Edición Audacity y compresión a OGG**
 
 ### `sfx_inventory.rb`
 
@@ -100,11 +108,18 @@ respectivamente.
 - `ITEM_USE`
 - `LIGHT_SWITCH`
 
+- [ ] **WAV RAW de Sonic Pi**
+- [ ] **Edición Audacity y compresión a OGG**
+
 ### `sfx_world_events.rb`
 
 - `MEMORY_DISCOVERY`
 - `SHELF_SECRET_ACTION`
 - `PRESSURE_VALVE_ACTION`
+- `STEAM_LOOP`
+
+- [ ] **WAV RAW de Sonic Pi**
+- [ ] **Edición Audacity y compresión a OGG**
 
 Actualmente los cuatro scripts son autocontenidos. Un helper compartido solo
 se añadirá si aparecen patrones repetidos suficientes para justificarlo.
@@ -193,5 +208,6 @@ Prioridad de implementación:
 9. LIGHT_SWITCH.
 10. SHELF_SECRET_ACTION.
 11. PRESSURE_VALVE_ACTION.
+12. STEAM_LOOP.
 
 El resto no debe bloquear el MVP.

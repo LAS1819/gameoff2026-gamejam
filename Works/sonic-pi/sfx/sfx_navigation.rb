@@ -259,7 +259,7 @@ end
 ######################################
 
 live_loop :test_door_action do
-  #stop
+  stop
   
   #door_action
   door_action_v2
@@ -269,11 +269,11 @@ end
 
 # SFX TEST ALL
 live_loop :test_all_navigation_sfx do
-  stop
-  shift
+  #stop
+  shift_v4
   sleep 8
-  room_transition
+  room_transition_v2
   sleep 8
-  door_action
+  door_action_v2
   sleep 8
 end
