@@ -62,8 +62,8 @@ Al pulsar `Start`:
 - el título permanece como grafiti fijo en la pared;
 - se abre el modal de introducción.
 
-El texto introductorio debe ser breve, una sola pantalla y accionable por
-`Continue`. No debe duplicar la Carta final ni iniciar mecánicas nuevas.
+El texto introductorio debe ser breve y accionable por `Next` / `Continue`.
+No debe duplicar la Carta final ni iniciar mecánicas nuevas.
 
 El texto se muestra en dos páginas para mantener legibilidad:
 

@@ -142,8 +142,11 @@ sin ocultar hotspots ni bloquear la room.
 - [x] Sustituir sprites de test con los gráficos importados desde Aseprite.
 - [x] Comprobar que Start devuelve al estado inicial limpio.
 - [x] Comprobar que Exit funciona en Windows, informa en WebGL y no pretende persistir estado.
+- [x] Comprobar que Restart vuelve a Main Menu y limpia flags/runtime.
+- [x] Comprobar hover/tint/scale en Start, Settings y Exit.
+- [x] Comprobar que la Intro de dos páginas no solapa título y cuerpo.
 
-**Gate:** el camino `Menu -> Intro -> Lobby -> Restart -> Lobby` funciona.
+**Gate:** el camino `Menu -> Intro -> Lobby -> Restart -> Main Menu` funciona.
 Si Settings o Exit depende de infraestructura nueva, se recorta.
 
 ### Bloque 4 - SFX y mezcla base

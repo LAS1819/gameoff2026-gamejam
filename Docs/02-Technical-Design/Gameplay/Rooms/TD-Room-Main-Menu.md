@@ -194,34 +194,39 @@ Implementación mínima:
 
 ---
 
-## 8. Assets que debe crear la parte gráfica
+## 8. Assets gráficos finales
+
+Los assets finales se diseñaron e importaron desde Aseprite. Sustituyen los
+sprites temporales sin cambiar jerarquía, colliders ni posiciones de hotspots.
 
 Rutas:
 
 ```text
 Assets/Visuals/UI/MainMenu/
-├── sprite-main-menu-background.png
-├── sprite-main-menu-title.png
-├── sprite-main-menu-start.png
-├── sprite-main-menu-settings.png
-├── sprite-main-menu-exit.png
-├── sprite-main-menu-horizon-off.png
-└── sprite-main-menu-horizon-on.png
+├── sprite-main-menu-background-v1.png
+├── SilentFeel-GameTitle-384x128.png
+├── sprite-main-menu-button-start-v1.png
+├── sprite-main-menu-button-settings-v1.png
+├── sprite-main-menu-button-exit-v1.png
+├── sprite-main-menu-entrance-door-v1.png
+├── sprite-main-menu-horizon-sign-off-v1.png
+└── sprite-main-menu-horizon-sign-on-v1.png
 ```
 
 Estados `HORIZON`:
 
 ```text
-0 = `sprite-main-menu-horizon-off.png`
-1 = `sprite-main-menu-horizon-on.png`
+0 = `sprite-main-menu-horizon-sign-off-v1.png`
+1 = `sprite-main-menu-horizon-sign-on-v1.png`
 ```
 
 ### Resolución
 
 - background completo: `640 x 360`;
-- title: ajustado al ancho visual real, recomendado hasta `240 x 96`;
-- botones: mismo ancho y altura entre ellos, recomendado `128 x 32`;
-- sign: recomendado `144 x 32`, dos frames.
+- título final: archivo separado `SilentFeel-GameTitle-384x128.png`;
+- botones: sprites independientes Start, Settings y Exit;
+- puerta: sprite independiente `sprite-main-menu-entrance-door-v1.png`;
+- cartel: dos frames independientes para off/on.
 
 Import:
 
@@ -238,8 +243,7 @@ y collider existentes.
 
 ## 9. Escala y reemplazo
 
-Los assets provisionales pueden usar rectángulos y texto temporal. Cada
-GameObject ya queda preparado con:
+Los assets finales mantienen esta estructura:
 
 - `SpriteRenderer`;
 - `InteractableBehaviour`;
