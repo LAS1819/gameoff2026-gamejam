@@ -1,6 +1,6 @@
 # Technical design
 
-This folder contains the active technical reference for the `0.1.4-proto` vertical slice and the implementation history behind it.
+This folder contains the active technical reference for the `0.1.6-proto` vertical slice and the implementation history behind it.
 
 ## Start here
 
@@ -27,6 +27,7 @@ This folder contains the active technical reference for the `0.1.4-proto` vertic
 - [Interaction model](./Gameplay/TD-Interactables.md)
 - [Memories](./Gameplay/TD-Memories.md)
 - [Room architecture](./Gameplay/Rooms/TD-Room-Architecture.md)
+- [Lighting and Lantern system](./TD-Lighting-System.md)
 - [HUD](./UI/TD-HUD.md)
 - [Sprint 4 fonts](./UI/TD-Fonts.md)
 - [Sprint 4 inventory](./UI/TD-Inventory.md)
@@ -55,7 +56,7 @@ This folder contains the active technical reference for the `0.1.4-proto` vertic
 - Unity Input System only
 - no null-propagation operators in runtime scripts
 - UI Toolkit through `PanelRenderer`
-- no active Lantern gameplay in the current build; its HUD icon only represents possession
-- no persistent save or global clock in the `0.1.4-proto` scope
+- Lantern activation, global room/reality lighting and local Sprite Lights are implemented in `0.1.6-proto`
+- no persistent save or global clock in the `0.1.6-proto` scope
 
-Older sprint documents remain as historical records. They should not override the current `0.1.4-proto` specification.
+Older sprint documents remain as historical records. They should not override the current `0.1.6-proto` specification.

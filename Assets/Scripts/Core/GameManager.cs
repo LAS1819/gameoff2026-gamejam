@@ -8,6 +8,7 @@ public static class GameFlagNames
     public const string RealityUnlocked = "RealityUnlocked";
     public const string ShiftPerformed = "ShiftPerformed";
     public const string HasFlashlight = "HasFlashlight";
+    public const string FlashlightActive = "FlashlightActive";
     public const string BedroomLightOn = "BedroomLightOn";
     public const string BedroomWardrobeOpened = "BedroomWardrobeOpened";
     public const string BedroomMonsterVisible = "BedroomMonsterVisible";
@@ -73,7 +74,7 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, bool> Flags { get; } = new Dictionary<string, bool>();
 
     public string CurrentRoomId { get; private set; } = LobbyRoomId;
-    public int ForestDepthLevel { get; private set; }
+    public int ForestDepthLevel { get; private set; } = 1;
 
     public event System.Action<string> FlagChanged;
     public event System.Action<int> ForestDepthChanged;
@@ -116,6 +117,7 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.RealityUnlocked, false);
         SetFlag(GameFlagNames.ShiftPerformed, false);
         SetFlag(GameFlagNames.HasFlashlight, false);
+        SetFlag(GameFlagNames.FlashlightActive, false);
         SetFlag(GameFlagNames.BedroomLightOn, false);
         SetFlag(GameFlagNames.BedroomWardrobeOpened, false);
         SetFlag(GameFlagNames.BedroomMonsterVisible, false);
@@ -159,7 +161,7 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.Memory_03, false);
         SetFlag(GameFlagNames.Memory_04, false);
         SetFlag(GameFlagNames.Memory_05, false);
-        ForestDepthLevel = 0;
+        ForestDepthLevel = 1;
 
         EnsureRuntimeSystems();
         if (InventoryManager.Instance != null)
@@ -287,6 +289,10 @@ public class GameManager : MonoBehaviour
         CurrentRoomId = roomId;
         if (roomId.Equals(ForestRoomId, System.StringComparison.OrdinalIgnoreCase))
         {
+            if (ForestDepthLevel < 1)
+            {
+                ForestDepthLevel = 1;
+            }
             SetFlag(GameFlagNames.ForestEntered, true);
         }
     }
@@ -313,7 +319,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetForestDepth()
     {
-        ForestDepthLevel = 0;
+        ForestDepthLevel = 1;
         SetFlag(GameFlagNames.ForestProgressAdvanced, false);
         SetFlag(GameFlagNames.ForestFinalTableVisible, false);
         SetFlag(GameFlagNames.ForestLetterRead, false);

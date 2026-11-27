@@ -60,6 +60,9 @@ Al pulsar `Start`:
 
 - desaparecen `Start`, `Settings` y `Exit`;
 - el título permanece como grafiti fijo en la pared;
+- el cartel `HORIZON` se considera encendido;
+- la luz global aumenta la intensidad y mezcla un tono amarillo cálido sobre
+  la base neutral de la Room;
 - se abre el modal de introducción.
 
 El texto introductorio debe ser breve y accionable por `Next` / `Continue`.
@@ -108,7 +111,7 @@ Al clicar la puerta:
 
 ## 4. Settings
 
-En `0.1.4-proto`, `Settings` no introduce un sistema global nuevo.
+En `0.1.6-proto`, `Settings` no introduce un sistema global nuevo.
 
 Comportamiento MVP:
 

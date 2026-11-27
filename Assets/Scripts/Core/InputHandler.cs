@@ -6,6 +6,26 @@ public class InputHandler : MonoBehaviour
     private void Update()
     {
         HandleShiftInput();
+        HandleLanternInput();
+    }
+
+    private static void HandleLanternInput()
+    {
+        var keyboard = Keyboard.current;
+        if (keyboard == null || !keyboard.fKey.wasPressedThisFrame)
+        {
+            return;
+        }
+
+        if (UIManager.Instance != null && UIManager.Instance.IsStoryOverlayVisible())
+        {
+            return;
+        }
+
+        if (LanternController.Instance != null)
+        {
+            LanternController.Instance.TryToggleLantern();
+        }
     }
 
     private void HandleShiftInput()

@@ -43,6 +43,28 @@ internal static class InteractionLightCases
             spriteState.SetState(nextState ? 1 : 0);
         }
 
+        if (target != null)
+        {
+            var beam = target.transform.Find("CeilingBeamLight");
+            if (beam == null)
+            {
+                foreach (var child in target.GetComponentsInChildren<Transform>(true))
+                {
+                    if (child != null
+                        && child.name.Equals("CeilingBeamLight", StringComparison.OrdinalIgnoreCase))
+                    {
+                        beam = child;
+                        break;
+                    }
+                }
+            }
+
+            if (beam != null)
+            {
+                beam.gameObject.SetActive(nextState);
+            }
+        }
+
         if (gameManager != null)
         {
             gameManager.SetFlag(GameFlagNames.BedroomLightOn, nextState);

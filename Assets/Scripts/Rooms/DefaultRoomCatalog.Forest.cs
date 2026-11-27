@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static partial class DefaultRoomCatalog
 {
@@ -8,7 +9,12 @@ public static partial class DefaultRoomCatalog
         {
             id = GameManager.ForestRoomId,
             displayName = "Forest",
-            connectedRoomIds = new List<string> { GameManager.BasementRoomId }
+            connectedRoomIds = new List<string> { GameManager.BasementRoomId },
+            lightingProfile = CreateLightingProfile(
+                0.28f,
+                Color.white,
+                0.28f,
+                Color.white)
         };
 
         forest.interactables.Add(new InteractableData

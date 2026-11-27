@@ -34,6 +34,7 @@ avanzar de forma cruzada hasta la Library y el Basement.
 - Clic izquierdo: interactuar, recoger, usar, cambiar de room o avanzar.
 - Clic derecho: examinar sin ejecutar la acción del interactable.
 - SHIFT / botón HUD: cambiar de realidad.
+- F / icono de Linterna: encender o apagar la Linterna en el Basement.
 - Enter / Space / Escape / Continue: avanzar la carta o su presentación.
 - Restart: restablecer estado y volver al Lobby.
 
@@ -46,8 +47,10 @@ avanzar de forma cruzada hasta la Library y el Basement.
 5. Código del Basement.
 6. Manivela de la válvula.
 
-La linterna obtenida en Bedroom se refleja en el HUD, pero en
-`0.1.1-proto` no es una mecánica activa, no tiene batería y no controla Light 2D.
+La linterna obtenida en Bedroom se refleja en el HUD. El Bloque 5 la convierte
+en una herramienta activa solo dentro del Basement: se puede apagar o encender
+desde su icono o con `F`, sin batería ni consumo. Fuera del Basement se desactiva
+automáticamente.
 
 ## 4. Cadena de puzles
 
@@ -97,18 +100,21 @@ La linterna obtenida en Bedroom se refleja en el HUD, pero en
 
 - Room: Basement.
 - Secuencia:
-  1. examinar la caja de efectos personales;
-  2. obtener la manivela;
-  3. instalarla en la válvula en Realidad Normal;
-  4. activar el vapor;
-  5. cambiar a Other Side y rechazar la manifestación;
-  6. volver a Normal para usar la salida al Forest.
+  1. encender la linterna;
+  2. examinar la caja de efectos personales;
+  3. obtener la manivela;
+  4. instalarla en la válvula en Realidad Normal;
+  5. activar el vapor;
+  6. cambiar a Other Side y rechazar la manifestación;
+  7. volver a Normal para usar la salida al Forest.
+- Sin linterna activa, los objetos clave muestran feedback oscuro y no consumen
+  items ni activan flags.
 - Recompensa: acceso terminal al Forest.
 
 ### Puzzle 7 - Forest y carta
 
 - Room: Forest.
-- Solución: avanzar por las profundidades 0-6.
+- Solución: avanzar por las profundidades 1-6.
 - Resultado final: aparece Table + Ceiling Light + Revelation Letter.
 - La carta conduce directamente al final; no hay retorno al Basement.
 

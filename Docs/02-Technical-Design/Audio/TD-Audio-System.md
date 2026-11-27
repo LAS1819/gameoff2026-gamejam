@@ -186,7 +186,7 @@ Todo lo demás se pospone si aumenta mucho el alcance.
 
 Documentación relacionada:
 
-- [GD-Audio.md](../../../01-Game-Design/Audio/GD-Audio.md)
+- [GD-Audio.md](../../01-Game-Design/Audio/GD-Audio.md)
 - [TD-SFX.md](TD-SFX.md)
 - [TD-Music.md](TD-Music.md)
 - [TD-Ambience.md](TD-Ambience.md)

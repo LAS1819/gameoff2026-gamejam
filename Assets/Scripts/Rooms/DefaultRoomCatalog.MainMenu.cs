@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static partial class DefaultRoomCatalog
 {
@@ -8,7 +9,12 @@ public static partial class DefaultRoomCatalog
         {
             id = GameManager.MainMenuRoomId,
             displayName = "Main Menu",
-            connectedRoomIds = new List<string> { GameManager.LobbyRoomId }
+            connectedRoomIds = new List<string> { GameManager.LobbyRoomId },
+            lightingProfile = CreateLightingProfile(
+                0.55f,
+                Color.white,
+                0.55f,
+                Color.white)
         };
 
         mainMenu.interactables.Add(new InteractableData

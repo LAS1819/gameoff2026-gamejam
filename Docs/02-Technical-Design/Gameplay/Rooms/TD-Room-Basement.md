@@ -1,12 +1,12 @@
 # Room Basement — Technical Spec
 
-> **Estado `0.1.1-proto`:** flujo implementado sin requisito activo de linterna.
-> `LanternController`, Light 2D, `requiresLantern` y batería son diseño
-> descartado. La fuente vigente es el catálogo y los resolvers runtime.
+> **Estado `0.1.6-proto`:** el flujo, el puzzle base y la linterna activa están
+> implementados. La especificación completa está
+> en [TD-Lighting-System.md](../../TD-Lighting-System.md).
 
-- Versión 0.3
+- Versión 0.4
 - Creado: 17/11/2026
-- Actualizado: 19/11/2026
+- Actualizado: 27/11/2026
 
 ---
 
@@ -22,15 +22,11 @@ Su función técnica es:
 - ofrecer una evidencia narrativa clara, sin convertir la room en un bloque de contenido pesado;
 - mantener una amenaza bloqueadora, pero sin IA ni combate complejo.
 
-### Nota de implementación (fase base MVP)
+### Estado de implementación
 
-La implementación inicial de código del Basement se ejecuta sin:
-
-- gating por linterna,
-- control de luz global,
-- estados avanzados por realidad en interactuables.
-
-Esta fase construye primero una `Room` funcional estándar con flujo de progreso, transición y flags base.
+La fase base incluye puzzle, vapor, manifestación y transiciones.
+El Bloque 5 añade sobre esa base el gating por linterna y la luz global; no
+modifica la secuencia ni crea una nueva Room.
 
 ---
 
@@ -51,7 +47,8 @@ RoomData
   - forest_exit_door
   - denial_manifestation
 - lightingProfile:
-  - globalLightIntensity: 0.10
+  - normalGlobalLightIntensity: 0.06
+  - otherSideGlobalLightIntensity: 0.045
   - lanternAllowed: true
 - narrativeGoal: "Break denial through evidence and pressure release"
 ```
@@ -61,7 +58,7 @@ RoomData
 - Reality: Normal
 - Luz global muy baja, suficiente para orientación, no para lectura detallada.
 - `LanternAllowed = true` en esta room.
-- `LanternActive = false` al entrar.
+- `FlashlightActive = false` al entrar.
 - El jugador puede explorar, pero la verdad solo se entiende con la linterna encendida.
 - La `Manifestación de Negación` sólo aparece cuando la presión no se ha resuelto y el jugador intenta avanzar sin condiciones correctas.
 
@@ -73,9 +70,10 @@ RoomData
 
 No usar lógica automática basada solo en un umbral de intensidad. El sistema debe seguir un patrón explícito por room, igual que SHIFT:
 
-- el `RoomManager` informa si la room actual permite linterna;
-- el `LanternController` valida la room antes de activar un `Light2D`;
-- si la room no permite linterna, se fuerza a `false` y no hay efecto visual.
+- el `RoomManager` informa la room activa;
+- el `LanternController` aplica el perfil configurado para room y realidad;
+- valida posesión y estado antes de activar el `Light2D`;
+- si la room no permite linterna, se fuerza `FlashlightActive = false`.
 
 ### 3.2 Estructura sugerida
 
@@ -90,22 +88,24 @@ RoomLightingProfile
 
 Para el `Basement`:
 
-- `globalLightIntensity = 0.10`
-- rango de ajuste para playtest: 0.08 a 0.18
+- `normalGlobalLightIntensity = 0.06`
+- `otherSideGlobalLightIntensity = 0.045`
+- linterna activa: suma `0.32` Normal / `0.26` Other Side
+- rango de ajuste para playtest: Normal 0.04-0.08 apagada, 0.34-0.42 encendida
 
 Esto refuerza la oscuridad visual, pero sigue siendo un complemento del gating por room y no la única regla.
 
 ---
 
-## 4. Linterna con sprite light 2D acoplada al cursor
+## 4. Linterna con Global Light 2D
 
 ```text
 LanternController (runtime)
-- input: toggle (HUD + teclado)
-- checks: LanternUnlocked && LanternAllowed(currentRoom)
-- state: LanternActive
-- light source: Light2D (Point or Freeform)
-- position source: cursor world position
+- input: toggle (HUD + F)
+- checks: HasFlashlight && LanternAllowed(currentRoom)
+- state: FlashlightActive
+- light source: Global Light 2D
+- active profile: improved Basement intensity and color
 ```
 
 ### Reglas del MVP
@@ -113,7 +113,8 @@ LanternController (runtime)
 - sólo puede encenderse si el jugador ya obtuvo la `Linterna` en `Bedroom`;
 - si cambia a una room sin permiso, la linterna se desactiva automáticamente;
 - no incluye batería ni desgaste durante esta iteración;
-- la intensidad del haz puede hacerse sutil en `Global Light` y más fuerte con `Sprite Light 2D` local.
+- la versión básica modifica la intensidad y el color de la luz global;
+- el seguimiento de cursor queda diferido.
 
 ---
 
@@ -278,7 +279,7 @@ requiresLantern: true
 
 **Reglas técnicas:**
 
-- sin `LanternActive == true`, el uso se bloquea con feedback textual;
+- sin `FlashlightActive == true`, el uso se bloquea con feedback textual;
 - si falta la `valve_handle`, la interacción ofrece una pista pero no se resuelve;
 - cuando se usa correctamente, se activa una reacción visual y sonora de alivio/descarga.
 
@@ -412,13 +413,13 @@ Para mantener el sistema sin crear scripts ad hoc, el `InteractionManager` debe 
 
 ```text
 If interactionType == Examine
-    If interactable.requiresLantern == true and LanternActive == false
+    If interactable.requiresLantern == true and FlashlightActive == false
         show obscured description
     Else
         show full description
 
 If interactionType == Use
-    If interactable.requiresLantern == true and LanternActive == false
+    If interactable.requiresLantern == true and FlashlightActive == false
         deny interaction
         show feedback: "No puedes hacer esto a ciegas"
         trigger blocker if relevant

@@ -95,6 +95,27 @@ public partial class RoomManager : MonoBehaviour
         return true;
     }
 
+    public void RefreshForestDepth()
+    {
+        if (CurrentRoom == null
+            || !CurrentRoom.id.Equals(GameManager.ForestRoomId, StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        var forestRoot = FindRoomRootById(GameManager.ForestRoomId);
+        if (forestRoot == null)
+        {
+            return;
+        }
+
+        var depthController = forestRoot.GetComponentInChildren<ForestDepthController>(true);
+        if (depthController != null)
+        {
+            depthController.RefreshDepth();
+        }
+    }
+
     private void BindCurrentRoomInteractables()
     {
         if (CurrentRoom == null)

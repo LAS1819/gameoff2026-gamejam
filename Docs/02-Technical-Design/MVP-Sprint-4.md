@@ -4,12 +4,12 @@
 - Objetivo: 2026-12-01
 - Estado: 🟡 ACTIVO - último sprint del MVP
 - Milestone de entrada: `0.1.1-proto`
-- Milestone de salida: `0.1.4-proto`
+- Milestone de salida: `0.1.6-proto`
 
 ## Objetivo
 
 Cerrar la versión jugable existente sin ampliar el proyecto. Este sprint transforma
-`0.1.3-proto` en la candidata `0.1.4-proto`, estable para WebGL, Windows e itch.io.
+`0.1.3-proto` en la candidata `0.1.6-proto`, estable para WebGL, Windows e itch.io.
 
 No se añaden rooms, managers, mecánicas de combate, movimiento del jugador ni
 infraestructuras nuevas. Una petición entra en el sprint solo si corrige un
@@ -131,7 +131,7 @@ sin ocultar hotspots ni bloquear la room.
 ### Bloque 3 - Menu e introducción ligeros
 
 - **Rama recomendada:** `feat/s4-menu-intro`
-- **Versión final:** `0.1.4-proto`
+- **Versión final:** `0.1.6-proto`
 - [x] Tratar el Main Menu como una Room más dentro del flujo. Es la primera room antes del Lobby.
 - [x] Reutilizar un único background compartido para menu e intro.
 - [x] Añadir Start, Settings y Exit sin crear una escena nueva.
@@ -178,7 +178,7 @@ Plan técnico acordado:
 
 Documentación de referencia:
 
-- [GD-Audio.md](../../01-Game-Design/Audio/GD-Audio.md) - intención narrativa;
+- [GD-Audio.md](../01-Game-Design/Audio/GD-Audio.md) - intención narrativa;
 - [TD-Audio-System.md](./Audio/TD-Audio-System.md) - arquitectura vigente;
 - [TD-SFX.md](./Audio/TD-SFX.md) - catálogo de efectos;
 - [TD-Music.md](./Audio/TD-Music.md) - música y transiciones;
@@ -190,19 +190,43 @@ reinicio deja una mezcla limpia.
 ### Bloque 5 - Luz Global y mecánica de acceso con Linterna al Basement
 
 - **Rama recomendada:** `feat/s4-flashlight-basement`
-- [ ] Implementar sistema de luz global.
-- [ ] Ajustar luz global por Room y por tipo de Realidad.
-- [ ] Implementar mecánica de Linterna para iluminar el Basement.
-  - [ ] Sólo se puede interactuar en el Basement si se tiene la Linterna encendida.
-  - [ ] Cuando se enciende la Linterna, el Basement se ilumina adecuadamente mediante la modificación del sistema de luz global.
-- [ ] Revisar interacción con objetos clave en el Basement.
-  - [ ] Sin linterna: al Usar o Examinar objetos clave en el Basement, se debe mostrar un mensaje indicando que está demasiado oscuro y dando una narrativa oscura (formas extrañas, recuerdos borrosos).
-- [ ] Validar transición desde Library al Basement y retorno.
+- **Versión Final:** `0.1.6-proto`
+- [x] Definir perfiles de luz explícitos por Room y Realidad.
+- [x] Añadir Global Light 2D a `Main.unity`.
+- [x] Implementar controlador de iluminación sobre `RoomChanged` y `RealityChanged`.
+- [x] Implementar estado separado `FlashlightActive` sin añadir batería ni inventario.
+- [x] Añadir toggle de Linterna desde el icono del HUD y tecla `F`.
+- [ ] Cursor-follow Light 2D diferido para una iteración posterior.
+- [x] Desactivar automáticamente la Linterna al cambiar de Room o reiniciar.
+- [x] Añadir `requiresLantern` a los interactables clave del Basement.
+- [x] Bloquear `Use` y `Examine` oscuros antes de consumir items o activar flags.
+- [x] Reutilizar `UiDenied` y `LightSwitch` sin crear cues nuevos.
+- [x] Mostrar mensajes narrativos "demasiado oscuro" para caja, tuberías, estanterías y válvula.
+- [x] Mantener Library/Forest exit operativas como navegación cuando sus flags correspondan.
+- [x] Mezclar el cartel de Main Menu, la luz de Bedroom, el ordenador y el sótano sobre sus perfiles base.
+- [x] Añadir Sprite Light 2D al cartel HORIZON.
+- [x] Añadir Sprite Light 2D al haz del techo de Bedroom.
+- [x] Añadir luces roja y azul progresivas al Forest.
+- [x] Hacer que Forest comience en nivel 1 con luces visibles.
+- [x] Reducir luz global y oscurecer el recorrido por profundidad sin tintar el cielo.
+- [x] Resolver el avance 5 -> 6 en un solo clic.
+- [ ] Validar transición Library -> Basement -> Library y acceso final al Forest.
+- [ ] Añadir texturas `unlit` para elementos que no deben verse afectados por la luz global
+- [ ] Validar Editor, WebGL y Windows a `640 x 360`.
+
+Documentación técnica:
+
+- [TD-Lighting-System.md](./TD-Lighting-System.md)
+- [TD-Room-Basement.md](./Gameplay/Rooms/TD-Room-Basement.md)
+- [GD-Room-Basement.md](../01-Game-Design/Gameplay/Rooms/GD-Room-Basement.md)
+- [TD-HUD.md](./UI/TD-HUD.md)
 
 **Gate:**
 
 - Las Rooms tienen su propia iluminación independiente, controlada por el sistema de luz global. Variando un poco los parámetros de luz global (intensidad, color) según la Room y la Realidad, se puede mantener la coherencia visual sin perder referencias.
 - La Linterna permite explorar el Basement sin perder referencias visuales.
+- Los interactables clave no resuelven ni consumen items mientras están a oscuras.
+- El estado activo no permanece encendido después de salir del Basement o reiniciar.
 
 ### Bloque 6 - Barrido visual de Lobby
 
@@ -272,16 +296,15 @@ reinicio deja una mezcla limpia.
 
 ### Bloque 12 - Lote experimental
 
-- **Rama recomendada:** `feat/s4-lantern-light`
-- [ ] Probar primero linterna alrededor del cursor en una sola escena.
-- [ ] Añadir Luz Global solo si el modo aislado no rompe legibilidad.
-- [ ] Exponer una prueba de luces 2D progresivas en Forest.
-- [ ] No obligar linterna o luz para resolver puzzles existentes.
+- **Rama recomendada:** `feat/s4-forest-light-progress`
+- [ ] No iniciar hasta cerrar el Linterna/Global Light del Bloque 5.
+- [ ] Exponer una prueba aislada de luces 2D progresivas en Forest.
+- [ ] Mantener la linterna ausente en Forest; no añadir una regla nueva por allí.
+- [ ] No obligar luz 2D para resolver puzzle, carta o finales existentes.
 - [ ] Mantener fallback visual sin Light 2D.
 
 **Gate:** prueba aislada estable en WebGL y Windows. Si supera el corte del
-29/11, crear una rama nueva por extensión: `feat/s4-lantern-propagation` o
-`feat/s4-forest-light-progress`.
+29/11, crear una rama nueva por extensión: `feat/s4-forest-light-progress`.
 
 ## Prioridades
 
@@ -378,7 +401,7 @@ reinicio deja una mezcla limpia.
 | Hallway → Library | Libro, disquete, panel y Basement estables |
 | Bedroom / Library cruzado | No se pierde la progresión al alternar rooms |
 | Basement | Caja, manivela, presión, vapor y manifestación sincronizados |
-| Forest | Profundidad 0-6, sala final, carta y salida narrativa |
+| Forest | Profundidad 1-6, sala final, carta y salida narrativa |
 | Finales | Se alcanzan 0-2, 3-4 y 5 Memorias |
 | Restart | Vuelve al Lobby con estado limpio |
 | WebGL | Inicia y completa el loop desde itch.io |
@@ -401,18 +424,19 @@ reinicio deja una mezcla limpia.
 
 ## Lote experimental condicionado
 
-- Mecánica activa de linterna y Luz Global.
 - Luces 2D progresivas específicas del Forest.
 - Nuevos puzles o rutas que alarguen el recorrido.
+- Propagación de iluminación local a rooms fuera del Basement.
 
 Estos elementos pueden entrar solo después de cerrar P0 y P1 si hay tiempo
 realista para probarlos sin tocar el flujo base. La implementación debe ser
 ligera, reutilizar `HUDController`, el evento de realidad y los resolvers
 existentes, y no crear un manager nuevo por feature.
 
-La mecánica de linterna no debe convertirse en una condición obligatoria para
-resolver puzzles existentes. Si no cabe en el plazo, debe volver a ser solo un
-indicador visual de posesión como en `0.1.1-proto`.
+La mecánica de linterna del Bloque 5 es una fundación obligatoria para el alcance
+planeado del sprint. Debe integrarse sin cambiar la secuencia existente del
+puzzle del Basement ni obligar a completar una interacción nueva para salir al
+Forest.
 
 ## Definition of Done
 
@@ -484,7 +508,7 @@ este orden:
 | Bedroom | Ordenador, armario, monstruo, luz, ventanas, Memory 03 | Puzzle completo y retorno a Hallway |
 | Library | Estantería, Worn Book, panel, Memory 04 | Libro, disco, código y acceso a Basement |
 | Basement | Caja, válvula, vapor, tuberías, manifestación, Memory 05 | Evidencia, reparación y salida a Forest |
-| Forest | Profundidad 0-6, mesas/luz/carta, final | Los tres rangos de final y restart |
+| Forest | Profundidad 1-6, mesas/luz/carta, final | Los tres rangos de final y restart |
 
 Cada Room debe cerrar con:
 
@@ -499,8 +523,6 @@ Cada Room debe cerrar con:
 
 Solo debe implementarse tras confirmar que P0 y P1 están en verde:
 
-- linterna activa con iluminación de cursor;
-- Luz Global compartida;
 - elementos específicos de iluminación por Room;
 - luces 2D progresivas del Forest;
 - 1-2 hotspots narrativos adicionales por Room;
@@ -510,9 +532,9 @@ La extensión debe usar el pipeline URP 2D ya presente. Debe existir un MVP
 intermedio: primero una habitación y una realidad, después una segunda prueba,
 y solo entonces propagación al resto.
 
-La propuesta más segura es validar una luz de linterna dentro de Basement,
-donde ya existe una dirección de claridad y evidencia. No comenzar por una
-migración global sin una prueba visual aislada.
+El Bloque 5 valida primero la linterna dentro del Basement. Solo después se
+considera propagación visual; no convertirla en una migración global sin una
+prueba estable en WebGL y Windows.
 
 ### P2 - Probablemente se recorte
 

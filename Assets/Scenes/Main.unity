@@ -287,6 +287,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -397,9 +398,118 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
+--- !u!1 &77594685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 77594686}
+  - component: {fileID: 77594687}
+  m_Layer: 0
+  m_Name: RedLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &77594686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77594685}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3, y: 7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 137943766}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &77594687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 77594685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 4
+  m_LightType: 2
+  m_BlendStyleIndex: 0
+  m_Light2DProvider:
+    rid: -2
+  m_SelectionSources:
+    rid: 5567733991589281837
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000i
+  m_LightCookieSprite: {fileID: 21300000, guid: 73210ae5ff0ddb0429de853616bdf432, type: 3}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 2.5, y: 2.5, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5567733991589281837
+      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_SelectedHashCode: 2
+        m_SelectedSource:
+          rid: -2
+        m_Provider2DCache:
+          rid: 5567733991589281838
+    - rid: 5567733991589281838
+      type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_Cache: []
 --- !u!1 &110081033
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +571,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -664,6 +775,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -713,6 +825,39 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 16, y: 12}
   m_EdgeRadius: 0
+--- !u!1 &137943765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 137943766}
+  m_Layer: 0
+  m_Name: AmbulanceLights
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &137943766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 137943765}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 77594686}
+  - {fileID: 1629689911}
+  m_Father: {fileID: 1593681573}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &168096022
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,6 +1112,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -1244,6 +1390,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -1309,6 +1456,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -1480,6 +1628,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -1555,7 +1704,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1651,6 +1800,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -1891,6 +2041,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -2140,7 +2291,7 @@ SpriteRenderer:
   m_Size: {x: 4, y: 6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
 --- !u!1 &449775197
@@ -2235,6 +2386,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -2595,6 +2747,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -2984,6 +3137,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 21300000, guid: d19e94c8ff628f5418368b6c2fb81c09, type: 3}
   otherSideSprite: {fileID: 21300000, guid: f4aa08b80a6b7614aaa73234f93649f4, type: 3}
   useRealitySprites: 1
@@ -3017,7 +3171,8 @@ Transform:
   m_LocalPosition: {x: -3.5500002, y: 8.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 776861368}
   m_Father: {fileID: 1378742301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &709924787
@@ -3190,6 +3345,114 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!1 &776861367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 776861368}
+  - component: {fileID: 776861369}
+  m_Layer: 0
+  m_Name: HorizonSignLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &776861368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776861367}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.75, y: -7.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 709924786}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &776861369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776861367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 4
+  m_LightType: 2
+  m_BlendStyleIndex: 0
+  m_Light2DProvider:
+    rid: -2
+  m_SelectionSources:
+    rid: 5567733991589281835
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000i
+  m_LightCookieSprite: {fileID: 21300000, guid: 38b7f832f3073854bb2f548ccf9b05e8, type: 3}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 10, y: 9.5, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5567733991589281835
+      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_SelectedHashCode: 2
+        m_SelectedSource:
+          rid: -2
+        m_Provider2DCache:
+          rid: 5567733991589281836
+    - rid: 5567733991589281836
+      type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_Cache: []
 --- !u!1 &803532679
 GameObject:
   m_ObjectHideFlags: 0
@@ -3319,6 +3582,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -3490,6 +3754,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -3599,6 +3864,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!1 &837887860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 837887862}
+  - component: {fileID: 837887861}
+  m_Layer: 0
+  m_Name: Lighting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &837887861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837887860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6210198992c88eb46898617803935b80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LanternController
+  globalLight: {fileID: 1199310703}
+--- !u!4 &837887862
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837887860}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1199310704}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &840072520
 GameObject:
   m_ObjectHideFlags: 0
@@ -3939,6 +4250,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 242422704, guid: 4a7876964d2c33344b39c9afb47d895d, type: 3}
   otherSideSprite: {fileID: 907087973, guid: 4a7876964d2c33344b39c9afb47d895d, type: 3}
   useRealitySprites: 1
@@ -4227,6 +4539,7 @@ MonoBehaviour:
     resultFlag: Memory_02
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -4502,7 +4815,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2046528600}
   m_Father: {fileID: 1593681573}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1048212106
@@ -4518,8 +4832,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpriteStateController
   states:
-  - {fileID: 1703621264, guid: be27136911e04644899a9a99421191aa, type: 3}
-  - {fileID: -1041971373, guid: be27136911e04644899a9a99421191aa, type: 3}
+  - {fileID: 1046744922, guid: be27136911e04644899a9a99421191aa, type: 3}
+  - {fileID: 1944503490, guid: be27136911e04644899a9a99421191aa, type: 3}
   defaultStateIndex: 0
   loopOnEnable: 0
   loopInterval: 0.2
@@ -4572,7 +4886,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -1041971373, guid: be27136911e04644899a9a99421191aa, type: 3}
+  m_Sprite: {fileID: 1046744922, guid: be27136911e04644899a9a99421191aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4782,6 +5096,7 @@ MonoBehaviour:
     resultFlag: Memory_01
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -4949,7 +5264,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5182,6 +5497,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -5445,6 +5761,7 @@ MonoBehaviour:
   panelRenderer: {fileID: 0}
   lanternNotObtainedSprite: {fileID: 1426271938, guid: 6d30d81ac4b34b14ba80fcd6910dcdd5, type: 3}
   lanternObtainedSprite: {fileID: -371352943, guid: 6d30d81ac4b34b14ba80fcd6910dcdd5, type: 3}
+  lanternActiveSprite: {fileID: -1968459938, guid: 6d30d81ac4b34b14ba80fcd6910dcdd5, type: 3}
   lanternItemId: flashlight_tool
   staffKeyItemIcon: {fileID: 21300000, guid: aba09b778112bc0449779d5fd6c2601e, type: 3}
   libraryKeyItemIcon: {fileID: 21300000, guid: 1d6bbebb9654882479582b02b862f293, type: 3}
@@ -5524,6 +5841,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -5573,6 +5891,114 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 6, y: 15}
   m_EdgeRadius: 0
+--- !u!1 &1199310702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1199310704}
+  - component: {fileID: 1199310703}
+  m_Layer: 0
+  m_Name: Global Light 2D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1199310703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199310702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 4
+  m_LightType: 4
+  m_BlendStyleIndex: 0
+  m_Light2DProvider:
+    rid: -2
+  m_SelectionSources:
+    rid: 5567733989695553650
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000i
+  m_LightCookieSprite: {fileID: 0}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5567733989695553650
+      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_SelectedHashCode: 4
+        m_SelectedSource:
+          rid: -2
+        m_Provider2DCache:
+          rid: 5567733989695553651
+    - rid: 5567733989695553651
+      type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_Cache: []
+--- !u!4 &1199310704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199310702}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 837887862}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1232907070
 GameObject:
   m_ObjectHideFlags: 0
@@ -5960,6 +6386,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -6458,6 +6885,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -6496,6 +6924,114 @@ Transform:
   - {fileID: 1719146962}
   m_Father: {fileID: 2087590136}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1388104327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1388104328}
+  - component: {fileID: 1388104329}
+  m_Layer: 0
+  m_Name: CeilingBeamLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1388104328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388104327}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -9.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1875568196}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1388104329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388104327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 4
+  m_LightType: 2
+  m_BlendStyleIndex: 0
+  m_Light2DProvider:
+    rid: -2
+  m_SelectionSources:
+    rid: 5567733991589281833
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000i
+  m_LightCookieSprite: {fileID: 21300000, guid: 7498fea7a8d04d14b98be789e15879fe, type: 3}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 8, y: 9, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5567733991589281833
+      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_SelectedHashCode: 2
+        m_SelectedSource:
+          rid: -2
+        m_Provider2DCache:
+          rid: 5567733991589281834
+    - rid: 5567733991589281834
+      type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_Cache: []
 --- !u!1 &1423243401
 GameObject:
   m_ObjectHideFlags: 0
@@ -6557,6 +7093,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -6668,6 +7205,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -6964,6 +7502,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -7156,6 +7695,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: -301264129, guid: 1e4d6a53e08d8fc4a98dc33fb9cf098c, type: 3}
   otherSideSprite: {fileID: -968101386, guid: 1e4d6a53e08d8fc4a98dc33fb9cf098c, type: 3}
   useRealitySprites: 1
@@ -7326,6 +7866,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -7437,6 +7978,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 21300000, guid: 6cfaa4996b3967c4db0c2ce9ec9c4024, type: 3}
   otherSideSprite: {fileID: 21300000, guid: 6cfaa4996b3967c4db0c2ce9ec9c4024, type: 3}
   useRealitySprites: 1
@@ -7671,6 +8213,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 569997706, guid: c8355024bfb3bfa4fa4ed959e373eb62, type: 3}
   useRealitySprites: 0
@@ -7811,8 +8354,117 @@ Transform:
   m_Children:
   - {fileID: 541286346}
   - {fileID: 1048212105}
+  - {fileID: 137943766}
   m_Father: {fileID: 1675550462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1629689910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1629689911}
+  - component: {fileID: 1629689912}
+  m_Layer: 0
+  m_Name: BlueLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1629689911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629689910}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3, y: 7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 137943766}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1629689912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629689910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 4
+  m_LightType: 2
+  m_BlendStyleIndex: 0
+  m_Light2DProvider:
+    rid: -2
+  m_SelectionSources:
+    rid: 5567733991589281837
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 0, g: 0.010046005, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000i
+  m_LightCookieSprite: {fileID: 21300000, guid: 73210ae5ff0ddb0429de853616bdf432, type: 3}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 2.5, y: 2.5, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5567733991589281837
+      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_SelectedHashCode: 2
+        m_SelectedSource:
+          rid: -2
+        m_Provider2DCache:
+          rid: 5567733991589281838
+    - rid: 5567733991589281838
+      type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_Cache: []
 --- !u!1 &1648742830
 GameObject:
   m_ObjectHideFlags: 0
@@ -7862,7 +8514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1675550462
 Transform:
   m_ObjectHideFlags: 0
@@ -7926,6 +8578,9 @@ MonoBehaviour:
   - {fileID: 175101533, guid: bab894067f6674b4c979d0494e6a9e71, type: 3}
   - {fileID: 1260794113, guid: bab894067f6674b4c979d0494e6a9e71, type: 3}
   - {fileID: -1663567566, guid: bab894067f6674b4c979d0494e6a9e71, type: 3}
+  ambulanceLights: {fileID: 0}
+  redLight: {fileID: 0}
+  blueLight: {fileID: 0}
 --- !u!1 &1719146961
 GameObject:
   m_ObjectHideFlags: 0
@@ -8125,6 +8780,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -8189,6 +8845,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -8392,6 +9049,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -8467,7 +9125,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8562,6 +9220,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -8672,6 +9331,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -9132,7 +9792,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1388104328}
   m_Father: {fileID: 1006877795}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1875568197
@@ -9184,7 +9845,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1703621264, guid: be27136911e04644899a9a99421191aa, type: 3}
+  m_Sprite: {fileID: 1046744922, guid: be27136911e04644899a9a99421191aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -9208,8 +9869,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpriteStateController
   states:
-  - {fileID: 1703621264, guid: be27136911e04644899a9a99421191aa, type: 3}
-  - {fileID: -1041971373, guid: be27136911e04644899a9a99421191aa, type: 3}
+  - {fileID: 1046744922, guid: be27136911e04644899a9a99421191aa, type: 3}
+  - {fileID: 1944503490, guid: be27136911e04644899a9a99421191aa, type: 3}
   defaultStateIndex: 0
   loopOnEnable: 0
   loopInterval: 0.2
@@ -9388,6 +10049,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 21300000, guid: 6cfaa4996b3967c4db0c2ce9ec9c4024, type: 3}
   otherSideSprite: {fileID: 21300000, guid: 6cfaa4996b3967c4db0c2ce9ec9c4024, type: 3}
   useRealitySprites: 1
@@ -9687,6 +10349,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -9745,7 +10408,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1961025058}
-  - component: {fileID: 1961025061}
   - component: {fileID: 1961025060}
   - component: {fileID: 1961025059}
   m_Layer: 0
@@ -9764,7 +10426,7 @@ Transform:
   m_GameObject: {fileID: 1961025057}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 1.5, z: -1}
+  m_LocalPosition: {x: 7.02, y: 0.71, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9798,6 +10460,7 @@ MonoBehaviour:
     resultFlag: Memory_03
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -9845,68 +10508,8 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 6, y: 5}
   m_EdgeRadius: 0
---- !u!212 &1961025061
-SpriteRenderer:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1961025057}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 100
-  m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: aa5cae508d76f4b4ba04a9770b7bfd95, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 4, y: 4}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_SpriteSortPoint: 0
-  m_BlendShapeWeights: []
 --- !u!1 &1966146470
 GameObject:
   m_ObjectHideFlags: 0
@@ -9969,6 +10572,7 @@ MonoBehaviour:
     resultFlag: Memory_05
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -10140,6 +10744,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -10215,7 +10820,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10312,6 +10917,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 21300000, guid: cc672188efed19d49bf4660c8eae0822, type: 3}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -10501,6 +11107,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -10717,6 +11324,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -10821,6 +11429,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -10870,6 +11479,114 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 12, y: 12}
   m_EdgeRadius: 0
+--- !u!1 &2046528599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2046528600}
+  - component: {fileID: 2046528601}
+  m_Layer: 0
+  m_Name: CeilingBeamLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2046528600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046528599}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -9.75, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1048212105}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2046528601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046528599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.2D.Runtime::UnityEngine.Rendering.Universal.Light2D
+  m_ComponentVersion: 4
+  m_LightType: 2
+  m_BlendStyleIndex: 0
+  m_Light2DProvider:
+    rid: -2
+  m_SelectionSources:
+    rid: 5567733991589281833
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeIntensity: 1
+  m_LightVolumeEnabled: 0
+  m_ApplyToSortingLayers: 00000000i
+  m_LightCookieSprite: {fileID: 21300000, guid: 7498fea7a8d04d14b98be789e15879fe, type: 3}
+  m_DeprecatedPointLightCookieSprite: {fileID: 0}
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_OverlapOperation: 0
+  m_NormalMapDistance: 3
+  m_NormalMapQuality: 2
+  m_UseNormalMap: 0
+  m_ShadowsEnabled: 1
+  m_ShadowIntensity: 0.75
+  m_ShadowSoftness: 0.3
+  m_ShadowSoftnessFalloffIntensity: 0.5
+  m_ShadowVolumeIntensityEnabled: 0
+  m_ShadowVolumeIntensity: 0.75
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 8, y: 9, z: 0}
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 5567733991589281833
+      type: {class: Light2DProviderSources, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_SelectedHashCode: 2
+        m_SelectedSource:
+          rid: -2
+        m_Provider2DCache:
+          rid: 5567733991589281834
+    - rid: 5567733991589281834
+      type: {class: 'Provider2DCache`1[[UnityEngine.Rendering.Universal.Light2DProvider, Unity.RenderPipelines.Universal.2D.Runtime]]', ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data:
+        m_Cache: []
 --- !u!1 &2059141112
 GameObject:
   m_ObjectHideFlags: 0
@@ -10963,6 +11680,7 @@ MonoBehaviour:
     resultFlag: 
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -11038,7 +11756,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11087,7 +11805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2087590136
 Transform:
   m_ObjectHideFlags: 0
@@ -11444,6 +12162,7 @@ MonoBehaviour:
     resultFlag: Memory_04
     linkedRoomId: 
     consumeAfterUse: 0
+    requiresLantern: 0
   normalSprite: {fileID: 0}
   otherSideSprite: {fileID: 0}
   useRealitySprites: 0
@@ -11562,3 +12281,4 @@ SceneRoots:
   - {fileID: 115156146}
   - {fileID: 1330033084}
   - {fileID: 1253440029}
+  - {fileID: 837887862}

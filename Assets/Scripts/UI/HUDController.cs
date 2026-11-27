@@ -20,6 +20,7 @@ public class HUDController : MonoBehaviour
     [Header("Lantern icon")]
     [SerializeField] private Sprite lanternNotObtainedSprite;
     [SerializeField] private Sprite lanternObtainedSprite;
+    [SerializeField] private Sprite lanternActiveSprite;
     [SerializeField] private string lanternItemId = "flashlight_tool";
 
     [Header("Inventory item icons")]
@@ -65,6 +66,7 @@ public class HUDController : MonoBehaviour
     private bool roomEventsSubscribed;
     private bool realityEventsSubscribed;
     private bool shiftClickBound;
+    private bool lanternClickBound;
 
     private HUDInventoryView inventoryView;
     private HUDStoryOverlayView storyView;
@@ -191,6 +193,11 @@ public class HUDController : MonoBehaviour
             shiftButton.UnregisterCallback<ClickEvent>(OnShiftButtonClicked);
             shiftClickBound = false;
         }
+        if (lanternIcon != null && lanternClickBound)
+        {
+            lanternIcon.UnregisterCallback<ClickEvent>(OnLanternButtonClicked);
+            lanternClickBound = false;
+        }
         UnsubscribeRuntimeEvents();
     }
 
@@ -315,7 +322,8 @@ public class HUDController : MonoBehaviour
             GameManager.Instance,
             lanternItemId,
             lanternNotObtainedSprite,
-            lanternObtainedSprite);
+            lanternObtainedSprite,
+            lanternActiveSprite);
     }
 
     private void ResolvePanelRenderer()
@@ -380,8 +388,11 @@ public class HUDController : MonoBehaviour
         lanternIcon = root.Q<VisualElement>("lantern-icon");
         if (lanternIcon != null)
         {
-            lanternIcon.pickingMode = PickingMode.Ignore;
-            lanternIcon.focusable = false;
+            lanternIcon.pickingMode = PickingMode.Position;
+            lanternIcon.focusable = true;
+            lanternIcon.UnregisterCallback<ClickEvent>(OnLanternButtonClicked);
+            lanternIcon.RegisterCallback<ClickEvent>(OnLanternButtonClicked);
+            lanternClickBound = true;
         }
 
         if (feedbackText != null)
@@ -419,6 +430,14 @@ public class HUDController : MonoBehaviour
 
         shiftButton.RegisterCallback<ClickEvent>(OnShiftButtonClicked);
         shiftClickBound = true;
+    }
+
+    private void OnLanternButtonClicked(ClickEvent _)
+    {
+        if (LanternController.Instance != null)
+        {
+            LanternController.Instance.TryToggleLantern();
+        }
     }
 
     private void TrySubscribeRuntimeEvents()

@@ -1,12 +1,11 @@
 # Room Bedroom — Technical Spec
 
-> **Estado `0.1.1-proto`:** luz, armario, monstruo, Library Key, ordenador y
-> Floppy Disk están integrados. La linterna solo actualiza el HUD; cualquier
-> `FlashlightActive`, batería, Light 2D o gating citado abajo es diseño histórico.
+> **Estado `0.1.6-proto`:** luz, armario, monstruo, Library Key, ordenador,
+> linterna, Sprite Light del techo y Floppy Disk están integrados.
 
-- Versión 0.3
+- Versión 0.4
 - Creado: 10/11/2026
-- Actualizado: 17/11/2026
+- Actualizado: 27/11/2026
 
 ---
 
@@ -78,6 +77,21 @@ resultFlag: BedroomLightOn
 - permitir iluminar la habitación;
 - generar una regla clara: la luz reduce la amenaza;
 - servir de ancla para la lógica del Otro Lado.
+
+#### Luz global
+
+- Base Normal: `0.58`; base Other Side: `0.42`.
+- `BedroomLightOn == true`: suma `0.18` de intensidad y mezcla el color hacia
+  el cálido, en ambas realidades.
+- `BedroomComputerPowered == true`: suma `0.10` de intensidad y mezcla el color
+  verde `#239063`.
+- Los extras se acumulan; no sustituyen la intensidad o el color base.
+
+#### Sprite Light 2D local
+
+`CeilingLamp` contiene el hijo `CeilingBeamLight`. Se activa y desactiva junto
+con `BedroomLightOn`, incluida la persistencia al entrar/salir de la realidad
+Normal y del Otro Lado.
 
 #### Reglas técnicas
 
@@ -313,7 +327,7 @@ If disk removed
 
 ## 4. Items del Room
 
-### 4.1 Flashlight (solo indicador en `0.1.1-proto`)
+### 4.1 Flashlight
 
 ```text
 ItemData
