@@ -245,8 +245,8 @@ en vez de arriesgar el loop jugable.
 #### 6.1 Congelar la candidata
 
 - [ ] Crear una rama de release desde `develop` y retirar cambios no vinculados
-      a bugs P0, contenido final o entrega.
-- [ ] Registrar en el changelog todo cambio incluido en `0.1.6-proto`.
+      a bugs P0, contenido final o entrega (`feat/checkpoint-release`).
+- [ ] Registrar en el changelog todo cambio incluido en `0.1.7-proto`.
 - [ ] Sustituir placeholders críticos de Memorias, carta, finales y Story Overlay.
 - [ ] Añadir créditos, dedicatoria especial y QA Testers (Karq y Barbsky).
 - [ ] No mezclar idiomas en el runtime; mantener inglés si el español no supera
