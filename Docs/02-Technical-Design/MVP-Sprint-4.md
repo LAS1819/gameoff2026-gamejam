@@ -230,31 +230,86 @@ Documentación técnica:
 
 ---
 
-### Bloque 6 - Correcciones finales, builds y release (GitHub e Itch.io)
+### Bloque 6 - Release checkpoint segura (GitHub e itch.io)
 
 - **Rama recomendada:** `feat/final-fixes`
-- **Merges:** `develop` -> `main`
-- **Versión final:** `0.1.6-proto`
-- **Tareas:**
-  - [ ] Memorias: sustituir placeholders por contenido final. Modificar comportamientos de interacción en caso de ser necesario.
-  - [ ] Ajustes:
-    - Créditos: añadir una página más al resumen final para incluir créditos.
-    - Dedicación: usar la página de créditos para incluir la dedicatoria especial.
-    - QA Testers: añadir apartado de QA Testers para nombrar a Karq y Barbsky.
-    - [Apuntar los ajustes detectados durante la implementación del Bloque 6]
-  - [ ] Validar funcionalidad en Editor.
-  - [ ] Creación de Builds para WebGL y Windows (v0.1.6-proto).
-  - [ ] Merges `develop` -> `main`
-  - [ ] Publicación de la build en Itch.io (windows y WebGL).
-  - [ ] Repositorio GitHub:
-    - [ ] Actualizar README y documentación según la versión 0.1.6-proto.
-    - [ ] Verificar que todos los enlaces y recursos estén actualizados para la versión proto.
-    - [ ] Añadir créditos y dedicatoria especial en el Readme principal.
-    - [ ] Tecnología: añadir apartado donde se liste la tecnología utilizada en el proyecto (Unity, C#, VS Code, Sonic Pi, Aseprite, Excel).
-  - [ ] Actualización de página Itch.io:
-    - [ ] Actualizar descripción y capturas de pantalla según la versión 0.1.6-proto.
-    - [ ] Crear y añadir portada/cover para la versión proto.
-    - [ ] Verificar que todos los enlaces y recursos estén actualizados para la versión proto.
+- **Destino humano:** `develop` -> `main`
+- **Versión de checkpoint:** `0.1.6-proto`
+- **Tag recomendado:** `v0.1.6-proto`
+- **Objetivo:** dejar una entrega jugable, pública y recuperable antes de iniciar cualquier pulido opcional de Rooms o bloque experimental.
+
+Este bloque no es un lote de mejoras. Es la última puerta P0 del sprint: si no
+se completa antes de la entrega, debe conservarse el último checkpoint estable
+en vez de arriesgar el loop jugable.
+
+#### 6.1 Congelar la candidata
+
+- [ ] Crear una rama de release desde `develop` y retirar cambios no vinculados
+      a bugs P0, contenido final o entrega.
+- [ ] Registrar en el changelog todo cambio incluido en `0.1.6-proto`.
+- [ ] Sustituir placeholders críticos de Memorias, carta, finales y Story Overlay.
+- [ ] Añadir créditos, dedicatoria especial y QA Testers (Karq y Barbsky).
+- [ ] No mezclar idiomas en el runtime; mantener inglés si el español no supera
+      una revisión completa.
+- [ ] Congelar el scope: no iniciar nuevos puzles, rooms, guardado, combate,
+      movimiento libre ni sistemas de iluminación fuera del alcance aprobado.
+
+#### 6.2 Validar la candidata
+
+- [ ] Validar el recorrido completo en Editor sin trampas ni ayuda de depuración.
+- [ ] Validar Memorias 0-2, 3-4 y 5, carta revelación y tres finales.
+- [ ] Validar Menu -> Intro -> Lobby -> Ending -> Restart -> Main Menu.
+- [ ] Confirmar que Restart limpia inventario, flags, Forest, Linterna y overlays.
+- [ ] Revisar consola, Player Log y warnings sin errores bloqueantes.
+- [ ] Verificar la matriz de aceptación P0 de este documento.
+- [ ] Guardar una captura o vídeo breve de inicio, HUD, puzzle final y ending.
+
+#### 6.3 Construir y archivar
+
+- [ ] Generar WebGL Release desde `Web - Desktop - Release`.
+- [ ] Generar Windows x64 Release desde `Windows`.
+- [ ] Mantener `Main.unity` como única escena incluida en las builds.
+- [ ] Validar WebGL a `640 x 360` y dentro de un embed 16:9.
+- [ ] Validar Windows a `1920 x 1080`, modo ventana, ratio 16:9 y
+      redimensionado desactivado.
+- [ ] Probar ambas builds desde una copia limpia, no solo desde el Editor.
+- [ ] Comprimir el contenido de cada build y conservar nombres versionados:
+      `SilentFeel-0.1.6-proto-WebGL.zip` y
+      `SilentFeel-0.1.6-proto-Windows-x64.zip`.
+- [ ] Registrar fuera del repositorio las builds probadas y sus ZIP finales,
+      hashes/fecha si el flujo de publicación lo permite.
+
+#### 6.4 Crear el checkpoint
+
+- [ ] Tras superar el Gate, mergear `develop` -> `main`.
+- [ ] Crear el tag humano `v0.1.6-proto` sobre el commit aprobado.
+- [ ] Crear el GitHub Release asociado a `v0.1.6-proto` solo después de verificar el merge y el nombre de versión.
+- [ ] Verificar que el repositorio público contiene fuente, README, changelog, licencia y enlaces vigentes.
+- [ ] Actualizar README con versión, controles, plataformas, créditos y tecnología utilizada (Unity, C#, VS Code, Sonic Pi, Aseprite, Excel).
+- [ ] Verificar que todos los enlaces apuntan al repositorio, build guide y checklist de itch.io correctos.
+
+#### 6.5 Publicar en itch.io
+
+- [ ] Crear portada/cover y capturas sin spoilers.
+- [ ] Actualizar descripción, controles, aviso de contenido, metadatos y tags.
+- [ ] Configurar versión visible `0.1.6-proto`.
+- [ ] Subir WebGL y Windows como archivos separados.
+- [ ] Mantener la entrega privada mientras se realiza QA desde itch.io.
+- [ ] Probar embed, caché privada/incógnito, descarga ZIP y flujo completo.
+- [ ] Añadir enlaces públicos a GitHub, créditos y licencia.
+- [ ] Publicar la página solo después de superar el Gate completo.
+
+**Gate obligatorio:** la build candidata inicia y completa el loop en Editor,
+WebGL y Windows desde una copia limpia. El estado de GitHub e itch.io coincide
+con `0.1.6-proto`, los archivos descargables son los probados y Restart vuelve
+al estado inicial limpio.
+
+**Criterio de corte:** si el contenido final o los ajustes visuales no están
+listos a tiempo, publicar el checkpoint `0.1.6-proto` con fallbacks ya probados.
+
+No bloquear la entrega por mejoras de los Bloques 7-12 ni por el lote
+experimental. Una vez creado el checkpoint, esas mejoras pueden continuar en
+ramas separadas sin deshacer ni reemplazar silenciosamente la entrega segura.
 
 ---
 
