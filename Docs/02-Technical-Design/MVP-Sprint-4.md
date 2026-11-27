@@ -204,7 +204,7 @@ reinicio deja una mezcla limpia.
 - Las Rooms tienen su propia iluminación independiente, controlada por el sistema de luz global. Variando un poco los parámetros de luz global (intensidad, color) según la Room y la Realidad, se puede mantener la coherencia visual sin perder referencias.
 - La Linterna permite explorar el Basement sin perder referencias visuales.
 
-### Bloque 5 - Barrido visual de Lobby
+### Bloque 6 - Barrido visual de Lobby
 
 - **Rama recomendada:** `art/s4-lobby-polish`
 - [ ] Mejorar fondo y composición sin mover los hotspots.
@@ -215,7 +215,7 @@ reinicio deja una mezcla limpia.
 
 **Gate:** una captura Normal y una captura final deben ser legibles en un vistazo.
 
-### Bloque 6 - Barrido visual de Hallway
+### Bloque 7 - Barrido visual de Hallway
 
 - **Rama recomendada:** `art/s4-hallway-polish`
 - [ ] Mejorar fondos Normal / Other Side.
@@ -226,7 +226,7 @@ reinicio deja una mezcla limpia.
 
 **Gate:** SHIFT cambia la percepción sin confundir el camino ni ocultar hotspots.
 
-### Bloque 7 - Barrido visual de Bedroom
+### Bloque 8 - Barrido visual de Bedroom
 
 - **Rama recomendada:** `art/s4-bedroom-polish`
 - [ ] Mejorar ordenador, torre, monitor y Floppy Disk.
@@ -237,7 +237,7 @@ reinicio deja una mezcla limpia.
 
 **Gate:** luz, armario, llave y ordenador siguen claros en ambas realidades.
 
-### Bloque 8 - Barrido visual de Library
+### Bloque 9 - Barrido visual de Library
 
 - **Rama recomendada:** `art/s4-library-polish`
 - [ ] Mejorar estantería principal, estantería secreta y Worn Book.
@@ -248,7 +248,7 @@ reinicio deja una mezcla limpia.
 
 **Gate:** el secreto y el panel son visibles sin instrucciones externas.
 
-### Bloque 9 - Barrido visual de Basement
+### Bloque 10 - Barrido visual de Basement
 
 - **Rama recomendada:** `art/s4-basement-polish`
 - [ ] Mejorar caja de efectos, válvula, manivela y tuberías.
@@ -259,7 +259,7 @@ reinicio deja una mezcla limpia.
 
 **Gate:** todo el puzzle sigue resoluble sin recurrir a nombres internos o logs.
 
-### Bloque 10 - Barrido visual de Forest
+### Bloque 11 - Barrido visual de Forest
 
 - **Rama recomendada:** `art/s4-forest-polish`
 - [ ] Mejorar fondo y las cuatro capas por profundidad.
@@ -270,7 +270,7 @@ reinicio deja una mezcla limpia.
 
 **Gate:** profundidad, carta y finales son legibles sin solapamientos.
 
-### Bloque 11 - Lote experimental
+### Bloque 12 - Lote experimental
 
 - **Rama recomendada:** `feat/s4-lantern-light`
 - [ ] Probar primero linterna alrededor del cursor en una sola escena.
