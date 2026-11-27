@@ -133,8 +133,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa45ab2340f09cf42af1e844ccca6b61
-      internalID: 1703621264
+      spriteID: a40894b2e1a4c3745a83b3d6f2ae5ed7
+      internalID: 1046744922
       vertices: []
       indices: 
       edges: []
@@ -155,8 +155,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 696901cf59e71f44c9ad754a4adf246f
-      internalID: -1041971373
+      spriteID: 3a4b31b3f9e99a14bb196fbc5a5a6db5
+      internalID: 1944503490
       vertices: []
       indices: 
       edges: []
@@ -177,8 +177,8 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":96.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      spritesheet-bedroom-ceiling-light_0: 1703621264
-      spritesheet-bedroom-ceiling-light_1: -1041971373
+      spritesheet-bedroom-ceiling-light_0: 1046744922
+      spritesheet-bedroom-ceiling-light_1: 1944503490
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

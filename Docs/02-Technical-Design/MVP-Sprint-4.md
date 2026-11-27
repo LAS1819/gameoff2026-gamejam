@@ -204,6 +204,7 @@ reinicio deja una mezcla limpia.
 - [x] Mantener Library/Forest exit operativas como navegación cuando sus flags correspondan.
 - [x] Mezclar el cartel de Main Menu, la luz de Bedroom, el ordenador y el sótano sobre sus perfiles base.
 - [ ] Validar transición Library -> Basement -> Library y acceso final al Forest.
+- [ ] Añadir texturas `unlit` para elementos que no deben verse afectados por la luz global
 - [ ] Validar Editor, WebGL y Windows a `640 x 360`.
 
 Documentación técnica:
