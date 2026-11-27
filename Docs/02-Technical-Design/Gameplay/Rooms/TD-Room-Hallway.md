@@ -50,6 +50,13 @@ RoomData
 
 ---
 
+## 3. Backgrounds
+
+- Normal Reality: `sprite-hallway-background-normal-v2.png`
+- Other Reality: `sprite-hallway-background-other-v1.png`
+
+---
+
 ## 3. Interactables principales
 
 ### 3.1 HallwayObstacle
@@ -63,13 +70,13 @@ visibleInOtherReality: false
 resultFlag: RealityUnlocked
 ```
 
-#### Propósito
+**Propósito:**
 
 - bloquear la ruta principal en la Realidad Normal;
 - demostrar que el espacio es persistente en una realidad y no en la otra;
 - activar la regla de progresión del room.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - La posición del obstacle debe coincidir con el bloqueo visual del pasillo.
 - Debe ocultarse automáticamente al entrar al Otro Lado.
@@ -89,13 +96,13 @@ visibleInOtherReality: true
 resultFlag: ShiftPerformed
 ```
 
-#### Propósito
+**Propósito:**
 
 - ser el punto sobre el que el sistema SHIFT se activa;
 - marcar la transición entre “percibir” la realidad y “manipular” la realidad;
 - ofrecer un punto claro para la UX del cambio de mundo.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - El trigger debe ser accesible en cualquier realidad.
 - Al usarlo, se activa la alternancia de mundos.
@@ -115,13 +122,13 @@ visibleInNormalReality: true
 visibleInOtherReality: true
 ```
 
-#### Propósito
+**Propósito:**
 
 - devolver al jugador al punto de partida;
 - validar que la navegación entre habitaciones funciona en ambos sentidos;
 - mantener el corredor como “zona de transición” y no como final.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - No requiere flags extras.
 - Debe permanecer visible siempre.
@@ -145,16 +152,31 @@ visibleInNormalReality: false
 visibleInOtherReality: true
 ```
 
-#### Propósito
+**Propósito:**
 
 - dejar una ruta de progresión futura sin bloquear el MVP;
 - sugerir que el pasillo se conecta con otras piezas del edificio;
 - preparar la estructura de contenido del siguiente bloque del juego.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - Para MVP pueden ser solo “markers” visuales o placeholder interactables sin lógica funcional.
 - El sistema debe poder activarlos más tarde sin cambiar la estructura base del room.
+
+---
+
+### 3.6 Ammonite Stain / Mancha de Amonita (Memoria)
+
+- **Narrativa:** le recuerda al protagonista aquellos días en que salía con su padre a buscar fósiles.
+
+- **Id:** `memory_02_ammonite_stain`
+- **Sprite:** `sprite-amonite-stain-v1.png`
+- **Nombre:** "Mancha de Amonita"
+- **Tipo de Interacción:** Examine
+- **Textos:**
+  - Examinar: "Esta mancha... me trae recuerdos del pasado..."
+- **Visible en Normal Reality:** false
+- **Visible en Other Reality:** true
 
 ---
 

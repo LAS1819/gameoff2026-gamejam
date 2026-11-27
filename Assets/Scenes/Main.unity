@@ -1030,7 +1030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &235184494
 Transform:
   m_ObjectHideFlags: 0
@@ -4505,7 +4505,7 @@ Transform:
   m_GameObject: {fileID: 1020804983}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 1.5, z: -1}
+  m_LocalPosition: {x: 12.5, y: -2, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4581,13 +4581,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 3, y: 2}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 3, y: 2}
   m_EdgeRadius: 0
 --- !u!212 &1020804987
 SpriteRenderer:
@@ -4638,7 +4638,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 100
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: aa5cae508d76f4b4ba04a9770b7bfd95, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 00f371e543a60584aa98990c2cf9ac2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6517,7 +6517,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: bf8c4c41e175bce42b766aceaeda55fa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8011d8338be604042bab7656ab5f4f03, type: 3}
   m_Color: {r: 0.754717, g: 0.4805981, b: 0.4805981, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -8514,7 +8514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1675550462
 Transform:
   m_ObjectHideFlags: 0
@@ -11997,7 +11997,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: d4a82d2e68eb41747856d6968e12d6e4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8011d8338be604042bab7656ab5f4f03, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

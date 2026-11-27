@@ -253,11 +253,11 @@ en vez de arriesgar el loop jugable.
       después de completar el arte gráfico correspondiente.
 - [x] Añadir una tercera ventana al Ending: resumen -> créditos/dedicatoria.
   - [ ] La ventana mantiene `Restart game` como acción final y soporta ratón y teclado.
-- [ ] Revisar el texto final de créditos, dedicatoria especial y nombres de QA
-  - [ ] Testers: Karq y Barbsky.
-  - [ ] Dedicatoria: "Para mi padre. Nos volveremos a encontrar más allá del Horizonte"
+- [x] Revisar el texto final de créditos, dedicatoria especial y nombres de QA
+  - [x] Testers: Karq y Barbsky.
+  - [x] Dedicatoria: "Para mi padre. Nos volveremos a encontrar más allá del Horizonte"
     - Inglés: "For my father. We will meet again beyond the Horizon"
-- [ ] No mezclar idiomas en el runtime; mantener inglés.
+- [x] No mezclar idiomas en el runtime; mantener inglés.
 - [ ] Congelar el scope: no iniciar nuevos puzles, rooms, guardado, combate,
       movimiento libre ni sistemas de iluminación fuera del alcance aprobado.
 
