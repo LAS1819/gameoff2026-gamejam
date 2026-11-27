@@ -116,7 +116,8 @@ public class HUDInventoryView
         GameManager gameManager,
         string itemId,
         Sprite notObtained,
-        Sprite obtained)
+        Sprite obtained,
+        Sprite active)
     {
         if (lanternIcon == null)
         {
@@ -129,7 +130,14 @@ public class HUDInventoryView
             hasLantern = gameManager.HasFlag(GameFlagNames.HasFlashlight);
         }
 
-        var sprite = hasLantern && obtained != null ? obtained : notObtained;
+        var isActive = hasLantern
+            && gameManager != null
+            && gameManager.HasFlag(GameFlagNames.FlashlightActive);
+        var sprite = isActive && active != null
+            ? active
+            : hasLantern && obtained != null
+                ? obtained
+                : notObtained;
         lanternIcon.style.backgroundImage = sprite != null
             ? new StyleBackground(sprite)
             : new StyleBackground();

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [Serializable]
 public class InventoryItemData
@@ -95,6 +96,9 @@ public class InteractableData
     // Should this interactable be consumed after first use? (e.g., key disappears after unlocking door)
     public bool consumeAfterUse;
 
+    // Require the flashlight to be obtained and active before resolving.
+    public bool requiresLantern;
+
     public string GetDescriptionForReality(RealityType reality)
     {
         if (reality == RealityType.Normal && !string.IsNullOrWhiteSpace(descriptionInNormalReality))
@@ -126,6 +130,19 @@ public class RoomData
     public string displayName;
     public List<InteractableData> interactables = new List<InteractableData>();
     public List<string> connectedRoomIds = new List<string>();
+    public RoomLightingProfile lightingProfile;
+}
+
+[Serializable]
+public class RoomLightingProfile
+{
+    public float normalIntensity = 1f;
+    public Color normalColor = Color.white;
+    public float otherSideIntensity = 1f;
+    public Color otherSideColor = Color.white;
+    public bool lanternAllowed;
+    public float lanternNormalIntensity = 0.28f;
+    public float lanternOtherSideIntensity = 0.22f;
 }
 
 [Serializable]

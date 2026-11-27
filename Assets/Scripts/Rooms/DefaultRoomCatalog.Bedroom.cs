@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static partial class DefaultRoomCatalog
 {
@@ -8,7 +9,12 @@ public static partial class DefaultRoomCatalog
         {
             id = GameManager.BedroomRoomId,
             displayName = "Bedroom",
-            connectedRoomIds = new List<string> { GameManager.HallwayRoomId }
+            connectedRoomIds = new List<string> { GameManager.HallwayRoomId },
+            lightingProfile = CreateLightingProfile(
+                0.88f,
+                new Color(1f, 0.94f, 0.78f),
+                0.60f,
+                new Color(0.72f, 0.68f, 0.92f))
         };
 
         AddBedroomInteractables(bedroom);

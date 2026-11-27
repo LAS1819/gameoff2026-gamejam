@@ -71,8 +71,8 @@ RoomData
 No usar lógica automática basada solo en un umbral de intensidad. El sistema debe seguir un patrón explícito por room, igual que SHIFT:
 
 - el `RoomManager` informa la room activa;
-- el `RoomLightingController` aplica el perfil configurado para room y realidad;
-- el `LanternController` valida la room antes de activar un `Light2D`;
+- el `LanternController` aplica el perfil configurado para room y realidad;
+- valida posesión y estado antes de activar el `Light2D`;
 - si la room no permite linterna, se fuerza `FlashlightActive = false`.
 
 ### 3.2 Estructura sugerida
@@ -96,15 +96,15 @@ Esto refuerza la oscuridad visual, pero sigue siendo un complemento del gating p
 
 ---
 
-## 4. Linterna con sprite light 2D acoplada al cursor
+## 4. Linterna con Global Light 2D
 
 ```text
 LanternController (runtime)
 - input: toggle (HUD + F)
 - checks: HasFlashlight && LanternAllowed(currentRoom)
 - state: FlashlightActive
-- light source: Light2D (Point or Freeform)
-- position source: cursor world position
+- light source: Global Light 2D
+- active profile: improved Basement intensity and color
 ```
 
 ### Reglas del MVP
@@ -112,7 +112,8 @@ LanternController (runtime)
 - sólo puede encenderse si el jugador ya obtuvo la `Linterna` en `Bedroom`;
 - si cambia a una room sin permiso, la linterna se desactiva automáticamente;
 - no incluye batería ni desgaste durante esta iteración;
-- la intensidad del haz puede hacerse sutil en `Global Light` y más fuerte con `Sprite Light 2D` local.
+- la versión básica modifica la intensidad y el color de la luz global;
+- el seguimiento de cursor queda diferido.
 
 ---
 

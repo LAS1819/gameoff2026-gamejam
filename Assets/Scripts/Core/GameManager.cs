@@ -8,6 +8,7 @@ public static class GameFlagNames
     public const string RealityUnlocked = "RealityUnlocked";
     public const string ShiftPerformed = "ShiftPerformed";
     public const string HasFlashlight = "HasFlashlight";
+    public const string FlashlightActive = "FlashlightActive";
     public const string BedroomLightOn = "BedroomLightOn";
     public const string BedroomWardrobeOpened = "BedroomWardrobeOpened";
     public const string BedroomMonsterVisible = "BedroomMonsterVisible";
@@ -116,6 +117,7 @@ public class GameManager : MonoBehaviour
         SetFlag(GameFlagNames.RealityUnlocked, false);
         SetFlag(GameFlagNames.ShiftPerformed, false);
         SetFlag(GameFlagNames.HasFlashlight, false);
+        SetFlag(GameFlagNames.FlashlightActive, false);
         SetFlag(GameFlagNames.BedroomLightOn, false);
         SetFlag(GameFlagNames.BedroomWardrobeOpened, false);
         SetFlag(GameFlagNames.BedroomMonsterVisible, false);

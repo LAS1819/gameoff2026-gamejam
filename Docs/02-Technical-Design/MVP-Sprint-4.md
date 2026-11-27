@@ -190,18 +190,18 @@ reinicio deja una mezcla limpia.
 ### Bloque 5 - Luz Global y mecánica de acceso con Linterna al Basement
 
 - **Rama recomendada:** `feat/s4-flashlight-basement`
-- [ ] Definir perfiles de luz explícitos por Room y Realidad.
-- [ ] Añadir Global Light 2D a `Main.unity`.
-- [ ] Implementar `RoomLightingController` sobre `RoomChanged` y `RealityChanged`.
-- [ ] Implementar estado separado `FlashlightActive` sin añadir batería ni inventario.
-- [ ] Añadir toggle de Linterna desde el icono del HUD y tecla `F`.
-- [ ] Añadir local Light 2D alrededor del cursor en el Basement.
-- [ ] Desactivar automáticamente la Linterna al cambiar de Room o reiniciar.
-- [ ] Añadir `requiresLantern` a los interactables clave del Basement.
-- [ ] Bloquear `Use` y `Examine` oscuros antes de consumir items o activar flags.
-- [ ] Reutilizar `UiDenied` y `LightSwitch` sin crear cues nuevos.
-- [ ] Mostrar mensajes narrativos "demasiado oscuro" para caja, tuberías, estanterías y válvula.
-- [ ] Mantener Library/Forest exit operativas como navegación cuando sus flags correspondan.
+- [x] Definir perfiles de luz explícitos por Room y Realidad.
+- [x] Añadir Global Light 2D a `Main.unity`.
+- [x] Implementar controlador de iluminación sobre `RoomChanged` y `RealityChanged`.
+- [x] Implementar estado separado `FlashlightActive` sin añadir batería ni inventario.
+- [x] Añadir toggle de Linterna desde el icono del HUD y tecla `F`.
+- [ ] Cursor-follow Light 2D diferido para una iteración posterior.
+- [x] Desactivar automáticamente la Linterna al cambiar de Room o reiniciar.
+- [x] Añadir `requiresLantern` a los interactables clave del Basement.
+- [x] Bloquear `Use` y `Examine` oscuros antes de consumir items o activar flags.
+- [x] Reutilizar `UiDenied` y `LightSwitch` sin crear cues nuevos.
+- [x] Mostrar mensajes narrativos "demasiado oscuro" para caja, tuberías, estanterías y válvula.
+- [x] Mantener Library/Forest exit operativas como navegación cuando sus flags correspondan.
 - [ ] Validar transición Library -> Basement -> Library y acceso final al Forest.
 - [ ] Validar Editor, WebGL y Windows a `640 x 360`.
 

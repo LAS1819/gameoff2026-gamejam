@@ -2,7 +2,7 @@
 
 - Version: 1.0
 - Created: 2026-11-27
-- Status: Planned for Sprint 4 Block 5; not implemented
+- Status: Implemented baseline for Sprint 4 Block 5; cursor-follow light deferred
 - Scope: `Main.unity`, room catalog, HUD and Basement interactables
 
 ---
@@ -18,7 +18,6 @@ Sprint 4 Block 5 is limited to:
 - a Global Light 2D profile for each Room;
 - Normal and Other Side variants;
 - a lantern toggle;
-- a local 2D light around the cursor in the Basement;
 - interaction feedback for dark Basement objects;
 - clean reset on Room change and restart.
 
@@ -125,24 +124,19 @@ Active Other Side: Global Light 0.22
 Local sprite/point light: 1.00-1.20 intensity
 ```
 
-The global value must never make the Basement fully bright. The local light
-provides a readable search area around the pointer without losing darkness
-outside it.
+The global value must never make the Basement fully bright. Lantern on raises
+the visible baseline enough to read interactables while preserving a dark edge.
 
 ---
 
 ## 5. Runtime components
 
-### 5.1 `RoomLightingController`
+### 5.1 `LanternController`
 
-This is a lightweight scene component, not a new global manager. It should:
-
-- subscribe once to `RoomChanged` and `RealityChanged`;
-- find the scene-wide `GlobalLight2D`;
-- find the optional Basement `LanternLight2D`;
-- apply the active profile;
-- set the local light according to Room and active state;
-- restore a fallback profile if a profile is missing.
+This lightweight scene component owns the Global Light 2D behavior and the
+flashlight state. It subscribes once to `RoomChanged` and `RealityChanged`,
+applies the current `RoomLightingProfile`, disables itself outside Basement and
+restores a fallback profile if configuration is missing.
 
 Suggested scene hierarchy:
 
@@ -152,15 +146,11 @@ Main
 ├── Rooms
 ├── HUDRoot
 └── Lighting
-    ├── GlobalLight2D
-    └── BasementLanternLight
+    └── GlobalLight2D + LanternController
 ```
 
 One global light in `Main` avoids duplicating lights in every room.
-
-### 5.2 `LanternController`
-
-This runtime component owns flashlight UI and activation state only. It should:
+It owns:
 
 - read `HasFlashlight`;
 - keep `FlashlightActive`;
@@ -168,7 +158,6 @@ This runtime component owns flashlight UI and activation state only. It should:
 - ignore toggle input while a Story or Memory overlay is visible;
 - disable automatically on `RoomChanged`;
 - disable automatically on restart;
-- position local `Light2D` with the mouse/cursor;
 - refresh UI after state changes.
 
 No battery or timeout should be implemented.
@@ -212,9 +201,8 @@ occurs:
 
 1. set `FlashlightActive`;
 2. apply the active profile;
-3. enable the local Basement Light 2D;
-4. refresh the atlas state;
-5. reuse `SFXCue.LightSwitch`.
+3. refresh the atlas state;
+4. reuse `SFXCue.LightSwitch`.
 
 Invalid toggles reuse `SFXCue.UiDenied` and show:
 
@@ -224,32 +212,14 @@ The flashlight is only useful where the room is dark.
 
 ---
 
-## 7. Local Light 2D
+## 7. Cursor Light 2D - deferred
 
-The lantern follows the cursor in world space using the orthographic camera and
-the Unity Input System.
+The cursor-follow light is intentionally not implemented in the baseline.
+It will be a later isolated extension after global lighting, gating and QA are
+stable.
 
-Recommended setup:
-
-- type: `Sprite` or `Point`, depending on final cookie quality;
-- local to `Basement`;
-- follows mouse only while `FlashlightActive`;
-- no collision or radius gating against interactables;
-- radius large enough to reveal one interactable and nearby context;
-- filter mode: Point;
-- 16 pixels per unit;
-- no post-processing or bloom.
-
-The Sprite Light 2D fallback can be a Point Light 2D if the cookie sprite breaks
-WebGL rendering.
-
-The local light must not move UI, change hover hitboxes or alter
-`InteractableBehaviour` visibility.
-
-The final implementation should use the existing Lit Sprite material for
-background and prop sprites. No new post-processing or special shader is
-required. If a sprite is explicitly Unlit, it will stay readable and is not a
-reason to redesign the room.
+No cursor-tracking code, cookie sprite or second local Light 2D are required by
+the current implementation.
 
 ---
 
@@ -314,7 +284,6 @@ Every blocked key interaction shows a short narrative message and
 ### Leaving Basement
 
 - set `FlashlightActive = false`;
-- disable local light;
 - apply destination Room profile;
 - refresh HUD lantern state.
 
@@ -322,7 +291,6 @@ Every blocked key interaction shows a short narrative message and
 
 - apply the Basement profile for Normal or Other Side;
 - preserve active state;
-- update local light intensity only if needed;
 - refresh interactables normally.
 
 ### Restart
@@ -338,9 +306,9 @@ Every blocked key interaction shows a short narrative message and
 
 1. Add Global Light 2D to `Main.unity`.
 2. Add `RoomLightingProfile` and profiles to the room catalog.
-3. Add `RoomLightingController` and subscribe to existing events.
+3. Add `LanternController` and subscribe to existing events.
 4. Verify all rooms in Normal and supported realities.
-5. Add the Basement local Light 2D.
+5. Keep the Basement baseline without local cursor light.
 6. Add `LanternController` state and HUD click.
 7. Add `F` input without changing SHIFT handling.
 8. Add `requiresLantern` to key Basement interactables.
@@ -359,19 +327,19 @@ Do not create a battery system, battery UI or standalone flashlight scene.
 | obtain lantern in Bedroom | HUD state changes 0 -> 1 |
 | toggle outside Basement | denied, state remains off |
 | enter Basement with lantern off | low ambient profile, no local light |
-| toggle in Basement | state 2, local light follows cursor |
+| toggle in Basement | state 2, Global Light intensity/color improves |
 | left/right click key Basement object while off | dark feedback, no flag/item change |
 | left/right click key Basement object while on | normal interaction resolves |
 | SHIFT in Basement | profile changes, active state remains |
 | Library -> Basement -> Library | lantern off and no stale light |
 | restart | possession and active state reset |
-| 640 x 360 WebGL | cursor light readable, HUD states clear |
+| 640 x 360 WebGL | global light and HUD states remain readable |
 | 640 x 360 Windows | no gap or sorting mismatch |
 
 Additional checks:
 
-- no duplicate or stale local light after repeated Room changes;
-- no Light 2D in rooms that disallow lantern;
+- no stale global-light intensity after repeated Room changes;
+- no active lantern state in rooms that disallow lantern;
 - no missing global reference after UI reload;
 - no consumed item or result flag on blocked interactions;
 - no console warnings in cold start or restart.
@@ -391,7 +359,6 @@ Runtime:
 - `Assets/Scripts/UI/HUDController.cs`
 - `Assets/Scripts/UI/HUDInventoryView.cs`
 - `Assets/Scripts/Core/GameManager.cs`
-- new `Assets/Scripts/Lighting/RoomLightingController.cs`
 - new `Assets/Scripts/Lighting/LanternController.cs`
 
 Scene/UI:
@@ -419,7 +386,7 @@ Block 5 is complete only when:
 
 - all rooms use an explicit lighting profile;
 - lantern possession is independent from active state;
-- local light works in Basement in both realities;
+- global light improves the Basement in both realities;
 - key interactions are blocked in the dark;
 - blocked interactions do not consume items or set flags;
 - Room/reality transitions do not leak light state;

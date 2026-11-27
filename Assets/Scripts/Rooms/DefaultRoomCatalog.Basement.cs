@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static partial class DefaultRoomCatalog
 {
@@ -8,7 +9,15 @@ public static partial class DefaultRoomCatalog
         {
             id = GameManager.BasementRoomId,
             displayName = "Basement",
-            connectedRoomIds = new List<string> { GameManager.LibraryRoomId, GameManager.LobbyRoomId }
+            connectedRoomIds = new List<string> { GameManager.LibraryRoomId, GameManager.LobbyRoomId },
+            lightingProfile = CreateLightingProfile(
+                0.16f,
+                new Color(1f, 0.82f, 0.58f),
+                0.10f,
+                new Color(0.58f, 0.68f, 0.82f),
+                true,
+                0.28f,
+                0.22f)
         };
 
         AddBasementInteractables(basement);
@@ -40,7 +49,8 @@ public static partial class DefaultRoomCatalog
             interactionType = InteractionType.Examine,
             visibleInNormalReality = true,
             visibleInOtherReality = true,
-            resultFlag = GameFlagNames.BasementShelfLeftExplored
+            resultFlag = GameFlagNames.BasementShelfLeftExplored,
+            requiresLantern = true
         });
 
         basement.interactables.Add(new InteractableData
@@ -53,7 +63,8 @@ public static partial class DefaultRoomCatalog
             interactionType = InteractionType.Examine,
             visibleInNormalReality = true,
             visibleInOtherReality = true,
-            resultFlag = GameFlagNames.BasementShelfRightExplored
+            resultFlag = GameFlagNames.BasementShelfRightExplored,
+            requiresLantern = true
         });
 
         basement.interactables.Add(new InteractableData
@@ -66,7 +77,8 @@ public static partial class DefaultRoomCatalog
             interactionType = InteractionType.Use,
             visibleInNormalReality = true,
             visibleInOtherReality = true,
-            resultFlag = GameFlagNames.BasementEvidenceFound
+            resultFlag = GameFlagNames.BasementEvidenceFound,
+            requiresLantern = true
         });
 
         basement.interactables.Add(new InteractableData
@@ -79,7 +91,8 @@ public static partial class DefaultRoomCatalog
             interactionType = InteractionType.Examine,
             visibleInNormalReality = true,
             visibleInOtherReality = true,
-            resultFlag = GameFlagNames.BasementPipelinesExplored
+            resultFlag = GameFlagNames.BasementPipelinesExplored,
+            requiresLantern = true
         });
 
         basement.interactables.Add(new InteractableData
@@ -94,7 +107,8 @@ public static partial class DefaultRoomCatalog
             visibleInOtherReality = false,
             requiredItemId = "valve_handle",
             consumeRequiredItemOnUse = true,
-            resultFlag = GameFlagNames.PressureValveRepaired
+            resultFlag = GameFlagNames.PressureValveRepaired,
+            requiresLantern = true
         });
 
         basement.interactables.Add(new InteractableData
@@ -118,7 +132,8 @@ public static partial class DefaultRoomCatalog
             interactionType = InteractionType.Examine,
             visibleInNormalReality = false,
             visibleInOtherReality = true,
-            resultFlag = GameFlagNames.DenialManifestationVisible
+            resultFlag = GameFlagNames.DenialManifestationVisible,
+            requiresLantern = true
         });
 
         basement.interactables.Add(new InteractableData

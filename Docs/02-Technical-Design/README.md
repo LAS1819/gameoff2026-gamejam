@@ -56,7 +56,7 @@ This folder contains the active technical reference for the `0.1.4-proto` vertic
 - Unity Input System only
 - no null-propagation operators in runtime scripts
 - UI Toolkit through `PanelRenderer`
-- Lantern activation and global room/reality lighting are planned for Sprint 4 Block 5
+- Lantern activation and global room/reality lighting are implemented in the current Block 5 baseline
 - no persistent save or global clock in the `0.1.4-proto` scope
 
 Older sprint documents remain as historical records. They should not override the current `0.1.4-proto` specification.

@@ -140,7 +140,7 @@ The prototype is accepted when:
 - itch.io private-draft and publication checks
 - shared HUD, font, inventory, cursor, and Memory presentation polish
 - room-by-room visual sweep
-- planned Lantern and room/reality global-light implementation in Sprint 4 Block 5
+- Lantern and room/reality global-light baseline implemented in Sprint 4 Block 5; cursor-follow light deferred
 
 ## Technical rules
 
