@@ -248,29 +248,57 @@ El resto no debe bloquear el MVP.
 - [ ] `UI_CLICK`: debe reproducirse al hacer clic sobre un elemento interactuable.
   - Aquellos elementos que se puedan clicar deben disparar este sonido.
   - Ya sea Usar o Examinar.
+  - Pruebas:
+    - [x] Botón Start: funciona correctamente el Clip.
+    - [ ] Botón de Ventanas Modales: no se escucha el Clip. Debería sonar cada vez que se pulse un Botón, ya sea Next o Continuar.
 - [ ] `UI_DENIED`: debe reproducirse al intentar una acción no permitida.
   - Cuando se intenta usar un Item en un lugar o situación no permitida.
   - Cuando se intenta usar un Botón no permitido.
+  - Pruebas:
+    - [ ] Botón "Settings": se escucha el Clip, pero no sé si se le ha añadido algún efecto porque no suena igual (parece).
+    - [ ] Uso de Item Incorrecto: debería sonar el Clip cada vez que se intenta usar un Item en un lugar o situación no permitida.
 - [ ] `UI_STORY_OPEN`: debe reproducirse al abrir la historia o sección narrativa.
-  - Cuando se abre la historia desde el menú o interfaz correspondiente.
+  - [ ] Cuando se abre la historia desde el menú o interfaz correspondiente.
+  - Pruebas:
+    - [x] Ventana de Historia Inicial: debe sonar el Clip al abrir la historia desde el menú.
+    - [ ] Ventana de Memoria: debe sonar el Clip al abrir la ventana de Memoria (cuando es examinado el Interactable correspondiente)
+    - [x] Ventana Carta Revelación: debe sonar el Clip al abrir la ventana de Carta Revelación (cuando es examinado el Interactable correspondiente)
 
 ### Navigation
 
-- [ ] `SHIFT`: debe sonar siempre que se haga un cambio de Realidad.
+- [x] `SHIFT`: debe sonar siempre que se haga un cambio de Realidad.
 - [ ] `ROOM_TRANSITION` debe reproducirse al cambiar de Room o al avanzar entre niveles (Room Forest)
+  - Pruebas:
+    - [x] Transición entre Rooms: debe sonar el Clip al realizar una transición entre Rooms.
+    - [ ] Avance entre Niveles: debe sonar el Clip al avanzar entre niveles (Room Forest).
 - [ ] `DOOR_ACTION`: deber reproducirse al interactuar con una puerta, ya sea abrirla o cerrarla.
   - Todas las Rooms se conectan mediant puertas, así que debería sonar que se transiciona entre ellas también.
+  - Pruebas:
+    - [ ] Interacción con Puerta: debe sonar el Clip al interactuar con una puerta, ya sea abrirla o cerrarla. Aunque a veces se use un interactable que no es una puerta, como por ejemplo para ir del Hallway de vuelta al Lobby, debería sonar también. Aunque sea un "botón", el paso debe ser a través de la puerta. En un futuro deberíamos marcar cada room si se conecta con una puerta o no.
 
 ### Inventory
 
 - [ ] `ITEM_PICKUP`: debe reproducirse al recoger un objeto del inventario. Es decir, cuando un Item es añadido al inventario.
+  - Pruebas:
+    - [ ] Recoger Item: debe sonar el Clip al recoger un objeto del inventario.
 - [ ] `ITEM_USE`: debe reproducirse al usar un objeto del inventario sobre un elemento del mundo o en una situación específica. Siempre que la acción sea válida.
+  - Pruebas:
+    - [ ] Uso de Item Correcto: debe sonar el Clip al usar un objeto del inventario en una situación válida.
 - [ ] `LIGHT_SWITCH`: creo que se hizo para la Linterna. De momento no tiene uso, pero se prevé añadir un sistema simple de Luz Global para obligar a usarla cuando se está en el Basement.
+  - Pruebas:
+    - [ ] Encender/Apagar Linterna: debe sonar el Clip al encender o apagar la linterna.
 
 ### World Events
 
 - [ ] `MEMORY_DISCOVERY`: debe reproducirse al descubrir una Memoria. Siempre que se muestre la ventana de Memorias
+  - Pruebas:
+    - [ ] Descubrimiento de Memoria: debe sonar el Clip al descubrir una Memoria.
 - [ ] `SHELF_SECRET_ACTION`: debe reproducirse al interactuar con un estante secreto. Es decir, al activar un mecanismo oculto en un estante.
+  - Pruebas:
+    - [ ] Interacción con Estante Secreto: debe sonar el Clip al interactuar con un estante secreto.
 - [ ] `PRESSURE_VALVE_ACTION`: debe reproducirse al interactuar con una válvula de presión. Es decir, al activar o ajustar una válvula de presión. En el Basement, en la Realidad Normal, cuando se inserta la Válvula en el mecanismo correspondiente.
+  - Pruebas:
+    - [ ] Interacción con Válvula de Presión: debe sonar el Clip al interactuar con una válvula de presión.
 - [x] `STEAM_LOOP`: debe reproducirse de manera continua mientras el sistema de vapor esté activo. Es decir, cuando la válvula de vapor esté abierta y el mecanismo correspondiente esté en funcionamiento. En el Otro Mundo.
-
+  - Pruebas:
+    - [x] Sistema de Vapor Activo: debe sonar el Clip mientras el sistema de vapor esté activo.
