@@ -210,8 +210,8 @@ reinicio deja una mezcla limpia.
 - [x] Hacer que Forest comience en nivel 1 con luces visibles.
 - [x] Reducir luz global y oscurecer el recorrido por profundidad sin tintar el cielo.
 - [x] Resolver el avance 5 -> 6 en un solo clic.
-- [ ] Validar transición Library -> Basement -> Library y acceso final al Forest.
-- [ ] Añadir texturas `unlit` para elementos que no deben verse afectados por la luz global
+- [x] Validar transición Library -> Basement -> Library y acceso final al Forest.
+- [x] Añadir texturas `unlit` para elementos que no deben verse afectados por la luz global
 - [ ] Validar Editor, WebGL y Windows a `640 x 360`.
 
 Documentación técnica:
@@ -228,7 +228,37 @@ Documentación técnica:
 - Los interactables clave no resuelven ni consumen items mientras están a oscuras.
 - El estado activo no permanece encendido después de salir del Basement o reiniciar.
 
-### Bloque 6 - Barrido visual de Lobby
+---
+
+### Bloque 6 - Correcciones finales, builds y release (GitHub e Itch.io)
+
+- **Rama recomendada:** `feat/final-fixes`
+- **Merges:** `develop` -> `main`
+- **Versión final:** `0.1.6-proto`
+- **Tareas:**
+  - [ ] Memorias: sustituir placeholders por contenido final. Modificar comportamientos de interacción en caso de ser necesario.
+  - [ ] Ajustes:
+    - Créditos: añadir una página más al resumen final para incluir créditos.
+    - Dedicación: usar la página de créditos para incluir la dedicatoria especial.
+    - QA Testers: añadir apartado de QA Testers para nombrar a Karq y Barbsky.
+    - [Apuntar los ajustes detectados durante la implementación del Bloque 6]
+  - [ ] Validar funcionalidad en Editor.
+  - [ ] Creación de Builds para WebGL y Windows (v0.1.6-proto).
+  - [ ] Merges `develop` -> `main`
+  - [ ] Publicación de la build en Itch.io (windows y WebGL).
+  - [ ] Repositorio GitHub:
+    - [ ] Actualizar README y documentación según la versión 0.1.6-proto.
+    - [ ] Verificar que todos los enlaces y recursos estén actualizados para la versión proto.
+    - [ ] Añadir créditos y dedicatoria especial en el Readme principal.
+    - [ ] Tecnología: añadir apartado donde se liste la tecnología utilizada en el proyecto (Unity, C#, VS Code, Sonic Pi, Aseprite, Excel).
+  - [ ] Actualización de página Itch.io:
+    - [ ] Actualizar descripción y capturas de pantalla según la versión 0.1.6-proto.
+    - [ ] Crear y añadir portada/cover para la versión proto.
+    - [ ] Verificar que todos los enlaces y recursos estén actualizados para la versión proto.
+
+---
+
+### Bloque 7 - Barrido visual de Lobby
 
 - **Rama recomendada:** `art/s4-lobby-polish`
 - [ ] Mejorar fondo y composición sin mover los hotspots.
