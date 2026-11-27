@@ -154,12 +154,12 @@ Si Settings o Exit depende de infraestructura nueva, se recorta.
 - **Rama recomendada:** `feat/s4-sfx-base`
 - **Versión final prevista:** `0.1.5-proto`
 - [x] Confirmar plan sonoro y catálogo mínimo antes de producir clips.
-- [ ] Añadir cues para clic, SHIFT, transición, pickup/use y carta.
-- [ ] Añadir un cue específico al descubrir una Memoria.
-- [ ] Respetar `Master / Music / Ambient / SFX`.
-- [ ] Evitar duplicados al cambiar de room o reiniciar.
-- [ ] Ajustar volumen según build WebGL y Windows.
-- [ ] Documentar producción en Sonic Pi y importación en Unity.
+- [x] Añadir cues para clic, SHIFT, transición, pickup/use y carta.
+- [x] Añadir un cue específico al descubrir una Memoria.
+- [x] Respetar `Master / Music / Ambient / SFX`.
+- [x] Evitar duplicados al cambiar de room o reiniciar.
+- [x] Ajustar volumen mediante volumen raíz, volumen por clip y mixer SFX.
+- [x] Documentar producción en Sonic Pi y importación en Unity.
 
 Plan técnico acordado:
 
@@ -302,9 +302,9 @@ reinicio deja una mezcla limpia.
 ### P1 - Audio
 
 - [ ] Validar volumen relativo entre música, UI y futuros SFX.
-- [ ] Añadir únicamente SFX de alto valor para interacción, SHIFT, error y carta.
-- [ ] Comprobar que el audio inicia, se mantiene y no se duplica tras reiniciar.
-- [ ] Confirmar el enrutado al mixer `Master / Music / Ambient / SFX`.
+- [x] Añadir únicamente SFX de alto valor para interacción, SHIFT, error y carta.
+- [x] Comprobar que el audio inicia, se mantiene y no se duplica tras reiniciar.
+- [x] Confirmar el enrutado al mixer `Master / Music / Ambient / SFX`.
 - [ ] Si no hay SFX final, dejar mezclado de forma limpia con la música existente;
       no posponer la entrega por un sistema de audio nuevo.
 
