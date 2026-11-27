@@ -135,8 +135,7 @@ The prototype is accepted when:
 ## Sprint 4 work
 
 - final narrative copy and letter art
-- dedicated Credits scene
-- final credits presentation
+- finalize the third Credits / Dedication page and QA names
 - optional English / Spanish localization if it does not endanger delivery
 - final SFX and audio polish
 - final accessibility pass

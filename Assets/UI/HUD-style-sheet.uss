@@ -115,7 +115,6 @@ VisualElement {}
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    z-index: 1;
 }
 
 #lantern-icon {
@@ -126,8 +125,6 @@ VisualElement {}
     height: 48px;
     -unity-background-scale-mode: scale-to-fit;
     opacity: 1;
-    z-index: 2;
-    pointer-events: none;
     background-image: url("project://database/Assets/Visuals/UI/spritesheet-ui-icon-lantern-v1.png#spritesheet-ui-icon-lantern-v1_0");
 }
 
@@ -198,8 +195,6 @@ VisualElement {}
     bottom: 0;
     align-items: center;
     justify-content: center;
-    pointer-events: none;
-    z-index: 20;
 }
 
 .memory-discovery-backdrop {
@@ -293,7 +288,6 @@ VisualElement {}
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.82);
-    pointer-events: none;
 }
 
 #story-overlay-panel {
@@ -316,13 +310,27 @@ VisualElement {}
     border-width: 3px;
     border-radius: 12px;
     border-color: rgba(238, 216, 169, 0.72);
-    z-index: 1;
     flex-direction: column;
     overflow: visible;
 }
 
 #story-overlay-panel.story-overlay-panel-letter {
     background-image: url("project://database/Assets/Visuals/UI/Story/sprite-ui-story-letter-background-v1.png");
+}
+
+#story-overlay-panel.story-overlay-panel-ending-credits {
+    max-height: 320px;
+}
+
+#story-overlay-panel.story-overlay-panel-ending-credits .story-overlay-body {
+    font-size: 13px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+#story-overlay-panel.story-overlay-panel-ending-credits .story-overlay-credits {
+    font-size: 12px;
+    margin-bottom: 4px;
 }
 
 #story-overlay-panel > .story-overlay-title,

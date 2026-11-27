@@ -18,6 +18,7 @@ public class HUDStoryOverlayView
     private Button restart;
     private StoryOverlayMode mode = StoryOverlayMode.Letter;
     private int introPage;
+    private int endingPage;
     private string introPageOneTitle;
     private string introPageOneBody;
     private string introPageTwoTitle;
@@ -107,24 +108,59 @@ public class HUDStoryOverlayView
         close.Focus();
     }
 
-    public void ShowEnding(string endingTitle, string farewell, string creditsText, int recoveredCount)
+    public void ShowEnding(string endingTitle, string farewell, int recoveredCount)
     {
         mode = StoryOverlayMode.Ending;
+        endingPage = 0;
         panel.EnableInClassList("story-overlay-panel-letter", false);
+        panel.RemoveFromClassList("story-overlay-panel-ending-credits");
         eyebrow.text = "ENDING";
         title.text = endingTitle;
         title.style.fontSize = 16f;
         title.style.whiteSpace = WhiteSpace.Normal;
         body.text = farewell;
         memoryCount.text = $"Recovered Memories: {Mathf.Clamp(recoveredCount, 0, 5)} / 5";
-        credits.text = creditsText;
+        credits.text = string.Empty;
+        close.text = "Credits";
+        close.style.display = DisplayStyle.Flex;
+        close.SetEnabled(true);
+        close.focusable = true;
+        restart.text = "Restart game";
+        restart.style.display = DisplayStyle.None;
+        restart.SetEnabled(false);
+        restart.focusable = false;
+        Show();
+        ApplyLayout(mode);
+        close.Focus();
+    }
+
+    private void ShowEndingCredits()
+    {
+        endingPage = 1;
+        panel.AddToClassList("story-overlay-panel-ending-credits");
+        eyebrow.text = "CREDITS";
+        title.text = "Silent Feel";
+        title.style.fontSize = 16f;
+        title.style.whiteSpace = WhiteSpace.Normal;
+        body.text =
+            "Developed by Zig-Art Studio\n"
+            + "Luxus Zigard - Solo Developer\n\n"
+            + "QA Testers\n"
+            + "Karq and Barbsky\n\n"
+            + "Created for Game Off 2026\n"
+            + "Made with Unity 6000.6.9f1";
+        memoryCount.text = string.Empty;
+        credits.text =
+            "Special Dedication\n"
+            + "For my father,\n"
+            + "we will meet again beyond the Horizon.";
         close.style.display = DisplayStyle.None;
         close.SetEnabled(false);
+        close.focusable = false;
         restart.text = "Restart game";
         restart.style.display = DisplayStyle.Flex;
         restart.SetEnabled(true);
         restart.focusable = true;
-        Show();
         ApplyLayout(mode);
         restart.Focus();
     }
@@ -262,11 +298,18 @@ public class HUDStoryOverlayView
         }
         else
         {
-            if (AudioManager.Instance != null)
+            if (endingPage == 0)
             {
-                AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+                Close();
             }
-            Restart();
+            else
+            {
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+                }
+                Restart();
+            }
         }
     }
 
@@ -302,6 +345,23 @@ public class HUDStoryOverlayView
             return;
         }
 
+        if (mode == StoryOverlayMode.Ending)
+        {
+            if (endingPage == 0)
+            {
+                ShowEndingCredits();
+            }
+            else
+            {
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+                }
+                Restart();
+            }
+            return;
+        }
+
         if (mode != StoryOverlayMode.Letter)
         {
             Hide();
@@ -316,7 +376,7 @@ public class HUDStoryOverlayView
             ? GameManager.Instance.CountRecoveredMemories()
             : 0;
         var ending = ResolveEnding(count);
-        ShowEnding(ending.title, ending.farewell, "Game design and development", count);
+        ShowEnding(ending.title, ending.farewell, count);
     }
 
     private static (string title, string farewell) ResolveEnding(int count)

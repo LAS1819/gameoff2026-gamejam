@@ -244,13 +244,20 @@ en vez de arriesgar el loop jugable.
 
 #### 6.1 Congelar la candidata
 
-- [ ] Crear una rama de release desde `develop` y retirar cambios no vinculados
+- [x] Crear la rama limpia `feat/checkpoint-release` desde `develop` y retirar
+      cambios no vinculados a bugs P0, contenido final o entrega.
+- [ ] Crear la rama de release final desde `develop` y retirar cambios no vinculados
       a bugs P0, contenido final o entrega (`feat/checkpoint-release`).
-- [ ] Registrar en el changelog todo cambio incluido en `0.1.7-proto`.
-- [ ] Sustituir placeholders críticos de Memorias, carta, finales y Story Overlay.
-- [ ] Añadir créditos, dedicatoria especial y QA Testers (Karq y Barbsky).
-- [ ] No mezclar idiomas en el runtime; mantener inglés si el español no supera
-      una revisión completa.
+- [ ] Registrar en el changelog todo cambio incluido en `0.1.7-proto` al cerrar el bloque.
+- [ ] Sustituir placeholders críticos de Memorias, carta, finales y Story Overlay
+      después de completar el arte gráfico correspondiente.
+- [x] Añadir una tercera ventana al Ending: resumen -> créditos/dedicatoria.
+  - [ ] La ventana mantiene `Restart game` como acción final y soporta ratón y teclado.
+- [ ] Revisar el texto final de créditos, dedicatoria especial y nombres de QA
+  - [ ] Testers: Karq y Barbsky.
+  - [ ] Dedicatoria: "Para mi padre. Nos volveremos a encontrar más allá del Horizonte"
+    - Inglés: "For my father. We will meet again beyond the Horizon"
+- [ ] No mezclar idiomas en el runtime; mantener inglés.
 - [ ] Congelar el scope: no iniciar nuevos puzles, rooms, guardado, combate,
       movimiento libre ni sistemas de iluminación fuera del alcance aprobado.
 

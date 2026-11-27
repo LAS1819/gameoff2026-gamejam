@@ -255,11 +255,11 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    public void ShowEndingOverlay(string title, string farewell, string credits, int memoryCount)
+    public void ShowEndingOverlay(string title, string farewell, int memoryCount)
     {
         if (storyView != null)
         {
-            storyView.ShowEnding(title, farewell, credits, memoryCount);
+            storyView.ShowEnding(title, farewell, memoryCount);
         }
     }
 

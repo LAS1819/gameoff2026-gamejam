@@ -61,7 +61,7 @@ The Forest cannot return to the Basement. It is the terminal narrative route.
 
 - final copy and translations
 - final letter artwork
-- dedicated Credits scene
+- finalize the credits / dedication text and QA names
 - additional SFX
 - visual polish and accessibility checks
 - final WebGL and Windows build validation

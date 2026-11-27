@@ -108,7 +108,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowEndingOverlay(string title, string farewell, string credits, int memoryCount)
+    public void ShowEndingOverlay(string title, string farewell, int memoryCount)
     {
         TryResolveHudController();
         if (AudioManager.Instance != null)
@@ -117,7 +117,7 @@ public class UIManager : MonoBehaviour
         }
         if (hudController != null)
         {
-            hudController.ShowEndingOverlay(title, farewell, credits, memoryCount);
+            hudController.ShowEndingOverlay(title, farewell, memoryCount);
         }
     }
 
