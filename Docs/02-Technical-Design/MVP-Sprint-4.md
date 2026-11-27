@@ -187,6 +187,23 @@ Documentación de referencia:
 **Gate:** acciones críticas tienen audio coherente, el tema no se duplica y el
 reinicio deja una mezcla limpia.
 
+### Bloque 5 - Luz Global y mecánica de acceso con Linterna al Basement
+
+- **Rama recomendada:** `feat/s4-flashlight-basement`
+- [ ] Implementar sistema de luz global.
+- [ ] Ajustar luz global por Room y por tipo de Realidad.
+- [ ] Implementar mecánica de Linterna para iluminar el Basement.
+  - [ ] Sólo se puede interactuar en el Basement si se tiene la Linterna encendida.
+  - [ ] Cuando se enciende la Linterna, el Basement se ilumina adecuadamente mediante la modificación del sistema de luz global.
+- [ ] Revisar interacción con objetos clave en el Basement.
+  - [ ] Sin linterna: al Usar o Examinar objetos clave en el Basement, se debe mostrar un mensaje indicando que está demasiado oscuro y dando una narrativa oscura (formas extrañas, recuerdos borrosos).
+- [ ] Validar transición desde Library al Basement y retorno.
+
+**Gate:**
+
+- Las Rooms tienen su propia iluminación independiente, controlada por el sistema de luz global. Variando un poco los parámetros de luz global (intensidad, color) según la Room y la Realidad, se puede mantener la coherencia visual sin perder referencias.
+- La Linterna permite explorar el Basement sin perder referencias visuales.
+
 ### Bloque 5 - Barrido visual de Lobby
 
 - **Rama recomendada:** `art/s4-lobby-polish`
