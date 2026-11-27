@@ -232,7 +232,7 @@ Documentación técnica:
 
 ### Bloque 6 - Release checkpoint segura (GitHub e itch.io)
 
-- **Rama recomendada:** `feat/final-fixes`
+- **Rama recomendada:** `feat/checkpoint-release`
 - **Destino humano:** `develop` -> `main`
 - **Versión de checkpoint:** `0.1.7-proto`
 - **Tag recomendado:** `v0.1.7-proto`
