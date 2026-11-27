@@ -13,6 +13,7 @@ public class LanternController : MonoBehaviour
 
     private bool roomEventsSubscribed;
     private bool realityEventsSubscribed;
+    private bool gameManagerEventsSubscribed;
 
     public bool IsLanternActive
     {
@@ -59,8 +60,14 @@ public class LanternController : MonoBehaviour
             RealityManager.Instance.RealityChanged -= HandleRealityChanged;
         }
 
+        if (gameManagerEventsSubscribed && GameManager.Instance != null)
+        {
+            GameManager.Instance.FlagChanged -= HandleFlagChanged;
+        }
+
         roomEventsSubscribed = false;
         realityEventsSubscribed = false;
+        gameManagerEventsSubscribed = false;
     }
 
     public bool TryToggleLantern()
@@ -134,6 +141,12 @@ public class LanternController : MonoBehaviour
             RealityManager.Instance.RealityChanged += HandleRealityChanged;
             realityEventsSubscribed = true;
         }
+
+        if (!gameManagerEventsSubscribed && GameManager.Instance != null)
+        {
+            GameManager.Instance.FlagChanged += HandleFlagChanged;
+            gameManagerEventsSubscribed = true;
+        }
     }
 
     private void HandleRoomChanged(RoomData room)
@@ -152,6 +165,18 @@ public class LanternController : MonoBehaviour
     private void HandleRealityChanged(RealityType _)
     {
         ApplyCurrentProfile();
+    }
+
+    private void HandleFlagChanged(string flagName)
+    {
+        if (flagName == GameFlagNames.MainMenuIntroStarted
+            || flagName == GameFlagNames.BedroomLightOn
+            || flagName == GameFlagNames.BedroomComputerPowered
+            || flagName == GameFlagNames.FlashlightActive)
+        {
+            ApplyCurrentProfile();
+            RefreshLanternUI();
+        }
     }
 
     public void ApplyCurrentProfile()
@@ -185,20 +210,64 @@ public class LanternController : MonoBehaviour
             && profile.lanternAllowed
             && IsLanternActive;
 
-        if (reality == RealityType.OtherSide)
+        var intensity = reality == RealityType.OtherSide
+            ? profile.otherSideIntensity
+            : profile.normalIntensity;
+        var color = reality == RealityType.OtherSide
+            ? profile.otherSideColor
+            : profile.normalColor;
+
+        var roomId = room.id;
+        var gameManager = GameManager.Instance;
+
+        if (roomId.Equals(GameManager.MainMenuRoomId, StringComparison.OrdinalIgnoreCase)
+            && gameManager != null
+            && gameManager.HasFlag(GameFlagNames.MainMenuIntroStarted))
         {
-            globalLight.intensity = lanternActive
-                ? profile.lanternOtherSideIntensity
-                : profile.otherSideIntensity;
-            globalLight.color = profile.otherSideColor;
+            intensity += 0.30f;
+            color = Color.Lerp(
+                color,
+                new Color(1f, 0.78f, 0.35f),
+                0.55f);
         }
-        else
+
+        if (roomId.Equals(GameManager.BedroomRoomId, StringComparison.OrdinalIgnoreCase)
+            && gameManager != null)
         {
-            globalLight.intensity = lanternActive
-                ? profile.lanternNormalIntensity
-                : profile.normalIntensity;
-            globalLight.color = profile.normalColor;
+            if (gameManager.HasFlag(GameFlagNames.BedroomLightOn))
+            {
+                intensity += 0.18f;
+                color = Color.Lerp(
+                    color,
+                    new Color(1f, 0.82f, 0.58f),
+                    0.45f);
+            }
+
+            if (gameManager.HasFlag(GameFlagNames.BedroomComputerPowered))
+            {
+                intensity += 0.10f;
+                color = Color.Lerp(
+                    color,
+                    new Color(35f / 255f, 144f / 255f, 99f / 255f),
+                    0.30f);
+            }
         }
+
+        if (lanternActive)
+        {
+            intensity += reality == RealityType.OtherSide
+                ? profile.lanternOtherSideBonus
+                : profile.lanternNormalBonus;
+            color = Color.Lerp(
+                color,
+                reality == RealityType.OtherSide
+                    ? new Color(0.72f, 0.78f, 0.92f)
+                    : new Color(1f, 0.82f, 0.58f),
+                0.35f);
+        }
+
+        globalLight.intensity = Mathf.Clamp(intensity, 0f, 1.5f);
+        globalLight.color = color;
 
         Debug.Log(
             $"[LanternController] Room={room.id} Reality={reality} Active={lanternActive} Intensity={globalLight.intensity}");

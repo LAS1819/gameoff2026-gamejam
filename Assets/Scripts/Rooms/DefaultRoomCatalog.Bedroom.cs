@@ -11,9 +11,9 @@ public static partial class DefaultRoomCatalog
             displayName = "Bedroom",
             connectedRoomIds = new List<string> { GameManager.HallwayRoomId },
             lightingProfile = CreateLightingProfile(
-                0.88f,
+                0.58f,
                 new Color(1f, 0.94f, 0.78f),
-                0.60f,
+                0.42f,
                 new Color(0.72f, 0.68f, 0.92f))
         };
 

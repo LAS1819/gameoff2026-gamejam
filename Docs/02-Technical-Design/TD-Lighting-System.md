@@ -106,21 +106,32 @@ These are playtest starting points, not final art approval values.
 
 | Room | Normal | Other Side | Lantern |
 | --- | --- | --- | --- |
-| Main Menu | 1.00 / neutral | 1.00 / neutral | Not allowed |
+| Main Menu | 0.55 / neutral | 0.55 / neutral | Not allowed |
 | Lobby | 1.00 / warm white | 0.78 / cool violet | Not allowed |
 | Hallway | 0.90 / warm white | 0.58 / cool violet | Not allowed |
-| Bedroom | 0.88 / warm white | 0.60 / cool violet | Not allowed |
+| Bedroom | 0.58 / warm white | 0.42 / cool violet | Not allowed |
 | Library | 0.84 / warm white | 0.56 / cool violet | Not allowed |
-| Basement | 0.16 / warm amber | 0.10 / cold blue | Allowed |
+| Basement | 0.06 / warm amber | 0.045 / cold blue | Allowed |
 | Forest | 1.00 / neutral baseline | Normal only | Not allowed |
+
+Mixing rules:
+
+- Main Menu: after Start, add `0.30` intensity and blend toward amber
+  `(1.00, 0.78, 0.35)` while preserving the base profile.
+- Bedroom: ceiling light adds `0.18` intensity and warm amber tint; the
+  powered computer adds `0.10` intensity and blends in the green
+  `#239063` screen tone. Normal and Other Side keep separate base intensity
+  and color before both effects are applied.
+- Basement: without the flashlight, keep the very low base. Flashlight on adds
+  `0.32` in Normal and `0.26` in Other Side and blends toward warm amber.
 
 Recommended Basement active states:
 
 ```text
-Inactive Normal: Global Light 0.16
-Inactive Other Side: Global Light 0.10
-Active Normal: Global Light 0.28
-Active Other Side: Global Light 0.22
+Inactive Normal: base 0.06
+Inactive Other Side: base 0.045
+Active Normal: base 0.06 + lantern 0.32
+Active Other Side: base 0.045 + lantern 0.26
 Local sprite/point light: 1.00-1.20 intensity
 ```
 

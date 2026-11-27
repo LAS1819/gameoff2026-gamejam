@@ -11,9 +11,9 @@ public static partial class DefaultRoomCatalog
             displayName = "Main Menu",
             connectedRoomIds = new List<string> { GameManager.LobbyRoomId },
             lightingProfile = CreateLightingProfile(
-                1f,
+                0.55f,
                 Color.white,
-                1f,
+                0.55f,
                 Color.white)
         };
 

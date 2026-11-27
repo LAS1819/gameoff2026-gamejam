@@ -11,13 +11,13 @@ public static partial class DefaultRoomCatalog
             displayName = "Basement",
             connectedRoomIds = new List<string> { GameManager.LibraryRoomId, GameManager.LobbyRoomId },
             lightingProfile = CreateLightingProfile(
-                0.16f,
+                0.06f,
                 new Color(1f, 0.82f, 0.58f),
-                0.10f,
+                0.045f,
                 new Color(0.58f, 0.68f, 0.82f),
                 true,
-                0.28f,
-                0.22f)
+                0.32f,
+                0.26f)
         };
 
         AddBasementInteractables(basement);

@@ -79,6 +79,15 @@ resultFlag: BedroomLightOn
 - generar una regla clara: la luz reduce la amenaza;
 - servir de ancla para la lógica del Otro Lado.
 
+#### Luz global
+
+- Base Normal: `0.58`; base Other Side: `0.42`.
+- `BedroomLightOn == true`: suma `0.18` de intensidad y mezcla el color hacia
+  el cálido, en ambas realidades.
+- `BedroomComputerPowered == true`: suma `0.10` de intensidad y mezcla el color
+  verde `#239063`.
+- Los extras se acumulan; no sustituyen la intensidad o el color base.
+
 #### Reglas técnicas
 
 - El interruptor sólo puede usarse en la Realidad Normal.

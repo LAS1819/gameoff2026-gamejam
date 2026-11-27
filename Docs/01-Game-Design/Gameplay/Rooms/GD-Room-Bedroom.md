@@ -78,6 +78,16 @@ La Bedroom debe sentirse:
 
 La habitación debe sentirse como un lugar que ha sido “re-escrito” por la mente del protagonista, no como un lugar completamente ajeno.
 
+### Iluminación global
+
+- La base oscura es distinta por realidad: Normal e Other Side conservan su
+  propia intensidad y tono.
+- El interruptor de la pared añade luz cálida a ambas realidades sin reemplazar
+  su base.
+- El ordenador encendido añade una influencia verde próxima a `#239063`.
+- Si el techo y el ordenador están encendidos, ambos extras se mezclan sobre la
+  base; el tono verde puede coexistir con la luz cálida sin dominarla.
+
 ---
 
 ## 5. Interactables principales

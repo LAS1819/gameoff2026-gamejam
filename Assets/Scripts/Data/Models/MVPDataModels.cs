@@ -141,8 +141,8 @@ public class RoomLightingProfile
     public float otherSideIntensity = 1f;
     public Color otherSideColor = Color.white;
     public bool lanternAllowed;
-    public float lanternNormalIntensity = 0.28f;
-    public float lanternOtherSideIntensity = 0.22f;
+    public float lanternNormalBonus = 0.32f;
+    public float lanternOtherSideBonus = 0.26f;
 }
 
 [Serializable]

@@ -47,8 +47,8 @@ RoomData
   - forest_exit_door
   - denial_manifestation
 - lightingProfile:
-  - normalGlobalLightIntensity: 0.16
-  - otherSideGlobalLightIntensity: 0.10
+  - normalGlobalLightIntensity: 0.06
+  - otherSideGlobalLightIntensity: 0.045
   - lanternAllowed: true
 - narrativeGoal: "Break denial through evidence and pressure release"
 ```
@@ -88,9 +88,10 @@ RoomLightingProfile
 
 Para el `Basement`:
 
-- `normalGlobalLightIntensity = 0.16`
-- `otherSideGlobalLightIntensity = 0.10`
-- rango de ajuste para playtest: Normal 0.12-0.20, Other Side 0.08-0.16
+- `normalGlobalLightIntensity = 0.06`
+- `otherSideGlobalLightIntensity = 0.045`
+- linterna activa: suma `0.32` Normal / `0.26` Other Side
+- rango de ajuste para playtest: Normal 0.04-0.08 apagada, 0.34-0.42 encendida
 
 Esto refuerza la oscuridad visual, pero sigue siendo un complemento del gating por room y no la única regla.
 

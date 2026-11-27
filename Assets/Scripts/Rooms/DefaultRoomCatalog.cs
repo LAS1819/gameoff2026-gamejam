@@ -9,8 +9,8 @@ public static partial class DefaultRoomCatalog
         float otherSideIntensity,
         Color otherSideColor,
         bool lanternAllowed = false,
-        float lanternNormalIntensity = 0.28f,
-        float lanternOtherSideIntensity = 0.22f)
+        float lanternNormalBonus = 0.32f,
+        float lanternOtherSideBonus = 0.26f)
     {
         return new RoomLightingProfile
         {
@@ -19,8 +19,8 @@ public static partial class DefaultRoomCatalog
             otherSideIntensity = otherSideIntensity,
             otherSideColor = otherSideColor,
             lanternAllowed = lanternAllowed,
-            lanternNormalIntensity = lanternNormalIntensity,
-            lanternOtherSideIntensity = lanternOtherSideIntensity
+            lanternNormalBonus = lanternNormalBonus,
+            lanternOtherSideBonus = lanternOtherSideBonus
         };
     }
 

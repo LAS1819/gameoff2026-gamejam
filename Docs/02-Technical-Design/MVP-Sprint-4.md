@@ -202,6 +202,7 @@ reinicio deja una mezcla limpia.
 - [x] Reutilizar `UiDenied` y `LightSwitch` sin crear cues nuevos.
 - [x] Mostrar mensajes narrativos "demasiado oscuro" para caja, tuberías, estanterías y válvula.
 - [x] Mantener Library/Forest exit operativas como navegación cuando sus flags correspondan.
+- [x] Mezclar el cartel de Main Menu, la luz de Bedroom, el ordenador y el sótano sobre sus perfiles base.
 - [ ] Validar transición Library -> Basement -> Library y acceso final al Forest.
 - [ ] Validar Editor, WebGL y Windows a `640 x 360`.
 
