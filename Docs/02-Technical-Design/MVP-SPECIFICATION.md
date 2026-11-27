@@ -122,6 +122,9 @@ The prototype is accepted when:
 - Memory_02-05 work in the intended Other Side rooms
 - Memory discovery left/right-click behavior is consistent
 - Memory overlay displays artwork, text, Continue, and automatic timeout
+- Block 5 Lantern setup is stable if included: possession and active state reset cleanly
+- Block 5 key Basement interactions are blocked in the dark without consuming items or flags
+- Block 5 global profiles do not reduce readability at `640 x 360`
 - Restart resets flags, inventory, Forest depth, and active room
 - Unity compiles without errors or warnings
 
@@ -137,7 +140,7 @@ The prototype is accepted when:
 - itch.io private-draft and publication checks
 - shared HUD, font, inventory, cursor, and Memory presentation polish
 - room-by-room visual sweep
-- optional lightweight Lantern / global-light prototype behind the P2 scope gate
+- planned Lantern and room/reality global-light implementation in Sprint 4 Block 5
 
 ## Technical rules
 

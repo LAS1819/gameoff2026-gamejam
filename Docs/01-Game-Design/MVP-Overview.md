@@ -68,7 +68,7 @@ The Forest cannot return to the Basement. It is the terminal narrative route.
 - private itch.io draft validation before public release
 - shared UI, font, inventory, cursor, and Memory presentation polish
 - room-by-room visual pass
-- optional Lantern / global-light prototype only if the P2 scope gate is reached
+- Lantern activation and room/reality global-light implementation in Sprint 4 Block 5
 
 The full final-sprint plan is in
 [MVP-Sprint-4.md](../02-Technical-Design/MVP-Sprint-4.md).

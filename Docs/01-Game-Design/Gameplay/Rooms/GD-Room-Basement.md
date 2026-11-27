@@ -1,12 +1,12 @@
 # GD Room - Basement Design
 
-> **Estado `0.1.1-proto`:** caja, manivela, válvula, vapor, manifestación y salida
-> al Forest están implementados. La luz 2D y el uso obligatorio de linterna no
-> forman parte de esta versión.
+> **Estado `0.1.4-proto`:** caja, manivela, válvula, vapor, manifestación y salida
+> al Forest están implementados. El Bloque 5 planifica luz 2D y uso activo de
+> linterna sin cambiar el puzzle existente.
 
 - Versión 0.4
 - Creado: 17/11/2026
-- Actualizado: 23/11/2026
+- Actualizado: 27/11/2026
 
 ---
 
@@ -55,7 +55,7 @@ La room debe ser breve y densa: 2-3 interacciones principales, alto peso emocion
 
 ---
 
-## 4. Reglas de luz y linterna (fuera del MVP)
+## 4. Reglas de luz y linterna
 
 ### Principio base
 
@@ -76,6 +76,8 @@ La intensidad global no debe ser la única regla. La solución más limpia es:
 - `luz global baja` como refuerzo visual y emocional.
 
 Esto evita que el sistema se vuelva frágil o dependiente de umbrales muy precisos.
+La planificación completa está en
+[TD-Lighting-System.md](../../../02-Technical-Design/TD-Lighting-System.md).
 
 ---
 

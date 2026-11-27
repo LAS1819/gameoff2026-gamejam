@@ -1,12 +1,12 @@
 # Room Bedroom — Technical Spec
 
-> **Estado `0.1.1-proto`:** luz, armario, monstruo, Library Key, ordenador y
-> Floppy Disk están integrados. La linterna solo actualiza el HUD; cualquier
-> `FlashlightActive`, batería, Light 2D o gating citado abajo es diseño histórico.
+> **Estado `0.1.4-proto`:** luz, armario, monstruo, Library Key, ordenador y
+> Floppy Disk están integrados. La linterna conserva el HUD como poseída y el
+> Bloque 5 añade su estado activo y el uso en Basement.
 
-- Versión 0.3
+- Versión 0.4
 - Creado: 10/11/2026
-- Actualizado: 17/11/2026
+- Actualizado: 27/11/2026
 
 ---
 
@@ -313,7 +313,7 @@ If disk removed
 
 ## 4. Items del Room
 
-### 4.1 Flashlight (solo indicador en `0.1.1-proto`)
+### 4.1 Flashlight
 
 ```text
 ItemData

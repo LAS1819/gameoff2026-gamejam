@@ -145,8 +145,8 @@ La `UI` debe cumplir estas normas:
 - Ser visible desde el inicio.
 - Usar un sistema de sprites sencillo y consistente.
 - Mantener un solo icono principal para la `Linterna`.
-- No introducir estados complejos ni efectos extra hasta que la mecánica de uso tenga contexto real.
-- Respetar la lógica de progresión del diseñador: obtener la `Linterna` en `Bedroom`, no usarla aún fuera del `Sótano`.
+- Usar el estado encendido solo cuando el jugador tenga la herramienta y esté dentro del `Sótano`.
+- Respetar la lógica de progresión del diseñador: obtener la `Linterna` en `Bedroom`, activarla en el `Sótano` y desactivarla al salir.
 
 ---
 

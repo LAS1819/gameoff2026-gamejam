@@ -44,11 +44,12 @@ Docs/
 1. [01-Game-Design/MVP-Overview.md](./01-Game-Design/MVP-Overview.md) - current playable scope
 2. [01-Game-Design/Gameplay/Puzzle-Flow.md](./01-Game-Design/Gameplay/Puzzle-Flow.md) - complete room progression
 3. [02-Technical-Design/MVP-SPECIFICATION.md](./02-Technical-Design/MVP-SPECIFICATION.md) - current technical MVP
-4. [02-Technical-Design/MVP-Sprint-3.md](./02-Technical-Design/MVP-Sprint-3.md) - Sprint 3 closeout
-5. [02-Technical-Design/MVP-Sprint-4.md](./02-Technical-Design/MVP-Sprint-4.md) - active final sprint
-6. [03-Production/CHANGELOG.md](./03-Production/CHANGELOG.md) - released prototype milestones
-7. [03-Production/BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md](./03-Production/BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md) - WebGL and Windows build settings
-8. [03-Production/ITCH-IO-DELIVERY-0.1.1-PROTO.md](./03-Production/ITCH-IO-DELIVERY-0.1.1-PROTO.md) - itch.io copy and publication checklist
+4. [02-Technical-Design/TD-Lighting-System.md](./02-Technical-Design/TD-Lighting-System.md) - global light and Lantern plan
+5. [02-Technical-Design/MVP-Sprint-3.md](./02-Technical-Design/MVP-Sprint-3.md) - Sprint 3 closeout
+6. [02-Technical-Design/MVP-Sprint-4.md](./02-Technical-Design/MVP-Sprint-4.md) - active final sprint
+7. [03-Production/CHANGELOG.md](./03-Production/CHANGELOG.md) - released prototype milestones
+8. [03-Production/BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md](./03-Production/BUILD-0.1.1-PROTO-WEBGL-WINDOWS.md) - WebGL and Windows build settings
+9. [03-Production/ITCH-IO-DELIVERY-0.1.1-PROTO.md](./03-Production/ITCH-IO-DELIVERY-0.1.1-PROTO.md) - itch.io copy and publication checklist
 
 ## Design
 

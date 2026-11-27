@@ -53,6 +53,7 @@ public class InteractableData
     public string resultFlag;
     public string linkedRoomId;
     public bool consumeAfterUse;
+    public bool requiresLantern;
 }
 ```
 
@@ -68,6 +69,11 @@ public class InteractableData
 - `resultFlag`: flag que se actualiza al resolver la acción
 - `linkedRoomId`: `Room` destino para transiciones
 - `consumeAfterUse`: si se elimina tras usarse
+- `requiresLantern`: exige `FlashlightActive` antes de resolver `Use` o `Examine`
+
+`requiresLantern` solo se usa para contenido condicionado por oscuridad.
+La intención y validación completas están en
+[TD-Lighting-System.md](../TD-Lighting-System.md).
 
 ### Regla base
 

@@ -1,12 +1,12 @@
 # Room Basement — Technical Spec
 
-> **Estado `0.1.1-proto`:** flujo implementado sin requisito activo de linterna.
-> `LanternController`, Light 2D, `requiresLantern` y batería son diseño
-> descartado. La fuente vigente es el catálogo y los resolvers runtime.
+> **Estado `0.1.4-proto`:** el flujo y el puzzle base están implementados.
+> El Bloque 5 añade luz global y linterna activa. La planificación completa está
+> en [TD-Lighting-System.md](../../TD-Lighting-System.md).
 
-- Versión 0.3
+- Versión 0.4
 - Creado: 17/11/2026
-- Actualizado: 19/11/2026
+- Actualizado: 27/11/2026
 
 ---
 
@@ -22,15 +22,11 @@ Su función técnica es:
 - ofrecer una evidencia narrativa clara, sin convertir la room en un bloque de contenido pesado;
 - mantener una amenaza bloqueadora, pero sin IA ni combate complejo.
 
-### Nota de implementación (fase base MVP)
+### Estado de implementación
 
-La implementación inicial de código del Basement se ejecuta sin:
-
-- gating por linterna,
-- control de luz global,
-- estados avanzados por realidad en interactuables.
-
-Esta fase construye primero una `Room` funcional estándar con flujo de progreso, transición y flags base.
+La fase base incluye puzzle, vapor, manifestación y transiciones.
+El Bloque 5 añade sobre esa base el gating por linterna y la luz global; no
+modifica la secuencia ni crea una nueva Room.
 
 ---
 
@@ -51,7 +47,8 @@ RoomData
   - forest_exit_door
   - denial_manifestation
 - lightingProfile:
-  - globalLightIntensity: 0.10
+  - normalGlobalLightIntensity: 0.16
+  - otherSideGlobalLightIntensity: 0.10
   - lanternAllowed: true
 - narrativeGoal: "Break denial through evidence and pressure release"
 ```
@@ -61,7 +58,7 @@ RoomData
 - Reality: Normal
 - Luz global muy baja, suficiente para orientación, no para lectura detallada.
 - `LanternAllowed = true` en esta room.
-- `LanternActive = false` al entrar.
+- `FlashlightActive = false` al entrar.
 - El jugador puede explorar, pero la verdad solo se entiende con la linterna encendida.
 - La `Manifestación de Negación` sólo aparece cuando la presión no se ha resuelto y el jugador intenta avanzar sin condiciones correctas.
 
@@ -73,9 +70,10 @@ RoomData
 
 No usar lógica automática basada solo en un umbral de intensidad. El sistema debe seguir un patrón explícito por room, igual que SHIFT:
 
-- el `RoomManager` informa si la room actual permite linterna;
+- el `RoomManager` informa la room activa;
+- el `RoomLightingController` aplica el perfil configurado para room y realidad;
 - el `LanternController` valida la room antes de activar un `Light2D`;
-- si la room no permite linterna, se fuerza a `false` y no hay efecto visual.
+- si la room no permite linterna, se fuerza `FlashlightActive = false`.
 
 ### 3.2 Estructura sugerida
 
@@ -90,8 +88,9 @@ RoomLightingProfile
 
 Para el `Basement`:
 
-- `globalLightIntensity = 0.10`
-- rango de ajuste para playtest: 0.08 a 0.18
+- `normalGlobalLightIntensity = 0.16`
+- `otherSideGlobalLightIntensity = 0.10`
+- rango de ajuste para playtest: Normal 0.12-0.20, Other Side 0.08-0.16
 
 Esto refuerza la oscuridad visual, pero sigue siendo un complemento del gating por room y no la única regla.
 
@@ -101,9 +100,9 @@ Esto refuerza la oscuridad visual, pero sigue siendo un complemento del gating p
 
 ```text
 LanternController (runtime)
-- input: toggle (HUD + teclado)
-- checks: LanternUnlocked && LanternAllowed(currentRoom)
-- state: LanternActive
+- input: toggle (HUD + F)
+- checks: HasFlashlight && LanternAllowed(currentRoom)
+- state: FlashlightActive
 - light source: Light2D (Point or Freeform)
 - position source: cursor world position
 ```
@@ -278,7 +277,7 @@ requiresLantern: true
 
 **Reglas técnicas:**
 
-- sin `LanternActive == true`, el uso se bloquea con feedback textual;
+- sin `FlashlightActive == true`, el uso se bloquea con feedback textual;
 - si falta la `valve_handle`, la interacción ofrece una pista pero no se resuelve;
 - cuando se usa correctamente, se activa una reacción visual y sonora de alivio/descarga.
 
@@ -412,13 +411,13 @@ Para mantener el sistema sin crear scripts ad hoc, el `InteractionManager` debe 
 
 ```text
 If interactionType == Examine
-    If interactable.requiresLantern == true and LanternActive == false
+    If interactable.requiresLantern == true and FlashlightActive == false
         show obscured description
     Else
         show full description
 
 If interactionType == Use
-    If interactable.requiresLantern == true and LanternActive == false
+    If interactable.requiresLantern == true and FlashlightActive == false
         deny interaction
         show feedback: "No puedes hacer esto a ciegas"
         trigger blocker if relevant

@@ -156,9 +156,13 @@ quedan limitados al viewport y tienen fallback por teclado y pointer.
 - Este sprite representa la silueta de la `Linterna` sin obtener.
 - Cuando el jugador recoge la `Linterna` en `Bedroom`, el `HUD` cambia al Sprite 1 del mismo atlas.
 - El Sprite 1 representa la `Linterna` obtenida, pero apagada.
-- No existe estado activo de linterna en `0.1.1-proto`; el icono representa
-  únicamente si la herramienta fue obtenida.
-- Light 2D, batería y gating por uso se mantienen fuera del MVP.
+- El Sprite 2 representa la `Linterna` encendida.
+- Solo puede activarse en la `Basement`.
+- `F` y el clic sobre el icono usan el mismo toggle.
+- No existe batería ni consumo de la herramienta.
+- Dejar el Basement desactiva automáticamente la linterna.
+- [TD-Lighting-System.md](../TD-Lighting-System.md) define perfiles, gating y
+  criterios de QA.
 - El icono se sitúa por encima del `shift-button`, sin romper la compactación visual del `HUD`.
 
 ### Transiciones visuales

@@ -293,7 +293,7 @@ El resto no debe bloquear el MVP.
 - [x] `ITEM_USE`: debe reproducirse al usar un objeto del inventario sobre un elemento del mundo o en una situación específica. Siempre que la acción sea válida.
   - Pruebas:
     - [x] Uso de Item Correcto: `InteractionManager` reproduce ITEM_USE cuando había un item seleccionado y la interacción se resuelve.
-- [ ] `LIGHT_SWITCH`: creo que se hizo para la Linterna. De momento no tiene uso, pero se prevé añadir un sistema simple de Luz Global para obligar a usarla cuando se está en el Basement.
+- [ ] `LIGHT_SWITCH`: reutilizar para encender/apagar la Linterna en el Basement.
   - Pruebas:
     - [ ] Encender/Apagar Linterna: debe sonar el Clip al encender o apagar la linterna.
 
