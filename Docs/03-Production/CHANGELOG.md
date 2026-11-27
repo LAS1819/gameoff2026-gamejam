@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.5-proto] - 2026-11-27 - SFX foundation
+
+**Added:**
+
+- Added a reusable `SFXManager` with a central root volume and per-cue volumes.
+- Added 13 Mono OGG SFX clips covering UI, navigation, inventory and world events.
+- Routed one-shot effects and the steam loop through the `SFX` Audio Mixer group.
+- Added Sonic Pi source scripts for interface, navigation, inventory and world event SFX.
+- Added UI clicks for interactables, inventory slots, modal buttons and SHIFT.
+- Added SHIFT, room transition, pickup/use, Story, Memory, door, shelf, lamp and pressure valve cues.
+- Added a continuous steam loop controlled by Basement, Other Side and `SteamEnabled` state.
+- Added modal button fixes so Next/Continue advance exactly once.
+- Updated audio technical documentation and Sprint 4 SFX validation notes.
+
+**Changed:**
+
+- SFX playback now uses semantic cue IDs instead of direct `AudioSource.Play()` calls from gameplay objects.
+- One-shot SFX share a dedicated source and the steam loop has a separate source.
+- Individual cue volumes combine with the central SFX root volume.
+- Memory discovery now plays one dedicated cue when the overlay opens.
+- Room transitions and Forest level advances use the room transition cue.
+- Modal close actions route through a centralized UI click handler.
+
+**Fixed:**
+
+- Fixed modal Next/Continue buttons no longer responding consistently.
+- Fixed duplicate possible UI click playback in Story overlays.
+- Fixed the steam loop remaining active outside the Basement/Other Side condition.
+- Fixed SFX event subscription duplication after scene/runtime lifecycle changes.
+- Fixed invalid item and denied interaction feedback to use the UI denied cue.
+- Fixed door transitions to use the shared door/transition cue.
+
+---
+
 ## [0.1.4-proto] - 2026-11-25 - Main Menu and Intro room flow
 
 **Added:**
