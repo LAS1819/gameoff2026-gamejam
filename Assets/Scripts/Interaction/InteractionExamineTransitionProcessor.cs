@@ -138,13 +138,9 @@ internal static class InteractionExamineTransitionProcessor
             InteractionOutcomeProcessor.MarkConsumedIfNeeded(interactable, onConsumed);
         }
 
-        if (interactable.id.IndexOf("door", System.StringComparison.OrdinalIgnoreCase) >= 0
-            || interactable.id.IndexOf("entrance", System.StringComparison.OrdinalIgnoreCase) >= 0)
+        if (AudioManager.Instance != null)
         {
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.PlaySFX(SFXCue.DoorAction);
-            }
+            AudioManager.Instance.PlaySFX(SFXCue.DoorAction);
         }
 
         Debug.Log($"[InteractionManager] ResolveTransition: attempting to load room '{interactable.linkedRoomId}'");

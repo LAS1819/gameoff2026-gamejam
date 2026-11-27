@@ -30,6 +30,11 @@ internal static class InteractionBedroomComputerCases
 
         if (inventory != null && !string.IsNullOrEmpty(inventory.SelectedItemId))
         {
+            if (!selectedItemId.Equals(FloppyDiskItemId, StringComparison.OrdinalIgnoreCase)
+                && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(SFXCue.UiDenied);
+            }
             inventory.DeselectSelectedItem();
         }
 
@@ -48,6 +53,10 @@ internal static class InteractionBedroomComputerCases
         var inventory = InventoryManager.Instance;
         if (inventory != null && !string.IsNullOrEmpty(inventory.SelectedItemId))
         {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(SFXCue.UiDenied);
+            }
             inventory.DeselectSelectedItem();
         }
 

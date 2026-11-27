@@ -52,6 +52,11 @@ public class HUDMemoryDiscoveryView
             return;
         }
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.MemoryDiscovery);
+        }
+
         title.text = memory.title;
         body.text = memory.body;
         var concept = ResolveConcept(memory.id);

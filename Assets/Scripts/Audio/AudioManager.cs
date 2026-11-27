@@ -9,6 +9,10 @@ public class AudioManager : MonoBehaviour
     private MusicManager musicManager;
     private SFXManager sfxManager;
     private bool roomEventsStarted;
+    private bool roomEventsSubscribed;
+    private bool realityEventsSubscribed;
+    private bool gameEventsSubscribed;
+    private bool inventoryEventsSubscribed;
 
     private void Awake()
     {
@@ -45,52 +49,63 @@ public class AudioManager : MonoBehaviour
 
     private void TrySubscribeRuntimeEvents()
     {
-        if (RoomManager.Instance != null)
+        if (!roomEventsSubscribed && RoomManager.Instance != null)
         {
             RoomManager.Instance.RoomChanged += HandleRoomChanged;
+            roomEventsSubscribed = true;
         }
 
-        if (RealityManager.Instance != null)
+        if (!realityEventsSubscribed && RealityManager.Instance != null)
         {
             RealityManager.Instance.RealityChanged += HandleRealityChanged;
+            realityEventsSubscribed = true;
         }
 
-        if (GameManager.Instance != null)
+        if (!gameEventsSubscribed && GameManager.Instance != null)
         {
             GameManager.Instance.FlagChanged += HandleFlagChanged;
+            gameEventsSubscribed = true;
         }
 
-        if (InventoryManager.Instance != null)
+        if (!inventoryEventsSubscribed && InventoryManager.Instance != null)
         {
             InventoryManager.Instance.ItemAdded += HandleItemAdded;
+            inventoryEventsSubscribed = true;
         }
     }
 
     private void OnDisable()
     {
-        if (RoomManager.Instance != null)
+        if (roomEventsSubscribed && RoomManager.Instance != null)
         {
             RoomManager.Instance.RoomChanged -= HandleRoomChanged;
         }
 
-        if (RealityManager.Instance != null)
+        if (realityEventsSubscribed && RealityManager.Instance != null)
         {
             RealityManager.Instance.RealityChanged -= HandleRealityChanged;
         }
 
-        if (GameManager.Instance != null)
+        if (gameEventsSubscribed && GameManager.Instance != null)
         {
             GameManager.Instance.FlagChanged -= HandleFlagChanged;
         }
 
-        if (InventoryManager.Instance != null)
+        if (inventoryEventsSubscribed && InventoryManager.Instance != null)
         {
             InventoryManager.Instance.ItemAdded -= HandleItemAdded;
         }
+
+        roomEventsSubscribed = false;
+        realityEventsSubscribed = false;
+        gameEventsSubscribed = false;
+        inventoryEventsSubscribed = false;
     }
 
     private void Start()
     {
+        TrySubscribeRuntimeEvents();
+
         if (themeFatherClip != null)
         {
             if (musicManager != null)
@@ -199,12 +214,6 @@ public class AudioManager : MonoBehaviour
         if (gameManager == null)
         {
             return;
-        }
-
-        if (flagName.StartsWith("Memory_", System.StringComparison.OrdinalIgnoreCase)
-            && gameManager.HasFlag(flagName))
-        {
-            PlaySFX(SFXCue.MemoryDiscovery);
         }
 
         if (gameManager.HasFlag(flagName))

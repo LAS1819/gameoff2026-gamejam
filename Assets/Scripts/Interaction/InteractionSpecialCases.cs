@@ -200,11 +200,19 @@ internal static class InteractionSpecialCases
         if (gameManager.ForestDepthLevel == 5)
         {
             gameManager.AdvanceForestDepth();
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(SFXCue.RoomTransition);
+            }
             ShowFeedback("The forest disappears. A table waits in the darkness.", 2f);
             return true;
         }
 
         gameManager.AdvanceForestDepth();
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.RoomTransition);
+        }
         ShowFeedback("The trees move closer.", 1f);
         return true;
     }
