@@ -190,6 +190,7 @@ reinicio deja una mezcla limpia.
 ### Bloque 5 - Luz Global y mecánica de acceso con Linterna al Basement
 
 - **Rama recomendada:** `feat/s4-flashlight-basement`
+- **Versión Final:** `0.1.5-proto`
 - [x] Definir perfiles de luz explícitos por Room y Realidad.
 - [x] Añadir Global Light 2D a `Main.unity`.
 - [x] Implementar controlador de iluminación sobre `RoomChanged` y `RealityChanged`.
