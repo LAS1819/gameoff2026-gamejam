@@ -159,6 +159,11 @@ public class HUDInventoryView
             return;
         }
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+        }
+
         if (InventoryManager.Instance.SelectedItemId == itemId)
         {
             InventoryManager.Instance.DeselectSelectedItem();

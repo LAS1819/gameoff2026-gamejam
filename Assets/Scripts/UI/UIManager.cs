@@ -76,6 +76,10 @@ public class UIManager : MonoBehaviour
     public void ShowStoryOverlay(string title, string body, string hint = "Continue", StoryOverlayMode mode = StoryOverlayMode.Letter)
     {
         TryResolveHudController();
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.StoryOpen);
+        }
         if (hudController != null)
         {
             hudController.ShowStoryOverlay(title, body, hint, mode);
@@ -85,6 +89,10 @@ public class UIManager : MonoBehaviour
     public void ShowIntro(string title, string body, string hint = "Continue")
     {
         TryResolveHudController();
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.StoryOpen);
+        }
         if (hudController != null)
         {
             hudController.ShowIntro(title, body, hint);
@@ -103,6 +111,10 @@ public class UIManager : MonoBehaviour
     public void ShowEndingOverlay(string title, string farewell, string credits, int memoryCount)
     {
         TryResolveHudController();
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.StoryOpen);
+        }
         if (hudController != null)
         {
             hudController.ShowEndingOverlay(title, farewell, credits, memoryCount);

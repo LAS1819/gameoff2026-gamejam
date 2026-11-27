@@ -3,7 +3,7 @@
 - **Versión:** 2.0
 - **Creado:** 2026-11-23
 - **Actualizado:** 2026-11-25
-- **Estado:** Base integrada; SFX y ambientes pendientes
+- **Estado:** Base integrada; SFX implementados; ambientes pendientes
 
 ---
 
@@ -17,8 +17,9 @@ El proyecto ya dispone de:
 - grupos `Master`, `Music`, `Ambient` y `SFX`.
 - un clip musical: `father-theme-progressive-v1.mp3`.
 
-No hay todavía clips ambientales ni SFX en la escena. El Mixer ya contiene
-todos los buses previstos por el Bloque 4.
+Los 13 SFX están integrados en el runtime y el loop de vapor está preparado.
+No hay todavía clips ambientales en la escena. El Mixer ya contiene todos los
+buses previstos por el Bloque 4.
 
 ---
 
@@ -91,11 +92,10 @@ SHIFT
 ROOM_TRANSITION
 ITEM_PICKUP
 ITEM_USE
-ITEM_USE_DENIED
+UI_DENIED
 MEMORY_DISCOVERY
-LETTER_OPEN
+STORY_OPEN
 PRESSURE_VALVE
-RESTART
 ```
 
 No usar nombres de archivo como API.

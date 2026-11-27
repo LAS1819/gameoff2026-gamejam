@@ -33,6 +33,10 @@ internal static class InteractionSpecialCases
 
     public static bool ResolveMainMenuSettings()
     {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.UiDenied);
+        }
         ShowFeedback("Settings are not available in this prototype.", 1.8f);
         return true;
     }
@@ -196,11 +200,19 @@ internal static class InteractionSpecialCases
         if (gameManager.ForestDepthLevel == 5)
         {
             gameManager.AdvanceForestDepth();
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(SFXCue.RoomTransition);
+            }
             ShowFeedback("The forest disappears. A table waits in the darkness.", 2f);
             return true;
         }
 
         gameManager.AdvanceForestDepth();
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.RoomTransition);
+        }
         ShowFeedback("The trees move closer.", 1f);
         return true;
     }

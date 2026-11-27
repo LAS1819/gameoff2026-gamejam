@@ -119,6 +119,11 @@ public class InteractableBehaviour : MonoBehaviour
             return;
         }
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+        }
+
         interactionManager.TryExamine(data);
         RefreshState();
     }
@@ -263,6 +268,11 @@ public class InteractableBehaviour : MonoBehaviour
         if (!TryResolveInteractionManager(out var interactionManager))
         {
             return;
+        }
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.UiClick);
         }
 
         interactionManager.TryInteract(data, gameObject);

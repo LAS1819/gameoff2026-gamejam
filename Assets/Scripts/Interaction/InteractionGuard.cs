@@ -10,6 +10,10 @@ internal static class InteractionGuard
             return true;
         }
 
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.UiDenied);
+        }
         ShowBlockedInteractionFeedback(interactable);
         return false;
     }
@@ -31,6 +35,10 @@ internal static class InteractionGuard
         if (InventoryManager.Instance == null || !InventoryManager.Instance.HasItem(interactable.requiredItemId))
         {
             Debug.LogWarning($"Missing required item for {interactable.id}: {interactable.requiredItemId}");
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(SFXCue.UiDenied);
+            }
             ShowFeedback("Required item missing.", 1.5f);
             return false;
         }
@@ -43,6 +51,10 @@ internal static class InteractionGuard
                 ? requiredItem.displayName
                 : interactable.requiredItemId;
 
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(SFXCue.UiDenied);
+            }
             ShowFeedback($"Select {requiredName} first.", 1.5f);
             return false;
         }

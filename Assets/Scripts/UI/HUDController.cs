@@ -486,6 +486,11 @@ public class HUDController : MonoBehaviour
 
     private void OnShiftButtonClicked(ClickEvent _)
     {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+        }
+
         if (RealityManager.Instance == null)
         {
             Debug.LogError("[HUDController] RealityManager instance not found.");

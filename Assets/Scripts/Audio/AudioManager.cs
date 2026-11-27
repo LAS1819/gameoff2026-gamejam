@@ -7,6 +7,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip themeFatherClip;
 
     private MusicManager musicManager;
+    private SFXManager sfxManager;
+    private bool roomEventsStarted;
+    private bool roomEventsSubscribed;
+    private bool realityEventsSubscribed;
+    private bool gameEventsSubscribed;
+    private bool inventoryEventsSubscribed;
 
     private void Awake()
     {
@@ -24,6 +30,12 @@ public class AudioManager : MonoBehaviour
             musicManager = gameObject.AddComponent<MusicManager>();
         }
 
+        sfxManager = GetComponent<SFXManager>();
+        if (sfxManager == null)
+        {
+            sfxManager = gameObject.AddComponent<SFXManager>();
+        }
+
         if (themeFatherClip != null)
         {
             musicManager.Configure(themeFatherClip);
@@ -32,42 +44,68 @@ public class AudioManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (RoomManager.Instance != null)
+        TrySubscribeRuntimeEvents();
+    }
+
+    private void TrySubscribeRuntimeEvents()
+    {
+        if (!roomEventsSubscribed && RoomManager.Instance != null)
         {
             RoomManager.Instance.RoomChanged += HandleRoomChanged;
+            roomEventsSubscribed = true;
         }
 
-        if (RealityManager.Instance != null)
+        if (!realityEventsSubscribed && RealityManager.Instance != null)
         {
             RealityManager.Instance.RealityChanged += HandleRealityChanged;
+            realityEventsSubscribed = true;
         }
 
-        if (GameManager.Instance != null)
+        if (!gameEventsSubscribed && GameManager.Instance != null)
         {
             GameManager.Instance.FlagChanged += HandleFlagChanged;
+            gameEventsSubscribed = true;
+        }
+
+        if (!inventoryEventsSubscribed && InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.ItemAdded += HandleItemAdded;
+            inventoryEventsSubscribed = true;
         }
     }
 
     private void OnDisable()
     {
-        if (RoomManager.Instance != null)
+        if (roomEventsSubscribed && RoomManager.Instance != null)
         {
             RoomManager.Instance.RoomChanged -= HandleRoomChanged;
         }
 
-        if (RealityManager.Instance != null)
+        if (realityEventsSubscribed && RealityManager.Instance != null)
         {
             RealityManager.Instance.RealityChanged -= HandleRealityChanged;
         }
 
-        if (GameManager.Instance != null)
+        if (gameEventsSubscribed && GameManager.Instance != null)
         {
             GameManager.Instance.FlagChanged -= HandleFlagChanged;
         }
+
+        if (inventoryEventsSubscribed && InventoryManager.Instance != null)
+        {
+            InventoryManager.Instance.ItemAdded -= HandleItemAdded;
+        }
+
+        roomEventsSubscribed = false;
+        realityEventsSubscribed = false;
+        gameEventsSubscribed = false;
+        inventoryEventsSubscribed = false;
     }
 
     private void Start()
     {
+        TrySubscribeRuntimeEvents();
+
         if (themeFatherClip != null)
         {
             if (musicManager != null)
@@ -84,6 +122,7 @@ public class AudioManager : MonoBehaviour
                     ? RealityManager.Instance.CurrentReality
                     : RealityType.Normal);
         }
+        UpdateSteamLoop();
     }
 
     public void SetThemeClip(AudioClip clip)
@@ -111,12 +150,51 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void PlaySFX(SFXCue cue)
+    {
+        if (sfxManager != null)
+        {
+            sfxManager.Play(cue);
+        }
+    }
+
+    public void SetSFXRootVolume(float volume)
+    {
+        if (sfxManager != null)
+        {
+            sfxManager.SetRootVolume(volume);
+        }
+    }
+
+    public void StartSteamLoop()
+    {
+        if (sfxManager != null)
+        {
+            sfxManager.StartSteamLoop();
+        }
+    }
+
+    public void StopSteamLoop()
+    {
+        if (sfxManager != null)
+        {
+            sfxManager.StopSteamLoop();
+        }
+    }
+
     private void HandleRoomChanged(RoomData _)
     {
         if (musicManager != null)
         {
             musicManager.EnsureTheme();
         }
+
+        if (roomEventsStarted)
+        {
+            PlaySFX(SFXCue.RoomTransition);
+        }
+        roomEventsStarted = true;
+        UpdateSteamLoop();
     }
 
     private void HandleRealityChanged(RealityType reality)
@@ -125,10 +203,88 @@ public class AudioManager : MonoBehaviour
         {
             musicManager.ApplyReality(reality);
         }
+
+        PlaySFX(SFXCue.Shift);
+        UpdateSteamLoop();
     }
 
-    private void HandleFlagChanged(string _)
+    private void HandleFlagChanged(string flagName)
     {
-        // We keep the audio system passive for now; only the current theme is required.
+        var gameManager = GameManager.Instance;
+        if (gameManager == null)
+        {
+            return;
+        }
+
+        if (gameManager.HasFlag(flagName))
+        {
+            if (flagName == GameFlagNames.DoorOpened
+                || flagName == GameFlagNames.LibraryDoorUnlocked
+                || flagName == GameFlagNames.BasementUnlocked
+                || flagName == GameFlagNames.LibrarySecretDoorOpen
+                || flagName == GameFlagNames.BasementDoorVisible)
+            {
+                PlaySFX(SFXCue.DoorAction);
+            }
+
+            if (flagName == GameFlagNames.PressureValveRepaired)
+            {
+                PlaySFX(SFXCue.PressureValveAction);
+            }
+
+            if (flagName == GameFlagNames.BedroomComputerPowered
+                || flagName == GameFlagNames.BedroomComputerDiskInserted)
+            {
+                PlaySFX(SFXCue.ItemUse);
+            }
+
+            if (flagName == GameFlagNames.LibraryShelfActivated)
+            {
+                PlaySFX(SFXCue.ShelfSecretAction);
+            }
+
+            if (flagName == GameFlagNames.BedroomLightOn)
+            {
+                PlaySFX(SFXCue.LightSwitch);
+            }
+
+            if (flagName == GameFlagNames.BasementCodeUsed)
+            {
+                PlaySFX(SFXCue.ItemUse);
+            }
+        }
+
+        if (flagName == GameFlagNames.SteamEnabled)
+        {
+            UpdateSteamLoop();
+        }
+    }
+
+    private void HandleItemAdded(InventoryItemData _)
+    {
+        PlaySFX(SFXCue.ItemPickup);
+    }
+
+    private void UpdateSteamLoop()
+    {
+        var gameManager = GameManager.Instance;
+        var realityManager = RealityManager.Instance;
+        var roomManager = RoomManager.Instance;
+        var shouldPlay = gameManager != null
+            && realityManager != null
+            && roomManager != null
+            && roomManager.CurrentRoom != null
+            && roomManager.CurrentRoom.id == GameManager.BasementRoomId
+            && realityManager.CurrentReality == RealityType.OtherSide
+            && gameManager.HasFlag(GameFlagNames.SteamEnabled);
+
+        if (shouldPlay)
+        {
+            StartSteamLoop();
+        }
+        else
+        {
+            StopSteamLoop();
+        }
     }
 }

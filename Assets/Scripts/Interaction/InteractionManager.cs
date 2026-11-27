@@ -93,9 +93,18 @@ public class InteractionManager : MonoBehaviour
             return false;
         }
 
+        var selectedItemId = InventoryManager.Instance != null
+            ? InventoryManager.Instance.SelectedItemId
+            : null;
+
         var wasResolved = InteractionResolver.Resolve(interactable, sourceObject, MarkConsumed);
         if (wasResolved)
         {
+            if (!string.IsNullOrEmpty(selectedItemId) && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(SFXCue.ItemUse);
+            }
+
             ClearSelectionAfterInteraction();
             if (RoomManager.Instance != null)
             {

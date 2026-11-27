@@ -128,6 +128,78 @@ visibleInOtherReality: true
 
 ---
 
+### 3.4 Reception Bell / Timbre de Recepción
+
+- **Narrativa:** lleva 6 meses esperando una respuesta de su padre. Al tocar el timbre, espera recibir alguna señal de él.
+
+- **Id:** `reception_bell`
+- **Interaction Type:** `Use`
+- **Visible In Normal Reality:** `true` <- En esta Room sólo existe la Realidad Normal
+- **Visible In Other Reality:** `false`
+- **Textos:**
+  - Primer Uso: "Pulso el timbre. El sonido resuena por todo el vestíbulo."
+  - Segundo Uso: "Nadie acude..."
+  - Tercer Uso: "Hace tiempo que nadie responde al timbre."
+  - Cuarto Uso: "Todavía sigo esperando."
+
+---
+
+### 3.5 Scattered Newspapers / Periódicos Esparcidos
+
+- **Narrativa:** periódicos esparcidos por el vestíbulo que contienen información relevante sobre la historia.
+
+- **Id:** `scattered_newspapers`
+- **Interaction Type:** `Use`
+- **Visible In Normal Reality:** `true`
+- **Visible In Other Reality:** `false`
+- **Textos:**
+  - Primer Uso: "Se puede leer: '...continúa la búsqueda...'."
+  - Segundo Uso: "Se puede leer: '...familiares piden colaboración...'."
+  - Tercer Uso: "Se puede leer: '...los equipos de emergencia...'."
+  - Cuarto Uso: "Se puede leer: '...sin nuevas pistas...'."
+
+---
+
+### 3.6 Lobby Rug / Alfombra del Vestíbulo
+
+- **Narrativa:** ninguna. Meramente decorativa.
+- **Id:** `lobby_rug`
+- **Interaction Type:** `none`
+- **Visible In Normal Reality:** `true`
+- **Visible In Other Reality:** `false`
+
+---
+
+### 3.7 Key Cabinet / Armario de Llaves
+
+- **Narrativa:** docenas de huecos, etiquetas antiguas, ninguna llave presente. Todo el mundo se fue...
+- **Id:** `key_cabinet`
+- **Interaction Type:** `Examine`
+- **Visible In Normal Reality:** `true`
+- **Visible In Other Reality:** `false`
+- **Textos:**
+  - Primer Examine: "Decenas de llaves colgaban aquí."
+  - Segundo Examine: "Ahora no queda ninguna."
+  - Tercer Examine: "Como si todos hubiesen abandonado el edificio a la vez."
+  - Cuarto Examine: "Sólo se puede leer una etiqueta. Pone 'Staff'."
+
+---
+
+### 3.8 Torn News Clipping / Recorte de Noticias
+
+- **Narrativa:** un recorte de periódico rasgado que contiene información relevante sobre la historia.
+- **Id:** `torn_news_clipping`
+- **Interaction Type:** `Examine`
+- **Visible In Normal Reality:** `true`
+- **Visible In Other Reality:** `false`
+- **Textos:**
+  - Primer Examine: "El recorte habla de un suceso reciente en la ciudad."
+  - Segundo Examine: "Se mencionan nombres familiares en el artículo."
+  - Tercer Examine: "El recorte está parcialmente dañado."
+  - Cuarto Examine: "Nada nuevo se puede extraer del recorte."
+
+---
+
 ## 4. Items del Room
 
 ### 4.1 StaffKey (Llave del Personal)

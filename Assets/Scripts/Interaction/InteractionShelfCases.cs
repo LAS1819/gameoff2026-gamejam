@@ -38,6 +38,10 @@ internal static class InteractionShelfCases
             if (IsDifferentItemSelected(inventory))
             {
                 inventory.DeselectSelectedItem();
+                if (AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySFX(SFXCue.UiDenied);
+                }
                 ShowFeedback("That item does not belong here.", 1.5f);
                 return true;
             }

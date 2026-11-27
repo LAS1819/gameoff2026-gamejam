@@ -154,12 +154,12 @@ Si Settings o Exit depende de infraestructura nueva, se recorta.
 - **Rama recomendada:** `feat/s4-sfx-base`
 - **Versión final prevista:** `0.1.5-proto`
 - [x] Confirmar plan sonoro y catálogo mínimo antes de producir clips.
-- [ ] Añadir cues para clic, SHIFT, transición, pickup/use y carta.
-- [ ] Añadir un cue específico al descubrir una Memoria.
-- [ ] Respetar `Master / Music / Ambient / SFX`.
-- [ ] Evitar duplicados al cambiar de room o reiniciar.
-- [ ] Ajustar volumen según build WebGL y Windows.
-- [ ] Documentar producción en Sonic Pi y importación en Unity.
+- [x] Añadir cues para clic, SHIFT, transición, pickup/use y carta.
+- [x] Añadir un cue específico al descubrir una Memoria.
+- [x] Respetar `Master / Music / Ambient / SFX`.
+- [x] Evitar duplicados al cambiar de room o reiniciar.
+- [x] Ajustar volumen mediante volumen raíz, volumen por clip y mixer SFX.
+- [x] Documentar producción en Sonic Pi y importación en Unity.
 
 Plan técnico acordado:
 
@@ -174,7 +174,7 @@ Plan técnico acordado:
   `Ambient` y `SFX`;
 - conservar el 2D audio y el loop de música por defecto;
 - no crear ambientes por room antes de validar el base building drone;
-- priorizar 10-14 SFX reconocibles y 2-4 ambientes reutilizables.
+- priorizar 12 SFX reconocibles y 2-4 ambientes reutilizables.
 
 Documentación de referencia:
 
@@ -186,6 +186,23 @@ Documentación de referencia:
 
 **Gate:** acciones críticas tienen audio coherente, el tema no se duplica y el
 reinicio deja una mezcla limpia.
+
+### Bloque 5 - Luz Global y mecánica de acceso con Linterna al Basement
+
+- **Rama recomendada:** `feat/s4-flashlight-basement`
+- [ ] Implementar sistema de luz global.
+- [ ] Ajustar luz global por Room y por tipo de Realidad.
+- [ ] Implementar mecánica de Linterna para iluminar el Basement.
+  - [ ] Sólo se puede interactuar en el Basement si se tiene la Linterna encendida.
+  - [ ] Cuando se enciende la Linterna, el Basement se ilumina adecuadamente mediante la modificación del sistema de luz global.
+- [ ] Revisar interacción con objetos clave en el Basement.
+  - [ ] Sin linterna: al Usar o Examinar objetos clave en el Basement, se debe mostrar un mensaje indicando que está demasiado oscuro y dando una narrativa oscura (formas extrañas, recuerdos borrosos).
+- [ ] Validar transición desde Library al Basement y retorno.
+
+**Gate:**
+
+- Las Rooms tienen su propia iluminación independiente, controlada por el sistema de luz global. Variando un poco los parámetros de luz global (intensidad, color) según la Room y la Realidad, se puede mantener la coherencia visual sin perder referencias.
+- La Linterna permite explorar el Basement sin perder referencias visuales.
 
 ### Bloque 5 - Barrido visual de Lobby
 
@@ -302,9 +319,9 @@ reinicio deja una mezcla limpia.
 ### P1 - Audio
 
 - [ ] Validar volumen relativo entre música, UI y futuros SFX.
-- [ ] Añadir únicamente SFX de alto valor para interacción, SHIFT, error y carta.
-- [ ] Comprobar que el audio inicia, se mantiene y no se duplica tras reiniciar.
-- [ ] Confirmar el enrutado al mixer `Master / Music / Ambient / SFX`.
+- [x] Añadir únicamente SFX de alto valor para interacción, SHIFT, error y carta.
+- [x] Comprobar que el audio inicia, se mantiene y no se duplica tras reiniciar.
+- [x] Confirmar el enrutado al mixer `Master / Music / Ambient / SFX`.
 - [ ] Si no hay SFX final, dejar mezclado de forma limpia con la música existente;
       no posponer la entrega por un sistema de audio nuevo.
 
