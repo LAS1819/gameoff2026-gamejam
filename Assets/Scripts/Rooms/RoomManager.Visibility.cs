@@ -338,6 +338,12 @@ public partial class RoomManager
         var unlocked = GameManager.Instance != null
             && GameManager.Instance.HasFlag(GameFlagNames.MainMenuEntryUnlocked);
         state.SetState(unlocked ? 1 : 0);
+
+        var localLight = sign.Find("HorizonSignLight");
+        if (localLight != null)
+        {
+            localLight.gameObject.SetActive(unlocked);
+        }
     }
 
     private static void RefreshBedroomPersistentState(GameObject roomRoot)
@@ -382,6 +388,16 @@ public partial class RoomManager
         if (lightState != null)
         {
             lightState.SetState(gameManager.HasFlag(GameFlagNames.BedroomLightOn) ? 1 : 0);
+        }
+
+        if (ceilingLamp != null)
+        {
+            var ceilingBeam = ceilingLamp.Find("CeilingBeamLight");
+            if (ceilingBeam != null)
+            {
+                ceilingBeam.gameObject.SetActive(
+                    gameManager.HasFlag(GameFlagNames.BedroomLightOn));
+            }
         }
     }
 

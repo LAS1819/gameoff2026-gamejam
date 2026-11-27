@@ -11,9 +11,9 @@ public static partial class DefaultRoomCatalog
             displayName = "Forest",
             connectedRoomIds = new List<string> { GameManager.BasementRoomId },
             lightingProfile = CreateLightingProfile(
-                1f,
+                0.28f,
                 Color.white,
-                1f,
+                0.28f,
                 Color.white)
         };
 

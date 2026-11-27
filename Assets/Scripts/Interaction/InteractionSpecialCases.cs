@@ -197,23 +197,34 @@ internal static class InteractionSpecialCases
             return true;
         }
 
-        if (gameManager.ForestDepthLevel == 5)
+        var previousDepth = gameManager.ForestDepthLevel;
+        var advanced = gameManager.AdvanceForestDepth();
+        if (!advanced)
         {
-            gameManager.AdvanceForestDepth();
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.PlaySFX(SFXCue.RoomTransition);
-            }
-            ShowFeedback("The forest disappears. A table waits in the darkness.", 2f);
             return true;
         }
 
-        gameManager.AdvanceForestDepth();
+        if (RoomManager.Instance != null)
+        {
+            RoomManager.Instance.RefreshForestDepth();
+        }
+
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlaySFX(SFXCue.RoomTransition);
         }
-        ShowFeedback("The trees move closer.", 1f);
+
+        var newDepth = gameManager.ForestDepthLevel;
+        if (newDepth >= 6)
+        {
+            ShowFeedback("The forest disappears. A table waits in the darkness.", 2f);
+        }
+        else
+        {
+            ShowFeedback("The trees move closer.", 1f);
+        }
+
+        Debug.Log($"[ForestAdvance] Depth changed from {previousDepth} to {newDepth}.");
         return true;
     }
 

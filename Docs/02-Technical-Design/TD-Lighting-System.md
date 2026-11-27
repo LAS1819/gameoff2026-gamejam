@@ -22,7 +22,20 @@ Sprint 4 Block 5 is limited to:
 - clean reset on Room change and restart.
 
 It does not include battery drain, inventory consumption, a separate flashlight
-puzzle, dynamic shadows, combat or lighting changes in Forest.
+puzzle, dynamic shadows or combat.
+
+## Local Sprite Lights
+
+The baseline also supports three existing local Sprite Light 2D objects:
+
+- `HorizonSignLight`: child of `HorizonSign`; active when the sign is unlocked
+  after the Main Menu introduction;
+- `CeilingBeamLight`: child of `CeilingLamp`; active while
+  `BedroomLightOn` is true in Normal and Other Side;
+- `AmbulanceLights`: Forest Props root; contains `RedLight` and `BlueLight`.
+
+Local lights supplement the Global Light 2D profile. They do not replace the
+profile's base intensity or color.
 
 ---
 
@@ -112,7 +125,7 @@ These are playtest starting points, not final art approval values.
 | Bedroom | 0.58 / warm white | 0.42 / cool violet | Not allowed |
 | Library | 0.84 / warm white | 0.56 / cool violet | Not allowed |
 | Basement | 0.06 / warm amber | 0.045 / cold blue | Allowed |
-| Forest | 1.00 / neutral baseline | Normal only | Not allowed |
+| Forest | 0.28 / neutral dark | Normal only | Not allowed |
 
 Mixing rules:
 

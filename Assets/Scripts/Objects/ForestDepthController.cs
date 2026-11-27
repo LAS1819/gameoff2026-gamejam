@@ -15,6 +15,14 @@ public class ForestDepthController : MonoBehaviour
     [SerializeField] private Sprite[] centralPathSprites;
     [SerializeField] private Sprite[] borderTreesSprites;
     [SerializeField] private Sprite[] outerForestSprites;
+    [SerializeField] private GameObject ambulanceLights;
+    [SerializeField] private GameObject redLight;
+    [SerializeField] private GameObject blueLight;
+
+    private float nextAmbulanceFlashTime;
+    private bool redLightActive;
+    private Vector3 ambulanceBasePosition;
+    private bool ambulanceBasePositionResolved;
 
     public void Configure(
         SpriteRenderer skyRenderer,
@@ -64,6 +72,31 @@ public class ForestDepthController : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (ambulanceLights == null || !ambulanceLights.activeInHierarchy)
+        {
+            return;
+        }
+
+        if (Time.time < nextAmbulanceFlashTime)
+        {
+            return;
+        }
+
+        redLightActive = !redLightActive;
+        if (redLight != null)
+        {
+            redLight.SetActive(redLightActive);
+        }
+        if (blueLight != null)
+        {
+            blueLight.SetActive(!redLightActive);
+        }
+
+        nextAmbulanceFlashTime = Time.time + 0.28f;
+    }
+
     private void HandleDepthChanged(int depthLevel)
     {
         ApplyDepth(depthLevel);
@@ -73,6 +106,8 @@ public class ForestDepthController : MonoBehaviour
     {
         ResolveFinalObjects();
         ResolveDepthRenderers();
+        ResolveAmbulanceLights();
+        ApplyAmbulanceLights(depthLevel);
         Debug.Log($"[ForestDepth] Applying depth {depthLevel}.");
 
         var isFinalRoom = depthLevel >= 6;
@@ -132,6 +167,77 @@ public class ForestDepthController : MonoBehaviour
         }
     }
 
+    private void ResolveAmbulanceLights()
+    {
+        if (ambulanceLights == null)
+        {
+            ambulanceLights = FindGameObject(transform, "Props/AmbulanceLights");
+            if (ambulanceLights == null)
+            {
+                ambulanceLights = FindNamedGameObject(transform, "AmbulanceLights");
+            }
+        }
+
+        if (ambulanceLights != null && !ambulanceBasePositionResolved)
+        {
+            ambulanceBasePosition = ambulanceLights.transform.localPosition;
+            ambulanceBasePositionResolved = true;
+        }
+
+        if (redLight == null && ambulanceLights != null)
+        {
+            redLight = FindNamedChild(ambulanceLights.transform, "RedLight");
+        }
+
+        if (blueLight == null && ambulanceLights != null)
+        {
+            blueLight = FindNamedChild(ambulanceLights.transform, "BlueLight");
+        }
+    }
+
+    private void ApplyAmbulanceLights(int depthLevel)
+    {
+        if (ambulanceLights == null)
+        {
+            return;
+        }
+
+        var visible = depthLevel >= 1 && depthLevel <= 5;
+        ambulanceLights.SetActive(visible);
+        if (!visible)
+        {
+            if (redLight != null)
+            {
+                redLight.SetActive(false);
+            }
+            if (blueLight != null)
+            {
+                blueLight.SetActive(false);
+            }
+            redLightActive = false;
+            return;
+        }
+
+        var scale = 0.20f + ((depthLevel - 1) * 0.20f);
+        ambulanceLights.transform.localScale = Vector3.one * Mathf.Clamp(scale, 0.20f, 1f);
+        var positionOffset = 3f - ((depthLevel - 1) * 0.75f);
+        ambulanceLights.transform.localPosition = new Vector3(
+            ambulanceBasePosition.x,
+            ambulanceBasePosition.y + Mathf.Clamp(positionOffset, 0f, 3f),
+            ambulanceBasePosition.z);
+        redLightActive = false;
+        nextAmbulanceFlashTime = 0f;
+
+        if (redLight != null)
+        {
+            redLight.SetActive(true);
+        }
+        if (blueLight != null)
+        {
+            blueLight.SetActive(false);
+        }
+    }
+
     private void ResolveFinalObjects()
     {
         if (backgroundNormal != null
@@ -172,6 +278,44 @@ public class ForestDepthController : MonoBehaviour
         {
             revelationLetter = FindGameObject(forestRoot, "Interactables/ForestRevelationLetter");
         }
+    }
+
+    private static GameObject FindNamedGameObject(Transform root, string objectName)
+    {
+        if (root == null || string.IsNullOrEmpty(objectName))
+        {
+            return null;
+        }
+
+        foreach (var child in root.GetComponentsInChildren<Transform>(true))
+        {
+            if (child != null
+                && child.name.Equals(objectName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return child.gameObject;
+            }
+        }
+
+        return null;
+    }
+
+    private static GameObject FindNamedChild(Transform root, string objectName)
+    {
+        if (root == null || string.IsNullOrEmpty(objectName))
+        {
+            return null;
+        }
+
+        foreach (var child in root.GetComponentsInChildren<Transform>(true))
+        {
+            if (child != null
+                && child.name.Equals(objectName, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return child.gameObject;
+            }
+        }
+
+        return null;
     }
 
     private void ResolveDepthRenderers()

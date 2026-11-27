@@ -85,6 +85,40 @@ The controller applies depth on activation and `RoomManager` refreshes it
 again immediately after showing Forest. At depth 0, all four renderers must
 have a non-null sprite before the room is ready for interaction.
 
+After `ForestAdvance` increments the depth, `RoomManager.RefreshForestDepth()`
+applies the visual state immediately. This prevents the transition 5 -> 6 from
+requiring a second click.
+
+### Ambulance Sprite Lights
+
+`Props/AmbulanceLights` contains `RedLight` and `BlueLight`, both Sprite Light
+2D objects.
+
+The root is hidden at depth 0 and depth 6. From depth 1 through 5, it uses
+these local scales:
+
+| Depth | Root scale |
+| --- | --- |
+| 1 | 0.20 |
+| 2 | 0.40 |
+| 3 | 0.60 |
+| 4 | 0.80 |
+| 5 | 1.00 |
+
+The root Y position also rises toward the upper part of the scene at depth 1
+and lowers at every next step:
+
+| Depth | Y offset |
+| --- | --- |
+| 1 | 3.00 |
+| 2 | 2.25 |
+| 3 | 1.50 |
+| 4 | 0.75 |
+| 5 | 0.00 |
+
+Red and blue alternate every `0.28` seconds while the root is visible. The
+lights disappear together with the final room transition.
+
 ## 4. Forest advance
 
 The room contains an invisible collider named `ForestAdvance`.

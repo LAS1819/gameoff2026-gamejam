@@ -88,6 +88,12 @@ resultFlag: BedroomLightOn
   verde `#239063`.
 - Los extras se acumulan; no sustituyen la intensidad o el color base.
 
+#### Sprite Light 2D local
+
+`CeilingLamp` contiene el hijo `CeilingBeamLight`. Se activa y desactiva junto
+con `BedroomLightOn`, incluida la persistencia al entrar/salir de la realidad
+Normal y del Otro Lado.
+
 #### Reglas técnicas
 
 - El interruptor sólo puede usarse en la Realidad Normal.
