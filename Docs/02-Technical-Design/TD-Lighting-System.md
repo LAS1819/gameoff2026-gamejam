@@ -135,6 +135,9 @@ Mixing rules:
   powered computer adds `0.10` intensity and blends in the green
   `#239063` screen tone. Normal and Other Side keep separate base intensity
   and color before both effects are applied.
+- Forest: entry starts at level 1 with global intensity `0.24`. It decreases
+  through levels 2-5 at `0.20`, `0.16`, `0.12` and `0.08`, reaching
+  `0.06` at level 6. The sky sprite and color stay unchanged.
 - Basement: without the flashlight, keep the very low base. Flashlight on adds
   `0.32` in Normal and `0.26` in Other Side and blends toward warm amber.
 

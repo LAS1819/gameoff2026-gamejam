@@ -148,22 +148,23 @@ public class ForestDepthController : MonoBehaviour
 
         if (sky != null)
         {
-            sky.sprite = GetSprite(skySprites, depthLevel);
+            sky.sprite = GetDepthSprite(skySprites, depthLevel);
+            sky.color = Color.white;
         }
 
         if (centralPath != null)
         {
-            centralPath.sprite = GetSprite(centralPathSprites, depthLevel);
+            centralPath.sprite = GetDepthSprite(centralPathSprites, depthLevel);
         }
 
         if (borderTrees != null)
         {
-            borderTrees.sprite = GetSprite(borderTreesSprites, depthLevel);
+            borderTrees.sprite = GetDepthSprite(borderTreesSprites, depthLevel);
         }
 
         if (outerForest != null)
         {
-            outerForest.sprite = GetSprite(outerForestSprites, depthLevel);
+            outerForest.sprite = GetDepthSprite(outerForestSprites, depthLevel);
         }
     }
 
@@ -366,6 +367,22 @@ public class ForestDepthController : MonoBehaviour
         }
 
         return child.gameObject;
+    }
+
+    private static Sprite GetDepthSprite(Sprite[] sprites, int depthLevel)
+    {
+        if (sprites == null || sprites.Length == 0)
+        {
+            return null;
+        }
+
+        if (depthLevel <= 0)
+        {
+            return sprites[0];
+        }
+
+        var index = Mathf.Clamp(depthLevel - 1, 0, sprites.Length - 1);
+        return sprites[index];
     }
 
     private static Sprite GetSprite(Sprite[] sprites, int depthLevel)

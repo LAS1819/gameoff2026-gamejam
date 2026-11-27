@@ -14,6 +14,7 @@ public class LanternController : MonoBehaviour
     private bool roomEventsSubscribed;
     private bool realityEventsSubscribed;
     private bool gameManagerEventsSubscribed;
+    private bool forestDepthEventsSubscribed;
 
     public bool IsLanternActive
     {
@@ -65,9 +66,15 @@ public class LanternController : MonoBehaviour
             GameManager.Instance.FlagChanged -= HandleFlagChanged;
         }
 
+        if (forestDepthEventsSubscribed && GameManager.Instance != null)
+        {
+            GameManager.Instance.ForestDepthChanged -= HandleForestDepthChanged;
+        }
+
         roomEventsSubscribed = false;
         realityEventsSubscribed = false;
         gameManagerEventsSubscribed = false;
+        forestDepthEventsSubscribed = false;
     }
 
     public bool TryToggleLantern()
@@ -147,6 +154,12 @@ public class LanternController : MonoBehaviour
             GameManager.Instance.FlagChanged += HandleFlagChanged;
             gameManagerEventsSubscribed = true;
         }
+
+        if (!forestDepthEventsSubscribed && GameManager.Instance != null)
+        {
+            GameManager.Instance.ForestDepthChanged += HandleForestDepthChanged;
+            forestDepthEventsSubscribed = true;
+        }
     }
 
     private void HandleRoomChanged(RoomData room)
@@ -177,6 +190,11 @@ public class LanternController : MonoBehaviour
             ApplyCurrentProfile();
             RefreshLanternUI();
         }
+    }
+
+    private void HandleForestDepthChanged(int _)
+    {
+        ApplyCurrentProfile();
     }
 
     public void ApplyCurrentProfile()
@@ -251,6 +269,22 @@ public class LanternController : MonoBehaviour
                     new Color(35f / 255f, 144f / 255f, 99f / 255f),
                     0.30f);
             }
+        }
+
+        if (roomId.Equals(GameManager.ForestRoomId, StringComparison.OrdinalIgnoreCase)
+            && gameManager != null)
+        {
+            var depth = Mathf.Clamp(gameManager.ForestDepthLevel, 0, 6);
+            intensity = depth switch
+            {
+                0 => 0.28f,
+                1 => 0.24f,
+                2 => 0.20f,
+                3 => 0.16f,
+                4 => 0.12f,
+                5 => 0.08f,
+                _ => 0.06f
+            };
         }
 
         if (lanternActive)

@@ -85,6 +85,21 @@ The controller applies depth on activation and `RoomManager` refreshes it
 again immediately after showing Forest. At depth 0, all four renderers must
 have a non-null sprite before the room is ready for interaction.
 
+The frame mapping for the 1-5 progression is offset by one:
+
+```text
+Direct entry / Level 1 -> frame 0
+Level 2 -> frame 1
+Level 3 -> frame 2
+Level 4 -> frame 3
+Level 5 -> frame 4
+Level 6 -> final room
+```
+
+This guarantees that levels 1-5 each advance without reusing an earlier frame
+among the progression, while level 6 switches radically to the table/letter
+state. The sky retains its original Sprite and color at every depth.
+
 After `ForestAdvance` increments the depth, `RoomManager.RefreshForestDepth()`
 applies the visual state immediately. This prevents the transition 5 -> 6 from
 requiring a second click.
@@ -104,6 +119,17 @@ these local scales:
 | 3 | 0.60 |
 | 4 | 0.80 |
 | 5 | 1.00 |
+
+The global light intensity follows the same progression:
+
+| Depth | Global intensity |
+| --- | --- |
+| 1 | 0.24 |
+| 2 | 0.20 |
+| 3 | 0.16 |
+| 4 | 0.12 |
+| 5 | 0.08 |
+| 6 | 0.06 |
 
 The root Y position also rises toward the upper part of the scene at depth 1
 and lowers at every next step:
