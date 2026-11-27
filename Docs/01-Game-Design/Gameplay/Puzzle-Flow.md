@@ -114,7 +114,7 @@ automáticamente.
 ### Puzzle 7 - Forest y carta
 
 - Room: Forest.
-- Solución: avanzar por las profundidades 0-6.
+- Solución: avanzar por las profundidades 1-6.
 - Resultado final: aparece Table + Ceiling Light + Revelation Letter.
 - La carta conduce directamente al final; no hay retorno al Basement.
 

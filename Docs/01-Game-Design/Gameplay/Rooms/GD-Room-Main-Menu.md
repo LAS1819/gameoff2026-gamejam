@@ -111,7 +111,7 @@ Al clicar la puerta:
 
 ## 4. Settings
 
-En `0.1.4-proto`, `Settings` no introduce un sistema global nuevo.
+En `0.1.6-proto`, `Settings` no introduce un sistema global nuevo.
 
 Comportamiento MVP:
 

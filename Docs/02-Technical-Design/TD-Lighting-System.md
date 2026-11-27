@@ -1,9 +1,9 @@
 # TD-Lighting-System - Luz por Room, Realidad y Linterna
 
-- Version: 1.0
+- Version: 1.1
 - Created: 2026-11-27
-- Status: Implemented baseline for Sprint 4 Block 5; cursor-follow light deferred
-- Scope: `Main.unity`, room catalog, HUD and Basement interactables
+- Status: Implemented for `0.1.6-proto`; cursor-follow light deferred
+- Scope: `Main.unity`, room catalog, HUD, Forest depth and Basement interactables
 
 ---
 

@@ -1,7 +1,7 @@
 # Room Basement — Technical Spec
 
-> **Estado `0.1.4-proto`:** el flujo y el puzzle base están implementados.
-> El Bloque 5 añade luz global y linterna activa. La planificación completa está
+> **Estado `0.1.6-proto`:** el flujo, el puzzle base y la linterna activa están
+> implementados. La especificación completa está
 > en [TD-Lighting-System.md](../../TD-Lighting-System.md).
 
 - Versión 0.4

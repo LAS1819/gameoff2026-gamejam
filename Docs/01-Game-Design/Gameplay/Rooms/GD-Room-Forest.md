@@ -1,6 +1,6 @@
 # GD Room - Forest Design
 
-> **Estado `0.1.1-proto`:** Forest, profundidades 0-6, carta, tres finales y
+> **Estado `0.1.6-proto`:** Forest, profundidades 1-6, carta, tres finales y
 > restart están implementados. Es la ruta terminal; no vuelve al Basement.
 
 - **Versión 0.1**

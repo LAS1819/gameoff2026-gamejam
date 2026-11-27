@@ -4,12 +4,12 @@
 - Objetivo: 2026-12-01
 - Estado: 🟡 ACTIVO - último sprint del MVP
 - Milestone de entrada: `0.1.1-proto`
-- Milestone de salida: `0.1.4-proto`
+- Milestone de salida: `0.1.6-proto`
 
 ## Objetivo
 
 Cerrar la versión jugable existente sin ampliar el proyecto. Este sprint transforma
-`0.1.3-proto` en la candidata `0.1.4-proto`, estable para WebGL, Windows e itch.io.
+`0.1.3-proto` en la candidata `0.1.6-proto`, estable para WebGL, Windows e itch.io.
 
 No se añaden rooms, managers, mecánicas de combate, movimiento del jugador ni
 infraestructuras nuevas. Una petición entra en el sprint solo si corrige un
@@ -131,7 +131,7 @@ sin ocultar hotspots ni bloquear la room.
 ### Bloque 3 - Menu e introducción ligeros
 
 - **Rama recomendada:** `feat/s4-menu-intro`
-- **Versión final:** `0.1.4-proto`
+- **Versión final:** `0.1.6-proto`
 - [x] Tratar el Main Menu como una Room más dentro del flujo. Es la primera room antes del Lobby.
 - [x] Reutilizar un único background compartido para menu e intro.
 - [x] Añadir Start, Settings y Exit sin crear una escena nueva.
@@ -190,7 +190,7 @@ reinicio deja una mezcla limpia.
 ### Bloque 5 - Luz Global y mecánica de acceso con Linterna al Basement
 
 - **Rama recomendada:** `feat/s4-flashlight-basement`
-- **Versión Final:** `0.1.5-proto`
+- **Versión Final:** `0.1.6-proto`
 - [x] Definir perfiles de luz explícitos por Room y Realidad.
 - [x] Añadir Global Light 2D a `Main.unity`.
 - [x] Implementar controlador de iluminación sobre `RoomChanged` y `RealityChanged`.
@@ -204,6 +204,12 @@ reinicio deja una mezcla limpia.
 - [x] Mostrar mensajes narrativos "demasiado oscuro" para caja, tuberías, estanterías y válvula.
 - [x] Mantener Library/Forest exit operativas como navegación cuando sus flags correspondan.
 - [x] Mezclar el cartel de Main Menu, la luz de Bedroom, el ordenador y el sótano sobre sus perfiles base.
+- [x] Añadir Sprite Light 2D al cartel HORIZON.
+- [x] Añadir Sprite Light 2D al haz del techo de Bedroom.
+- [x] Añadir luces roja y azul progresivas al Forest.
+- [x] Hacer que Forest comience en nivel 1 con luces visibles.
+- [x] Reducir luz global y oscurecer el recorrido por profundidad sin tintar el cielo.
+- [x] Resolver el avance 5 -> 6 en un solo clic.
 - [ ] Validar transición Library -> Basement -> Library y acceso final al Forest.
 - [ ] Añadir texturas `unlit` para elementos que no deben verse afectados por la luz global
 - [ ] Validar Editor, WebGL y Windows a `640 x 360`.
@@ -395,7 +401,7 @@ Documentación técnica:
 | Hallway → Library | Libro, disquete, panel y Basement estables |
 | Bedroom / Library cruzado | No se pierde la progresión al alternar rooms |
 | Basement | Caja, manivela, presión, vapor y manifestación sincronizados |
-| Forest | Profundidad 0-6, sala final, carta y salida narrativa |
+| Forest | Profundidad 1-6, sala final, carta y salida narrativa |
 | Finales | Se alcanzan 0-2, 3-4 y 5 Memorias |
 | Restart | Vuelve al Lobby con estado limpio |
 | WebGL | Inicia y completa el loop desde itch.io |
@@ -502,7 +508,7 @@ este orden:
 | Bedroom | Ordenador, armario, monstruo, luz, ventanas, Memory 03 | Puzzle completo y retorno a Hallway |
 | Library | Estantería, Worn Book, panel, Memory 04 | Libro, disco, código y acceso a Basement |
 | Basement | Caja, válvula, vapor, tuberías, manifestación, Memory 05 | Evidencia, reparación y salida a Forest |
-| Forest | Profundidad 0-6, mesas/luz/carta, final | Los tres rangos de final y restart |
+| Forest | Profundidad 1-6, mesas/luz/carta, final | Los tres rangos de final y restart |
 
 Cada Room debe cerrar con:
 

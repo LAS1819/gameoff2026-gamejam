@@ -1,8 +1,7 @@
 # Audio Design
 
-> **Estado `0.1.4-proto`:** existe una pista musical principal, la estructura
-> completa del mixer y el Main Menu. Las capas ambientales y SFX completos
-> forman el alcance planificado del Bloque 4.
+> **Estado `0.1.6-proto`:** existe una pista musical principal, el mixer
+> completo y SFX base implementados para UI, navegación, inventario y eventos.
 
 - **Versión del documento:** 0.5
 - **Creado:** 2026-11-07

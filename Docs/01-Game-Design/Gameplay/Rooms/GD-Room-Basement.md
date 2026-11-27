@@ -1,8 +1,7 @@
 # GD Room - Basement Design
 
-> **Estado `0.1.4-proto`:** caja, manivela, válvula, vapor, manifestación y salida
-> al Forest están implementados. El Bloque 5 planifica luz 2D y uso activo de
-> linterna sin cambiar el puzzle existente.
+> **Estado `0.1.6-proto`:** caja, manivela, válvula, vapor, manifestación, luz
+> global, linterna activa y salida al Forest están implementados.
 
 - Versión 0.4
 - Creado: 17/11/2026

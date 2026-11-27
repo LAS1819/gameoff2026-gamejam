@@ -2,6 +2,37 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.6-proto] - 2026-11-27 - Lighting and Forest implementation
+
+**Added:**
+
+- Added room and reality profiles for the Global Light 2D system.
+- Added the HORIZON sign Sprite Light 2D and activation with the intro/entrance state.
+- Added the Bedroom ceiling-beam Sprite Light 2D controlled by `BedroomLightOn`.
+- Added progressive red/blue Ambulance Lights in Forest levels 1-5.
+- Added the Forest level 1 direct-start baseline.
+- Added final Ceiling/ceiling-light presentation in Forest level 6.
+
+**Changed:**
+
+- Forest now starts at level 1 and advances through levels 2-5 before level 6.
+- Forest backgrounds follow the 1-5 frame sequence without reusing level 5 by accident.
+- Forest Ambulance Lights scale from 0.20 to 1.00 and lower Y position from 3.00 to 0.00.
+- Forest global light decreases from 0.24 at level 1 to 0.06 at level 6.
+- The Forest sky keeps its original Sprite and color; no sky tint is applied.
+- Lantern, HORIZON, ceiling and Forest local lights follow existing flags and replay reset.
+
+**Fixed:**
+
+- Fixed direct Forest start hiding the Ambulance Lights at level 1.
+- Fixed the Forest level 5 -> 6 transition requiring a second click.
+- Fixed stale Forest depth/light state after Room and Reality changes.
+- Fixed the final level activating table, letter and ceiling light in one synchronized refresh.
+- Fixed local light state restoration after Room changes and replay.
+- Cursor-follow light remains deferred for the next iteration.
+
+---
+
 ## [0.1.5-proto] - 2026-11-27 - SFX foundation
 
 **Added:**

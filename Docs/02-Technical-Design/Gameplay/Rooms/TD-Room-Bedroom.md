@@ -1,8 +1,7 @@
 # Room Bedroom — Technical Spec
 
-> **Estado `0.1.4-proto`:** luz, armario, monstruo, Library Key, ordenador y
-> Floppy Disk están integrados. La linterna conserva el HUD como poseída y el
-> Bloque 5 añade su estado activo y el uso en Basement.
+> **Estado `0.1.6-proto`:** luz, armario, monstruo, Library Key, ordenador,
+> linterna, Sprite Light del techo y Floppy Disk están integrados.
 
 - Versión 0.4
 - Creado: 10/11/2026

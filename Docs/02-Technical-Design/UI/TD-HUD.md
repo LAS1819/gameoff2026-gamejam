@@ -8,7 +8,7 @@
 
 ## Objetivo
 
-Mantener el HUD mínimo, estable y usable de `0.1.4-proto` sin crear una
+Mantener el HUD mínimo, estable y usable de `0.1.6-proto` sin crear una
 segunda arquitectura de UI.
 
 Incluye:

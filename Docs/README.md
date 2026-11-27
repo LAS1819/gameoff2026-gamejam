@@ -4,9 +4,9 @@ The documentation is organized by purpose. Public-facing status always takes pri
 
 ## Current project state
 
-- Prototype version: `0.1.4-proto`
+- Prototype version: `0.1.6-proto`
 - Unity: `6000.6.9f1`
-- Status: complete playable vertical slice with interaction and feedback polish
+- Status: complete playable vertical slice with audio, global lighting and local Sprite Lights
 - Current sprint: Sprint 4, final polish, validation, and delivery
 
 ## Structure
@@ -83,7 +83,7 @@ Use `03-Production/` for:
 
 ## Document status policy
 
-- Current documents describe the behavior of `0.1.4-proto`.
+- Current documents describe the behavior of `0.1.6-proto`.
 - Sprint documents are implementation records and may contain historical decisions.
 - Deferred items are explicit; they must not be mistaken for unfinished blockers.
 - New design should update the existing relevant document before creating another one.

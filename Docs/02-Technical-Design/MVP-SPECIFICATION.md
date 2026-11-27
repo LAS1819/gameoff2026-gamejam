@@ -1,9 +1,9 @@
 # MVP Specification - Start here
 
-- Version: 0.1.4-proto
+- Version: 0.1.6-proto
 - Status: Complete playable prototype for test builds
 - Sprint: 4 - final polish, validation, and delivery
-- Last updated: 2026-11-24
+- Last updated: 2026-11-27
 - Primary scene: `Assets/Scenes/Main.unity`
 
 ## Prototype objective
@@ -90,9 +90,9 @@ Implemented states:
 ## Forest terminal flow
 
 ```text
-Depth 0
-  -> Depth 1-5
-    -> Depth 6
+Level 1
+  -> Level 2-5
+    -> Level 6 final
       -> Table + Ceiling Light + Revelation Letter
         -> Letter Story Overlay
           -> Ending Story Overlay
@@ -125,6 +125,10 @@ The prototype is accepted when:
 - Block 5 Lantern setup is stable if included: possession and active state reset cleanly
 - Block 5 key Basement interactions are blocked in the dark without consuming items or flags
 - Block 5 global profiles do not reduce readability at `640 x 360`
+- direct Forest start begins at level 1 with visible ambulance lights
+- Forest levels 1-5 change frames, light position and global intensity consistently
+- level 6 activates Table, ceiling light and Revelation Letter
+- no cursor-follow light is required for the current release
 - Restart resets flags, inventory, Forest depth, and active room
 - Unity compiles without errors or warnings
 

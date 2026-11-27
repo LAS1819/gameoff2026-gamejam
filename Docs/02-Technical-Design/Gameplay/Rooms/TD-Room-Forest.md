@@ -1,6 +1,7 @@
 # Room Forest - Technical Spec
 
-> **Estado `0.1.1-proto`:** profundidad 0-6, sala final, carta, finales y
+> **Estado `0.1.6-proto`:** profundidad 1-6, sala final, carta, finales, luces
+> progresivas y
 > restart están implementados. Credits separado sigue siendo opcional.
 
 - Version 0.7
@@ -57,7 +58,7 @@ At scene load, the level 6 objects start inactive:
 - `Table`;
 - `CeilingLight`.
 
-The Forest background remains active for depth levels 0-5. At depth 6,
+The Forest background remains active for levels 1-5. At level 6,
 `BackgroundNormal` is disabled and the level 6 props become active.
 
 Forest is a Normal-reality destination. `RoomManager.LoadRoom("forest")`
@@ -82,7 +83,7 @@ The controller uses the existing spritesheets:
 The `Sky` is the lowest visual layer and darkens with each depth level.
 
 The controller applies depth on activation and `RoomManager` refreshes it
-again immediately after showing Forest. At depth 0, all four renderers must
+again immediately after showing Forest. At level 1, all four renderers must
 have a non-null sprite before the room is ready for interaction.
 
 The frame mapping for the 1-5 progression is offset by one:
@@ -109,7 +110,7 @@ requiring a second click.
 `Props/AmbulanceLights` contains `RedLight` and `BlueLight`, both Sprite Light
 2D objects.
 
-The root is hidden at depth 0 and depth 6. From depth 1 through 5, it uses
+The root is hidden at depth 6. From depth 1 through 5, it uses
 these local scales:
 
 | Depth | Root scale |
@@ -161,8 +162,8 @@ Behaviour:
 
 1. A primary click calls the existing interaction pipeline.
 2. `ResolveForestAdvance` increments `ForestDepthLevel`.
-3. Values 0-5 update the five forest frames.
-4. At depth 5, the same click advances to state 6.
+3. Levels 1-5 update the five forest frames.
+4. At level 5, the same click advances to level 6.
 5. State 6 is clamped and no longer changes the forest frames.
 6. `ForestDepthChanged` updates all four visual layers.
 7. State 6 reveals `Table` and `ForestRevelationLetter`
@@ -222,11 +223,11 @@ Memory flags:
 - `3-4`: Final Neutral;
 - `5`: Final Verdadero.
 
-The current depth is stored as `GameManager.ForestDepthLevel`, with values 0
+The current depth is stored as `GameManager.ForestDepthLevel`, with values 1
 to 6:
 
-- `0`: Forest entry.
-- `1-5`: depth frames.
+- `1`: Forest entry.
+- `2-5`: depth frames.
 - `6`: Habitación Final / table and ForestRevelationLetter state.
 
 ## 7. MVP scope
@@ -477,7 +478,7 @@ For the current MVP, the ending uses the same reusable overlay as the letter:
 
 The Memory count is a factual closing summary, not a collectible score.
 `Restart` resets runtime flags and inventory, resets
-`ForestDepthLevel` to 0, and loads the Lobby. The browser build should not
+`ForestDepthLevel` to 1, and loads the Lobby. The browser build should not
 rely on a forced browser tab close.
 
 No new room is required after the letter. The overlay completes the game
@@ -532,7 +533,7 @@ When entering Credits:
 When `Restart game` is pressed:
 
 1. reset flags and inventory;
-2. reset `ForestDepthLevel` to 0;
+2. reset `ForestDepthLevel` to 1;
 3. load or return to the Lobby in Main;
 4. restore normal gameplay controls;
 5. unload the Credits scene.
@@ -548,7 +549,7 @@ Sprint 4 because it avoids extra scene lifecycle state.
 
 ## 13. Recommended implementation sequence
 
-1. ✅ Change `ForestDepthLevel` to support values 0-6.
+1. ✅ Change `ForestDepthLevel` to support values 1-6.
 2. ✅ Add and initialise the Forest final flags.
 3. ✅ Reveal `Table`, `CeilingLight`, and `ForestRevelationLetter` at depth 6.
 4. ✅ Add `forest_revelation_letter` to the Forest catalog.
@@ -590,9 +591,9 @@ rather than storing separate Spanish and English variables.
 
 ## 14. MVP acceptance criteria
 
-- entering Forest starts at depth 0;
-- five clicks reach the first final table transition state;
-- the sixth depth step reveals the table and letter;
+- entering Forest starts at level 1;
+- levels 1-5 change frame, global light, light position and scale;
+- level 6 reveals the table and letter;
 - the same table/letter state cannot advance the forest beyond depth 6;
 - primary click opens or replaces the debug interaction with `StoryOverlay`;
 - right click shows the revelation letter examination text;
