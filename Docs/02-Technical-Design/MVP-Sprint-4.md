@@ -234,8 +234,8 @@ Documentación técnica:
 
 - **Rama recomendada:** `feat/final-fixes`
 - **Destino humano:** `develop` -> `main`
-- **Versión de checkpoint:** `0.1.6-proto`
-- **Tag recomendado:** `v0.1.6-proto`
+- **Versión de checkpoint:** `0.1.7-proto`
+- **Tag recomendado:** `v0.1.7-proto`
 - **Objetivo:** dejar una entrega jugable, pública y recuperable antes de iniciar cualquier pulido opcional de Rooms o bloque experimental.
 
 Este bloque no es un lote de mejoras. Es la última puerta P0 del sprint: si no
@@ -274,16 +274,16 @@ en vez de arriesgar el loop jugable.
       redimensionado desactivado.
 - [ ] Probar ambas builds desde una copia limpia, no solo desde el Editor.
 - [ ] Comprimir el contenido de cada build y conservar nombres versionados:
-      `SilentFeel-0.1.6-proto-WebGL.zip` y
-      `SilentFeel-0.1.6-proto-Windows-x64.zip`.
+      `SilentFeel-0.1.7-proto-WebGL.zip` y
+      `SilentFeel-0.1.7-proto-Windows-x64.zip`.
 - [ ] Registrar fuera del repositorio las builds probadas y sus ZIP finales,
       hashes/fecha si el flujo de publicación lo permite.
 
 #### 6.4 Crear el checkpoint
 
 - [ ] Tras superar el Gate, mergear `develop` -> `main`.
-- [ ] Crear el tag humano `v0.1.6-proto` sobre el commit aprobado.
-- [ ] Crear el GitHub Release asociado a `v0.1.6-proto` solo después de verificar el merge y el nombre de versión.
+- [ ] Crear el tag humano `v0.1.7-proto` sobre el commit aprobado.
+- [ ] Crear el GitHub Release asociado a `v0.1.7-proto` solo después de verificar el merge y el nombre de versión.
 - [ ] Verificar que el repositorio público contiene fuente, README, changelog, licencia y enlaces vigentes.
 - [ ] Actualizar README con versión, controles, plataformas, créditos y tecnología utilizada (Unity, C#, VS Code, Sonic Pi, Aseprite, Excel).
 - [ ] Verificar que todos los enlaces apuntan al repositorio, build guide y checklist de itch.io correctos.
@@ -292,7 +292,7 @@ en vez de arriesgar el loop jugable.
 
 - [ ] Crear portada/cover y capturas sin spoilers.
 - [ ] Actualizar descripción, controles, aviso de contenido, metadatos y tags.
-- [ ] Configurar versión visible `0.1.6-proto`.
+- [ ] Configurar versión visible `0.1.7-proto`.
 - [ ] Subir WebGL y Windows como archivos separados.
 - [ ] Mantener la entrega privada mientras se realiza QA desde itch.io.
 - [ ] Probar embed, caché privada/incógnito, descarga ZIP y flujo completo.
@@ -301,11 +301,11 @@ en vez de arriesgar el loop jugable.
 
 **Gate obligatorio:** la build candidata inicia y completa el loop en Editor,
 WebGL y Windows desde una copia limpia. El estado de GitHub e itch.io coincide
-con `0.1.6-proto`, los archivos descargables son los probados y Restart vuelve
+con `0.1.7-proto`, los archivos descargables son los probados y Restart vuelve
 al estado inicial limpio.
 
 **Criterio de corte:** si el contenido final o los ajustes visuales no están
-listos a tiempo, publicar el checkpoint `0.1.6-proto` con fallbacks ya probados.
+listos a tiempo, publicar el checkpoint `0.1.7-proto` con fallbacks ya probados.
 
 No bloquear la entrega por mejoras de los Bloques 7-12 ni por el lote
 experimental. Una vez creado el checkpoint, esas mejoras pueden continuar en
@@ -313,7 +313,7 @@ ramas separadas sin deshacer ni reemplazar silenciosamente la entrega segura.
 
 ---
 
-### Bloque 7 - Barrido visual de Lobby
+### Bloque 7 - Barrido visual de Lobby (continuación)
 
 - **Rama recomendada:** `art/s4-lobby-polish`
 - [ ] Mejorar fondo y composición sin mover los hotspots.
@@ -324,7 +324,7 @@ ramas separadas sin deshacer ni reemplazar silenciosamente la entrega segura.
 
 **Gate:** una captura Normal y una captura final deben ser legibles en un vistazo.
 
-### Bloque 7 - Barrido visual de Hallway
+### Bloque 8 - Barrido visual de Hallway
 
 - **Rama recomendada:** `art/s4-hallway-polish`
 - [ ] Mejorar fondos Normal / Other Side.
@@ -335,7 +335,7 @@ ramas separadas sin deshacer ni reemplazar silenciosamente la entrega segura.
 
 **Gate:** SHIFT cambia la percepción sin confundir el camino ni ocultar hotspots.
 
-### Bloque 8 - Barrido visual de Bedroom
+### Bloque 9 - Barrido visual de Bedroom
 
 - **Rama recomendada:** `art/s4-bedroom-polish`
 - [ ] Mejorar ordenador, torre, monitor y Floppy Disk.
@@ -346,7 +346,7 @@ ramas separadas sin deshacer ni reemplazar silenciosamente la entrega segura.
 
 **Gate:** luz, armario, llave y ordenador siguen claros en ambas realidades.
 
-### Bloque 9 - Barrido visual de Library
+### Bloque 10 - Barrido visual de Library
 
 - **Rama recomendada:** `art/s4-library-polish`
 - [ ] Mejorar estantería principal, estantería secreta y Worn Book.
@@ -357,7 +357,7 @@ ramas separadas sin deshacer ni reemplazar silenciosamente la entrega segura.
 
 **Gate:** el secreto y el panel son visibles sin instrucciones externas.
 
-### Bloque 10 - Barrido visual de Basement
+### Bloque 11 - Barrido visual de Basement
 
 - **Rama recomendada:** `art/s4-basement-polish`
 - [ ] Mejorar caja de efectos, válvula, manivela y tuberías.
@@ -368,7 +368,7 @@ ramas separadas sin deshacer ni reemplazar silenciosamente la entrega segura.
 
 **Gate:** todo el puzzle sigue resoluble sin recurrir a nombres internos o logs.
 
-### Bloque 11 - Barrido visual de Forest
+### Bloque 12 - Barrido visual de Forest
 
 - **Rama recomendada:** `art/s4-forest-polish`
 - [ ] Mejorar fondo y las cuatro capas por profundidad.
@@ -379,7 +379,7 @@ ramas separadas sin deshacer ni reemplazar silenciosamente la entrega segura.
 
 **Gate:** profundidad, carta y finales son legibles sin solapamientos.
 
-### Bloque 12 - Lote experimental
+### Bloque 13 - Lote experimental
 
 - **Rama recomendada:** `feat/s4-forest-light-progress`
 - [ ] No iniciar hasta cerrar el Linterna/Global Light del Bloque 5.
