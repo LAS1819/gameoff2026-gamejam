@@ -5268,31 +5268,31 @@ MonoBehaviour:
   mainAudioMixer: {fileID: 24100000, guid: 2fc52d25777a5a0458a595ed7b0f0b23, type: 2}
   sfxGroupName: SFX
   sfxOutputGroup: {fileID: 0}
-  rootVolume: 0.8
+  rootVolume: 0.65
   uiClickClip: {fileID: 8300000, guid: ac9c549ebcf5c6347b7590aad905fc1a, type: 3}
-  uiClickVolume: 0.8
+  uiClickVolume: 1
   uiDeniedClip: {fileID: 8300000, guid: 321be0f29f96f2648ae7a646b37c46e6, type: 3}
-  uiDeniedVolume: 0.8
+  uiDeniedVolume: 1
   shiftClip: {fileID: 8300000, guid: 8858b4751fdbf3c48974d8a6dbf173e0, type: 3}
-  shiftVolume: 0.8
+  shiftVolume: 1
   roomTransitionClip: {fileID: 8300000, guid: 666a66837cdd1cf408fb277d1f26a5da, type: 3}
-  roomTransitionVolume: 0.8
+  roomTransitionVolume: 1
   itemPickupClip: {fileID: 8300000, guid: 6d54fcfcba5e0824ba184e95c9bb768d, type: 3}
-  itemPickupVolume: 0.8
+  itemPickupVolume: 1
   itemUseClip: {fileID: 8300000, guid: 5c6dd34f5ace080498820bc0ee537fea, type: 3}
-  itemUseVolume: 0.8
+  itemUseVolume: 1
   doorActionClip: {fileID: 8300000, guid: 630bc05e2f21f434d8ad4b052c3c9f34, type: 3}
-  doorActionVolume: 0.8
+  doorActionVolume: 1
   lightSwitchClip: {fileID: 8300000, guid: 294af80993e8ef94398f9fedbe25e19b, type: 3}
-  lightSwitchVolume: 0.8
+  lightSwitchVolume: 1
   memoryDiscoveryClip: {fileID: 8300000, guid: 9b6bca8e271fecc4f97431659efbe1f6, type: 3}
-  memoryDiscoveryVolume: 0.8
+  memoryDiscoveryVolume: 1
   storyOpenClip: {fileID: 8300000, guid: e3db4b1b07b0c1240a12cdbcb24e6c6c, type: 3}
-  storyOpenVolume: 0.8
+  storyOpenVolume: 1
   shelfSecretActionClip: {fileID: 8300000, guid: ff4bac16fd880664c8aafc80e1fc83e9, type: 3}
-  shelfSecretActionVolume: 0.8
+  shelfSecretActionVolume: 1
   pressureValveActionClip: {fileID: 8300000, guid: a59d697b9b16cda45b2b6ff26bf8619d, type: 3}
-  pressureValveActionVolume: 0.8
+  pressureValveActionVolume: 1
   steamLoopClip: {fileID: 8300000, guid: b915968821449fe4cbbaa8c6917f8abf, type: 3}
   steamLoopVolume: 0.55
 --- !u!1 &1195302709

@@ -204,6 +204,15 @@ Configuración vigente:
 - fuente 2D y `playOnAwake = false`;
 - loop activo solo en la fuente de vapor.
 
+Volumen central vigente:
+
+- `AudioManager.SetSFXRootVolume(float 0..1)` controla todos los one-shot SFX;
+- `SFXManager.RootVolume` permite leer el nivel actual;
+- el volumen final de cada cue = volumen raíz × volumen individual;
+- el volumen raíz afecta también al loop de vapor;
+- los ajustes individuales siguen disponibles en `SFXManager`;
+- no depende de recrear eventos ni AudioSources para cambiar el nivel global.
+
 Nombre de asset:
 
 ```text
@@ -250,7 +259,7 @@ El resto no debe bloquear el MVP.
   - Ya sea Usar o Examinar.
   - Pruebas:
     - [x] Botón Start: funciona correctamente el Clip.
-    - [ ] Botón de Ventanas Modales: suena al pulsar Next o Continuar.
+    - [x] Botón de Ventanas Modales: suena al pulsar Next o Continuar y se ejecuta una sola vez.
 - [x] `UI_DENIED`: debe reproducirse al intentar una acción no permitida.
   - Cuando se intenta usar un Item en un lugar o situación no permitida.
   - Cuando se intenta usar un Botón no permitido.

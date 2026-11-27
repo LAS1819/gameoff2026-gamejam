@@ -56,24 +56,6 @@ public class HUDStoryOverlayView
             return;
         }
 
-        var mouse = Mouse.current;
-        if (mouse != null
-            && mouse.leftButton.wasPressedThisFrame
-            && TryGetHudPoint(mouse.position.ReadValue(), out var point))
-        {
-            if ((mode == StoryOverlayMode.Letter || mode == StoryOverlayMode.Intro)
-                && close != null
-                && close.worldBound.Contains(point))
-            {
-                Close();
-            }
-            else if (mode == StoryOverlayMode.Ending
-                && restart != null
-                && restart.worldBound.Contains(point))
-            {
-                Restart();
-            }
-        }
     }
 
     public void ShowLetter(string overlayTitle, string overlayBody, string hint)
@@ -252,23 +234,23 @@ public class HUDStoryOverlayView
 
     private void Bind()
     {
-        close.UnregisterCallback<PointerDownEvent>(OnClosePointerDown);
-        close.RegisterCallback<PointerDownEvent>(OnClosePointerDown);
-        restart.UnregisterCallback<PointerDownEvent>(OnRestartPointerDown);
-        restart.RegisterCallback<PointerDownEvent>(OnRestartPointerDown);
+        close.UnregisterCallback<ClickEvent>(OnCloseClicked);
+        close.RegisterCallback<ClickEvent>(OnCloseClicked);
+        restart.UnregisterCallback<ClickEvent>(OnRestartClicked);
+        restart.RegisterCallback<ClickEvent>(OnRestartClicked);
     }
 
-    private void OnClosePointerDown(PointerDownEvent _)
+    private void OnCloseClicked(ClickEvent _)
+    {
+        Close();
+    }
+
+    private void OnRestartClicked(ClickEvent _)
     {
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlaySFX(SFXCue.UiClick);
         }
-        Close();
-    }
-
-    private void OnRestartPointerDown(PointerDownEvent _)
-    {
         Restart();
     }
 
@@ -276,20 +258,25 @@ public class HUDStoryOverlayView
     {
         if (mode == StoryOverlayMode.Letter || mode == StoryOverlayMode.Intro)
         {
-            if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.PlaySFX(SFXCue.UiClick);
-            }
             Close();
         }
         else
         {
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+            }
             Restart();
         }
     }
 
     private void Close()
     {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+        }
+
         if (mode == StoryOverlayMode.Intro)
         {
             if (introPage == 0)

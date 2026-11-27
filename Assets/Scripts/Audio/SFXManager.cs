@@ -55,6 +55,8 @@ public class SFXManager : MonoBehaviour
     private AudioSource oneShotSource;
     private AudioSource steamSource;
 
+    public float RootVolume => rootVolume;
+
     private void Awake()
     {
         EnsureSources();

@@ -72,6 +72,11 @@ public class HUDMemoryDiscoveryView
 
     public void Close()
     {
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(SFXCue.UiClick);
+        }
+
         if (overlay != null)
         {
             overlay.style.opacity = 0f;
