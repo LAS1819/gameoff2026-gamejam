@@ -127,7 +127,7 @@ Las Memorias no bloquean el recorrido. Se descubren al examinar:
 | 01 | Lobby | Family Picture | Normal u Other Side |
 | 02 | Hallway | Ammonite Stain | Other Side |
 | 03 | Bedroom | Closed Window | Other Side |
-| 04 | Library | Broken Wall Clock | Other Side |
+| 04 | Library | Clock | Other Side |
 | 05 | Basement | Toolbox | Other Side |
 
 Cada flag puede activarse una sola vez. El contador solo aparece al final.

@@ -12,6 +12,11 @@ public class ShelfSecretDoorController : MonoBehaviour
     private Vector3 closedLocalPosition;
     private bool desiredOpenState;
     private bool revealObjectsVisible;
+    private Transform clockTransform;
+    private Collider2D shelfCollider;
+    private Collider2D clockCollider;
+    private InteractableBehaviour shelfInteractable;
+    private InteractableBehaviour clockInteractable;
 
     private void Awake()
     {
@@ -36,11 +41,13 @@ public class ShelfSecretDoorController : MonoBehaviour
         SyncFromFlags();
         MoveDoor();
         UpdateRevealObjects();
+        UpdateInteractableColliders();
     }
 
     public void SetOpen(bool open)
     {
         desiredOpenState = open;
+        UpdateInteractableColliders();
     }
 
     private void SyncFromFlags(bool snapToState = false)
@@ -79,6 +86,8 @@ public class ShelfSecretDoorController : MonoBehaviour
         {
             codePanelObject.SetActive(open);
         }
+
+        UpdateInteractableColliders();
     }
 
     private void MoveDoor()
@@ -132,8 +141,68 @@ public class ShelfSecretDoorController : MonoBehaviour
         }
     }
 
+    private void UpdateInteractableColliders()
+    {
+        ResolveTargetsIfNeeded();
+
+        var targetPosition = desiredOpenState
+            ? closedLocalPosition + openLocalOffset
+            : closedLocalPosition;
+        var isFullyOpen = desiredOpenState
+            && Vector3.Distance(doorTransform.localPosition, targetPosition) <= arrivedThreshold;
+        var collidersEnabled = !isFullyOpen;
+
+        if (shelfInteractable != null)
+        {
+            shelfInteractable.SetColliderExternallyManaged(true);
+            shelfInteractable.SetColliderEnabled(collidersEnabled);
+        }
+        else if (shelfCollider != null)
+        {
+            shelfCollider.enabled = collidersEnabled;
+        }
+
+        if (clockInteractable != null)
+        {
+            clockInteractable.SetColliderExternallyManaged(true);
+            clockInteractable.SetColliderEnabled(collidersEnabled);
+        }
+        else if (clockCollider != null)
+        {
+            clockCollider.enabled = collidersEnabled;
+        }
+    }
+
     private void ResolveTargetsIfNeeded()
     {
+        if (doorTransform != null)
+        {
+            if (shelfCollider == null)
+            {
+                shelfCollider = doorTransform.GetComponent<Collider2D>();
+            }
+            if (shelfInteractable == null)
+            {
+                shelfInteractable = doorTransform.GetComponent<InteractableBehaviour>();
+            }
+        }
+
+        if (clockTransform == null)
+        {
+            clockTransform = FindNamedTransformInLibrary("Clock");
+        }
+        if (clockTransform != null)
+        {
+            if (clockCollider == null)
+            {
+                clockCollider = clockTransform.GetComponent<Collider2D>();
+            }
+            if (clockInteractable == null)
+            {
+                clockInteractable = clockTransform.GetComponent<InteractableBehaviour>();
+            }
+        }
+
         if (basementDoorObject == null)
         {
             basementDoorObject = FindNamedObjectInLibrary("BasementDoor", "Basement Door", "basement_door");
@@ -143,6 +212,28 @@ public class ShelfSecretDoorController : MonoBehaviour
         {
             codePanelObject = FindNamedObjectInLibrary("CodePanel", "Code Panel", "code_panel");
         }
+    }
+
+    private Transform FindNamedTransformInLibrary(params string[] names)
+    {
+        var libraryRoot = FindLibraryRoot();
+        if (libraryRoot == null)
+        {
+            return null;
+        }
+
+        var children = libraryRoot.GetComponentsInChildren<Transform>(true);
+        foreach (var child in children)
+        {
+            if (child == null || !MatchesAnyName(child.gameObject.name, names))
+            {
+                continue;
+            }
+
+            return child;
+        }
+
+        return null;
     }
 
     private GameObject FindNamedObjectInLibrary(params string[] names)

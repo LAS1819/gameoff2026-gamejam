@@ -1030,7 +1030,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &235184494
 Transform:
   m_ObjectHideFlags: 0
@@ -1960,7 +1960,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &354126089
 Transform:
   m_ObjectHideFlags: 0
@@ -1977,7 +1977,6 @@ Transform:
   - {fileID: 487310842}
   - {fileID: 803532680}
   - {fileID: 2036302251}
-  - {fileID: 2143808083}
   m_Father: {fileID: 1232907071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &381934505
@@ -6204,8 +6203,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8811e9d3a2d09498adb4d6adb72208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  useDebugStartRoom: 0
-  debugStartRoomId: forest
+  useDebugStartRoom: 1
+  debugStartRoomId: library
 --- !u!4 &1253440029
 Transform:
   m_ObjectHideFlags: 0
@@ -10886,7 +10885,8 @@ Transform:
   m_LocalPosition: {x: 6, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2143808083}
   m_Father: {fileID: 2036302251}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1993412826
@@ -10955,7 +10955,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.1, y: 0.5}
+  m_Offset: {x: 0, y: -2.0000002}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -10965,7 +10965,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 10.2, y: 9.7}
+  m_Size: {x: 10.2, y: 4.7000003}
   m_EdgeRadius: 0
 --- !u!212 &1993412828
 SpriteRenderer:
@@ -12113,7 +12113,7 @@ GameObject:
   - component: {fileID: 2143808085}
   - component: {fileID: 2143808084}
   m_Layer: 0
-  m_Name: memory_04_wall_clock
+  m_Name: Clock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12127,12 +12127,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2143808082}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 1.5, z: -1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.75, y: 2.5, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 354126089}
+  m_Father: {fileID: 1993412825}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2143808084
 MonoBehaviour:
@@ -12147,14 +12147,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableBehaviour
   data:
-    id: memory_04_wall_clock
-    displayName: Broken Wall Clock
-    description: The clock has stopped at 11:30.
-    descriptionInNormalReality: 
-    descriptionInOtherReality: The stopped hands preserve the last ordinary conversation I shared with my father.
+    id: clock
+    displayName: Clock
+    description: The clock seems old. Its hands are gone, yet it still makes the passage of time feel uncertain.
+    descriptionInNormalReality: The clock seems old. Its hands are gone, yet it still makes the passage of time feel uncertain.
+    descriptionInOtherReality: The hands have returned, frozen at 11:30 as if this memory refuses to move forward.
     memoryId: Memory_04
     interactionType: 0
-    visibleInNormalReality: 0
+    visibleInNormalReality: 1
     visibleInOtherReality: 1
     itemId: 
     requiredItemId: 
@@ -12163,9 +12163,9 @@ MonoBehaviour:
     linkedRoomId: 
     consumeAfterUse: 0
     requiresLantern: 0
-  normalSprite: {fileID: 0}
-  otherSideSprite: {fileID: 0}
-  useRealitySprites: 0
+  normalSprite: {fileID: -1433506577, guid: 4d8c5272e3053174ba36db85b8bad880, type: 3}
+  otherSideSprite: {fileID: 1654824941, guid: 4d8c5272e3053174ba36db85b8bad880, type: 3}
+  useRealitySprites: 1
 --- !u!61 &2143808085
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12196,7 +12196,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -12204,7 +12204,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -12259,9 +12259,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 2
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: aa5cae508d76f4b4ba04a9770b7bfd95, type: 3}
+  m_Sprite: {fileID: -1433506577, guid: 4d8c5272e3053174ba36db85b8bad880, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

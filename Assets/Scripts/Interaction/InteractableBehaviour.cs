@@ -18,6 +18,7 @@ public class InteractableBehaviour : MonoBehaviour
     private bool warnedMissingData;
     private Vector3 baseScale = Vector3.one;
     private bool isMainMenuButtonHovered;
+    private bool colliderExternallyManaged;
 
     public void Configure(InteractableData config)
     {
@@ -38,6 +39,19 @@ public class InteractableBehaviour : MonoBehaviour
     public bool HasData()
     {
         return data != null;
+    }
+
+    public void SetColliderExternallyManaged(bool externallyManaged)
+    {
+        colliderExternallyManaged = externallyManaged;
+    }
+
+    public void SetColliderEnabled(bool enabled)
+    {
+        if (hitCollider != null)
+        {
+            hitCollider.enabled = enabled;
+        }
     }
 
     private void Awake()
@@ -208,7 +222,7 @@ public class InteractableBehaviour : MonoBehaviour
             spriteRenderer.enabled = visible;
         }
 
-        if (hitCollider != null)
+        if (hitCollider != null && !colliderExternallyManaged)
         {
             hitCollider.enabled = visible;
         }

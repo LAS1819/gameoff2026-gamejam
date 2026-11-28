@@ -25,13 +25,14 @@ public static partial class DefaultRoomCatalog
     {
         library.interactables.Add(new InteractableData
         {
-            id = "memory_04_wall_clock",
-            displayName = "Broken Wall Clock",
-            description = "The clock has stopped at 11:30.",
-            descriptionInOtherReality = "The stopped hands preserve the last ordinary conversation I shared with my father.",
+            id = "clock",
+            displayName = "Clock",
+            description = "The clock seems old. Its hands are gone, yet it still makes the passage of time feel uncertain.",
+            descriptionInNormalReality = "The clock seems old. Its hands are gone, yet it still makes the passage of time feel uncertain.",
+            descriptionInOtherReality = "The hands have returned, frozen at 11:30 as if this memory refuses to move forward.",
             memoryId = GameFlagNames.Memory_04,
             interactionType = InteractionType.Examine,
-            visibleInNormalReality = false,
+            visibleInNormalReality = true,
             visibleInOtherReality = true,
             resultFlag = GameFlagNames.Memory_04
         });

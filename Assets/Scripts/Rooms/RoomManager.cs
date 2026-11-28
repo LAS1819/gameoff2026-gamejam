@@ -166,6 +166,11 @@ public partial class RoomManager : MonoBehaviour
             return exactSceneMatch;
         }
 
+        if (start.GetComponent<InteractableBehaviour>() != null)
+        {
+            return null;
+        }
+
         var current = start;
         while (current != null)
         {

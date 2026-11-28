@@ -3,9 +3,9 @@
 > **Estado `0.1.1-proto`:** Worn Book, Floppy Disk, estantería secreta, Code
 > Panel y Basement están integrados. Este documento ya no describe placeholders.
 
-- Versión 0.3
+- Versión 0.4
 - Creado: 14/11/2026
-- Actualizado: 15/11/2026
+- Actualizado: 28/11/2026
 
 ---
 
@@ -238,7 +238,7 @@ resultFlag: BasementCodeUsed
 
 - **Narrativa:** un reloj que representa el paso del tiempo y la memoria, reforzando la sensación de archivo y registro histórico dentro de la Room.
 - **Ubicación:** está en la `Shelf Secret Door`, en la parte superior central.
-- **Dificultad:** si se activa la `Shelf Secret Door`, la estantería se mueve hacia la derecha, quedando inaccesible. Por tanto, el Reloj también queda fuera del alcance del jugador. Debe obtenerse sin haber usado el mecanismo de la estantería secreta.
+- **Dificultad:** si se activa la `Shelf Secret Door`, la estantería se mueve hacia la derecha junto con el Reloj. Al quedar completamente abierta y desaparecer por la pared, el Reloj queda fuera del alcance; debe obtenerse antes de completar la apertura.
 
 - **Id:** `clock`
 - **Nombre:** `Clock`
@@ -291,6 +291,17 @@ Si el jugador vuelve a examinar el reloj después de obtener la Memoria:
 
 - se muestra la descripción del reloj y también la ventana de la Memoria correspondiente;
 - la Flag Memory_04 permanece activa, no vuelve a contar como nueva cuando se vuelve a examinar el reloj.
+
+**Vínculo técnico:**
+
+- El GO `Clock` tiene su propio `InteractableBehaviour` y debe mantenerse asociado al
+  `InteractableData.id = "clock"`; no debe heredar el dato de su padre `ShelfSecretDoor`.
+- `Clock` permanece como hijo de `ShelfSecretDoor` para moverlo con la estantería.
+- `Clock` conserva su Sprite Renderer mientras se mueve con la estantería.
+- El `ShelfSecretDoorController` desactiva los Collider 2D de la estantería y del reloj
+  solo cuando la puerta ha llegado completamente a su posición abierta.
+- Al comenzar el movimiento de cierre, vuelve a activar ambos colliders mientras
+  estantería y reloj recorren la posición cerrada.
 
 ---
 
