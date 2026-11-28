@@ -263,12 +263,12 @@ en vez de arriesgar el loop jugable.
 
 #### 6.2 Validar la candidata
 
-- [ ] Validar el recorrido completo en Editor sin trampas ni ayuda de depuración.
-- [ ] Validar Memorias 0-2, 3-4 y 5, carta revelación y tres finales.
-- [ ] Validar Menu -> Intro -> Lobby -> Ending -> Restart -> Main Menu.
-- [ ] Confirmar que Restart limpia inventario, flags, Forest, Linterna y overlays.
-- [ ] Revisar consola, Player Log y warnings sin errores bloqueantes.
-- [ ] Verificar la matriz de aceptación P0 de este documento.
+- [x] Validar el recorrido completo en Editor sin trampas ni ayuda de depuración.
+- [x] Validar Memorias 0-2, 3-4 y 5, carta revelación y tres finales.
+- [x] Validar Menu -> Intro -> Lobby -> Ending -> Restart -> Main Menu.
+- [x] Confirmar que Restart limpia inventario, flags, Forest, Linterna y overlays.
+- [x] Revisar consola, Player Log y warnings sin errores bloqueantes.
+- [x] Verificar la matriz de aceptación P0 de este documento.
 - [ ] Guardar una captura o vídeo breve de inicio, HUD, puzzle final y ending.
 
 #### 6.3 Construir y archivar
