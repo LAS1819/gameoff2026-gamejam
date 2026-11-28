@@ -407,6 +407,40 @@ visibleInOtherReality: true
 
 ---
 
+### 5.11 Caja de Herramientas / Toolbox (Memoria 05)
+
+- **Narrativa:** la `Caja de Herramientas` representa un recuerdo del pasado, cuando su padre trabajaba de ferretero. También le recuerda sus últimos años con él, donde se dedicaba a cultivar todo tipo de plantas en un huerto ecológico comunitario, donde también era presidente.
+- **Ubicación:** se ubicará en una leja de la estantería de la derecha (`right_shelf`).
+- **Dificultad:** si no se dispone de la Linterna para alumbrar, no se podrá ver la `Caja de Herramientas`. Estará, pero no se podrá hacer gran cosa.
+
+- **Id:** `toolbox`
+- **Nombre:** `Toolbox`
+- **Interacción:** `Examine`
+  - **Textos:**
+    - *Realidad Normal:* "Una caja de herramientas polvorienta. Parece que no se ha usado en años."
+    - *Otra Realidad:* "La caja de herramientas brilla con un leve resplandor. Contiene recuerdos de un pasado activo y lleno de vida."
+- **Visible en Realidad Normal:** `true`
+- **Visible en Otra Realidad:** `true`
+- **Interactuable en Realidad Normal:** `true`
+- **Interactuable en Otra Realidad:** `true` <- Desbloquea la Memoria 05
+
+- **Sprites:** `spritesheet-basement-toolbox-v1.png`
+  - 00: Caja de Herramientas en Realidad Normal. Algo oxidada y cerrada.
+  - 01: Caja de Herramientas en Otra Realidad. Bastante oxidada, con formas extrañas del óxido, y abierta.
+
+#### Desbloqueo de Memoria 05
+
+- La Memoria 05 sólo puede descubrirse en la Otra Realidad.
+- Examinar la caja de herramientas en la Realidad Normal únicamente muestra su descripción.
+- Examinar la caja de herramientas en la Otra Realidad activa la Memoria 05 si todavía no ha sido obtenida (permite seguir activando la Memoria para verla, pero no para contarla como descubierta nuevamente).
+- Si no se dispone de la Linterna, la caja de herramientas no se puede examinar y la Memoria no podrá obtenerse.
+
+**Flags relacionadas:**
+
+- `Memory_05`
+
+---
+
 ## 6. Regla de interacción con oscuridad
 
 Para mantener el sistema sin crear scripts ad hoc, el `InteractionManager` debe aceptar dos condiciones generales:

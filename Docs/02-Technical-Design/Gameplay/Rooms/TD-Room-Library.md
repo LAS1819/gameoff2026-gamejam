@@ -79,14 +79,14 @@ resultFlag: WornBookFound
 consumeAfterUse: false
 ```
 
-#### Propósito
+**Propósito:**
 
 - ser el elemento central de la Room;
 - introducir la idea de que un objeto puede estar “contaminado” por la realidad;
 - ocultar el `Floppy Disk` dentro del libro como recompensa narrativa y funcional;
 - funcionar como trigger de la ocultación del secreto del `Basement`.
 
-#### Reglas técnicas
+**Reglas técnicas:**
 
 - El `Worn Book` puede recogerse directamente o examinarse antes de recogerlo.
 - Su descripción debe cambiar ligeramente entre `Normal` y `Other Side`, sin necesidad de reinventar toda la lógica de texto.
@@ -109,13 +109,13 @@ requiresItem: "worn_book"
 resultFlag: SpecialShelfActivated
 ```
 
-#### **Propósito:**
+**Propósito:**
 
 - convertir la estantería en el punto de resolución del secreto de la `Room`;
 - relacionar el libro, el espacio y la revelación del acceso oculto;
 - preparar la lógica del `SHIFT` y la manipulación de la realidad sin convertirlo en un puzle pesado.
 
-#### **Reglas técnicas:**
+**Reglas técnicas:**
 
 - En `Normal`, la estantería debe verse como una estantería normal, sin indicios de hueco oculto.
 - En `Other Side`, la estantería debe mostrar una zona vacía o una ausencia visual donde se activa la interacción.
@@ -138,13 +138,13 @@ visibleInOtherReality: true
 resultFlag: BasementSecretRevealed
 ```
 
-#### **Propósito**
+**Propósito:**
 
 - ser la pieza visual que materializa el secreto de la Room;
 - ocultar la existencia del `Basement` detrás de la composición de la estantería;
 - dar una sensación de arquitectura “cambiada” por la realidad.
 
-#### **Reglas técnicas**
+**Reglas técnicas:**
 
 - Debe permanecer invisible en `Normal` y aparente de forma neutral, como parte del mueble.
 - En `Other Side` debe mover su panel o pared no mostrada, revelando un acceso o un hueco que apunta al siguiente bloque.
@@ -231,6 +231,68 @@ resultFlag: BasementCodeUsed
 - Sólo visible cuando la `Shelf Secret Door` se ha movido o activado.
 - Solo debe permitir la interacción si el jugador posee el item requerido.
 - Su función es narrativa-funcional, no un puzzle complejo.
+
+---
+
+### 3.7 Reloj / Clock (Memoria)
+
+- **Narrativa:** un reloj que representa el paso del tiempo y la memoria, reforzando la sensación de archivo y registro histórico dentro de la Room.
+- **Ubicación:** está en la `Shelf Secret Door`, en la parte superior central.
+- **Dificultad:** si se activa la `Shelf Secret Door`, la estantería se mueve hacia la derecha, quedando inaccesible. Por tanto, el Reloj también queda fuera del alcance del jugador. Debe obtenerse sin haber usado el mecanismo de la estantería secreta.
+
+- **Id:** `clock`
+- **Nombre:** `Clock`
+- **Interacción:** `Examine`
+  - **Textos:**
+    - *Realidad Normal:* "El reloj parece antiguo. Las manillas ya no están. Aun así, su presencia recuerda que el tiempo sigue avanzando incluso cuando intentamos ignorarlo."
+    - *Otra Realidad:* "Las manillas han vuelto a aparecer. Permanecen inmóviles marcando las 11:30. Como si esta memoria se negara a avanzar."
+- **Visible en Realidad Normal:** `true`
+- **Visible en Otra Realidad:** `true`
+- **Interactuable en Realidad Normal:** `true`
+- **Interactuable en Otra Realidad:** `true` <- Desbloquea la Memoria 04
+
+- **Sprites:** `spritesheet-room-library-clock-v1.png`
+  - 00: Reloj en Realidad Normal. No tiene manillas. Parece nuevo.
+  - 01: Reloj en Otra Realidad. Tiene manillas que marcan las 11:30. Está detenido. Está oxidado de tal forma que caen chorros extraños de óxido por la estantería.
+
+#### Desbloqueo de Memoria 04
+
+- La Memoria 04 sólo puede descubrirse en la Otra Realidad.
+- Examinar el reloj en la Realidad Normal únicamente muestra su descripción.
+- Examinar el reloj en la Otra Realidad activa la Memoria 04 si todavía no ha sido obtenida (permite seguir activando la Memoria para verla, pero no para contarla como descubierta nuevamente).
+- Si la Shelf Secret Door ha sido activada previamente, el reloj deja de estar accesible y la Memoria ya no podrá obtenerse. Pero si saca el Worn Book de la estantería del mecanismo, el reloj vuelve a ser accesible y la Memoria puede activarse nuevamente.
+
+**Flags relacionadas:**
+
+- `Memory_04`
+- `ShelfSecretDoorOpened`
+
+**Condiciones:**
+
+```text
+Reality == OtherSide
+AND
+Memory_04 == false
+AND
+ShelfSecretDoorOpened == false
+```
+
+**Resultado:**
+
+```text
+Mostrar Memory 04
+Reproducir MEMORY_DISCOVERY
+SetFlag(Memory_04)
+```
+
+**Comportamiento posterior:**
+
+Si el jugador vuelve a examinar el reloj después de obtener la Memoria:
+
+- se muestra la descripción del reloj y también la ventana de la Memoria correspondiente;
+- la Flag Memory_04 permanece activa, no vuelve a contar como nueva cuando se vuelve a examinar el reloj.
+
+---
 
 ## 4. Props y composición visual
 
