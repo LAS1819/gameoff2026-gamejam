@@ -28,15 +28,17 @@ public static partial class DefaultRoomCatalog
     {
         basement.interactables.Add(new InteractableData
         {
-            id = "memory_05_toolbox",
+            id = "toolbox",
             displayName = "Toolbox",
-            description = "A toolbox shows years of worn paint and repeated use.",
-            descriptionInOtherReality = "The tools return me to my father's orchard and the quiet pride he found in helping others.",
+            description = "An old toolbox, sealed by rust and time.",
+            descriptionInNormalReality = "The toolbox is rusted shut. It looks like it has not been opened for years.",
+            descriptionInOtherReality = "The toolbox is open. Inside, worn tools seem to preserve memories of the orchard and a working life.",
             memoryId = GameFlagNames.Memory_05,
             interactionType = InteractionType.Examine,
-            visibleInNormalReality = false,
+            visibleInNormalReality = true,
             visibleInOtherReality = true,
-            resultFlag = GameFlagNames.Memory_05
+            resultFlag = GameFlagNames.Memory_05,
+            requiresLantern = true
         });
 
         basement.interactables.Add(new InteractableData

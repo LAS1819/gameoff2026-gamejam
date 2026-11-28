@@ -96,6 +96,20 @@ Responsabilidades:
 
 En runtime se usa `Configure(InteractableData data)` para asociar el GO con sus datos.
 
+### 3.2. Jerarquías anidadas
+
+Un GameObject puede contener otro interactuable mediante hijos y nietos. La
+asociación de datos sigue este orden:
+
+1. buscar coincidencia exacta por nombre o ID en el propio GO;
+2. si no existe, heredar el `InteractableData` del primer ancestro interactuable
+   que coincida con el catálogo;
+3. no reemplazar el dato propio de un hijo que tenga una coincidencia exacta.
+
+Esta regla permite que el PC, sus torre/pantalla y los hitboxes del Wardrobe
+hereden la parte funcional correspondiente, mientras objetos propios como el
+Clock conservan `id: clock` aunque sean hijos de `ShelfSecretDoor`.
+
 ### 3.2. `RoomManager`
 
 `RoomManager` decide si un `Interactuable` está visible en la `Room` actual.

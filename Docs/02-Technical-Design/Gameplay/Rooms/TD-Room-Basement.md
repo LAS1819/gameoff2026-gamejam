@@ -423,6 +423,7 @@ visibleInOtherReality: true
 - **Visible en Otra Realidad:** `true`
 - **Interactuable en Realidad Normal:** `true`
 - **Interactuable en Otra Realidad:** `true` <- Desbloquea la Memoria 05
+- **Linterna requerida:** `true`
 
 - **Sprites:** `spritesheet-basement-toolbox-v1.png`
   - 00: Caja de Herramientas en Realidad Normal. Algo oxidada y cerrada.
@@ -434,6 +435,8 @@ visibleInOtherReality: true
 - Examinar la caja de herramientas en la Realidad Normal únicamente muestra su descripción.
 - Examinar la caja de herramientas en la Otra Realidad activa la Memoria 05 si todavía no ha sido obtenida (permite seguir activando la Memoria para verla, pero no para contarla como descubierta nuevamente).
 - Si no se dispone de la Linterna, la caja de herramientas no se puede examinar y la Memoria no podrá obtenerse.
+- El `InteractableData` debe usar `id: toolbox` y `requiresLantern: true`.
+- La caja permanece visible como prop; la Linterna controla si puede resolverse la interacción.
 
 **Flags relacionadas:**
 

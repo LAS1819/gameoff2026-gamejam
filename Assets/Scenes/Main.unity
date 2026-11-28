@@ -6203,7 +6203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8811e9d3a2d09498adb4d6adb72208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  useDebugStartRoom: 1
+  useDebugStartRoom: 0
   debugStartRoomId: basement
 --- !u!4 &1253440029
 Transform:
@@ -10086,7 +10086,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.5, y: -0.25}
+  m_Offset: {x: 0.5, y: -2.75}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -10096,7 +10096,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 8, y: 12}
+  m_Size: {x: 8, y: 7}
   m_EdgeRadius: 0
 --- !u!212 &1889221580
 SpriteRenderer:
@@ -10556,11 +10556,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableBehaviour
   data:
-    id: memory_05_toolbox
+    id: toolbox
     displayName: Toolbox
-    description: A toolbox shows years of worn paint and repeated use.
-    descriptionInNormalReality: 
-    descriptionInOtherReality: The tools return me to my father's orchard and the quiet pride he found in helping others.
+    description: An old toolbox, sealed by rust and time.
+    descriptionInNormalReality: The toolbox is rusted shut. It looks like it has not been opened for years.
+    descriptionInOtherReality: The toolbox is open. Inside, worn tools seem to preserve memories of the orchard and a working life.
     memoryId: Memory_05
     interactionType: 0
     visibleInNormalReality: 1
@@ -10571,7 +10571,7 @@ MonoBehaviour:
     resultFlag: Memory_05
     linkedRoomId: 
     consumeAfterUse: 0
-    requiresLantern: 0
+    requiresLantern: 1
   normalSprite: {fileID: -1973033327, guid: 45926c5e8a187b440aac822c7f16e1cb, type: 3}
   otherSideSprite: {fileID: 1068192585, guid: 45926c5e8a187b440aac822c7f16e1cb, type: 3}
   useRealitySprites: 1
@@ -10605,11 +10605,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.2, y: -0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -10619,7 +10619,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.5, y: 1.5}
+  m_Size: {x: 3.8, y: 2.1}
   m_EdgeRadius: 0
 --- !u!212 &1966146474
 SpriteRenderer:
