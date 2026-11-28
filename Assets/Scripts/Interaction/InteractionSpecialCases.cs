@@ -224,7 +224,6 @@ internal static class InteractionSpecialCases
             ShowFeedback("The trees move closer.", 1f);
         }
 
-        Debug.Log($"[ForestAdvance] Depth changed from {previousDepth} to {newDepth}.");
         return true;
     }
 

@@ -62,9 +62,9 @@ Patrón:
 
 ### Compatibilidad
 
-- [UIShiftButton.cs](../../../Assets/Scripts/UI/UIShiftButton.cs) se mantiene como referencia histórica.
-- El HUD centralizado (HUDController) gestiona completamente el `shift-button` ahora.
-- El viejo `ShiftPanel` con su PanelRenderer debe ser eliminado de la escena para evitar duplicación.
+- El HUD centralizado (`HUDController`) gestiona completamente el `shift-button`.
+- El sistema separado `UIShiftButton` y sus assets UXML/USS legado fueron retirados.
+- No debe añadirse otro `ShiftPanel` ni otro binding al mismo elemento.
 
 ## Jerarquía visual esperada
 
@@ -284,10 +284,9 @@ Usar:
 
 En [Main.unity](../../../Assets/Scenes/Main.unity), en `HUDRoot`:
 
-- **Delete el GameObject `ShiftPanel`** (hijo de HUDRoot)
-  - `UIShiftButton.cs` y [ShiftUI.uxml](../../../Assets/UI/ShiftUI.uxml) son
-    referencias históricas; no deben coexistir como un segundo SHIFT runtime
-  - Ya no es necesario; todo está en el HUD centralizado
+- No añadir un GameObject `ShiftPanel` como segundo runtime de SHIFT.
+  Todo el elemento visual y su callback viven dentro de `HUD.uxml`,
+  `HUD-style-sheet.uss` y `HUDController`.
 
 ### 2) HUDRoot configuración final
 

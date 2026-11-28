@@ -108,7 +108,6 @@ public class ForestDepthController : MonoBehaviour
         ResolveDepthRenderers();
         ResolveAmbulanceLights();
         ApplyAmbulanceLights(depthLevel);
-        Debug.Log($"[ForestDepth] Applying depth {depthLevel}.");
 
         var isFinalRoom = depthLevel >= 6;
         if (backgroundNormal != null)

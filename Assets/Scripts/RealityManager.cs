@@ -75,7 +75,6 @@ public class RealityManager : MonoBehaviour
             RealityChanged.Invoke(CurrentReality);
         }
 
-        Debug.Log($"[RealityManager] Reality changed to: {CurrentReality}");
     }
 
     private void ReconcileBasementRealityTransition()
@@ -254,7 +253,6 @@ public class RealityManager : MonoBehaviour
         if (Instance != null)
         {
             Instance.ToggleReality();
-            Debug.Log("[RealityManager] Reality toggled from UI");
         }
         else
         {
@@ -361,15 +359,4 @@ public class RealityManager : MonoBehaviour
         }
     }
 
-    private string GetFullPath(Transform t)
-    {
-        var path = t.name;
-        var current = t.parent;
-        while (current != null)
-        {
-            path = current.name + "/" + path;
-            current = current.parent;
-        }
-        return path;
-    }
 }

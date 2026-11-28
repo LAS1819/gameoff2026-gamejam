@@ -9,8 +9,6 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
 
-    [SerializeField] private string saveManagerName = "SaveManager";
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -22,17 +20,12 @@ public class SaveManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        Debug.Log($"[{saveManagerName}] Initialized (stub for MVP)");
-    }
 
     /// <summary>
     /// Save current game state to file. Not implemented for MVP.
     /// </summary>
     public void SaveGame(string filename)
     {
-        Debug.Log($"[{saveManagerName}] SaveGame('{filename}') - stub method, not implemented for MVP");
     }
 
     /// <summary>
@@ -40,6 +33,5 @@ public class SaveManager : MonoBehaviour
     /// </summary>
     public void LoadGame(string filename)
     {
-        Debug.Log($"[{saveManagerName}] LoadGame('{filename}') - stub method, not implemented for MVP");
     }
 }

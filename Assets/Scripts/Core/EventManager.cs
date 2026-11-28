@@ -10,8 +10,6 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager Instance { get; private set; }
 
-    [SerializeField] private string eventManagerName = "EventManager";
-
     private Dictionary<string, Action> eventCallbacks = new Dictionary<string, Action>();
 
     private void Awake()
@@ -25,10 +23,6 @@ public class EventManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        Debug.Log($"[{eventManagerName}] Initialized (stub for MVP)");
-    }
 
     /// <summary>
     /// Subscribe to a named event. When event is fired, callback executes.

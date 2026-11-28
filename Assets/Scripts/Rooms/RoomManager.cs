@@ -91,7 +91,6 @@ public partial class RoomManager : MonoBehaviour
             RoomChanged.Invoke(CurrentRoom);
         }
         
-        Debug.Log($"[RoomManager] Loaded room: {roomId}");
         return true;
     }
 

@@ -58,7 +58,6 @@ public class InputHandler : MonoBehaviour
         }
 
         RealityManager.Instance.TryToggleReality();
-        Debug.Log("[InputHandler] SHIFT pressed - toggling reality");
     }
 
     private static bool IsShiftPressed()

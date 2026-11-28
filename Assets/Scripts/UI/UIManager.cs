@@ -25,7 +25,6 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         TryResolveHudController();
-        Debug.Log($"[{uiManagerName}] Initialized");
     }
 
     /// <summary>
@@ -40,7 +39,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"[{uiManagerName}] ShowFeedback fallback: {message}");
+            Debug.LogWarning($"[{uiManagerName}] ShowFeedback fallback: {message}");
         }
     }
 

@@ -15,7 +15,6 @@ public partial class RoomManager
         foreach (Transform child in roomsParent.transform)
         {
             child.gameObject.SetActive(false);
-            Debug.Log($"[RoomManager] Deactivated: {child.gameObject.name}");
         }
     }
 
@@ -34,7 +33,6 @@ public partial class RoomManager
                 .Equals(NormalizeIdentifier(roomId), StringComparison.OrdinalIgnoreCase))
             {
                 child.gameObject.SetActive(true);
-                Debug.Log($"[RoomManager] Activated room: {roomId}");
                 if (roomId.Equals(GameManager.ForestRoomId, StringComparison.OrdinalIgnoreCase))
                 {
                     var depthController = child.GetComponentInChildren<ForestDepthController>(true);
@@ -83,25 +81,11 @@ public partial class RoomManager
         {
             if (transform.gameObject.name == "Rooms")
             {
-                Debug.Log("[RoomManager] Found Rooms at path: " + GetFullPath(transform));
                 return transform.gameObject;
             }
         }
 
         return null;
-    }
-
-    private string GetFullPath(Transform transform)
-    {
-        var path = transform.name;
-        var current = transform.parent;
-        while (current != null)
-        {
-            path = current.name + "/" + path;
-            current = current.parent;
-        }
-
-        return path;
     }
 
     private string[] GetAvailableRoomNames(GameObject roomsParent)

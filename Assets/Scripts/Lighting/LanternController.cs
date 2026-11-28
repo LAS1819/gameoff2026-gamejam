@@ -116,9 +116,6 @@ public class LanternController : MonoBehaviour
             AudioManager.Instance.PlaySFX(SFXCue.LightSwitch);
         }
 
-        Debug.Log(nextState
-            ? "[LanternController] Flashlight enabled in Basement."
-            : "[LanternController] Flashlight disabled.");
         return true;
     }
 
@@ -214,7 +211,7 @@ public class LanternController : MonoBehaviour
         {
             globalLight.intensity = 1f;
             globalLight.color = Color.white;
-            Debug.Log("[LanternController] No lighting profile found; using neutral fallback.");
+            Debug.LogWarning("[LanternController] No lighting profile found; using neutral fallback.");
             return;
         }
 
@@ -303,8 +300,6 @@ public class LanternController : MonoBehaviour
         globalLight.intensity = Mathf.Clamp(intensity, 0f, 1.5f);
         globalLight.color = color;
 
-        Debug.Log(
-            $"[LanternController] Room={room.id} Reality={reality} Active={lanternActive} Intensity={globalLight.intensity}");
     }
 
     private void ResolveGlobalLight()

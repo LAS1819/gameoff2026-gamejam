@@ -38,7 +38,6 @@ internal static class InteractionExamineTransitionProcessor
             descriptionText = $"You inspected {interactable.displayName}.";
         }
 
-        Debug.Log($"[InteractionManager] Examine: {interactable.displayName} - {descriptionText}");
 
         var ui = UIManager.Instance;
         if (ui != null)
@@ -143,7 +142,6 @@ internal static class InteractionExamineTransitionProcessor
             AudioManager.Instance.PlaySFX(SFXCue.DoorAction);
         }
 
-        Debug.Log($"[InteractionManager] ResolveTransition: attempting to load room '{interactable.linkedRoomId}'");
 
         if (RoomManager.Instance == null)
         {
@@ -152,7 +150,6 @@ internal static class InteractionExamineTransitionProcessor
         }
 
         var success = RoomManager.Instance.LoadRoom(interactable.linkedRoomId);
-        Debug.Log($"[InteractionManager] LoadRoom('{interactable.linkedRoomId}') returned: {success}");
 
         if (success && !string.IsNullOrEmpty(interactable.resultFlag) && GameManager.Instance != null)
         {
